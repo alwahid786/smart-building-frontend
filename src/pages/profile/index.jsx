@@ -15,9 +15,12 @@ import { useEffect, useState } from 'react'
 import { profileSchema } from '../../schema'
 import { useFormik } from 'formik'
 import { Country, State, City } from 'country-state-city'
+import PhoneInput from 'react-phone-input-2'
+import 'react-phone-input-2/lib/style.css'
 // import { gridColumnsTotalWidthSelector } from '@mui/x-data-grid'
 
 const ProfilePage = () => {
+  const [imageSrc, setImageSrc] = useState(null)
   const [countries, setCountries] = useState([])
   const [states, setStates] = useState([])
   const [cities, setCities] = useState([])
@@ -26,7 +29,7 @@ const ProfilePage = () => {
   const [selectedCountry, setSelectedCountry] = useState('')
 
   const handleCountryChange = async (countryCode) => {
-    console.log(countryCode)
+    // console.log(countryCode)
     const statesData = await State.getStatesOfCountry(countryCode)
     setStates(statesData)
     setCities([])
@@ -35,7 +38,7 @@ const ProfilePage = () => {
 
   const handleStateChange = async (stateCode) => {
     const citiesData = await City.getCitiesOfState(selectedCountry, stateCode)
-    console.log(citiesData)
+    // console.log(citiesData)
     setCities(citiesData)
     setSelectedState(stateCode)
   }
@@ -43,12 +46,6 @@ const ProfilePage = () => {
   useEffect(() => {
     setCountries(Country.getAllCountries())
   }, [])
-
-  const [imageSrc, setImageSrc] = useState(null)
-
-  console.log(Country.getAllCountries())
-  console.log(State.getStatesOfCountry('AF'))
-  console.log(City.getCitiesOfState('AF', 'PAR'))
 
   const handleImageUpload = (event) => {
     const file = event.target.files[0]

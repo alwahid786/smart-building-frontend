@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react'
 import {
   Drawer,
   Box,
@@ -8,9 +8,9 @@ import {
   ListItemText,
   Divider,
   Typography,
-} from "@mui/material";
-import { Link } from "react-router-dom";
-import Lightboxsmall from "../../../asset/svgs/Lightboxsmall";
+} from '@mui/material'
+import { Link } from 'react-router-dom'
+import Lightboxsmall from '../../../asset/svgs/Lightboxsmall'
 
 const DrawerComponent = ({
   pages,
@@ -26,46 +26,47 @@ const DrawerComponent = ({
       sx={{
         width: drawerWidth,
         flexShrink: 0,
-        display: "flex",
+        display: 'flex',
+
         // flexDirection: 'column-reverse',
         [`& .MuiDrawer-paper`]: {
           width: drawerWidth,
-          boxSizing: "border-box",
-          bgcolor: "white",
+          boxSizing: 'border-box',
+          bgcolor: 'white',
         },
       }}
     >
       <Box
         sx={{
           marginLeft: { xs: 0.5, sx: 0, md: 5, lg: 5 },
-          marginTop: "10px",
+          marginTop: '10px',
         }}
       >
         <Lightboxsmall />
       </Box>
       <Divider
         sx={{
-          width: "70%",
-          mx: "auto",
+          width: '70%',
+          mx: 'auto',
         }}
       />
       <Box
         sx={{
-          height: "100vh !important",
-          overflow: "hidden",
+          height: '100vh !important',
+          overflow: 'hidden',
         }}
       >
         <List
           sx={{
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center',
             alignItems: {
-              xs: "flex-start",
-              sm: "flex-start",
-              md: "center",
+              xs: 'flex-start',
+              sm: 'flex-start',
+              md: 'center',
             },
-            color: "white",
+            color: 'white',
           }}
         >
           {pages.map((page, index) => (
@@ -75,44 +76,44 @@ const DrawerComponent = ({
               to={`${page.route}`}
               key={page.label}
               onClick={() => {
-                setSelectedPage(page.label);
-                setIsActive(!isActive);
+                setSelectedPage(page.label)
+                setIsActive(!isActive)
               }}
               sx={{
-                color: "white",
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: { xs: "space-between", sm: "center" },
-                alignItems: "center",
+                color: 'white',
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: { xs: 'space-between', sm: 'center' },
+                alignItems: 'center',
                 padding: {
-                  xs: "1rem",
-                  sm: index === 4 ? "unset" : "0px",
-                  md: index === 4 ? "unset" : "0px",
-                  lg: index === 4 ? "unset" : "0px",
+                  xs: '1rem',
+                  sm: index === 4 ? 'unset' : '0px',
+                  md: index === 4 ? 'unset' : '0px',
+                  lg: index === 4 ? 'unset' : '0px',
                 },
 
-                "&:hover": {
-                  bgcolor: "rgba(255, 255, 255, 0.1)",
+                '&:hover': {
+                  bgcolor: 'rgba(255, 255, 255, 0.1)',
                 },
               }}
             >
               <ListItemIcon
                 sx={{
-                  display: "flex",
-                  flexDirection: "column",
-                  justifyContent: { xs: "space-between", sm: "center" },
-                  alignItems: "center",
+                  display: 'flex',
+                  flexDirection: 'column',
+                  justifyContent: { xs: 'space-between', sm: 'center' },
+                  alignItems: 'center',
                   mt: {
-                    xs: index !== 0 ? "0.1rem" : 0,
-                    sm: index !== 0 ? "3rem" : 0,
-                    md: index !== 0 ? "3rem" : 0,
-                    lg: index !== 0 ? "1rem" : 0,
+                    xs: index !== 0 ? '0.1rem' : 0,
+                    sm: index !== 0 ? '3rem' : 0,
+                    md: index !== 0 ? '3rem' : 0,
+                    lg: index !== 0 ? '1rem' : 0,
                   },
                   background:
                     selectedPage === page.icon
-                      ? "linear-gradient(180deg, #84DFFF 0%, #0094E3 100%)"
-                      : "none",
-                  "& svg": {
+                      ? 'linear-gradient(180deg, #84DFFF 0%, #0094E3 100%)'
+                      : 'none',
+                  '& svg': {
                     width: { xs: 26, sm: 24, md: 28, lg: 32, xl: 36 },
                     height: { xs: 26, sm: 24, md: 28, lg: 32, xl: 36 },
                   },
@@ -122,37 +123,37 @@ const DrawerComponent = ({
                 {page.icon}
                 <ListItemText
                   primary={
-                    page.label === "Building info" ? (
+                    page.label === 'Building info' ? (
                       <Typography
                         component="div"
                         sx={{
-                          fontSize: "14px",
+                          fontSize: '14px',
                           color:
-                            selectedPage === "Building info"
-                              ? "transparent"
-                              : "gray",
+                            selectedPage === 'Building info'
+                              ? 'transparent'
+                              : 'gray',
                           background:
-                            selectedPage === "Building info"
-                              ? "rgba(123, 66, 246, 1)"
-                              : "none",
-                          "-webkit-background-clip":
-                            selectedPage === "Building info" ? "text" : "none",
-                          "background-clip":
-                            selectedPage === "Building info" ? "text" : "none",
+                            selectedPage === 'Building info'
+                              ? 'rgba(123, 66, 246, 1)'
+                              : 'none',
+                          '-webkit-background-clip':
+                            selectedPage === 'Building info' ? 'text' : 'none',
+                          'background-clip':
+                            selectedPage === 'Building info' ? 'text' : 'none',
                           display: {
-                            xs: "none",
-                            sm: "none",
-                            md: "none",
-                            lg: "block",
+                            xs: 'none',
+                            sm: 'none',
+                            md: 'none',
+                            lg: 'block',
                           },
                         }}
                       >
                         Building
                         <br />
-                        <span style={{ marginLeft: "15px" }}>Info</span>
+                        <span style={{ marginLeft: '15px' }}>Info</span>
                       </Typography>
                     ) : (
-                      <Typography sx={{ fontSize: "14px" }}>
+                      <Typography sx={{ fontSize: '14px' }}>
                         {page.label}
                       </Typography>
                     )
@@ -160,20 +161,20 @@ const DrawerComponent = ({
                   primaryTypographyProps={{
                     sx: {
                       color:
-                        selectedPage === page.label ? "transparent" : "gray",
+                        selectedPage === page.label ? 'transparent' : 'gray',
                       background:
                         selectedPage === page.label
-                          ? "rgba(123, 66, 246, 1)"
-                          : "none",
-                      "-webkit-background-clip":
-                        selectedPage === page.label ? "text" : "none",
-                      "background-clip":
-                        selectedPage === page.label ? "text" : "none",
+                          ? 'rgba(123, 66, 246, 1)'
+                          : 'none',
+                      '-webkit-background-clip':
+                        selectedPage === page.label ? 'text' : 'none',
+                      'background-clip':
+                        selectedPage === page.label ? 'text' : 'none',
                       display: {
-                        xs: "none",
-                        sm: "none",
-                        md: "none",
-                        lg: "block",
+                        xs: 'none',
+                        sm: 'none',
+                        md: 'none',
+                        lg: 'block',
                       },
                     },
                   }}
@@ -185,7 +186,7 @@ const DrawerComponent = ({
       </Box>
       {/* <Toolbar /> */}
     </Drawer>
-  );
-};
+  )
+}
 
-export default DrawerComponent;
+export default DrawerComponent

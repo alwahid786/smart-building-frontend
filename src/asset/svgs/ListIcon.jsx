@@ -3,70 +3,16 @@ import React from 'react'
 const ListIcon = ({ isActive, size = 32 }) => {
   return (
     <svg
-      width={size}
-      height={size}
-      viewBox="0 0 32 32"
+      width="18"
+      height="18"
+      viewBox="0 0 18 18"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
       <path
-        d="M4 16H28"
-        stroke={isActive ? 'url(#active_paint0_linear)' : 'gray'}
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
+        d="M8.50195 2.25V6.75C8.50195 7.71458 7.71654 8.5 6.75195 8.5H2.25195C1.28737 8.5 0.501953 7.71458 0.501953 6.75V2.25C0.501953 1.28542 1.28737 0.5 2.25195 0.5H6.75195C7.71654 0.5 8.50195 1.28542 8.50195 2.25ZM2.25195 10.25H6.75195C7.71654 10.25 8.50195 11.0354 8.50195 12V15.75C8.50195 16.7146 7.71654 17.5 6.75195 17.5H2.25195C1.28737 17.5 0.501953 16.7146 0.501953 15.75V12C0.501953 11.0354 1.28737 10.25 2.25195 10.25ZM12.002 0.5H15.752C16.7165 0.5 17.502 1.28542 17.502 2.25V10.5C17.502 11.4646 16.7165 12.25 15.752 12.25H12.002C11.0374 12.25 10.252 11.4646 10.252 10.5V2.25C10.252 1.28542 11.0374 0.5 12.002 0.5ZM11.252 13.7188H16.502C17.0531 13.7188 17.502 14.1676 17.502 14.7188V16.5C17.502 17.0511 17.0531 17.5 16.502 17.5H11.252C10.7008 17.5 10.252 17.0511 10.252 16.5V14.7188C10.252 14.1676 10.7008 13.7188 11.252 13.7188Z"
+        stroke="white"
       />
-      <path
-        d="M4 8H28"
-        stroke={isActive ? 'url(#active_paint1_linear)' : 'gray'}
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-      <path
-        d="M4 24H28"
-        stroke={isActive ? 'url(#active_paint2_linear)' : 'gray'}
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-      {isActive && (
-        <defs>
-          <linearGradient
-            id="active_paint0_linear"
-            x1="4"
-            y1="16.5"
-            x2="28"
-            y2="16.5"
-            gradientUnits="userSpaceOnUse"
-          >
-            <stop stop-color="rgba(123, 66, 246, 1)" />
-            <stop offset="1" stop-color="rgba(123, 66, 246, 1)" />
-          </linearGradient>
-          <linearGradient
-            id="active_paint1_linear"
-            x1="4"
-            y1="8.5"
-            x2="28"
-            y2="8.5"
-            gradientUnits="userSpaceOnUse"
-          >
-            <stop stop-color="rgba(123, 66, 246, 1)" />
-            <stop offset="1" stop-color="rgba(123, 66, 246, 1)" />
-          </linearGradient>
-          <linearGradient
-            id="active_paint2_linear"
-            x1="4"
-            y1="24.5"
-            x2="28"
-            y2="24.5"
-            gradientUnits="userSpaceOnUse"
-          >
-            <stop stop-color="rgba(123, 66, 246, 1)" />
-            <stop offset="1" stop-color="rgba(123, 66, 246, 1)" />
-          </linearGradient>
-        </defs>
-      )}
     </svg>
   )
 }

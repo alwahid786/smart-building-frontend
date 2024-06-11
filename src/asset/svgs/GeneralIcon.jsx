@@ -1,22 +1,30 @@
-import React from 'react';
+import React from 'react'
 
-const GeneralIcon = ({ isActive, size = 32  }) => {
-    return (
-        <svg width={size} height={size} viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <defs>
-                <linearGradient id="activeGradient" x1="16" y1="0" x2="16" y2="32" gradientUnits="userSpaceOnUse">
-                    <stop stopColor="rgba(123, 66, 246, 1)" />
-                    <stop offset="1" stopColor="rgba(123, 66, 246, 1)" />
-                </linearGradient>
-                <linearGradient id="inactiveGradient" x1="16" y1="0" x2="16" y2="32" gradientUnits="userSpaceOnUse">
-                    <stop stopColor="gray" />  {/* Example color, change as needed for inactive state */}
-                    <stop offset="1" stopColor="gray" />
-                </linearGradient>
-            </defs>
-            <path d="M28.2799 21.1868C27.4316 23.1927 26.1049 24.9604 24.4157 26.3352C22.7265 27.71 20.7262 28.65 18.5898 29.0731C16.4534 29.4963 14.2458 29.3896 12.1601 28.7625C10.0744 28.1354 8.17405 27.0069 6.62525 25.4756C5.07644 23.9444 3.92631 22.0571 3.2754 19.9787C2.62449 17.9003 2.49264 15.6941 2.89135 13.5529C3.29007 11.4118 4.20721 9.40094 5.56261 7.69614C6.91801 5.99135 8.6704 4.64453 10.6666 3.77344" stroke={`url(#${isActive ? 'activeGradient' : 'inactiveGradient'})`} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-            <path d="M29.3333 15.9998C29.3333 14.2489 28.9885 12.5151 28.3184 10.8974C27.6483 9.27972 26.6662 7.80986 25.4281 6.57175C24.19 5.33363 22.7201 4.35151 21.1024 3.68144C19.4848 3.01138 17.751 2.6665 16 2.6665V15.9998H29.3333Z" stroke={`url(#${isActive ? 'activeGradient' : 'inactiveGradient'})`} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-        </svg>
-    );
-};
+const GeneralIcon = ({ isActive, size = 32 }) => {
+  return (
+    <svg
+      width="20"
+      height="20"
+      viewBox="0 0 20 20"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M18.2935 13.5039C17.7208 14.8582 16.8251 16.0517 15.6846 16.9799C14.5441 17.9081 13.1936 18.5428 11.7511 18.8285C10.3087 19.1142 8.81822 19.0421 7.41003 18.6187C6.00184 18.1953 4.71882 17.4334 3.67312 16.3996C2.62742 15.3657 1.8509 14.0915 1.41143 12.6882C0.971966 11.285 0.88294 9.79544 1.15214 8.34982C1.42133 6.90421 2.04056 5.54655 2.95567 4.39553C3.87079 3.24452 5.05393 2.3352 6.40166 1.74707"
+        stroke="white"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+      <path
+        d="M19.0061 10.0022C19.0061 8.81998 18.7732 7.64937 18.3208 6.55718C17.8684 5.46499 17.2053 4.4726 16.3694 3.63667C15.5335 2.80074 14.5411 2.13765 13.4489 1.68525C12.3567 1.23285 11.1861 1 10.0039 1V10.0022H19.0061Z"
+        stroke="white"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+    </svg>
+  )
+}
 
-export default GeneralIcon;
+export default GeneralIcon
