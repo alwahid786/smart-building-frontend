@@ -1,11 +1,14 @@
-import { Box, Drawer, Typography, styled } from '@mui/material'
+import { Box, Button, Drawer, Typography, styled } from '@mui/material'
 import { useState } from 'react'
 import HeaderBgImg from '../../../asset/Images/main/HomeBg.png'
 // import SaudiLogo from '../../../assets/images/saudi-arabia-logo.png'
 import { MenuRounded } from '@mui/icons-material'
 
 import Aside from './Aside'
-import Menu from '../../../asset/svgs/Menu'
+import MenuIcon from '../../../asset/svgs/Menu'
+import MailIcon from '../../../asset/svgs/header/MailIcon'
+import NotificationIcon from '../../../asset/svgs/header/NotificationIcon'
+import { Link } from 'react-router-dom'
 
 const Header = () => {
   const [openNav, setOpenNav] = useState(false)
@@ -16,45 +19,64 @@ const Header = () => {
 
   return (
     <>
-      <HeaderBg>
+      {/* <HeaderBg> */}
+      {/* <Box
+        onClick={() => toggleNav(true)}
+        sx={{
+          cursor: 'pointer',
+          position: 'absolute',
+          top: '5px',
+          left: '14px',
+          display: {
+            sm: 'block',
+            lg: 'none',
+          },
+        }}
+      >
+        <MenuIcon />
+      </Box> */}
+
+      <Drawer
+        open={openNav}
+        onClose={() => toggleNav(false)}
+        PaperProps={{
+          sx: {
+            width: '174px',
+            '&::-webkit-scrollbar': {
+              width: 0,
+              height: 0,
+            },
+          },
+        }}
+      >
+        <Aside toggleNav={toggleNav} />
+      </Drawer>
+      {/* </HeaderBg> */}
+
+      <Box sx={{ border: '2px solid red', padding: '20px' }}>
         <Box
-          onClick={() => toggleNav(true)}
           sx={{
-            cursor: 'pointer',
-            position: 'absolute',
-            top: '5px',
-            left: '14px',
-            display: {
-              sm: 'block',
-              lg: 'none',
-            },
+            display: 'flex',
+            justifyContent: 'end',
+            alignItems: 'center',
+            gap: '21px',
           }}
         >
-          <Menu
-            sx={{
-              border: '2px solid red',
-              width: '1.5em',
-              height: '1.5em',
-              color: '#006bce',
-            }}
-          ></Menu>
+          <MailIcon />
+          <NotificationIcon />
+          <Link to="profile">
+            <Button
+              variant="contained"
+              sx={{
+                background: '#ffffff50',
+                '&:hover': { background: 'inherit' },
+              }}
+            >
+              Profile
+            </Button>
+          </Link>
         </Box>
-        {/* <Drawer
-          open={openNav}
-          onClose={() => toggleNav(false)}
-          PaperProps={{
-            sx: {
-              width: '174px',
-              '&::-webkit-scrollbar': {
-                width: 0,
-                height: 0,
-              },
-            },
-          }}
-        >
-          <Aside toggleNav={toggleNav} />
-        </Drawer> */}
-      </HeaderBg>
+      </Box>
     </>
   )
 }

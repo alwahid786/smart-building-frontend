@@ -14,10 +14,18 @@ import LogoIcon from '../../../asset/svgs/LogoIcon'
 import Menu from '../../../asset/svgs/Menu'
 
 const Aside = ({ toggleNav }) => {
+  const [isSideBarOpen, setIsSideBarOpen] = useState(true)
+  const [showMenuAndLogo, setShowMenuAndLogo] = useState(false)
   const [openPage, setOpenPage] = useState(null)
   const [isActivePage, setIsActivePage] = useState('home')
   const dispatch = useDispatch()
   const navigate = useNavigate()
+
+  const sideBarClose = () => {
+    setIsSideBarOpen(false)
+    setShowMenuAndLogo(true)
+    console.log('clicked')
+  }
   const handlePages = (page) => {
     setOpenPage(openPage === page ? null : page)
     setIsActivePage(page)
@@ -106,9 +114,14 @@ const Aside = ({ toggleNav }) => {
     <>
       <Asidemain
         sx={{
+          // transform: isSideBarOpen ? 'translateX(0)' : 'translateX(-100%)',
+          // opacity: isSideBarOpen ? 1 : 0,
+          // transition: 'transform 0.3s ease, opacity 0.3s ease',
           backgroundImage:
-            'linear-gradient(180deg, #7B42F680 0%, #5510CF80 100%)',
+            'linear-gradient(178.55deg, rgba(123, 66, 246 ) 2.95%, rgba(85, 16, 207) 84.68%);',
           height: '100vh',
+          borderRadius: '12px',
+          display: `${isSideBarOpen ? 'block' : 'none'}`,
         }}
       >
         <Stack
@@ -129,7 +142,7 @@ const Aside = ({ toggleNav }) => {
                 <LogoIcon />
               </ImageContainer>
             </Box>
-            <Box>
+            <Box onClick={sideBarClose} sx={{ cursor: 'pointer' }}>
               <Menu />
             </Box>
           </Box>
@@ -248,6 +261,45 @@ const Aside = ({ toggleNav }) => {
           </Box>
         </Stack>
       </Asidemain>
+
+      {!isSideBarOpen && showMenuAndLogo && (
+        <Box
+          sx={{
+            position: 'fixed',
+            top: '28px',
+            left: '16px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            width: {
+              md: '172px',
+              xs: '0',
+            },
+            // backgroundColor: 'rgba(0, 0, 0, 0.5)',
+            // borderRadius: '8px',
+            // padding: '8px',
+          }}
+        >
+          <Box>
+            <ImageContainer
+              sx={{
+                display: {
+                  md: 'block',
+                  xs: 'none',
+                },
+              }}
+            >
+              <LogoIcon />
+            </ImageContainer>
+          </Box>
+          <Box
+            onClick={() => setIsSideBarOpen(true)}
+            sx={{ cursor: 'pointer', marginLeft: '8px' }}
+          >
+            <Menu />
+          </Box>
+        </Box>
+      )}
     </>
   )
 }
