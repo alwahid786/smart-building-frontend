@@ -18,7 +18,8 @@ const Main = () => {
         //   overflowX: 'clip',
         // }}
         sx={{
-          border: '2px solid red',
+          // border: '2px solid red',
+          marginTop: '110px',
         }}
       >
         <Outlet />

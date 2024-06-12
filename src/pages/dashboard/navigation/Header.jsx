@@ -53,7 +53,7 @@ const Header = () => {
       </Drawer>
       {/* </HeaderBg> */}
 
-      <Box sx={{ border: '2px solid red', padding: '20px' }}>
+      <Box sx={{ padding: '20px' }}>
         <Box
           sx={{
             display: 'flex',
