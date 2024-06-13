@@ -25,8 +25,6 @@ const ProfilePage = () => {
   const [countries, setCountries] = useState([])
   const [states, setStates] = useState([])
   const [cities, setCities] = useState([])
-  const [selectedCity, setSelectedCity] = useState('')
-  const [selectedState, setSelectedState] = useState('')
   const [selectedCountry, setSelectedCountry] = useState('')
 
   const handleCountryChange = async (countryCode) => {

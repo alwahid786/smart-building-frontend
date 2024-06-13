@@ -1,26 +1,18 @@
-import React, { useState } from 'react'
-import loginbg from '../../asset/Images/login/LogIn2.png'
-import ContainerFluid from '@mui/material/Container'
 import Box from '@mui/material/Box'
 import Grid from '@mui/material/Grid'
 import LightBox from '../../asset/svgs/LightBox'
-import FormBox from '../../asset/svgs/FormBox'
-import Input from '../../components/Input'
-// import Button from '../../components/Button'
-import { Button, FormControlLabel, TextField } from '@mui/material'
+// TextField
 
 import Typography from '@mui/material/Typography'
 import { useNavigate } from 'react-router-dom'
 import { forgetPassSchema } from '../../schema'
 import { useFormik } from 'formik'
+import loginBg from '../../asset/Images/login/LogIn2.png'
+import { TextField, Button } from '@mui/material'
 
 const ForgetPassword = () => {
-  const [isSubmitting, setIsSubmitting] = useState(false)
   const navigate = useNavigate()
-  const handleEmailSubmit = () => {
-    // Add logic to handle email submission if necessary
-    setIsSubmitting(true)
-  }
+
   const initialValues = {
     email: '',
   }
@@ -46,7 +38,7 @@ const ForgetPassword = () => {
           padding: {
             xs: '0 !important',
             md: '0 0 !important',
-            backgroundImage: `url(${loginbg})`,
+            backgroundImage: `url(${loginBg})`,
             backgroundPosition: '100% 0%',
             backgroundSize: 'cover',
             backgroundRepeat: 'no-repeat',

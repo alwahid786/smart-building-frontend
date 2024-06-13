@@ -13,7 +13,7 @@ import MapIcon from '../../../asset/svgs/MapIcon'
 import LogoIcon from '../../../asset/svgs/LogoIcon'
 import Menu from '../../../asset/svgs/Menu'
 
-const Aside = ({ toggleNav, openNav }) => {
+const Aside = ({ toggleNav }) => {
   const [isSideBarOpen, setIsSideBarOpen] = useState(true)
   const [showMenuAndLogo, setShowMenuAndLogo] = useState(false)
   const [openPage, setOpenPage] = useState(null)
@@ -122,8 +122,7 @@ const Aside = ({ toggleNav, openNav }) => {
           height: '100vh',
           borderRadius: '12px',
           display: {
-            // xs: isSideBarOpen && 'none',
-            xs: openNav && 'block', // none on extra small screens
+            xs: 'none', // none on extra small screens
             sm: isSideBarOpen ? 'block' : 'none', // block on small screens if open, otherwise none
           },
         }}

@@ -7,8 +7,6 @@ import LightBox from '../../asset/svgs/LightBox'
 
 import Typography from '@mui/material/Typography'
 import Checkbox from '@mui/material/Checkbox'
-import CheckBox from '../../asset/svgs/CheckBox'
-import CheckedBox from '../../asset/svgs/CheckedBox'
 import { Button, FormControlLabel, TextField } from '@mui/material'
 import { useFormik } from 'formik'
 import { loginSchema } from '../../schema'
