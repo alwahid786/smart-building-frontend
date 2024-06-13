@@ -11,24 +11,56 @@ import { Button, FormControlLabel, TextField } from '@mui/material'
 import { useFormik } from 'formik'
 import { loginSchema } from '../../schema'
 
+<<<<<<< Updated upstream
 const initialValues = {
   name: '',
   password: '',
 }
 
 const Login = () => {
+=======
+const initialValues = { email: '', password: '' }
+
+const Login = () => {
+  const [login] = useLoginMutation()
+  const navigate = useNavigate()
+
+>>>>>>> Stashed changes
   const { values, errors, touched, handleBlur, handleChange, handleSubmit } =
     useFormik({
       initialValues,
       validationSchema: loginSchema,
+<<<<<<< Updated upstream
       onSubmit: (values, action) => {
         console.log(values)
+=======
+      onSubmit: async (values, action) => {
+        const res = await login(values)
+
+        console.log(res)
+        // if error show error
+        if (res.error) {
+          return toast.error(res.error.data.message)
+        }
+
+        // if success show success
+        if (res.data) {
+          toast.success(res.data.message)
+
+          setTimeout(() => {
+            navigate('/dashboard')
+          }, 1000)
+        }
+>>>>>>> Stashed changes
         action.resetForm()
       },
     })
 
+<<<<<<< Updated upstream
   const navigate = useNavigate()
 
+=======
+>>>>>>> Stashed changes
   return (
     <>
       {/* {isLoading && <GlobalLoader />} */}

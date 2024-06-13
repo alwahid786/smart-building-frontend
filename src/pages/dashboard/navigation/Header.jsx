@@ -40,26 +40,9 @@ const Header = () => {
       <Drawer
         open={openNav}
         onClose={() => toggleNav(false)}
-        PaperProps={{
-          sx: {
-            width: '174px',
-            '&::-webkit-scrollbar': {
-              width: 0,
-              height: 0,
-            },
-          },
-        }}
+        sx={{ width: '174px' }}
       >
-        <Box
-          sx={{
-            display: {
-              xs: 'none',
-              sm: 'block',
-            },
-          }}
-        >
-          <Aside toggleNav={toggleNav} />
-        </Box>
+        <Aside toggleNav={toggleNav} />
       </Drawer>
       {/* </HeaderBg> */}
 

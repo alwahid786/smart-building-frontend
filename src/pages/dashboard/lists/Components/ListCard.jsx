@@ -302,7 +302,7 @@ const ListCard = ({ status, imageUrl, subtitle, title, tags, actionText }) => {
               See details
             </Button>
           </CardContent>
-        </CardMedia>
+        </Card>
       )}
     </>
   )

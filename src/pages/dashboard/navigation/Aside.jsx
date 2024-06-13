@@ -135,7 +135,7 @@ const Aside = ({ toggleNav }) => {
             'linear-gradient(178.55deg, rgba(123, 66, 246 ) 2.95%, rgba(85, 16, 207) 84.68%);',
           height: '100vh',
           borderRadius: '12px',
-          display: isSideBarOpen ? 'block' : 'none',
+          display: isSideBarOpen ? 'block' : 'none ',
         }}
       >
         <Stack
