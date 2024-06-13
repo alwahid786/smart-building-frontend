@@ -1,29 +1,31 @@
-import React, { useState, useCallback, useEffect } from "react";
-import Card from "@mui/material/Card";
-import CardContent from "@mui/material/CardContent";
-import Typography from "@mui/material/Typography";
-import LinearProgress from "@mui/material/LinearProgress";
-import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
-import Box from "@mui/material/Box";
-import { Divider } from "@mui/material";
-import Slider from "@mui/material/Slider";
-import { PrimaryEnergySkeleton } from "../../../../../../components/Skeleton";
-import { useDispatch, useSelector } from "react-redux";
-import { setLoading } from "../../../../../../features/loading/loadingSlice";
+import React, { useState, useCallback, useEffect } from 'react'
+import Card from '@mui/material/Card'
+import CardContent from '@mui/material/CardContent'
+import Typography from '@mui/material/Typography'
+import LinearProgress from '@mui/material/LinearProgress'
+import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined'
+import Box from '@mui/material/Box'
+import { Divider } from '@mui/material'
+import Slider from '@mui/material/Slider'
+import { PrimaryEnergySkeleton } from '../../../../../../components/Skeleton'
+import { useDispatch, useSelector } from 'react-redux'
 
-const degreesToRadians = (degrees) => degrees * (Math.PI / 180);
+const degreesToRadians = (degrees) => degrees * (Math.PI / 180)
 const PrimaryEnergy = () => {
-  const dispatch = useDispatch();
-  const { isLoading } = useSelector((state) => state.loading);
-  const [progress, setProgress] = useState(100);
+  const dispatch = useDispatch()
+  const [progress, setProgress] = useState(100)
   const handleChange = (event, newValue) => {
-    setProgress(newValue);
-  };
+    setProgress(newValue)
+  }
+
+  const [isLoading, setIsLoading] = useState(true)
+
   useEffect(() => {
     setTimeout(() => {
-      dispatch(setLoading(false));
-    }, 3000);
-  }, []);
+      setIsLoading(false)
+    }, 3000)
+  }, [])
+
   return (
     <>
       {isLoading ? (
@@ -35,7 +37,7 @@ const PrimaryEnergy = () => {
               sx={{
                 fontSize: 16,
                 fontWeight: 600,
-                color: "rgba(17, 17, 17, 1)",
+                color: 'rgba(17, 17, 17, 1)',
               }}
               color="text.secondary"
               gutterBottom
@@ -45,22 +47,22 @@ const PrimaryEnergy = () => {
             <Divider />
             <Box
               sx={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
               }}
             >
               <Typography
                 sx={{
                   fontSize: 16,
                   fontWeight: 600,
-                  color: "rgba(0, 0, 0, 1)",
+                  color: 'rgba(0, 0, 0, 1)',
                 }}
               >
                 123.3 kWh
               </Typography>
               <InfoOutlinedIcon
-                sx={{ marginLeft: 1, color: "rgba(123, 66, 246, 1)" }}
+                sx={{ marginLeft: 1, color: 'rgba(123, 66, 246, 1)' }}
               />
             </Box>
             <Typography
@@ -68,16 +70,16 @@ const PrimaryEnergy = () => {
                 mb: 1.5,
                 fontSize: 14,
                 fontWeight: 400,
-                color: "rgba(17, 17, 17, 0.2)",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
+                color: 'rgba(17, 17, 17, 0.2)',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
               }}
               color="text.secondary"
             >
               (m² years)
             </Typography>
-            <Box sx={{ width: "100%", padding: 2 }}>
+            <Box sx={{ width: '100%', padding: 2 }}>
               <LinearProgress
                 variant="determinate"
                 value={progress}
@@ -91,10 +93,10 @@ const PrimaryEnergy = () => {
                 min={1}
                 max={100}
                 sx={{
-                  "& .MuiSlider-thumb": {
-                    transform: "rotate(-45deg)", // Rotate the thumb for a slight skewed effect
+                  '& .MuiSlider-thumb': {
+                    transform: 'rotate(-45deg)', // Rotate the thumb for a slight skewed effect
                   },
-                  "& .MuiSlider-rail": {
+                  '& .MuiSlider-rail': {
                     opacity: 0.5, // Dim the rail a bit
                   },
                 }}
@@ -103,31 +105,31 @@ const PrimaryEnergy = () => {
                 Adjust progress (1-100)
               </Typography>
             </Box>
-            <Box sx={{ display: "flex", mt: 1 }}>
+            <Box sx={{ display: 'flex', mt: 1 }}>
               <Typography
                 sx={{
                   fontSize: 12,
                   fontWeight: 400,
-                  color: "rgba(17, 17, 17, 0.6)",
+                  color: 'rgba(17, 17, 17, 0.6)',
                 }}
               >
                 Primary Energy Demand (EP)
               </Typography>
               <Box
                 sx={{
-                  width: "100%",
+                  width: '100%',
                   height: 58,
-                  background: "rgba(245, 247, 251, 1)",
+                  background: 'rgba(245, 247, 251, 1)',
                   p: 1,
-                  alignItems: "center",
-                  borderRadius: "10px",
+                  alignItems: 'center',
+                  borderRadius: '10px',
                 }}
               >
                 <Typography
                   sx={{
                     fontSize: 16,
                     fontWeight: 400,
-                    color: "rgba(0, 0, 0, 1)",
+                    color: 'rgba(0, 0, 0, 1)',
                     p: 0.2,
                   }}
                 >
@@ -138,7 +140,7 @@ const PrimaryEnergy = () => {
                     sx={{
                       fontSize: 12,
                       fontWeight: 400,
-                      color: "rgba(17, 17, 17, 0.6)",
+                      color: 'rgba(17, 17, 17, 0.6)',
                     }}
                   >
                     m² years
@@ -146,31 +148,31 @@ const PrimaryEnergy = () => {
                 </Typography>
               </Box>
             </Box>
-            <Box sx={{ display: "flex", mt: 1 }}>
+            <Box sx={{ display: 'flex', mt: 1 }}>
               <Typography
                 sx={{
                   fontSize: 12,
                   fontWeight: 400,
-                  color: "rgba(17, 17, 17, 0.6)",
+                  color: 'rgba(17, 17, 17, 0.6)',
                 }}
               >
                 Final energy Demand (EK)
               </Typography>
               <Box
                 sx={{
-                  width: "100%",
+                  width: '100%',
                   height: 58,
-                  background: "rgba(245, 247, 251, 1)",
+                  background: 'rgba(245, 247, 251, 1)',
                   p: 1,
-                  alignItems: "center",
-                  borderRadius: "10px",
+                  alignItems: 'center',
+                  borderRadius: '10px',
                 }}
               >
                 <Typography
                   sx={{
                     fontSize: 16,
                     fontWeight: 400,
-                    color: "rgba(0, 0, 0, 1)",
+                    color: 'rgba(0, 0, 0, 1)',
                     p: 0.2,
                   }}
                 >
@@ -181,7 +183,7 @@ const PrimaryEnergy = () => {
                     sx={{
                       fontSize: 12,
                       fontWeight: 400,
-                      color: "rgba(17, 17, 17, 0.6)",
+                      color: 'rgba(17, 17, 17, 0.6)',
                     }}
                   >
                     m² years
@@ -193,7 +195,7 @@ const PrimaryEnergy = () => {
         </Card>
       )}
     </>
-  );
-};
+  )
+}
 
-export default PrimaryEnergy;
+export default PrimaryEnergy

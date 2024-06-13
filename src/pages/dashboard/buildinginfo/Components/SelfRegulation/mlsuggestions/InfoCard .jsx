@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState } from 'react'
 import {
   Card,
   CardContent,
@@ -7,10 +7,9 @@ import {
   Avatar,
   Box,
   Divider,
-} from "@mui/material";
-import Delete from "../../../../../../asset/svgs/selfregulation/Delete";
-import { toggleSecondBar } from "../../../../../../features/chart/chartSlice";
-import { useDispatch } from "react-redux";
+} from '@mui/material'
+import Delete from '../../../../../../asset/svgs/selfregulation/Delete'
+import { useDispatch } from 'react-redux'
 const InfoCard = ({
   img: Img,
   title,
@@ -20,28 +19,28 @@ const InfoCard = ({
   percentage,
   onActionClick,
 }) => {
-  const dispatch = useDispatch();
-  const [isPurple, setIsPurple] = useState(false);
+  const dispatch = useDispatch()
+  const [isPurple, setIsPurple] = useState(false)
   const handleTogglePreview = () => {
-    dispatch(toggleSecondBar());
-    setIsPurple(!isPurple);
-  };
+    // dispatch(toggleSecondBar())
+    setIsPurple(!isPurple)
+  }
 
   return (
     <Card sx={{ minWidth: 275, margin: 2, boxShadow: 3 }}>
       <Box
         sx={{
-          display: "flex",
-          alignItems: "center",
+          display: 'flex',
+          alignItems: 'center',
           gap: 1,
           p: 2,
-          backgroundColor: isPurple ? "rgba(123, 66, 246, 1)" : "",
+          backgroundColor: isPurple ? 'rgba(123, 66, 246, 1)' : '',
         }}
       >
         {Img && <Img />}
         <Typography
           sx={{
-            color: isPurple ? "white" : "rgba(17, 17, 17, 0.6)",
+            color: isPurple ? 'white' : 'rgba(17, 17, 17, 0.6)',
             fontWeight: 400,
             fontSize: { xs: 12, md: 16 },
           }}
@@ -55,17 +54,17 @@ const InfoCard = ({
           sx={{
             fontSize: { xs: 12, md: 16 },
             fontWeight: 500,
-            color: "rgba(17, 17, 17, 1)",
+            color: 'rgba(17, 17, 17, 1)',
           }}
         >
           {text}
         </Typography>
-        <Box sx={{ display: "flex", alignItems: "center", gap: 1, m: 2 }}>
+        <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, m: 2 }}>
           <Typography
             sx={{
               fontSize: { xs: 14, md: 20 },
               fontWeight: 600,
-              color: "rgba(123, 66, 246, 1)",
+              color: 'rgba(123, 66, 246, 1)',
             }}
           >
             {percentage}
@@ -74,7 +73,7 @@ const InfoCard = ({
             sx={{
               fontWeight: 400,
               fontSize: 14,
-              color: "rgba(17, 17, 17, 0.6)",
+              color: 'rgba(17, 17, 17, 0.6)',
             }}
             color="text.secondary"
           >
@@ -83,9 +82,9 @@ const InfoCard = ({
         </Box>
         <Box
           sx={{
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
             gap: 1,
             m: 2,
           }}
@@ -93,10 +92,10 @@ const InfoCard = ({
           <Box>
             <Button
               size="small"
-              sx={{ background: "none" }}
+              sx={{ background: 'none' }}
               onClick={onActionClick}
             >
-              <Delete />{" "}
+              <Delete />{' '}
             </Button>
           </Box>
           <Box>
@@ -105,22 +104,22 @@ const InfoCard = ({
               onClick={handleTogglePreview}
               sx={{
                 color: isPurple
-                  ? "rgba(123, 66, 246, 1)"
-                  : "rgba(17, 17, 17, 0.6)",
-                background: "none",
+                  ? 'rgba(123, 66, 246, 1)'
+                  : 'rgba(17, 17, 17, 0.6)',
+                background: 'none',
                 fontWeight: 400,
                 fontSize: 14,
-                textTransform: "none",
+                textTransform: 'none',
               }}
             >
-              {isPurple ? "Cancel" : "Preview"}
+              {isPurple ? 'Cancel' : 'Preview'}
             </Button>
             <Button
               size="small"
               onClick={onActionClick}
               sx={{
-                color: "rgba(123, 66, 246, 1)",
-                background: "none",
+                color: 'rgba(123, 66, 246, 1)',
+                background: 'none',
                 fontWeight: 400,
                 fontSize: 14,
               }}
@@ -131,7 +130,7 @@ const InfoCard = ({
         </Box>
       </CardContent>
     </Card>
-  );
-};
+  )
+}
 
-export default InfoCard;
+export default InfoCard

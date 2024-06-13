@@ -110,6 +110,20 @@ const Aside = ({ toggleNav }) => {
     },
   ]
 
+  const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth <= 600) // Define your small screen breakpoint here
+
+  // Function to handle window resize and update state accordingly
+  const handleResize = () => {
+    setIsSmallScreen(window.innerWidth <= 600) // Adjust breakpoint as needed
+  }
+
+  // Add event listener for window resize
+  useEffect(() => {
+    window.addEventListener('resize', handleResize)
+    return () => {
+      window.removeEventListener('resize', handleResize)
+    }
+  }, [])
   return (
     <>
       <Asidemain
@@ -122,8 +136,8 @@ const Aside = ({ toggleNav }) => {
           height: '100vh',
           borderRadius: '12px',
           display: {
-            xs: 'none', // none on extra small screens
-            sm: isSideBarOpen ? 'block' : 'none', // block on small screens if open, otherwise none
+            xs: 'none',
+            sm: isSideBarOpen ? 'block' : 'none',
           },
         }}
       >
@@ -203,62 +217,7 @@ const Aside = ({ toggleNav }) => {
                   >
                     {page.label}
                   </Typography>
-                  {/* {page.subPages &&
-                    (openPage === page.page ? (
-                      <ChevronIconUp />
-                    ) : (
-                      <ChevronIcon isActivePage={isActivePage === page.page} />
-                    ))} */}
                 </Box>
-                {/* {page.subPages &&
-                  page.subPages.map((subpage) => (
-                    <Collapse
-                      key={subpage.title}
-                      in={openPage === page.page}
-                      timeout="auto"
-                      unmountOnExit
-                      sx={{
-                        paddingLeft: '15px',
-                      }}
-                    >
-                      <Box
-                        component={Link}
-                        to={subpage.route}
-                        onClick={() => {
-                          setIsActivePage(subpage.page)
-                          window.innerWidth <= 1199 && toggleNav(false)
-                        }}
-                        sx={{
-                          display: 'inline-flex',
-                          alignItems: 'center',
-                          gap: '8px',
-                          cursor: 'pointer',
-                          borderRadius: '8px',
-                          padding: '9px 16px',
-                          width: '100%',
-                          backgroundColor:
-                            isActivePage === subpage.page
-                              ? '#fff'
-                              : 'transparent',
-                        }}
-                      >
-                        {isActivePage === subpage.page && subpage.icon}
-                        <Typography
-                          variant="h2"
-                          sx={{
-                            fontFamily: '"Poppins", sans-serif',
-                            fontSize: '20px',
-                            fontWeight: '400',
-                            lineHeight: '30px',
-                            color:
-                              isActivePage === subpage.page ? '#000' : '#fff',
-                          }}
-                        >
-                          {subpage.title}
-                        </Typography>
-                      </Box>
-                    </Collapse>
-                  ))} */}
               </React.Fragment>
             ))}
           </Box>
