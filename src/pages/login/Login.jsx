@@ -212,7 +212,7 @@ const Login = () => {
                 </Typography>
               </Box>
               <Box sx={{ marginTop: '32px' }}>
-                <form>
+                <form onSubmit={handleSubmit}>
                   <Box
                     style={{
                       display: 'flex',
@@ -252,31 +252,7 @@ const Login = () => {
                       helperText={touched.password && errors.password}
                     />
                   </Box>
-                  {/* <Box
-                    style={{
-                      display: 'flex',
-                      gap: '8px',
-                      alignItems: 'center',
-                      marginTop: '1vw',
-                    }}
-                  >
-                    <Checkbox
-                      icon={<CheckBox />}
-                      checkedIcon={<CheckedBox />}
-                      sx={{
-                        color: 'rgba(17, 17, 17, 0.2)',
-                        padding: '0 !important',
-                      }}
-                    />
-                    <p
-                      style={{
-                        fontSize: '14px',
-                        color: 'rgba(17, 17, 17, 0.4)',
-                      }}
-                    >
-                      Remember me
-                    </p>
-                  </Box> */}
+
                   <Box
                     style={{
                       display: 'flex',
@@ -305,6 +281,7 @@ const Login = () => {
                   </Box>
                   <Box>
                     <Button
+                      type="submit"
                       sx={{
                         width: '100%',
                         background:
@@ -316,6 +293,33 @@ const Login = () => {
                       Login
                     </Button>
                   </Box>
+                </form>
+                <Typography
+                  variant="p"
+                  sx={{
+                    color: 'rgba(17, 17, 17, 0.4)',
+                    fontSize: '14px',
+                    marginTop: '1.2vw',
+                    display: 'inline-block',
+                    cursor: 'pointer',
+                    '&:hover': {
+                      color: '#7B42F6',
+                    },
+                  }}
+                  onClick={() => {
+                    navigate('/forgetpassword')
+                  }}
+                >
+                  Forgot your password?
+                </Typography>
+                <Box
+                  sx={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '32px',
+                    marginTop: '2vw',
+                  }}
+                >
                   <Typography
                     variant="p"
                     sx={{
@@ -323,62 +327,35 @@ const Login = () => {
                       fontSize: '14px',
                       marginTop: '1.2vw',
                       display: 'inline-block',
-                      cursor: 'pointer',
-                      '&:hover': {
-                        color: '#7B42F6',
-                      },
-                    }}
-                    onClick={() => {
-                      navigate('/forgetpassword')
                     }}
                   >
-                    Forgot your password?
+                    Or login with
                   </Typography>
-                  <Box
+                  <Typography
+                    variant="p"
                     sx={{
-                      display: 'flex',
-                      alignItems: 'center',
-                      gap: '32px',
-                      marginTop: '2vw',
+                      color: '#7B42F6',
+                      fontSize: '14px',
+                      marginTop: '1.2vw',
+                      display: 'inline-block',
+                      cursor: 'pointer',
                     }}
                   >
-                    <Typography
-                      variant="p"
-                      sx={{
-                        color: 'rgba(17, 17, 17, 0.4)',
-                        fontSize: '14px',
-                        marginTop: '1.2vw',
-                        display: 'inline-block',
-                      }}
-                    >
-                      Or login with
-                    </Typography>
-                    <Typography
-                      variant="p"
-                      sx={{
-                        color: '#7B42F6',
-                        fontSize: '14px',
-                        marginTop: '1.2vw',
-                        display: 'inline-block',
-                        cursor: 'pointer',
-                      }}
-                    >
-                      Google
-                    </Typography>
-                    <Typography
-                      variant="p"
-                      sx={{
-                        color: '#7B42F6',
-                        fontSize: '14px',
-                        marginTop: '1.2vw',
-                        display: 'inline-block',
-                        cursor: 'pointer',
-                      }}
-                    >
-                      Outlook
-                    </Typography>
-                  </Box>
-                </form>
+                    Google
+                  </Typography>
+                  <Typography
+                    variant="p"
+                    sx={{
+                      color: '#7B42F6',
+                      fontSize: '14px',
+                      marginTop: '1.2vw',
+                      display: 'inline-block',
+                      cursor: 'pointer',
+                    }}
+                  >
+                    Outlook
+                  </Typography>
+                </Box>
               </Box>
             </Box>
           </Grid>

@@ -1,30 +1,30 @@
-import React from "react";
-import { Provider } from "react-redux";
+import React from 'react'
+import { Provider } from 'react-redux'
 import {
   BrowserRouter as Router,
   Routes,
   Route,
   Navigate,
-} from "react-router-dom";
-import { store } from "./store";
-import { lazy, Suspense } from "react";
-import GlobalLoader from "./components/Loader";
+} from 'react-router-dom'
+import { store } from './store'
+import { lazy, Suspense } from 'react'
+import GlobalLoader from './components/Loader'
 
-const SignUpPage = lazy(() => import("./pages/signup/SignUp"));
-const List = lazy(() => import("./pages/dashboard/lists"));
-const General = lazy(() => import("./pages/dashboard/general"));
-const Map = lazy(() => import("./pages/dashboard/map"));
-const BuildingInfo = lazy(() => import("./pages/dashboard/buildinginfo"));
-const Setting = lazy(() => import("./pages/dashboard/setting"));
-const Profile = lazy(() => import("./pages/profile"));
+const SignUpPage = lazy(() => import('./pages/signup/SignUp'))
+const List = lazy(() => import('./pages/dashboard/lists'))
+const General = lazy(() => import('./pages/dashboard/general'))
+const Map = lazy(() => import('./pages/dashboard/map'))
+const BuildingInfo = lazy(() => import('./pages/dashboard/buildinginfo'))
+const Setting = lazy(() => import('./pages/dashboard/setting'))
+const Profile = lazy(() => import('./pages/profile'))
 
-const Dashboard = lazy(() => import("./pages/dashboard"));
-const Renovation = lazy(() => import("./pages/dashboard/renovation"));
+const Dashboard = lazy(() => import('./pages/dashboard'))
+const Renovation = lazy(() => import('./pages/dashboard/renovation'))
 const ForgetPassword = lazy(() =>
-  import("./pages/forgetpassword/ForgetPassword")
-);
+  import('./pages/forgetpassword/ForgetPassword')
+)
 
-const LoginPage = lazy(() => import("./pages/login/Login"));
+const LoginPage = lazy(() => import('./pages/login/Login'))
 // const OtherComponent = lazy(() => import('./OtherComponent'));
 const App = () => {
   return (
@@ -32,7 +32,7 @@ const App = () => {
       <Suspense fallback={<GlobalLoader />}>
         <Router>
           <Routes>
-            <Route path="/" element={<Navigate replace to="/dashboard" />} />
+            <Route path="/" element={<Navigate replace to="/login" />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/signup" element={<SignUpPage />} />
             <Route path="/forgetpassword" element={<ForgetPassword />} />
@@ -51,7 +51,7 @@ const App = () => {
         </Router>
       </Suspense>
     </Provider>
-  );
-};
+  )
+}
 
-export default App;
+export default App
