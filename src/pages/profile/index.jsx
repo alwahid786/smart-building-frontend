@@ -112,7 +112,7 @@ const ProfilePage = () => {
             md: '-50px',
           },
           right: {
-            xs: '40px',
+            xs: '60px',
             md: '170px',
           },
           transform: 'Translate(40px,0px)',

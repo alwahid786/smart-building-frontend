@@ -20,21 +20,22 @@ const Header = () => {
   return (
     <>
       {/* <HeaderBg> */}
-      {/* <Box
+      <Box
         onClick={() => toggleNav(true)}
         sx={{
           cursor: 'pointer',
           position: 'absolute',
+
           top: '5px',
           left: '14px',
           display: {
-            sm: 'block',
-            lg: 'none',
+            xs: 'block',
+            sm: 'none',
           },
         }}
       >
         <MenuIcon />
-      </Box> */}
+      </Box>
 
       <Drawer
         open={openNav}
@@ -49,7 +50,7 @@ const Header = () => {
           },
         }}
       >
-        <Aside toggleNav={toggleNav} />
+        <Aside toggleNav={toggleNav} openNav={openNav} />
       </Drawer>
       {/* </HeaderBg> */}
 
