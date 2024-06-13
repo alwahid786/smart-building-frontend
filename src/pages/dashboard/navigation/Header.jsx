@@ -50,7 +50,7 @@ const Header = () => {
           },
         }}
       >
-        <Aside toggleNav={toggleNav} openNav={openNav} />
+        <Aside toggleNav={toggleNav} sx={{ xs: 'block' }} />
       </Drawer>
       {/* </HeaderBg> */}
 
