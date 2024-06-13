@@ -108,7 +108,7 @@ const ForgetPassword = () => {
                     lineHeight: '60px',
                   }}
                 >
-                  Forget Password
+                  Sign In to <br /> Digital Building Passport
                 </Typography>
                 <Typography
                   variant="p"
@@ -126,7 +126,8 @@ const ForgetPassword = () => {
                     lineHeight: '30px',
                   }}
                 >
-                  Enter Your Email To Change Your Password
+                  it is a long established fact that a reader will be distracted
+                  by the readable content of a page
                 </Typography>
               </Box>
             </Box>
@@ -138,44 +139,45 @@ const ForgetPassword = () => {
             sx={{
               p: '0 !important',
             }}
+            display="flex"
+            alignItems="center"
+            justifyContent="center"
           >
             <Box
               sx={{
+                height: {
+                  sm: 'auto',
+                  md: '70vh',
+                },
+                borderRadius: '18px',
                 bgcolor: '#fff',
                 boxShadow: '0px 4px 94px 0px rgba(0, 0, 0, 0.19)',
-                borderRadius: {
-                  xs: '0px',
-                  sm: '0px',
-                },
-                display: { xs: 'flex', md: 'block' },
-                flexDirection: { xs: 'column', md: '0' },
-                justifyContent: { xs: 'center' },
-                height: { xs: '100vh', md: 'auto' },
-                position: 'relative',
-                padding: '7vw 4vw',
 
-                m: '0',
-                // p: '3vw',
-                '@media (min-width:900px)': {
-                  m: '3vw 3vw 3vw -4.1vw',
-                  p: '5vw 6vw',
-                  borderRadius: '20px',
-                  // height: '88%',
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'center',
+                padding: {
+                  xs: '20px',
+                  sm: '40px',
                 },
+
+                // height: { xs: '100vh', md: 'auto' },
+                // position: 'relative',
+                // padding: '7vw 4vw',
               }}
             >
               <Typography
                 variant="body2"
                 onClick={() => navigate('/login')}
                 sx={{
-                  color: 'rgba(12, 35, 77, 1)',
-                  fontSize: '14px',
+                  color: '#5915E3',
+                  fontSize: '36px',
                   marginBottom: '1.2vw',
                   display: 'inline-block',
                   cursor: 'pointer',
                 }}
               >
-                ← Back
+                ←
               </Typography>
 
               <Typography
@@ -196,6 +198,19 @@ const ForgetPassword = () => {
               >
                 Forget Password
               </Typography>
+
+              <Box>
+                <Typography
+                  variant="p"
+                  sx={{
+                    fontSize: '16px',
+                    fontWeight: '400',
+                    lineHeight: '28px',
+                  }}
+                >
+                  Enter your email to receive an OTP for password reset.
+                </Typography>
+              </Box>
 
               <Box
                 style={{
