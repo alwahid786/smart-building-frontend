@@ -1,24 +1,19 @@
-import React, { useEffect } from "react";
-import {
-  Card,
-  CardContent,
-  Grid,
-  Typography,
-  Button,
-  Box,
-} from "@mui/material";
-import { BuildingCustomCardSkeleton } from "../../../../../../components/Skeleton";
-import { useDispatch, useSelector } from "react-redux";
-import { setLoading } from "../../../../../../features/loading/loadingSlice";
+import React, { useEffect, useState } from 'react'
+import { Card, CardContent, Grid, Typography, Button, Box } from '@mui/material'
+import { BuildingCustomCardSkeleton } from '../../../../../../components/Skeleton'
+import { useDispatch, useSelector } from 'react-redux'
 
 const FinancialProjection = () => {
-  const dispatch = useDispatch();
-  const { isLoading } = useSelector((state) => state.loading);
+  const dispatch = useDispatch()
+
+  const [isLoading, setIsLoading] = useState(true)
+
   useEffect(() => {
     setTimeout(() => {
-      dispatch(setLoading(false));
-    }, 3000);
-  }, []);
+      setIsLoading(false)
+    }, 3000)
+  }, [])
+
   return (
     <>
       {isLoading ? (
@@ -30,7 +25,7 @@ const FinancialProjection = () => {
               sx={{
                 fontSize: { xs: 12, md: 16 },
                 fontWeight: 600,
-                color: "rgba(17, 17, 17, 1)",
+                color: 'rgba(17, 17, 17, 1)',
               }}
               gutterBottom
             >
@@ -41,26 +36,26 @@ const FinancialProjection = () => {
                 <Typography
                   variant="h5"
                   color="text.primary"
-                  sx={{ fontWeight: "bold" }}
+                  sx={{ fontWeight: 'bold' }}
                 >
                   <Box
                     component="span"
                     sx={{ fontSize: { xs: 12, md: 14 }, fontWeight: 500 }}
                   >
                     approx.
-                  </Box>{" "}
+                  </Box>{' '}
                   <Box
                     component="span"
                     sx={{ fontSize: { xs: 16, md: 24 }, fontWeight: 700 }}
                   >
                     13 mln
-                  </Box>{" "}
+                  </Box>{' '}
                   <Box
                     component="span"
                     sx={{
                       fontSize: { xs: 12, md: 14 },
                       fontWeight: 500,
-                      color: "rgba(17, 17, 17, 0.6)",
+                      color: 'rgba(17, 17, 17, 0.6)',
                     }}
                   >
                     / years 2020
@@ -71,7 +66,7 @@ const FinancialProjection = () => {
                   variant="body2"
                   sx={{
                     mb: 1.5,
-                    color: "rgba(17, 17, 17, 0.6)",
+                    color: 'rgba(17, 17, 17, 0.6)',
                     fontSize: { xs: 12, md: 14 },
                     fontWeight: 500,
                   }}
@@ -83,7 +78,7 @@ const FinancialProjection = () => {
                 <Typography variant="body2" color="text.secondary">
                   Roof
                 </Typography>
-                <Typography variant="body2" sx={{ fontWeight: "bold" }}>
+                <Typography variant="body2" sx={{ fontWeight: 'bold' }}>
                   -5 mln
                 </Typography>
               </Grid>
@@ -91,7 +86,7 @@ const FinancialProjection = () => {
                 <Typography variant="body2" color="text.secondary">
                   Elevator
                 </Typography>
-                <Typography variant="body2" sx={{ fontWeight: "bold" }}>
+                <Typography variant="body2" sx={{ fontWeight: 'bold' }}>
                   -5 mln
                 </Typography>
               </Grid>
@@ -99,7 +94,7 @@ const FinancialProjection = () => {
                 <Typography variant="body2" color="text.secondary">
                   Energy
                 </Typography>
-                <Typography variant="body2" sx={{ fontWeight: "bold" }}>
+                <Typography variant="body2" sx={{ fontWeight: 'bold' }}>
                   -3 mln
                 </Typography>
               </Grid>
@@ -117,7 +112,7 @@ const FinancialProjection = () => {
         </Card>
       )}
     </>
-  );
-};
+  )
+}
 
-export default FinancialProjection;
+export default FinancialProjection

@@ -133,59 +133,77 @@ const ForgetPassword = () => {
           </Grid>
           <Grid
             item
-            md={6}
             xs={12}
-            // padding={{ xs: '20px', md: '50px' }}
-            display="flex"
-            alignItems="center"
-            justifyContent="center"
+            md={6}
+            sx={{
+              p: '0 !important',
+            }}
           >
             <Box
               sx={{
-                background: '#FFFFFF',
-                borderRadius: '8px',
-                padding: {
-                  xs: '24px',
-                  md: '48px',
+                bgcolor: '#fff',
+                boxShadow: '0px 4px 94px 0px rgba(0, 0, 0, 0.19)',
+                borderRadius: {
+                  xs: '0px',
+                  sm: '0px',
+                },
+                display: { xs: 'flex', md: 'block' },
+                flexDirection: { xs: 'column', md: '0' },
+                justifyContent: { xs: 'center' },
+                height: { xs: '100vh', md: 'auto' },
+                position: 'relative',
+                padding: '7vw 4vw',
+
+                m: '0',
+                // p: '3vw',
+                '@media (min-width:900px)': {
+                  m: '3vw 3vw 3vw -4.1vw',
+                  p: '5vw 6vw',
+                  borderRadius: '20px',
+                  // height: '88%',
                 },
               }}
             >
-              <Box>
-                <Typography
-                  variant="body2"
-                  onClick={() => navigate('/login')}
-                  sx={{
-                    color: 'rgba(12, 35, 77, 1)',
-                    fontSize: '14px',
-                    marginBottom: '1.2vw',
-                    display: 'inline-block',
-                    cursor: 'pointer',
-                  }}
-                >
-                  ← Back
-                </Typography>
-              </Box>
-              <Box>
-                <Typography
-                  variant="h2"
-                  sx={{
-                    fontSize: {
-                      xs: '18px',
-                      sm: '20px',
-                      md: '24px',
-                    },
-                    fontWeight: '600',
-                    color: 'rgba(123, 66, 246, 1)',
-                    lineHeight: {
-                      xs: '26px',
-                      md: '36px',
-                    },
-                  }}
-                >
-                  Forget Password
-                </Typography>
-              </Box>
-              <Box sx={{ marginTop: '32px' }}>
+              <Typography
+                variant="body2"
+                onClick={() => navigate('/login')}
+                sx={{
+                  color: 'rgba(12, 35, 77, 1)',
+                  fontSize: '14px',
+                  marginBottom: '1.2vw',
+                  display: 'inline-block',
+                  cursor: 'pointer',
+                }}
+              >
+                ← Back
+              </Typography>
+
+              <Typography
+                variant="h2"
+                sx={{
+                  fontSize: {
+                    xs: '18px',
+                    sm: '20px',
+                    md: '24px',
+                  },
+                  fontWeight: '600',
+                  color: 'rgba(123, 66, 246, 1)',
+                  lineHeight: {
+                    xs: '26px',
+                    md: '36px',
+                  },
+                }}
+              >
+                Forget Password
+              </Typography>
+
+              <Box
+                style={{
+                  marginTop: '2vw',
+                  position: 'relative',
+                  zIndex: '1',
+                }}
+              >
                 <form onSubmit={handleSubmit}>
                   <Box
                     style={{
@@ -207,7 +225,28 @@ const ForgetPassword = () => {
                     />
                   </Box>
 
-                  <Box sx={{ marginY: '20px' }}>
+                  <Box
+                    sx={{
+                      display: 'flex',
+                      flexDirection: {
+                        xs: 'column',
+                        md: 'row',
+                      },
+                      gap: '10px',
+                      marginTop: '0.8vw',
+                    }}
+                  ></Box>
+                  <Box
+                    sx={{
+                      display: 'flex',
+                      flexDirection: {
+                        xs: 'column',
+                        md: 'row',
+                      },
+                      gap: '10px',
+                      // marginTop: '0.8vw',
+                    }}
+                  >
                     <Button
                       type="submit"
                       sx={{
@@ -221,6 +260,13 @@ const ForgetPassword = () => {
                       Submit
                     </Button>
                   </Box>
+                  <Box
+                    sx={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '12px',
+                    }}
+                  ></Box>
                 </form>
               </Box>
             </Box>
