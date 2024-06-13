@@ -31,7 +31,7 @@ const Login = () => {
 
   return (
     <>
-      {/ {isLoading && <GlobalLoader />} /}
+      {/* {isLoading && <GlobalLoader /> */}
       <Box
         maxWidth="false"
         sx={{
