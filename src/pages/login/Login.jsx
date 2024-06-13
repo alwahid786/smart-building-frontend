@@ -4,30 +4,46 @@ import loginbg from '../../asset/Images/login/LogIn2.png'
 import Box from '@mui/material/Box'
 import Grid from '@mui/material/Grid'
 import LightBox from '../../asset/svgs/LightBox'
-
 import Typography from '@mui/material/Typography'
 import Checkbox from '@mui/material/Checkbox'
 import { Button, FormControlLabel, TextField } from '@mui/material'
 import { useFormik } from 'formik'
 import { loginSchema } from '../../schema'
+import { useLoginMutation } from '../../redux/api/authApi'
+import { toast } from 'react-toastify'
 
-const initialValues = {
-  name: '',
-  password: '',
-}
+
+const initialValues = {email: '',password: ''}
 
 const Login = () => {
+
+  const [login] = useLoginMutation();
+  const navigate = useNavigate()
+
   const { values, errors, touched, handleBlur, handleChange, handleSubmit } =
     useFormik({
       initialValues,
       validationSchema: loginSchema,
-      onSubmit: (values, action) => {
-        console.log(values)
+      onSubmit: async (values, action) => {
+  
+      const res= await login(values)
+      
+      // if error show error
+      if(res.error){return toast.error(res.error.data.message)}
+      
+      // if success show success
+      if(res.data){
+       toast.success(res.data.message)
+       
+       setTimeout(() => {
+        navigate('/dashboard')
+       }, 1000);  
+
+      }
         action.resetForm()
       },
     })
 
-  const navigate = useNavigate()
 
   return (
     <>
@@ -220,7 +236,7 @@ const Login = () => {
                   >
                     <label>Email</label>
                     <TextField
-                      type="text"
+                      type="email"
                       placeholder="Your email"
                       name="email"
                       value={values.email}
