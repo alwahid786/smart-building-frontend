@@ -1,14 +1,13 @@
-import React from 'react'
-import { Provider } from 'react-redux'
 import {
   BrowserRouter as Router,
   Routes,
   Route,
   Navigate,
-} from 'react-router-dom'
-import { store } from './store'
-import { lazy, Suspense } from 'react'
-import GlobalLoader from './components/Loader'
+} from 'react-router-dom';
+import { lazy, Suspense } from 'react';
+import GlobalLoader from './components/Loader';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const SignUpPage = lazy(() => import('./pages/signup/SignUp'))
 const List = lazy(() => import('./pages/dashboard/lists'))
@@ -25,10 +24,9 @@ const ForgetPassword = lazy(() =>
 )
 
 const LoginPage = lazy(() => import('./pages/login/Login'))
-// const OtherComponent = lazy(() => import('./OtherComponent'));
+
 const App = () => {
   return (
-    <Provider store={store}>
       <Suspense fallback={<GlobalLoader />}>
         <Router>
           <Routes>
@@ -49,8 +47,8 @@ const App = () => {
             <Route path="*" element={<Navigate to="/login" />} />
           </Routes>
         </Router>
+        <ToastContainer/>
       </Suspense>
-    </Provider>
   )
 }
 

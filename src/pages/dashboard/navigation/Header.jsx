@@ -41,8 +41,10 @@ const Header = () => {
         open={openNav}
         onClose={() => toggleNav(false)}
         sx={{ width: '174px' }}
-      >
+      
         <Aside toggleNav={toggleNav} />
+
+       
       </Drawer>
       {/* </HeaderBg> */}
 
