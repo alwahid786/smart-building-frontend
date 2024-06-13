@@ -9,7 +9,7 @@ import Typography from '@mui/material/Typography'
 import Checkbox from '@mui/material/Checkbox'
 import CheckBox from '../../asset/svgs/CheckBox'
 import CheckedBox from '../../asset/svgs/CheckedBox'
-import { Button, TextField } from '@mui/material'
+import { Button, FormControlLabel, TextField } from '@mui/material'
 import { useFormik } from 'formik'
 import { loginSchema } from '../../schema'
 
@@ -51,21 +51,35 @@ const Login = () => {
           },
         }}
       >
-        <Grid container>
+        <Grid container padding={{ xs: '20px', md: '20px', xl: '50px' }}>
           <Grid
             item
             md={6}
-            xs={12}
-            padding="50px"
-            display={{ xs: 'none', md: 'block' }}
+            // xs={12}
+
+            display={{ xs: 'none', md: 'flex' }}
+            alignItems="start"
+            justifyContent="center"
+            height="100vh"
           >
             <Box
               sx={{
                 color: '#fff',
-                height: '100vh',
+                // height: '100vh',
+                display: 'flex',
+                flexDirection: 'column',
+                height: '100%',
               }}
             >
-              <Box sx={{ display: 'flex', alignItems: 'center', gap: '34px' }}>
+              <Box
+                sx={{
+                  display: 'flex',
+                  gap: '34px',
+                  flexGrow: '1',
+                  alignItems: 'center',
+                  // justifyContent: 'start',
+                }}
+              >
                 <LightBox />
                 <Typography
                   variant="h1"
@@ -85,7 +99,9 @@ const Login = () => {
                   Building
                 </Typography>
               </Box>
-              <Box sx={{ marginTop: '150px' }}>
+              <Box
+                sx={{ display: 'flex', flexDirection: 'column', flexGrow: '1' }}
+              >
                 <Typography
                   variant="h2"
                   sx={{
@@ -123,7 +139,15 @@ const Login = () => {
               </Box>
             </Box>
           </Grid>
-          <Grid item md={6} xs={12} padding={{ xs: '20px', md: '50px' }}>
+          <Grid
+            item
+            md={6}
+            xs={12}
+            // padding={{ xs: '20px', md: '50px' }}
+            display="flex"
+            alignItems="center"
+            justifyContent="center"
+          >
             <Box
               sx={{
                 background: '#FFFFFF',
@@ -196,16 +220,16 @@ const Login = () => {
                       gap: '10px',
                     }}
                   >
-                    <label>Name</label>
+                    <label>Email</label>
                     <TextField
                       type="text"
-                      placeholder="Your name"
-                      name="name"
-                      value={values.name}
+                      placeholder="Your email"
+                      name="email"
+                      value={values.email}
                       onChange={handleChange}
                       onBlur={handleBlur}
-                      error={touched.name && Boolean(errors.name)}
-                      helperText={touched.name && errors.name}
+                      error={touched.email && Boolean(errors.email)}
+                      helperText={touched.email && errors.email}
                     />
                   </Box>
                   <Box
@@ -228,7 +252,7 @@ const Login = () => {
                       helperText={touched.password && errors.password}
                     />
                   </Box>
-                  <Box
+                  {/* <Box
                     style={{
                       display: 'flex',
                       gap: '8px',
@@ -252,6 +276,32 @@ const Login = () => {
                     >
                       Remember me
                     </p>
+                  </Box> */}
+                  <Box
+                    style={{
+                      display: 'flex',
+                      gap: '8px',
+                      alignItems: 'center',
+                      marginTop: '1rem',
+                      marginBottom: '1rem',
+                    }}
+                  >
+                    <FormControlLabel
+                      value="remember"
+                      control={
+                        <Checkbox
+                          sx={{
+                            color: 'rgba(17, 17, 17, 0.4)',
+                          }}
+                        />
+                      }
+                      label="Remember Me"
+                      // labelPlacement="top"
+                      sx={{
+                        color: 'rgba(17, 17, 17, 0.4)',
+                        padding: '0 !important',
+                      }}
+                    />
                   </Box>
                   <Box>
                     <Button

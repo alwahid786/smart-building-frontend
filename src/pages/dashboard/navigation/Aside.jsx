@@ -13,7 +13,7 @@ import MapIcon from '../../../asset/svgs/MapIcon'
 import LogoIcon from '../../../asset/svgs/LogoIcon'
 import Menu from '../../../asset/svgs/Menu'
 
-const Aside = ({ toggleNav }) => {
+const Aside = ({ toggleNav, openNav }) => {
   const [isSideBarOpen, setIsSideBarOpen] = useState(true)
   const [showMenuAndLogo, setShowMenuAndLogo] = useState(false)
   const [openPage, setOpenPage] = useState(null)
@@ -121,7 +121,11 @@ const Aside = ({ toggleNav }) => {
             'linear-gradient(178.55deg, rgba(123, 66, 246 ) 2.95%, rgba(85, 16, 207) 84.68%);',
           height: '100vh',
           borderRadius: '12px',
-          display: `${isSideBarOpen ? 'block' : 'none'}`,
+          display: {
+            // xs: isSideBarOpen && 'none',
+            xs: openNav && 'block', // none on extra small screens
+            sm: isSideBarOpen ? 'block' : 'none', // block on small screens if open, otherwise none
+          },
         }}
       >
         <Stack
@@ -265,14 +269,17 @@ const Aside = ({ toggleNav }) => {
       {!isSideBarOpen && showMenuAndLogo && (
         <Box
           sx={{
-            position: 'fixed',
-            top: '28px',
-            left: '16px',
-            display: 'flex',
+            position: 'absolute',
+            top: '38px',
+            left: '25px',
+            display: {
+              xs: 'none',
+              sm: 'flex',
+            },
             alignItems: 'center',
             justifyContent: 'space-between',
             width: {
-              md: '172px',
+              sm: '174px',
               xs: '0',
             },
             // backgroundColor: 'rgba(0, 0, 0, 0.5)',
@@ -281,14 +288,7 @@ const Aside = ({ toggleNav }) => {
           }}
         >
           <Box>
-            <ImageContainer
-              sx={{
-                display: {
-                  md: 'block',
-                  xs: 'none',
-                },
-              }}
-            >
+            <ImageContainer>
               <LogoIcon />
             </ImageContainer>
           </Box>

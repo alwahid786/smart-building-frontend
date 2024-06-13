@@ -11,7 +11,10 @@ const Dashboard = () => {
       <Box
         sx={{
           position: 'relative',
-          padding: '10px 0px 10px 30px',
+          padding: {
+            sm: '10px',
+            xs: '10px',
+          },
           // width: '100%',
           // maxWidth: '100%',
           // overflowX: 'hidden',
@@ -30,7 +33,15 @@ const Dashboard = () => {
           },
         }}
       >
-        <Box sx={{ display: 'flex', gap: '1rem' }}>
+        <Box
+          sx={{
+            display: 'flex',
+            gap: {
+              xs: '0',
+              sm: '1rem',
+            },
+          }}
+        >
           <Box>
             <Aside />
           </Box>
