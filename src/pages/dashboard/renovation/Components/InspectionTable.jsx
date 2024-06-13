@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from 'react'
 import {
   Grid,
   Typography,
@@ -10,66 +10,65 @@ import {
   Card,
   useTheme,
   useMediaQuery,
-} from "@mui/material";
-import ReportIcon from "./../../../../asset/svgs/ReportIcon";
-import Rectangle from "../../../../asset/Images/renovation/Rectangle.png";
-import { InspectionTableSkeleton } from "../../../../components/Skeleton";
-import { useDispatch, useSelector } from "react-redux";
-import { setLoading } from "../../../../features/loading/loadingSlice";
+} from '@mui/material'
+import ReportIcon from './../../../../asset/svgs/ReportIcon'
+import Rectangle from '../../../../asset/Images/renovation/Rectangle.png'
+import { InspectionTableSkeleton } from '../../../../components/Skeleton'
+import { useDispatch, useSelector } from 'react-redux'
 const rows = [
   {
     image: Rectangle,
-    name: "Torshov 0476",
-    description: "Estate building sp z.o.o.",
-    date: "29-06-2020",
-    type: "Gas Inspection",
+    name: 'Torshov 0476',
+    description: 'Estate building sp z.o.o.',
+    date: '29-06-2020',
+    type: 'Gas Inspection',
     icon: ReportIcon,
   },
   {
     image: Rectangle,
-    name: "Torshov 0476",
-    description: "Estate building sp z.o.o.",
-    date: "29-06-2020",
-    type: "Gas Inspection",
+    name: 'Torshov 0476',
+    description: 'Estate building sp z.o.o.',
+    date: '29-06-2020',
+    type: 'Gas Inspection',
     icon: ReportIcon,
   },
   {
     image: Rectangle,
-    name: "Torshov 0476",
-    description: "Estate building sp z.o.o.",
-    date: "29-06-2020",
-    type: "Gas Inspection",
+    name: 'Torshov 0476',
+    description: 'Estate building sp z.o.o.',
+    date: '29-06-2020',
+    type: 'Gas Inspection',
     icon: ReportIcon,
   },
   {
     image: Rectangle,
-    name: "Torshov 0476",
-    description: "Estate building sp z.o.o.",
-    date: "29-06-2020",
-    type: "Gas Inspection",
+    name: 'Torshov 0476',
+    description: 'Estate building sp z.o.o.',
+    date: '29-06-2020',
+    type: 'Gas Inspection',
     icon: ReportIcon,
   },
   {
     image: Rectangle,
-    name: "Torshov 0476",
-    description: "Estate building sp z.o.o.",
-    date: "29-06-2020",
-    type: "Gas Inspection",
+    name: 'Torshov 0476',
+    description: 'Estate building sp z.o.o.',
+    date: '29-06-2020',
+    type: 'Gas Inspection',
     icon: ReportIcon,
   },
-];
+]
 
 const InspectionTable = () => {
-  const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
-  const dispatch = useDispatch();
-  const { isLoading } = useSelector((state) => state.loading);
+  const theme = useTheme()
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'))
+  const dispatch = useDispatch()
+  const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
     setTimeout(() => {
-      dispatch(setLoading(false));
-    }, 3000);
-  }, []);
+      setIsLoading(false)
+    }, 3000)
+  }, [])
   return (
     <>
       {isLoading ? (
@@ -86,7 +85,7 @@ const InspectionTable = () => {
               sx={{
                 fontWeight: 600,
                 fontSize: 14,
-                color: "rgba(17, 17, 17, 1)",
+                color: 'rgba(17, 17, 17, 1)',
                 fontFamily: "'Poppins', sans-serif",
               }}
             >
@@ -96,10 +95,10 @@ const InspectionTable = () => {
               sx={{
                 fontWeight: 400,
                 fontSize: 12,
-                ml: "12px",
-                color: "#111111",
+                ml: '12px',
+                color: '#111111',
                 fontFamily: "'Poppins', sans-serif",
-                cursor: "pointer",
+                cursor: 'pointer',
               }}
             >
               15 results
@@ -112,13 +111,13 @@ const InspectionTable = () => {
               item
               xs={12}
               sx={{
-                display: "flex",
-                flexDirection: isMobile ? "column" : "row",
-                alignItems: "center",
-                justifyContent: "space-between",
+                display: 'flex',
+                flexDirection: isMobile ? 'column' : 'row',
+                alignItems: 'center',
+                justifyContent: 'space-between',
                 // gap:2,
                 padding: theme.spacing(0.5),
-                backgroundColor: "none",
+                backgroundColor: 'none',
                 gap: isMobile ? 2 : 1,
               }}
               key={index}
@@ -126,11 +125,11 @@ const InspectionTable = () => {
               {/* <Card > */}
               <Box
                 sx={{
-                  display: "flex",
+                  display: 'flex',
                   flex: 1,
-                  background: "#F5F7FB",
-                  alignItems: "center",
-                  padding: "10px 0px 10px 10px",
+                  background: '#F5F7FB',
+                  alignItems: 'center',
+                  padding: '10px 0px 10px 10px',
                 }}
               >
                 <CardMedia
@@ -139,44 +138,44 @@ const InspectionTable = () => {
                     width: 48,
                     height: 48,
                     marginRight: 2,
-                    borderRadius: "50%",
+                    borderRadius: '50%',
                   }}
                   image={row.image}
                   alt={row.name}
                 />
                 <Box
                   sx={{
-                    display: "flex",
-                    flexDirection: "column",
-                    alignItems: "flex-start",
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'flex-start',
                   }}
                 >
                   <Typography variant="subtitle1" sx={{ fontWeight: 600 }}>
                     {row.name}
                   </Typography>
-                  <Typography variant="body2" sx={{ color: "text.secondary" }}>
+                  <Typography variant="body2" sx={{ color: 'text.secondary' }}>
                     {row.description}
                   </Typography>
                 </Box>
               </Box>
               <Box
-                sx={{ display: "flex", alignItems: "center", flex: 1, gap: 1 }}
+                sx={{ display: 'flex', alignItems: 'center', flex: 1, gap: 1 }}
               >
                 <Box
                   sx={{
-                    display: "flex",
-                    flexDirection: "column",
-                    background: "#F5F7FB",
-                    alignItems: "flex-start",
+                    display: 'flex',
+                    flexDirection: 'column',
+                    background: '#F5F7FB',
+                    alignItems: 'flex-start',
                     padding: {
-                      xs: "14px 23px 10px 10px",
-                      md: "14px 56px 13px 12px",
+                      xs: '14px 23px 10px 10px',
+                      md: '14px 56px 13px 12px',
                     },
                   }}
                 >
                   <Typography
                     variant="caption"
-                    sx={{ color: "text.secondary" }}
+                    sx={{ color: 'text.secondary' }}
                   >
                     Date
                   </Typography>
@@ -185,7 +184,7 @@ const InspectionTable = () => {
                     sx={{
                       fontWeight: 500,
                       fontSize: { xs: 10, md: 14 },
-                      color: "#111111",
+                      color: '#111111',
                     }}
                   >
                     {row.date}
@@ -193,19 +192,19 @@ const InspectionTable = () => {
                 </Box>
                 <Box
                   sx={{
-                    display: "flex",
-                    flexDirection: "column",
-                    background: "#F5F7FB",
+                    display: 'flex',
+                    flexDirection: 'column',
+                    background: '#F5F7FB',
                     padding: {
-                      xs: "14px 23px 10px 10px",
-                      md: "14px 56px 13px 12px",
+                      xs: '14px 23px 10px 10px',
+                      md: '14px 56px 13px 12px',
                     },
-                    alignItems: "flex-start",
+                    alignItems: 'flex-start',
                   }}
                 >
                   <Typography
                     variant="caption"
-                    sx={{ color: "text.secondary" }}
+                    sx={{ color: 'text.secondary' }}
                   >
                     Type
                   </Typography>
@@ -214,7 +213,7 @@ const InspectionTable = () => {
                     sx={{
                       fontWeight: 500,
                       fontSize: { xs: 10, md: 14 },
-                      color: "#111111",
+                      color: '#111111',
                     }}
                   >
                     {row.type}
@@ -222,12 +221,12 @@ const InspectionTable = () => {
                 </Box>
                 <Box
                   sx={{
-                    display: "flex",
-                    flexDirection: "row",
-                    alignItems: "center",
+                    display: 'flex',
+                    flexDirection: 'row',
+                    alignItems: 'center',
                   }}
                 >
-                  <Typography variant="body2" sx={{ fontWeight: "bold" }}>
+                  <Typography variant="body2" sx={{ fontWeight: 'bold' }}>
                     {row.icon && <row.icon />}
                   </Typography>
                 </Box>
@@ -238,14 +237,14 @@ const InspectionTable = () => {
         </Card>
       )}
     </>
-  );
-};
+  )
+}
 const CustomText = styled(Typography)(({ theme }) => ({
   width: 150,
   height: 24,
-  backgroundColor: "#F5F7FB",
-  display: "flex",
-  alignItems: "center",
-  marginBottom: "4px",
-}));
-export default InspectionTable;
+  backgroundColor: '#F5F7FB',
+  display: 'flex',
+  alignItems: 'center',
+  marginBottom: '4px',
+}))
+export default InspectionTable

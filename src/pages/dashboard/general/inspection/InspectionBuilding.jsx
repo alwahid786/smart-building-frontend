@@ -11,15 +11,14 @@ import {
 } from '@mui/material'
 import { RecentlyInspectedBuildingsSkeleton } from '../../../../components/Skeleton'
 import { useDispatch, useSelector } from 'react-redux'
-import { setLoading } from '../../../../features/loading/loadingSlice'
 
 const InspectionBuilding = () => {
   const dispatch = useDispatch()
-  const { isLoading } = useSelector((state) => state.loading)
+  const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
     setTimeout(() => {
-      dispatch(setLoading(false))
+      setIsLoading(false)
     }, 3000)
   }, [])
   const data = [

@@ -136,7 +136,8 @@ const Aside = ({ toggleNav }) => {
           height: '100vh',
           borderRadius: '12px',
           display: {
-            sm: isSideBarOpen && !isSmallScreen ? 'block' : 'none',
+            xs: 'none',
+            sm: isSideBarOpen ? 'block' : 'none',
           },
         }}
       >

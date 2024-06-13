@@ -1,28 +1,28 @@
-import React, { useState, useEffect } from "react";
-import Divider from "@mui/material/Divider";
-import Card from "@mui/material/Card";
-import Stack from "@mui/material/Stack";
-import { Box, Typography } from "@mui/material";
-import MyLineChart from "./chart/MyLineChart";
-import { EnergyUseCardSkeleton } from "../../../../../components/Skeleton";
-import { useDispatch, useSelector } from "react-redux";
-import { setLoading } from "../../../../../features/loading/loadingSlice";
+import React, { useState, useEffect } from 'react'
+import Divider from '@mui/material/Divider'
+import Card from '@mui/material/Card'
+import Stack from '@mui/material/Stack'
+import { Box, Typography } from '@mui/material'
+import MyLineChart from './chart/MyLineChart'
+import { EnergyUseCardSkeleton } from '../../../../../components/Skeleton'
+import { useDispatch, useSelector } from 'react-redux'
 
 const EnergyUse = () => {
-  const dispatch = useDispatch();
-  const { isLoading } = useSelector((state) => state.loading);
+  const dispatch = useDispatch()
+
+  const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
     setTimeout(() => {
-      dispatch(setLoading(false));
-    }, 3000);
-  }, []);
+      setIsLoading(false)
+    }, 3000)
+  }, [])
   return (
     <>
       {isLoading ? (
         <EnergyUseCardSkeleton />
       ) : (
-        <Card variant="outlined" sx={{ maxWidth: "100%", maxHeight: 290 }}>
+        <Card variant="outlined" sx={{ maxWidth: '100%', maxHeight: 290 }}>
           <Box sx={{ p: { xs: 1, md: 2 }, height: 290 }}>
             <Stack
               direction="row"
@@ -34,7 +34,7 @@ const EnergyUse = () => {
                 sx={{
                   fontWeight: 600,
                   fontSize: { xs: 14, md: 16 },
-                  color: "rgba(17, 17, 17, 1)",
+                  color: 'rgba(17, 17, 17, 1)',
                   fontFamily: "'Poppins', sans-serif",
                 }}
                 component="div"
@@ -43,7 +43,7 @@ const EnergyUse = () => {
               </Typography>
             </Stack>
             <Divider />
-            <Box sx={{ alignItems: "left" }}>
+            <Box sx={{ alignItems: 'left' }}>
               <MyLineChart />
             </Box>
             <Box
@@ -53,11 +53,11 @@ const EnergyUse = () => {
               sx={{
                 width: { xs: 250, md: 320 },
                 height: 32,
-                backgroundColor: "#F5F7FB",
-                justifyContent: "space-between",
-                overflow: "auto",
-                WebkitOverflowScrolling: "touch",
-                "&::-webkit-scrollbar": {
+                backgroundColor: '#F5F7FB',
+                justifyContent: 'space-between',
+                overflow: 'auto',
+                WebkitOverflowScrolling: 'touch',
+                '&::-webkit-scrollbar': {
                   width: 0,
                 },
               }}
@@ -66,11 +66,11 @@ const EnergyUse = () => {
               <Typography
                 component="div"
                 style={{
-                  display: "flex",
-                  alignItems: "center",
-                  marginBottom: "4px",
+                  display: 'flex',
+                  alignItems: 'center',
+                  marginBottom: '4px',
                   fontSize: 12,
-                  color: "#111111",
+                  color: '#111111',
                   fontWeight: 400,
                 }}
               >
@@ -78,9 +78,9 @@ const EnergyUse = () => {
                   style={{
                     width: 15,
                     height: 5,
-                    backgroundColor: "transparent",
+                    backgroundColor: 'transparent',
                     marginRight: { xs: 2, md: 5 },
-                    borderBottom: "3px dashed #884299",
+                    borderBottom: '3px dashed #884299',
                   }}
                 ></Box>
                 Wind
@@ -88,11 +88,11 @@ const EnergyUse = () => {
               <Typography
                 component="div"
                 style={{
-                  display: "flex",
-                  alignItems: "center",
-                  marginBottom: "4px",
+                  display: 'flex',
+                  alignItems: 'center',
+                  marginBottom: '4px',
                   fontSize: 12,
-                  color: "#111111",
+                  color: '#111111',
                   fontWeight: 400,
                 }}
               >
@@ -100,9 +100,9 @@ const EnergyUse = () => {
                   style={{
                     width: 20,
                     height: 2,
-                    backgroundColor: "skyblue",
+                    backgroundColor: 'skyblue',
                     marginRight: { xs: 0, md: 5 },
-                    borderBottom: "3px solid #00C1D7",
+                    borderBottom: '3px solid #00C1D7',
                   }}
                 ></Box>
                 Solar
@@ -110,11 +110,11 @@ const EnergyUse = () => {
               <Typography
                 component="div"
                 style={{
-                  display: "flex",
-                  alignItems: "center",
-                  marginBottom: "4px",
+                  display: 'flex',
+                  alignItems: 'center',
+                  marginBottom: '4px',
                   fontSize: 12,
-                  color: "#111111",
+                  color: '#111111',
                   fontWeight: 400,
                 }}
               >
@@ -122,9 +122,9 @@ const EnergyUse = () => {
                   style={{
                     width: 20,
                     height: 5,
-                    backgroundColor: "transparent",
+                    backgroundColor: 'transparent',
                     marginRight: { xs: 0, md: 5 },
-                    borderBottom: "3px dashed #0C234D",
+                    borderBottom: '3px dashed #0C234D',
                   }}
                 ></Box>
                 Hydroelectric
@@ -132,11 +132,11 @@ const EnergyUse = () => {
               <Typography
                 component="div"
                 style={{
-                  display: "flex",
-                  alignItems: "center",
-                  marginBottom: "4px",
+                  display: 'flex',
+                  alignItems: 'center',
+                  marginBottom: '4px',
                   fontSize: 12,
-                  color: "#111111",
+                  color: '#111111',
                   fontWeight: 400,
                 }}
               >
@@ -144,9 +144,9 @@ const EnergyUse = () => {
                   style={{
                     width: 20,
                     height: 2,
-                    backgroundColor: "green",
+                    backgroundColor: 'green',
                     marginRight: { xs: 0, md: 5 },
-                    borderBottom: "3px solid #61CA94",
+                    borderBottom: '3px solid #61CA94',
                   }}
                 ></Box>
                 Biomass
@@ -156,7 +156,7 @@ const EnergyUse = () => {
         </Card>
       )}
     </>
-  );
-};
+  )
+}
 
-export default EnergyUse;
+export default EnergyUse

@@ -26,7 +26,7 @@ const Header = () => {
           cursor: 'pointer',
           position: 'absolute',
 
-          top: '5px',
+          top: '38px',
           left: '14px',
           display: {
             xs: 'block',
