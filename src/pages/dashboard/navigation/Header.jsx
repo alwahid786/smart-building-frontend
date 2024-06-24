@@ -6,6 +6,7 @@ import MenuIcon from '../../../asset/svgs/Menu'
 import MailIcon from '../../../asset/svgs/header/MailIcon'
 import NotificationIcon from '../../../asset/svgs/header/NotificationIcon'
 import { Link } from 'react-router-dom'
+import { Height } from '@mui/icons-material'
 
 const Header = () => {
   const [openNav, setOpenNav] = useState(false)
@@ -22,7 +23,6 @@ const Header = () => {
         sx={{
           cursor: 'pointer',
           position: 'absolute',
-
           top: '38px',
           left: '14px',
           display: {
@@ -37,7 +37,9 @@ const Header = () => {
       <Drawer
         open={openNav}
         onClose={() => toggleNav(false)}
-        sx={{ width: '174px' }}
+        sx={{
+          width: '174px',
+        }}
       >
         <Aside toggleNav={toggleNav} />
       </Drawer>

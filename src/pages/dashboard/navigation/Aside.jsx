@@ -136,7 +136,8 @@ const Aside = ({ toggleNav }) => {
           transition: 'transform 0.5s ease, opacity 0.5s ease',
           backgroundImage:
             'linear-gradient(178.55deg, rgba(123, 66, 246 ) 2.95%, rgba(85, 16, 207) 84.68%);',
-          height: '100vh',
+          height: { sm: '65%', xs: '100%' },
+          overflowY: 'auto',
           borderRadius: isSideBarOpen ? '12px' : '0px',
 
           // display: isSideBarOpen ? 'block' : 'none ',
@@ -277,6 +278,10 @@ const Asidemain = styled(Box)({
   alignItems: 'flex-start',
   justifyContent: 'space-between',
   padding: '16px 8px',
+  position: 'sticky',
+  top: '0',
+  left: '0',
+
   // gap: '3rem',
   // background: 'linear-gradient(180deg, #ffffff 0%, #004A8B 100%)',
   // border: '2px solid red',

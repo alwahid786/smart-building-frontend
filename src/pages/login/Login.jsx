@@ -12,7 +12,6 @@ import { loginSchema } from '../../schema'
 import { useLoginMutation } from '../../redux/api/authApi'
 import { toast } from 'react-toastify'
 
-
 const Login = () => {
   const [login] = useLoginMutation()
   const navigate = useNavigate()
@@ -54,14 +53,14 @@ const Login = () => {
           height: {
             xl: '100vh',
           },
-          overflowY: 'hidden',
+          backgroundImage: `url(${loginbg})`,
+          backgroundPosition: '100% 0%',
+          backgroundSize: 'cover',
+          backgroundRepeat: 'no-repeat',
+          // overflowY: 'hidden',
           padding: {
             xs: '0 !important',
             md: '0 0 !important',
-            backgroundImage: `url(${loginbg})`,
-            backgroundPosition: '100% 0%',
-            backgroundSize: 'cover',
-            backgroundRepeat: 'no-repeat',
           },
         }}
       >
@@ -74,7 +73,7 @@ const Login = () => {
             display={{ xs: 'none', md: 'flex' }}
             alignItems="start"
             justifyContent="center"
-            height="100vh"
+            // height="100vh"
           >
             <Box
               sx={{
@@ -159,7 +158,7 @@ const Login = () => {
             xs={12}
             // padding={{ xs: '20px', md: '50px' }}
             display="flex"
-            alignItems="center"
+            alignItems="start"
             justifyContent="center"
           >
             <Box
@@ -167,8 +166,10 @@ const Login = () => {
                 background: '#FFFFFF',
                 borderRadius: '8px',
                 padding: {
-                  xs: '24px',
-                  md: '48px',
+                  xs: '18px',
+
+                  md: '24px',
+                  xl: '48px',
                 },
               }}
             >
@@ -225,7 +226,7 @@ const Login = () => {
                   We make it easy for everyone to monitor your building status.
                 </Typography>
               </Box>
-              <Box sx={{ marginTop: '32px' }}>
+              <Box sx={{ marginTop: { xs: '15px', sm: '32px' } }}>
                 <form onSubmit={handleSubmit}>
                   <Box
                     style={{
