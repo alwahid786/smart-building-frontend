@@ -92,12 +92,9 @@ const ListCard = ({ status, imageUrl, subtitle, title, tags, actionText }) => {
             position: 'relative',
             borderRadius: '10px',
             mb: 2,
-            transition: 'border-bottom 0.1s',
             '&:hover': {
-              borderBottom: '2px solid rgba(123, 66, 246, 1)',
-
               '& .showButton': {
-                bottom: '5%',
+                bottom: '3%',
               },
               '& .showHeart': {
                 right: '2%',
@@ -115,6 +112,9 @@ const ListCard = ({ status, imageUrl, subtitle, title, tags, actionText }) => {
               width: '100%',
               objectFit: 'cover',
               transition: 'transform 0.3s',
+              borderBottomLeftRadius: '15px',
+              borderBottomRightRadius: '15px',
+              boxShadow: '0px 4px 5px rgba(0, 0, 0, 0.25)',
             }}
           />
           <Box
