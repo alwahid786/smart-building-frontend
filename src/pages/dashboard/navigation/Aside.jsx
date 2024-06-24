@@ -24,7 +24,9 @@ const Aside = ({ toggleNav }) => {
   const sideBarClose = () => {
     setIsSideBarOpen(false)
     setShowMenuAndLogo(true)
-    console.log('clicked')
+    // Close Drawer
+    toggleNav(false)
+    // console.log('clicked')
   }
   const handlePages = (page) => {
     setOpenPage(openPage === page ? null : page)
@@ -128,18 +130,16 @@ const Aside = ({ toggleNav }) => {
     <>
       <Asidemain
         sx={{
-          // transform: isSideBarOpen ? 'translateX(0)' : 'translateX(-100%)',
-          // opacity: isSideBarOpen ? 1 : 0,
-          // transition: 'transform 0.3s ease, opacity 0.3s ease',
+          transform: isSideBarOpen ? 'translateX(0)' : 'translateX(-100%)',
+          opacity: isSideBarOpen ? 1 : 0,
+          width: isSideBarOpen ? '174px' : '0px',
+          transition: 'transform 0.5s ease, opacity 0.5s ease',
           backgroundImage:
             'linear-gradient(178.55deg, rgba(123, 66, 246 ) 2.95%, rgba(85, 16, 207) 84.68%);',
           height: '100vh',
-          borderRadius: '12px',
+          borderRadius: isSideBarOpen ? '12px' : '0px',
 
-          display: isSideBarOpen ? 'block' : 'none ',
-
-    
-
+          // display: isSideBarOpen ? 'block' : 'none ',
         }}
       >
         <Stack
@@ -164,6 +164,7 @@ const Aside = ({ toggleNav }) => {
               <Menu />
             </Box>
           </Box>
+
           {/* {/ Links  /} */}
           <Box
             sx={{
@@ -228,8 +229,12 @@ const Aside = ({ toggleNav }) => {
       {!isSideBarOpen && showMenuAndLogo && (
         <Box
           sx={{
+            transform: isSideBarOpen ? 'translateX(-100%)' : 'translateX(0)',
+            opacity: isSideBarOpen ? 0 : 1,
+            transition: 'transform 0.5s ease, opacity 0.5s ease',
+
             position: 'absolute',
-            top: '38px',
+            top: '28px',
             left: '25px',
             display: {
               xs: 'none',
@@ -272,15 +277,15 @@ const Asidemain = styled(Box)({
   alignItems: 'flex-start',
   justifyContent: 'space-between',
   padding: '16px 8px',
-  gap: '3rem',
+  // gap: '3rem',
   // background: 'linear-gradient(180deg, #ffffff 0%, #004A8B 100%)',
   // border: '2px solid red',
-  '@media (min-width:991px)': {
-    padding: '28px 14px 40px',
-  },
-  '@media (min-height:800px)': {
-    height: '100%',
-  },
+  // '@media (min-width:991px)': {
+  //   padding: '28px 14px 40px',
+  // },
+  // '@media (min-height:800px)': {
+  //   height: '100%',
+  // },
 })
 
 const ImageContainer = styled(Box)({

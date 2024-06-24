@@ -17,6 +17,8 @@ import SearchIcon from '../../../../asset/svgs/SearchIcon'
 import { useTheme } from '@mui/material/styles'
 import { FilterSkeleton } from '../../../../components/Skeleton'
 import { useSelector } from 'react-redux'
+import Filter from '../../../../asset/svgs/Filter'
+import RedHeartIcon from '../../../../asset/svgs/RedHeartIcon'
 
 const FilterBar = () => {
   const [isActive, setIsActive] = useState(false)
@@ -240,9 +242,9 @@ const FilterBar = () => {
           sx={{
             display: 'flex',
             justifyContent: { xl: 'space-between' },
-            maxHeight: '72px',
-            margin: '0 auto',
             alignItems: 'center',
+            // maxHeight: '72px',
+            margin: '0 auto',
             gap: 2,
             p: 2,
             backgroundColor: 'rgba(255, 255, 255, 1)',
@@ -257,175 +259,8 @@ const FilterBar = () => {
               gap: { lg: 2, xl: 1 },
             }}
           >
-            <Typography
-              sx={{ flexGrow: 0, fontWeight: 400, color: 'rgba(0, 0, 0, 1)' }}
-            >
-              Filters
-            </Typography>
-
-            <IconButton
-              onClick={toggleHeart}
-              sx={{
-                backgroundColor: 'rgba(255, 255, 255, 0.5)',
-                border: '2px solid rgba(17, 17, 17, 0.2)',
-                borderRadius: 3,
-                minHeight: 48,
-                minWidth: 48,
-              }}
-              aria-label="favorite"
-            >
-              <HeartFilter isActive={isActive} />
-            </IconButton>
-
-            <FormControl
-              sx={{
-                minWidth: 146,
-                maxHeight: 48,
-                m: 1,
-                border: '2px solid rgba(17, 17, 17, 0.2)',
-                borderRadius: 2,
-                overflow: 'hidden',
-              }}
-            >
-              <Select
-                value={value}
-                onChange={handleChange}
-                displayEmpty
-                sx={{
-                  border: 'none',
-                  '& .MuiOutlinedInput-notchedOutline': { border: 'none' },
-                  '.css-11u53oe-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input':
-                    { padding: '10.5px 14px' },
-                  '&:focus': { backgroundColor: 'transparent' },
-                  borderRadius: 'inherit',
-                }}
-                renderValue={(value) => {
-                  if (value === '') {
-                    return <span style={{ color: 'gray' }}>Status</span>
-                  }
-                  return value === '1' ? 'Option 1' : 'Option 2'
-                }}
-              >
-                <MenuItem value="">Status</MenuItem>
-                <MenuItem value="1">Option 1</MenuItem>
-                <MenuItem value="2">Option 2</MenuItem>
-              </Select>
-            </FormControl>
-            <FormControl
-              sx={{
-                minWidth: 200,
-                maxHeight: 48,
-                m: 1,
-                border: '2px solid rgba(17, 17, 17, 0.2)',
-                borderRadius: 2,
-                overflow: 'hidden',
-              }}
-            >
-              <Select
-                value={value}
-                onChange={handleChange}
-                displayEmpty
-                sx={{
-                  border: 'none',
-                  '& .MuiOutlinedInput-notchedOutline': { border: 'none' },
-                  '.css-11u53oe-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input':
-                    { padding: '10.5px 14px' },
-                  '&:focus': { backgroundColor: 'transparent' },
-                  borderRadius: 'inherit',
-                }}
-                renderValue={(value) => {
-                  if (value === '') {
-                    return (
-                      <span style={{ color: 'gray' }}>Type of building</span>
-                    )
-                  }
-                  return value === '1' ? 'Option 1' : 'Option 2'
-                }}
-              >
-                <MenuItem value="">Type of building</MenuItem>
-                <MenuItem value="1">Option 1</MenuItem>
-                <MenuItem value="2">Option 2</MenuItem>
-              </Select>
-            </FormControl>
-
-            <FormControl
-              sx={{
-                minWidth: 146,
-                maxHeight: 48,
-                m: 1,
-                border: '2px solid rgba(17, 17, 17, 0.2)',
-                borderRadius: 2,
-                overflow: 'hidden',
-              }}
-            >
-              <Select
-                labelId="demo-simple-select-placeholder-label"
-                id="demo-simple-select-placeholder-label"
-                value={value}
-                onChange={handleChange}
-                displayEmpty
-                sx={{
-                  border: 'none',
-                  '& .MuiOutlinedInput-notchedOutline': { border: 'none' },
-                  '.css-11u53oe-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input':
-                    { padding: '10.5px 14px' },
-                  '&:focus': { backgroundColor: 'transparent' },
-                  borderRadius: 'inherit',
-                }}
-                renderValue={(value) => {
-                  if (value === '') {
-                    return <span style={{ color: 'gray' }}>City</span>
-                  }
-                  return value === '1' ? 'Option 1' : 'Option 2'
-                }}
-              >
-                <MenuItem value="">City</MenuItem>
-                <MenuItem value="1">Option 1</MenuItem>
-                <MenuItem value="2">Option 2</MenuItem>
-              </Select>
-            </FormControl>
-
-            <FormControl
-              sx={{
-                minWidth: 200,
-                maxHeight: 48,
-                m: 1,
-                border: '2px solid rgba(17, 17, 17, 0.2)',
-                borderRadius: 2,
-                overflow: 'hidden',
-              }}
-            >
-              <Select
-                value={value}
-                onChange={handleChange}
-                displayEmpty
-                sx={{
-                  border: 'none',
-                  '& .MuiOutlinedInput-notchedOutline': { border: 'none' },
-                  '.css-11u53oe-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input':
-                    { padding: '10.5px 14px' },
-                  '&:focus': { backgroundColor: 'transparent' },
-                  borderRadius: 'inherit',
-                }}
-                renderValue={(value) => {
-                  if (value === '') {
-                    return (
-                      <span style={{ color: 'gray' }}>Additional filters</span>
-                    )
-                  }
-                  return value === '1' ? 'Option 1' : 'Option 2'
-                }}
-              >
-                <MenuItem value="">Additional filters</MenuItem>
-                <MenuItem value="1">Option 1</MenuItem>
-                <MenuItem value="2">Option 2</MenuItem>
-              </Select>
-            </FormControl>
-          </Box>
-
-          <Box>
             <TextField
-              label="Enter the key phrase"
+              label="Search"
               variant="standard"
               size="medium"
               sx={{
@@ -457,7 +292,12 @@ const FilterBar = () => {
               }}
               placeholder="Search"
             />
+            <Filter sx={{ cursor: 'pointer' }} />
+
+            <RedHeartIcon sx={{ cursor: 'pointer' }} />
           </Box>
+
+          <Box></Box>
         </Box>
       )}
     </>

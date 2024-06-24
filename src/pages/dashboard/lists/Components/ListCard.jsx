@@ -4,15 +4,22 @@ import {
   Card,
   CardContent,
   CardMedia,
+  Grid,
   Typography,
   styled,
 } from '@mui/material'
-import React, { useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+
+import { useEffect, useState } from 'react'
 import ArrowForwardIcon from '../../../../asset/svgs/ArrowForwardIcon'
 import BadALertIcon from '../../../../asset/svgs/BadAlertIcon'
 import CardFavoriteIcon from '../../../../asset/svgs/CardFavoriteIcon'
 import { CardSkeleton } from '../../../../components/Skeleton'
+import Bulb from '../../../../asset/svgs/buildingdetails/Bulb'
+import GasFire from '../../../../asset/svgs/buildingdetails/GasFire'
+import Drop from '../../../../asset/svgs/buildingdetails/Drop'
+import Bad from '../../../../asset/svgs/buildingdetails/Bad'
+import CardBg from '../../../../asset/Images/list/image.png'
+// import { Translate } from '@mui/icons-material'
 
 const ListCard = ({ status, imageUrl, subtitle, title, tags, actionText }) => {
   // const { isLoading } = useSelector((state) => state.loading)
@@ -21,20 +28,20 @@ const ListCard = ({ status, imageUrl, subtitle, title, tags, actionText }) => {
   const toggleFavorite = () => {
     setIsFavorite(!isFavorite)
   }
-  const getStatusColor = (status) => {
-    switch (status) {
-      case 'Good':
-        return 'rgba(214, 242, 227, 1);'
-      case 'Bad':
-        return 'rgba(255, 234, 235, 1)'
-      case 'Need Action':
-        return 'rgba(254, 237, 224, 1)'
-      case 'Inspection':
-        return 'rgba(255, 246, 219, 1)'
-      default:
-        return 'rgba(245, 247, 251, 1)'
-    }
-  }
+  // const getStatusColor = (status) => {
+  //   switch (status) {
+  //     case 'Good':
+  //       return 'rgba(214, 242, 227, 1);'
+  //     case 'Bad':
+  //       return 'rgba(255, 234, 235, 1)'
+  //     case 'Need Action':
+  //       return 'rgba(254, 237, 224, 1)'
+  //     case 'Inspection':
+  //       return 'rgba(255, 246, 219, 1)'
+  //     default:
+  //       return 'rgba(245, 247, 251, 1)'
+  //   }
+  // }
   const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
@@ -42,6 +49,38 @@ const ListCard = ({ status, imageUrl, subtitle, title, tags, actionText }) => {
       setIsLoading(false)
     }, 3000)
   }, [])
+
+  const statuses = [
+    {
+      label: 'Energy usage',
+      value: '1140 KWh',
+      color: '#0F7FBA',
+      bgcolor: '#399ED316',
+      icon: <Bulb />,
+    },
+    {
+      label: 'Gas usage',
+      value: '1120-2122 L',
+      color: '#FF8932',
+      bgcolor: '#FF893216',
+      icon: <GasFire />,
+    },
+    {
+      label: 'Water usage',
+      value: '2251-3520 L',
+      color: '#61CA94',
+      bgcolor: '#61CA9416',
+      icon: <Drop />,
+    },
+    {
+      label: 'Building Status',
+      value: 'BAD',
+      color: '#F83D44',
+      bgcolor: '#F83D4416',
+      icon: <Bad />,
+    },
+  ]
+
   return (
     <>
       {isLoading ? (
@@ -50,14 +89,18 @@ const ListCard = ({ status, imageUrl, subtitle, title, tags, actionText }) => {
         <Card
           sx={{
             minWidth: 0,
-            height: 430,
             position: 'relative',
+            borderRadius: '10px',
             mb: 2,
             transition: 'border-bottom 0.1s',
             '&:hover': {
               borderBottom: '2px solid rgba(123, 66, 246, 1)',
-              '& .imageEffect': {
-                transform: 'scale(1.1)',
+
+              '& .showButton': {
+                bottom: '5%',
+              },
+              '& .showHeart': {
+                right: '2%',
               },
             },
           }}
@@ -72,9 +115,6 @@ const ListCard = ({ status, imageUrl, subtitle, title, tags, actionText }) => {
               width: '100%',
               objectFit: 'cover',
               transition: 'transform 0.3s',
-              '&:hover': {
-                transform: 'scale(1.1)',
-              },
             }}
           />
           <Box
@@ -88,10 +128,10 @@ const ListCard = ({ status, imageUrl, subtitle, title, tags, actionText }) => {
           >
             <Typography
               sx={{
-                background: 'orange',
+                background: '#7E40F6',
                 color: 'white',
                 p: 0.5,
-                width: 43,
+                width: 39,
                 height: 20,
                 display: 'flex',
                 alignItems: 'center',
@@ -102,12 +142,13 @@ const ListCard = ({ status, imageUrl, subtitle, title, tags, actionText }) => {
             >
               {tags[0]}
             </Typography>
+
             <Typography
               sx={{
-                background: 'green',
+                background: '#AD20FE',
                 color: 'white',
                 mt: 1,
-                width: 23,
+                width: 24,
                 height: 20,
                 display: 'flex',
                 alignItems: 'center',
@@ -122,12 +163,15 @@ const ListCard = ({ status, imageUrl, subtitle, title, tags, actionText }) => {
           <Box
             sx={{
               position: 'absolute',
-              right: 10,
+              right: '-20%',
               top: 10,
+              transform: 'translate(-50%, 0)',
+              transition: 'right .6s ease',
               '&:hover': {
                 cursor: 'pointer',
               },
             }}
+            className="showHeart"
             onClick={toggleFavorite}
           >
             <CardFavoriteIcon filled={isFavorite} />
@@ -139,179 +183,102 @@ const ListCard = ({ status, imageUrl, subtitle, title, tags, actionText }) => {
               flexDirection: 'column',
             }}
           >
-            <Typography variant="subtitle1" color="textSecondary">
+            <Typography
+              variant="subtitle1"
+              sx={{
+                fontSize: '14px',
+                lineHeight: '19.07px',
+                fontWeight: '400',
+                color: '#11111180',
+              }}
+            >
               {subtitle}
             </Typography>
-            <Typography variant="h6">{title}</Typography>
-            <Box
+            <Typography
+              variant="h6"
               sx={{
-                display: 'flex',
-                justifyContent: 'space-between',
-                mt: { xs: 1, md: 2 },
+                fontSize: '18px',
+                lineHeight: '24.51px',
+                fontWeight: '600',
+                color: '#414141',
               }}
             >
-              <Box
-                sx={{
-                  width: 123,
-                  height: 58,
-                  bgcolor: 'rgba(245, 247, 251, 1)',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  justifyContent: 'left',
-                  alignItems: 'left',
-                  borderRadius: '2px',
-                  gap: { xs: 1, md: 0 },
-                  p: 1,
-                }}
-              >
-                <Typography
-                  variant="subtitle2"
-                  sx={{
-                    color: 'rgba(17, 17, 17, 0.6)',
-                    fontWeight: '400',
-                    fontSize: { xs: 12, md: 14 },
-                    lineHeight: '22px',
-                  }}
-                >
-                  Energy usage
-                </Typography>
-                <BoxValue variant="body2">1140 KWh</BoxValue>
-              </Box>
-              <Box
-                sx={{
-                  width: 123,
-                  height: 58,
-                  bgcolor: 'rgba(245, 247, 251, 1)',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  justifyContent: 'left',
-                  alignItems: 'left',
-                  borderRadius: '2px',
-                  p: 1,
-                }}
-              >
-                <Typography
-                  variant="subtitle2"
-                  sx={{
-                    color: 'rgba(17, 17, 17, 0.6)',
-                    fontWeight: '400',
-                    fontSize: { xs: 12, md: 14 },
-                    lineHeight: '22px',
-                  }}
-                >
-                  Gas usage
-                </Typography>
-                <BoxValue variant="body2">1130-1149 L</BoxValue>
-              </Box>
-            </Box>
-            <Box
-              sx={{ display: 'flex', justifyContent: 'space-between', mt: 2 }}
-            >
-              <Box
-                sx={{
-                  width: 123,
-                  height: 58,
-                  bgcolor: 'rgba(245, 247, 251, 1)',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  justifyContent: 'left',
-                  alignItems: 'left',
-                  borderRadius: '2px',
-                  p: 1,
-                }}
-              >
-                <Typography
-                  variant="subtitle2"
-                  sx={{
-                    color: 'rgba(17, 17, 17, 0.6)',
-                    fontWeight: '400',
-                    fontSize: { xs: 12, md: 14 },
-                    lineHeight: '22px',
-                  }}
-                >
-                  Water usage
-                </Typography>
-                <BoxValue variant="body2">1150-2532L</BoxValue>
-              </Box>
-              <Box
-                sx={{
-                  width: 123,
-                  height: 58,
-                  bgcolor: getStatusColor(status),
-                  display: 'flex',
-                  flexDirection: 'column',
-                  justifyContent: 'flex-start',
-                  alignItems: 'flex-start',
-                  borderRadius: '2px',
-                  p: 1,
-                }}
-              >
-                <Typography
-                  variant="subtitle2"
-                  sx={{
-                    color: 'rgba(17, 17, 17, 0.6)',
-                    fontWeight: '400',
-                    fontSize: { xs: 12, md: 14 },
-                    lineHeight: '22px',
-                  }}
-                >
-                  Status
-                </Typography>
-                <Box
-                  sx={{
-                    display: 'flex',
-                    justifyContent: 'space-between',
-                    alignItems: 'center',
-                    width: '100%',
-                  }}
-                >
-                  <Typography
-                    variant="body2"
+              {title}
+            </Typography>
+            <Grid container spacing={1}>
+              {statuses.map((item, index) => (
+                <Grid item sm={12} md={6} key={index}>
+                  <Box
                     sx={{
-                      color: 'rgba(0, 0, 0, 1)',
-                      fontWeight: '400',
-                      fontSize: '14px',
+                      padding: '5px 15px',
+                      bgcolor: item.bgcolor,
+                      borderRadius: '6px',
+                      display: 'flex',
+                      flexDirection: 'column',
+                      justifyContent: 'center',
+                      gap: '5px',
+                      alignItems: 'center',
                     }}
                   >
-                    {status}
-                  </Typography>
-                  {status === 'Bad' && <BadALertIcon />}
-                </Box>
-              </Box>
+                    <Typography
+                      variant="subtitle2"
+                      sx={{
+                        textAlign: 'center',
+                        color: item.color,
+                        fontWeight: '600',
+                        fontSize: { xs: 10, md: 12 },
+                        lineHeight: '16.34px',
+                      }}
+                    >
+                      {item.label}
+                    </Typography>
+                    <Box
+                      sx={{ display: 'flex', alignItems: 'center', gap: '5px' }}
+                    >
+                      {item.icon}
+                      <Typography
+                        variant="body2"
+                        sx={{
+                          color: '#121212',
+                          fontWeight: '600',
+                          fontSize: { xs: 8, md: 10 },
+                          lineHeight: '15px',
+                        }}
+                      >
+                        {item.value}
+                      </Typography>
+                    </Box>
+                  </Box>
+                </Grid>
+              ))}
+            </Grid>
+            <Box sx={{ position: 'absolute', bottom: '0', right: '0' }}>
+              <img src={CardBg} style={{ width: '218px', height: '124px' }} />
             </Box>
-            <Button
-              sx={{
-                mt: 2,
-                p: 0,
-                minWidth: 0,
-                background: 'none',
-                color: ' rgba(123, 66, 246, 1)',
-                boxShadow: 'none',
-                justifyContent: 'start',
-                fontSize: '16px',
-                fontWeight: '400',
-                '&:hover': {
-                  background: 'none',
-                  textDecoration: 'underline',
-                },
-                textTransform: 'none',
-              }}
-              endIcon={<ArrowForwardIcon sx={{ fontSize: '1rem' }} />}
-              onClick={() => console.log('Details viewed')}
-            >
-              See details
-            </Button>
+            <Box sx={{ marginTop: '20px', height: '20px' }}>
+              <Button
+                variant="contained"
+                sx={{
+                  position: 'absolute',
+                  left: '50%',
+                  bottom: '-15%',
+                  transform: 'translate(-50%, 0)',
+                  transition: 'bottom .6s ease',
+                  textTransform: 'capitalize',
+                  background:
+                    'linear-gradient(90deg, #7C40F6 0%, #AD1FFE 100%)',
+                  borderRadius: '10px',
+                }}
+                className="showButton"
+              >
+                See details
+              </Button>
+            </Box>
           </CardContent>
         </Card>
-
       )}
     </>
   )
 }
 
 export default ListCard
-const BoxValue = styled(Typography)(({ theme }) => ({
-  color: 'rgba(0, 0, 0, 1)',
-  fontWeight: '400',
-  fontSize: { xs: 14, md: 16 },
-}))

@@ -8,6 +8,7 @@ import OrangeBox from '../../../../asset/svgs/OrangeBox'
 import RedBox from '../../../../asset/svgs/RedBox'
 import YellowBox from '../../../../asset/svgs/YellowBox'
 import { BuildingStatusSkeleton } from '../../../../components/Skeleton'
+import BuildingIcon from '../../../../asset/svgs/BuildingIcon'
 
 const BuildingStatus = () => {
   const navigate = useNavigate()
@@ -30,24 +31,13 @@ const BuildingStatus = () => {
             flexGrow: 1,
             p: { xs: 1, md: 0 },
             display: 'flex',
-            marginTop: '2rem',
-            marginBottom: { xs: 0, md: 2 },
+            // marginTop: '2rem',
+            // marginBottom: { xs: 0, md: 2 },
             flexDirection: { xs: 'column', sm: 'row' },
             alignItems: 'center',
             gap: { xs: 1, md: 4 },
           }}
         >
-          <Typography
-            sx={{
-              whiteSpace: 'nowrap',
-              fontWeight: '400',
-              color: 'rgba(17, 17, 17, 0.8)',
-              mb: { xs: 0, sm: 0 },
-              fontSize: { xs: '16px', sm: '10px', md: '12px', lg: '16px' },
-            }}
-          >
-            You have <strong>13</strong> buildings:
-          </Typography>
           <Box
             sx={{
               display: 'flex',
@@ -60,12 +50,26 @@ const BuildingStatus = () => {
             }}
           >
             <StatusBox>
+              <BuildingIcon />
+              <Typography
+                sx={{
+                  whiteSpace: 'nowrap',
+                  fontWeight: '400',
+                  color: 'rgba(17, 17, 17, 0.8)',
+                  mb: { xs: 0, sm: 0 },
+                  fontSize: { xs: '16px', sm: '10px', md: '12px', lg: '16px' },
+                }}
+              >
+                Total Number Of Yours Buildings: 20
+              </Typography>
+            </StatusBox>
+            <StatusBox>
               <Greenbox />
-              <CustomText>Good: 9</CustomText>
+              <CustomText>Good: 12</CustomText>
             </StatusBox>
             <StatusBox>
               <YellowBox />
-              <Typography>Need inspection: 1</Typography>
+              <CustomText>Need inspection: 1</CustomText>
             </StatusBox>
             <StatusBox>
               <OrangeBox />
@@ -76,22 +80,6 @@ const BuildingStatus = () => {
               <CustomText>Bad: 2</CustomText>
             </StatusBox>
           </Box>
-          <Button
-            onClick={() => navigate('/dashboard/map')}
-            variant="contained"
-            startIcon={<MapIconSmall />}
-            sx={{
-              ml: { xs: 0, sm: 'auto' },
-              padding: '7px 20px',
-              background: 'rgba(123, 66, 246, 1) ',
-              width: { xs: '100%', sm: 'auto' },
-              fontSize: { xs: '8px', sm: '10px', md: '14px' },
-            }}
-          >
-            <span sx={{ fontWeight: '400', lineHeight: '28px' }}>
-              Go to Map View
-            </span>
-          </Button>
         </Box>
       )}
     </>
@@ -101,8 +89,8 @@ const BuildingStatus = () => {
 export default BuildingStatus
 const CustomText = styled(Typography)(({ theme }) => ({
   fontWeight: { xs: 400, md: 600 },
-  FontSize: { xs: 12, md: 14 },
-  color: 'rgba(17, 17, 17, 0.8)',
+  FontSize: { xs: 8, md: 10 },
+  color: '#414141',
 }))
 const StatusBox = styled(Box)(({ theme }) => ({
   display: 'flex',

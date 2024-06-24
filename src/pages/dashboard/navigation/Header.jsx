@@ -1,8 +1,5 @@
-import { Box, Button, Drawer, Typography, styled } from '@mui/material'
+import { Box, Button, Drawer } from '@mui/material'
 import { useState } from 'react'
-import HeaderBgImg from '../../../asset/Images/main/HomeBg.png'
-// import SaudiLogo from '../../../assets/images/saudi-arabia-logo.png'
-import { MenuRounded } from '@mui/icons-material'
 
 import Aside from './Aside'
 import MenuIcon from '../../../asset/svgs/Menu'
@@ -44,6 +41,7 @@ const Header = () => {
       >
         <Aside toggleNav={toggleNav} />
       </Drawer>
+
       {/* </HeaderBg> */}
 
       <Box sx={{ padding: '20px' }}>
@@ -75,12 +73,3 @@ const Header = () => {
 }
 
 export default Header
-
-const HeaderBg = styled(Box)({
-  background: `url(${HeaderBgImg}) no-repeat center / cover`,
-  padding: '78px 16px 90px 18px',
-  '@media (min-width: 960px)': {
-    padding: '68px 34px 149px 34px',
-  },
-  position: 'relative',
-})
