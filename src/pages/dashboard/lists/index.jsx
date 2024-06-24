@@ -4,6 +4,7 @@ import FilterBar from './Components/FilterBar'
 import ListCard from './Components/ListCard'
 import dummyData from './Components/dummyData'
 import { useEffect, useRef, useState } from 'react'
+import AddCard from './Components/AddCard'
 
 const List = () => {
   const [isSticky, setIsSticky] = useState(false)
@@ -115,20 +116,24 @@ const List = () => {
             'scrollbar-width': 'thin',
           }}
         >
-          <Grid container spacing={2}>
-            {dummyData.map((card, index) => (
-              <Grid item xs={12} sm={6} md={6} lg={4} key={index}>
-                <ListCard
-                  imageUrl={card.imageUrl}
-                  subtitle={card.subtitle}
-                  status={card.status}
-                  title={card.title}
-                  tags={card.tags}
-                  actionText={card.actionText}
-                />
-              </Grid>
-            ))}
-          </Grid>
+          {dummyData.length === 0 ? (
+            <AddCard />
+          ) : (
+            <Grid container spacing={2}>
+              {dummyData.map((card, index) => (
+                <Grid item xs={12} sm={6} md={6} lg={4} key={index}>
+                  <ListCard
+                    imageUrl={card.imageUrl}
+                    subtitle={card.subtitle}
+                    status={card.status}
+                    title={card.title}
+                    tags={card.tags}
+                    actionText={card.actionText}
+                  />
+                </Grid>
+              ))}
+            </Grid>
+          )}
         </Box>
       </Box>
     </>

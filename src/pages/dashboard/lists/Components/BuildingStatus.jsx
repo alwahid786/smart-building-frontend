@@ -23,65 +23,66 @@ const BuildingStatus = () => {
 
   return (
     <>
-      {isLoading ? (
+      {/* {isLoading ? (
         <BuildingStatusSkeleton />
-      ) : (
+      ) : ( */}
+      <Box
+        sx={{
+          flexGrow: 1,
+          p: { xs: 1, md: 0 },
+          display: 'flex',
+          // marginTop: '2rem',
+          // marginBottom: { xs: 0, md: 2 },
+          flexDirection: { xs: 'column', sm: 'row' },
+          alignItems: 'center',
+          gap: { xs: 1, md: 4 },
+        }}
+      >
         <Box
           sx={{
-            flexGrow: 1,
-            p: { xs: 1, md: 0 },
             display: 'flex',
-            // marginTop: '2rem',
-            // marginBottom: { xs: 0, md: 2 },
-            flexDirection: { xs: 'column', sm: 'row' },
-            alignItems: 'center',
-            gap: { xs: 1, md: 4 },
+            flexWrap: 'wrap',
+            flexDirection: { xs: 'row', sm: 'row' },
+            gap: { xs: 2, md: 4 },
+            mb: { xs: 0, sm: 0 },
+            alignItems: { xs: 'start', md: 'center' },
+            fontSize: { xs: '8px', sm: '10px', md: '12px', lg: '14px' },
           }}
         >
-          <Box
-            sx={{
-              display: 'flex',
-              flexWrap: 'wrap',
-              flexDirection: { xs: 'row', sm: 'row' },
-              gap: { xs: 2, md: 4 },
-              mb: { xs: 0, sm: 0 },
-              alignItems: { xs: 'start', md: 'center' },
-              fontSize: { xs: '8px', sm: '10px', md: '12px', lg: '14px' },
-            }}
-          >
-            <StatusBox>
-              <BuildingIcon />
-              <Typography
-                sx={{
-                  whiteSpace: 'nowrap',
-                  fontWeight: '400',
-                  color: 'rgba(17, 17, 17, 0.8)',
-                  mb: { xs: 0, sm: 0 },
-                  fontSize: { xs: '16px', sm: '10px', md: '12px', lg: '16px' },
-                }}
-              >
-                Total Number Of Yours Buildings: 20
-              </Typography>
-            </StatusBox>
-            <StatusBox>
-              <Greenbox />
-              <CustomText>Good: 12</CustomText>
-            </StatusBox>
-            <StatusBox>
-              <YellowBox />
-              <CustomText>Need inspection: 1</CustomText>
-            </StatusBox>
-            <StatusBox>
-              <OrangeBox />
-              <CustomText>Need action: 1</CustomText>
-            </StatusBox>
-            <StatusBox>
-              <RedBox />
-              <CustomText>Bad: 2</CustomText>
-            </StatusBox>
-          </Box>
+          <StatusBox>
+            <BuildingIcon />
+            <Typography
+              sx={{
+                whiteSpace: 'nowrap',
+                fontWeight: '400',
+                color: 'rgba(17, 17, 17, 0.8)',
+                mb: { xs: 0, sm: 0 },
+                fontSize: { xs: '16px', sm: '10px', md: '12px', lg: '16px' },
+              }}
+            >
+              Total Number Of Yours Buildings: 20
+            </Typography>
+          </StatusBox>
+          <StatusBox>
+            <Greenbox />
+            <CustomText>Good: 12</CustomText>
+          </StatusBox>
+          <StatusBox>
+            <YellowBox />
+            <CustomText>Need inspection: 1</CustomText>
+          </StatusBox>
+          <StatusBox>
+            <OrangeBox />
+            <CustomText>Need action: 1</CustomText>
+          </StatusBox>
+          <StatusBox>
+            <RedBox />
+            <CustomText>Bad: 2</CustomText>
+          </StatusBox>
         </Box>
-      )}
+      </Box>
+      {/* )
+      } */}
     </>
   )
 }
