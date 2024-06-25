@@ -50,14 +50,14 @@ const Login = () => {
       <Box
         maxWidth="false"
         sx={{
-          height: {
-            xl: '100vh',
-          },
+          height: '100vh',
+          // },
           backgroundImage: `url(${loginbg})`,
           backgroundPosition: '100% 0%',
           backgroundSize: 'cover',
           backgroundRepeat: 'no-repeat',
           // overflowY: 'hidden',
+          overflowY: { md: 'auto', lg: 'hidden' },
           padding: {
             xs: '0 !important',
             md: '0 0 !important',
@@ -158,16 +158,17 @@ const Login = () => {
             xs={12}
             // padding={{ xs: '20px', md: '50px' }}
             display="flex"
-            alignItems="start"
+            alignItems="center"
             justifyContent="center"
+            height="100vh"
           >
             <Box
               sx={{
                 background: '#FFFFFF',
                 borderRadius: '8px',
+
                 padding: {
                   xs: '18px',
-
                   md: '24px',
                   xl: '48px',
                 },
@@ -226,17 +227,33 @@ const Login = () => {
                   We make it easy for everyone to monitor your building status.
                 </Typography>
               </Box>
-              <Box sx={{ marginTop: { xs: '15px', sm: '32px' } }}>
+              <Box
+                sx={{
+                  marginTop: {
+                    xs: '10px',
+                    sm: '15px',
+                    md: '15px',
+                    lg: '20px',
+                    xl: '25px',
+                  },
+                }}
+              >
                 <form onSubmit={handleSubmit}>
                   <Box
                     style={{
                       display: 'flex',
                       flexDirection: 'column',
-                      gap: '10px',
+                      gap: '5px',
                     }}
                   >
-                    <label>Email</label>
+                    <Typography
+                      variant="label"
+                      sx={{ fontSize: { xs: '12px', md: '14px', xl: '16px' } }}
+                    >
+                      Email
+                    </Typography>
                     <TextField
+                      size="small"
                       type="email"
                       placeholder="Your email"
                       name="email"
@@ -251,12 +268,18 @@ const Login = () => {
                     style={{
                       display: 'flex',
                       flexDirection: 'column',
-                      gap: '10px',
+                      gap: '5px',
                       marginTop: '1vw',
                     }}
                   >
-                    <label>Password</label>
+                    <Typography
+                      variant="label"
+                      sx={{ fontSize: { xs: '12px', md: '14px', xl: '16px' } }}
+                    >
+                      Password
+                    </Typography>
                     <TextField
+                      size="small"
                       type="password"
                       placeholder="Password"
                       name="password"
@@ -273,8 +296,8 @@ const Login = () => {
                       display: 'flex',
                       gap: '8px',
                       alignItems: 'center',
-                      marginTop: '1rem',
-                      marginBottom: '1rem',
+                      marginTop: '0.2rem',
+                      marginBottom: '0.2rem',
                     }}
                   >
                     <FormControlLabel
@@ -314,7 +337,7 @@ const Login = () => {
                   sx={{
                     color: 'rgba(17, 17, 17, 0.4)',
                     fontSize: '14px',
-                    marginTop: '1.2vw',
+                    marginTop: { xs: '1.5vw', sm: '0.8vw' },
                     display: 'inline-block',
                     cursor: 'pointer',
                     '&:hover': {
@@ -332,7 +355,13 @@ const Login = () => {
                     display: 'flex',
                     alignItems: 'center',
                     gap: '32px',
-                    marginTop: '2vw',
+                    marginTop: {
+                      xs: '10px',
+                      sm: '15px',
+                      md: '15px',
+                      lg: '20px',
+                      xl: '25px',
+                    },
                   }}
                 >
                   <Typography
