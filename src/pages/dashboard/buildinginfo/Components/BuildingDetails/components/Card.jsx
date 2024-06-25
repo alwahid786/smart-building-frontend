@@ -47,10 +47,15 @@ const BuildingCard = () => {
             position: 'relative',
             mb: 2,
             transition: 'border-bottom 0.1s',
+            // '&:hover': {
+            //   borderBottom: '2px solid rgba(123, 66, 246, 1)',
+            //   '& .imageEffect': {
+            //     transform: 'scale(1.1)',
+            //   },
+            // },
             '&:hover': {
-              borderBottom: '2px solid rgba(123, 66, 246, 1)',
-              '& .imageEffect': {
-                transform: 'scale(1.1)',
+              '& .showHeart': {
+                right: '1%',
               },
             },
           }}
@@ -60,32 +65,46 @@ const BuildingCard = () => {
             height="140"
             image={Img}
             alt="Featured Image"
-            className="imageEffect"
+            // className="imageEffect"
             sx={{
               width: '100%',
               objectFit: 'cover',
-              transition: 'transform 0.3s',
-              '&:hover': {
-                transform: 'scale(1.1)',
-              },
+              // transition: 'transform 0.3s',
+              // '&:hover': {
+              //   transform: 'scale(1.1)',
+              // },
+
+              borderBottomLeftRadius: '16px',
+              borderBottomRightRadius: '16px',
+              boxShadow: '0px 4px 2px 0px rgba(0, 0, 0, 0.12)',
             }}
           />
 
           <Box
             sx={{
               position: 'absolute',
-              right: 10,
+              right: '-20%',
               top: 10,
+              transform: 'translate(-50%, 0)',
+              transition: 'right .6s ease',
+
               '&:hover': {
                 cursor: 'pointer',
               },
             }}
+            className="showHeart"
             onClick={toggleFavorite}
           >
             <CardFavoriteIcon filled={isFavorite} />
           </Box>
           <CardContent sx={{ p: 1, display: 'flex', flexDirection: 'column' }}>
-            <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
+            <Box
+              sx={{
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+              }}
+            >
               <Typography
                 sx={{
                   color: 'rgba(17, 17, 17, 0.6)',
@@ -95,7 +114,7 @@ const BuildingCard = () => {
               >
                 Oslo
               </Typography>
-              <Box sx={{ display: 'flex', gap: 2 }}>
+              <Box sx={{ display: 'flex', gap: 1, alignItems: 'center' }}>
                 <Map /> <Mail />
               </Box>
             </Box>
@@ -103,8 +122,9 @@ const BuildingCard = () => {
             <Typography
               sx={{
                 fontWeight: 600,
-                fontsize: 16,
-                color: 'rgba(17, 17, 17, 1)',
+                fontSize: '18px',
+                lineHeight: '24.51px',
+                color: '#414141',
               }}
             >
               Torshov 0476
@@ -112,8 +132,9 @@ const BuildingCard = () => {
             <Typography
               sx={{
                 fontWeight: 600,
-                fontsize: 16,
-                color: 'rgba(17, 17, 17, 1)',
+                fontSize: '18px',
+                lineHeight: '24.51px',
+                color: '#414141',
               }}
             >
               Estate building
@@ -123,13 +144,12 @@ const BuildingCard = () => {
               <Box
                 sx={{
                   width: '100%',
-                  height: 58,
-                  bgcolor: 'rgba(245, 247, 251, 1)',
+                  bgcolor: '#F5F7FB',
                   display: 'flex',
                   flexDirection: 'column',
                   justifyContent: 'left',
                   alignItems: 'left',
-                  borderRadius: '2px',
+                  borderRadius: '6px',
                   p: 1,
                 }}
               >
@@ -138,8 +158,8 @@ const BuildingCard = () => {
                   sx={{
                     color: 'rgba(17, 17, 17, 0.6)',
                     fontWeight: '400',
-                    fontSize: '14px',
-                    lineHeight: '22px',
+                    fontSize: '12px',
+                    lineHeight: '16.34px',
                   }}
                 >
                   ID number
@@ -150,6 +170,7 @@ const BuildingCard = () => {
                     color: 'rgba(0, 0, 0, 1)',
                     fontWeight: '400',
                     fontSize: '16px',
+                    lineHeight: '21.79px',
                   }}
                 >
                   15415567215
@@ -157,13 +178,17 @@ const BuildingCard = () => {
               </Box>
             </Box>
             <Box
-              sx={{ display: 'flex', justifyContent: 'space-between', mt: 2 }}
+              sx={{
+                display: 'flex',
+                justifyContent: 'space-between',
+                mt: 2,
+                gap: 1,
+              }}
             >
               <Box
                 sx={{
-                  width: 123,
-                  height: 58,
-                  bgcolor: 'rgba(245, 247, 251, 1)',
+                  width: '50%',
+                  bgcolor: '#F5F7FB',
                   display: 'flex',
                   flexDirection: 'column',
                   justifyContent: 'left',
@@ -177,8 +202,8 @@ const BuildingCard = () => {
                   sx={{
                     color: 'rgba(17, 17, 17, 0.6)',
                     fontWeight: '400',
-                    fontSize: '14px',
-                    lineHeight: '22px',
+                    fontSize: '12px',
+                    lineHeight: '16.34px',
                   }}
                 >
                   Area
@@ -188,7 +213,8 @@ const BuildingCard = () => {
                   sx={{
                     color: 'rgba(0, 0, 0, 1)',
                     fontWeight: '400',
-                    fontSize: '16px',
+                    fontSize: '14px',
+                    lineHeight: '19.07px',
                   }}
                 >
                   15 000m²
@@ -196,14 +222,13 @@ const BuildingCard = () => {
               </Box>
               <Box
                 sx={{
-                  width: 123,
-                  height: 58,
-                  bgcolor: 'rgba(245, 247, 251, 1)',
+                  width: '50%',
+                  bgcolor: '#F5F7FB',
                   display: 'flex',
                   flexDirection: 'column',
                   justifyContent: 'left',
                   alignItems: 'left',
-                  borderRadius: '2px',
+                  borderRadius: '6px',
                   p: 1,
                 }}
               >
@@ -212,6 +237,8 @@ const BuildingCard = () => {
                     color: 'rgba(17, 17, 17, 0.6)',
                     fontWeight: '400',
                     fontSize: '12px',
+                    lineHeight: '16.34px',
+
                     // lineHeight: "22px",
                   }}
                 >
@@ -222,7 +249,8 @@ const BuildingCard = () => {
                   sx={{
                     color: 'rgba(0, 0, 0, 1)',
                     fontWeight: '400',
-                    fontSize: '16px',
+                    fontSize: '14px',
+                    lineHeight: '19.07px',
                   }}
                 >
                   20/09/1996
@@ -234,8 +262,7 @@ const BuildingCard = () => {
             >
               <Box
                 sx={{
-                  width: 123,
-                  height: 58,
+                  width: '50%',
                   // bgcolor: "rgba(245, 247, 251, 1)",
                   display: 'flex',
                   flexDirection: 'column',
@@ -249,24 +276,23 @@ const BuildingCard = () => {
                   sx={{
                     color: 'rgba(17, 17, 17, 0.6)',
                     fontWeight: '400',
-                    fontSize: '16px',
-                    lineHeight: '22px',
+                    fontSize: '14px',
+                    lineHeight: '19.07px',
                   }}
                 >
                   Energy class
                 </Typography>
                 <Typography
                   sx={{
-                    background: 'rgba(245, 107, 56, 1)',
+                    background: '#7E40F6',
                     color: 'white',
                     p: 0.5,
-                    width: 43,
+                    width: 39,
                     height: 20,
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    fontSize: '0.75rem',
-                    borderRadius: '4px',
+                    fontSize: '12px',
                   }}
                 >
                   A+
@@ -274,8 +300,8 @@ const BuildingCard = () => {
               </Box>
               <Box
                 sx={{
-                  width: 123,
-                  height: 58,
+                  width: '50%',
+
                   // bgcolor: "rgba(245, 247, 251, 1)",
                   display: 'flex',
                   flexDirection: 'column',
@@ -289,13 +315,15 @@ const BuildingCard = () => {
                   sx={{
                     color: 'rgba(17, 17, 17, 0.6)',
                     fontWeight: '400',
-                    fontSize: '16px',
+                    fontSize: '14px',
+                    lineHeight: '19.07px',
+
                     // lineHeight: "22px",
                   }}
                 >
                   SRI
                 </Typography>
-                <Box sx={{ display: 'flex', gap: 1 }}>
+                <Box sx={{ display: 'flex', gap: 0.3 }}>
                   <SriBoxes>E</SriBoxes>
                   <SriBoxes>D</SriBoxes>
                   <SriBoxes>C</SriBoxes>
@@ -311,8 +339,8 @@ const BuildingCard = () => {
                 sx={{
                   color: 'rgba(17, 17, 17, 0.6)',
                   fontWeight: '400',
-                  fontSize: '16px',
-                  lineHeight: '22px',
+                  fontSize: '14px',
+                  lineHeight: '19.07px',
                 }}
               >
                 Smart readiness indicator
@@ -343,17 +371,17 @@ export default BuildingCard
 const SriBoxes = styled(Typography)(({ theme }) => ({
   background: 'rgba(17, 17, 17, 0.2)',
   color: 'white',
-  p: 0.5,
-  width: 20,
-  height: 20,
+  padding: '2px 6px',
+  width: '20px',
+  height: '20px',
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
   fontSize: '0.75rem',
-  borderRadius: '4px',
+  borderRadius: '0.8px',
 }))
 const IndicatorBoxes = styled(Typography)(({ theme }) => ({
-  background: 'rgba(17, 17, 17, 0.2)',
+  background: '#7E40F610',
   color: 'white',
   // padding: "8px",
   width: 30,

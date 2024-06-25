@@ -74,9 +74,23 @@ const Suggestions = () => {
               >
                 Detected problems:
               </Typography>
-              <Alert severity="error" sx={{ marginBottom: 2 }}>
+              <Box
+                sx={{
+                  marginBottom: 2,
+                  background: '#FFEAEB',
+                  height: '48px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  padding: '0px 12px',
+                  color: '#FA3D45',
+                  borderRadius: '6px',
+                  borderLeft: '4px solid #FA3D45',
+                  fontSize: '16px',
+                  lineHeight: '24px',
+                }}
+              >
                 Heating - 1 sensor has problem
-              </Alert>
+              </Box>
 
               <Typography
                 sx={{
@@ -95,7 +109,7 @@ const Suggestions = () => {
                       display: 'flex',
                       alignItems: 'center',
                       width: '100%',
-                      bgcolor: 'rgba(245, 247, 251, 1)',
+                      bgcolor: '#F5F7FB',
                       marginBottom: 1,
                     }}
                     key={index}
@@ -109,11 +123,6 @@ const Suggestions = () => {
                         style: { display: 'flex', alignItems: 'center' },
                       }}
                       primary={`Extra suggestion ${index + 1}`}
-                      secondary={`+${index + 1}%`}
-                      secondaryTypographyProps={{
-                        component: 'span',
-                        style: { marginLeft: 8 },
-                      }}
                     />
                   </ListItem>
                 ))}

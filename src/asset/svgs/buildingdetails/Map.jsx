@@ -4,35 +4,28 @@ const Map = () => {
   return (
     <>
       <svg
-        width="16"
-        height="16"
-        viewBox="0 0 16 16"
+        width="14"
+        height="15"
+        viewBox="0 0 14 15"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
-        <g clipPath="url(#clip0_49_436)">
-          <path
-            d="M14 6.66669C14 11.3334 8 15.3334 8 15.3334C8 15.3334 2 11.3334 2 6.66669C2 5.07539 2.63214 3.54926 3.75736 2.42405C4.88258 1.29883 6.4087 0.666687 8 0.666687C9.5913 0.666687 11.1174 1.29883 12.2426 2.42405C13.3679 3.54926 14 5.07539 14 6.66669Z"
-            stroke="#111111"
-            strokeOpacity="0.2"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-          <path
-            d="M8 8.66669C9.10457 8.66669 10 7.77126 10 6.66669C10 5.56212 9.10457 4.66669 8 4.66669C6.89543 4.66669 6 5.56212 6 6.66669C6 7.77126 6.89543 8.66669 8 8.66669Z"
-            stroke="#111111"
-            strokeOpacity="0.2"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-        </g>
-        <defs>
-          <clipPath id="clip0_49_436">
-            <rect width="16" height="16" fill="white" />
-          </clipPath>
-        </defs>
+        <path
+          d="M13 6.18318C13 10.2145 7 13.67 7 13.67C7 13.67 1 10.2145 1 6.18318C1 4.80852 1.63214 3.49015 2.75736 2.51812C3.88258 1.54608 5.4087 1 7 1C8.5913 1 10.1174 1.54608 11.2426 2.51812C12.3679 3.49015 13 4.80852 13 6.18318Z"
+          fill="#8D8D8D"
+          fill-opacity="0.8"
+          stroke="white"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+        <path
+          d="M7 7.66602C7.55228 7.66602 8 7.2183 8 6.66602C8 6.11373 7.55228 5.66602 7 5.66602C6.44772 5.66602 6 6.11373 6 6.66602C6 7.2183 6.44772 7.66602 7 7.66602Z"
+          stroke="white"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
       </svg>
     </>
   )

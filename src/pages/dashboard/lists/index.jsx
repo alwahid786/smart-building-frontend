@@ -121,7 +121,7 @@ const List = () => {
           ) : (
             <Grid container spacing={2}>
               {dummyData.map((card, index) => (
-                <Grid item xs={12} sm={6} md={6} lg={4} key={index}>
+                <Grid item xs={12} sm={6} md={6} lg={4} xl={3} key={index}>
                   <ListCard
                     imageUrl={card.imageUrl}
                     subtitle={card.subtitle}

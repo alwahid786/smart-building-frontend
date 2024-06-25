@@ -1,13 +1,13 @@
-import React from "react";
-import { Grid, Paper, Typography } from "@mui/material";
-import BuildingCard from "./components/Card";
-import PrimaryEnergy from "./components/PrimaryEnergy";
-import InspectionHistory from "./components/InspectionHistory";
-import Suggestions from "./components/Suggestions";
-import Sensor from "./components/Sensor";
-import FinancialProjection from "./components/FinancialProjection";
-import MediaConsumption from "./components/MediaConsumption";
-import EnergyUtilitiesCard from "./components/EnergyUtilitiesCard";
+import React from 'react'
+import { Grid, Paper, Typography } from '@mui/material'
+import BuildingCard from './components/Card'
+import PrimaryEnergy from './components/PrimaryEnergy'
+import InspectionHistory from './components/InspectionHistory'
+import Suggestions from './components/Suggestions'
+import Sensor from './components/Sensor'
+import FinancialProjection from './components/FinancialProjection'
+import MediaConsumption from './components/MediaConsumption'
+import EnergyUtilitiesCard from './components/EnergyUtilitiesCard'
 const BuildingDetails = () => {
   return (
     <>
@@ -71,7 +71,7 @@ const BuildingDetails = () => {
         </Grid>
       </Grid>
     </>
-  );
-};
+  )
+}
 
-export default BuildingDetails;
+export default BuildingDetails

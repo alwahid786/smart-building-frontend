@@ -1,33 +1,52 @@
+import { useNavigate } from 'react-router-dom'
+
+import loginBg from '../../asset/Images/login/LogIn2.png'
 import Box from '@mui/material/Box'
 import Grid from '@mui/material/Grid'
 import LightBox from '../../asset/svgs/LightBox'
-// TextField
-
 import Typography from '@mui/material/Typography'
-import { useNavigate } from 'react-router-dom'
-import { forgetPassSchema } from '../../schema'
+import Checkbox from '@mui/material/Checkbox'
+import { Button, FormControlLabel, TextField } from '@mui/material'
 import { useFormik } from 'formik'
-import loginBg from '../../asset/Images/login/LogIn2.png'
-import { TextField, Button } from '@mui/material'
+import { resetPassSchema } from '../../schema'
+import { useLoginMutation } from '../../redux/api/authApi'
+import { toast } from 'react-toastify'
 
-const ForgetPassword = () => {
+const ResetPassword = () => {
+  const [login] = useLoginMutation()
   const navigate = useNavigate()
-
-  const initialValues = {
-    email: '',
-  }
 
   const { values, errors, touched, handleBlur, handleChange, handleSubmit } =
     useFormik({
-      initialValues,
-      validationSchema: forgetPassSchema,
-      onSubmit: (values, action) => {
+      initialValues: { newpassword: '', confirmpassword: '' },
+      validationSchema: resetPassSchema,
+      onSubmit: async (values, actions) => {
         console.log(values)
-        action.resetForm()
+
+        const res = await login(values)
+
+        // if error show error
+        if (res.error) {
+          toast.error(res.error.data.message)
+        }
+
+        // if success show success
+        if (res.data) {
+          toast.success(res.data.message)
+
+          setTimeout(() => {
+            navigate('/dashboard')
+          }, 1000)
+        }
+
+        // Reset the form
+        actions.resetForm()
       },
     })
+
   return (
     <>
+      {/* {isLoading && <GlobalLoader />} */}
       <Box
         maxWidth="false"
         sx={{
@@ -109,7 +128,7 @@ const ForgetPassword = () => {
                     lineHeight: '60px',
                   }}
                 >
-                  Forget Password
+                  Reset Password
                 </Typography>
                 <Typography
                   variant="p"
@@ -127,9 +146,9 @@ const ForgetPassword = () => {
                     lineHeight: '30px',
                   }}
                 >
-                  Enter your email address to reset your password. it only takes
-                  a few moments, and you will be back into your account in no
-                  time.
+                  Ensure that both fields match to successfully reset your
+                  password. Once done, you will regain access to your account
+                  securely.
                 </Typography>
               </Box>
             </Box>
@@ -170,20 +189,6 @@ const ForgetPassword = () => {
               }}
             >
               <Typography
-                variant="body2"
-                onClick={() => navigate('/login')}
-                sx={{
-                  color: '#5915E3',
-                  fontSize: '36px',
-                  marginBottom: '1.2vw',
-                  display: 'inline-block',
-                  cursor: 'pointer',
-                }}
-              >
-                ←
-              </Typography>
-
-              <Typography
                 variant="h2"
                 sx={{
                   fontSize: {
@@ -199,7 +204,7 @@ const ForgetPassword = () => {
                   },
                 }}
               >
-                Forget Password
+                Reset Password
               </Typography>
 
               <Box>
@@ -211,7 +216,7 @@ const ForgetPassword = () => {
                     lineHeight: '28px',
                   }}
                 >
-                  Enter your email to receive an OTP for password reset.
+                  Please enter your new password and confirm it below.
                 </Typography>
               </Box>
 
@@ -234,18 +239,50 @@ const ForgetPassword = () => {
                       variant="label"
                       sx={{ fontSize: { xs: '12px', md: '14px', xl: '16px' } }}
                     >
-                      Email
+                      New Password
                     </Typography>
                     <TextField
                       size="small"
-                      type="text"
-                      placeholder="Your email"
-                      name="email"
-                      value={values.email}
+                      type="password"
+                      placeholder="New Password"
+                      name="newpassword"
+                      value={values.newpassword}
                       onChange={handleChange}
                       onBlur={handleBlur}
-                      error={touched.email && Boolean(errors.email)}
-                      helperText={touched.email && errors.email}
+                      error={touched.newpassword && Boolean(errors.newpassword)}
+                      helperText={touched.newpassword && errors.newpassword}
+                    />
+                  </Box>
+
+                  <Box
+                    style={{
+                      marginTop: '10px',
+                      display: 'flex',
+                      flexDirection: 'column',
+                      gap: '5px',
+                    }}
+                  >
+                    <Typography
+                      variant="label"
+                      sx={{ fontSize: { xs: '12px', md: '14px', xl: '16px' } }}
+                    >
+                      Confirm New Password
+                    </Typography>
+                    <TextField
+                      size="small"
+                      type="password"
+                      placeholder="Confirm New Password"
+                      name="confirmpassword"
+                      value={values.confirmpassword}
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      error={
+                        touched.confirmpassword &&
+                        Boolean(errors.confirmpassword)
+                      }
+                      helperText={
+                        touched.confirmpassword && errors.confirmpassword
+                      }
                     />
                   </Box>
 
@@ -257,7 +294,7 @@ const ForgetPassword = () => {
                         md: 'row',
                       },
                       gap: '10px',
-                      marginTop: '10px',
+                      marginTop: '0.8vw',
                     }}
                   ></Box>
                   <Box
@@ -301,4 +338,4 @@ const ForgetPassword = () => {
   )
 }
 
-export default ForgetPassword
+export default ResetPassword
