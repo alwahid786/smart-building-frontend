@@ -50,7 +50,7 @@ const Login = () => {
       <Box
         maxWidth="false"
         sx={{
-          height: '100vh',
+          // height: '100vh',
           // },
           backgroundImage: `url(${loginbg})`,
           backgroundPosition: '100% 0%',
