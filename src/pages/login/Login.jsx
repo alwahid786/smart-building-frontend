@@ -21,26 +21,32 @@ const Login = () => {
       initialValues: { email: '', password: '' },
       validationSchema: loginSchema,
       onSubmit: async (values, actions) => {
-        console.log(values)
+        try {
+          const res = await login({
+            email: values.email,
+            password: values.password,
+          })
 
-        const res = await login(values)
+          // if error show error
+          if (res.error) {
+            toast.error(res.error.data.message)
+          }
 
-        // if error show error
-        if (res.error) {
-          toast.error(res.error.data.message)
+          // if success show success
+          if (res.data) {
+            toast.success(res.data.message)
+
+            setTimeout(() => {
+              navigate('/dashboard')
+            }, 1000)
+          }
+
+          // Reset the form
+          actions.resetForm()
+        } catch (error) {
+
+          toast.error(error.data.message)
         }
-
-        // if success show success
-        if (res.data) {
-          toast.success(res.data.message)
-
-          setTimeout(() => {
-            navigate('/dashboard')
-          }, 1000)
-        }
-
-        // Reset the form
-        actions.resetForm()
       },
     })
 

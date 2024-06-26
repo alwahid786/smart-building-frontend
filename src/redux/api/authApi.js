@@ -6,7 +6,7 @@ export const authApiPoint= createApi({
 
     baseQuery: fetchBaseQuery({
 
-        baseUrl: "http://localhost:3000"
+        baseUrl: "http://localhost:4000"
     }),
 
     endpoints: (builder)=> ({
@@ -21,7 +21,7 @@ export const authApiPoint= createApi({
             })
         }),
 
-        resetPassword: builder.mutation({
+        forgetPassword: builder.mutation({
 
             query: (data)=> ({
 
@@ -33,4 +33,4 @@ export const authApiPoint= createApi({
     })
 })
 
-export const {useLoginMutation, useResetPasswordMutation} = authApiPoint;
+export const {useLoginMutation, useForgetPasswordMutation} = authApiPoint;

@@ -9,20 +9,22 @@ import { forgetPassSchema } from '../../schema'
 import { useFormik } from 'formik'
 import loginBg from '../../asset/Images/login/LogIn2.png'
 import { TextField, Button } from '@mui/material'
+import { useForgetPasswordMutation } from '../../redux/api/authApi'
 
 const ForgetPassword = () => {
   const navigate = useNavigate()
+  const [forgetPassword] = useForgetPasswordMutation()
 
-  const initialValues = {
-    email: '',
-  }
+  const initialValues = {email: ''}
 
   const { values, errors, touched, handleBlur, handleChange, handleSubmit } =
     useFormik({
       initialValues,
       validationSchema: forgetPassSchema,
-      onSubmit: (values, action) => {
-        console.log(values)
+      onSubmit: async(values, action) => {
+        
+        const res = await forgetPassword({email: values.email})
+        console.log(res)
         action.resetForm()
       },
     })
