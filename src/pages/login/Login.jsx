@@ -70,7 +70,7 @@ const Login = () => {
           },
         }}
       >
-        <Grid container padding={{ xs: '20px', md: '20px', xl: '50px' }}>
+        <Grid container padding={{ xs: '20px', md: '20px', xl: '0px' }}>
           <Grid
             item
             md={6}
