@@ -35,7 +35,7 @@ const App = () => {
           <Route path="/login" element={<LoginPage />} />
           <Route path="/signup" element={<SignUpPage />} />
           <Route path="/forgetpassword" element={<ForgetPassword />} />
-          <Route path="/resetpassword" element={<ResetPassword />} />
+          <Route path="/resetpassword/:token" element={<ResetPassword />} />
 
           <Route path="/dashboard" element={<Dashboard />}>
             <Route index element={<Navigate replace to="list" />} />

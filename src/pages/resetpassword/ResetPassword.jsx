@@ -1,29 +1,30 @@
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 
 import loginBg from '../../asset/Images/login/LogIn2.png'
 import Box from '@mui/material/Box'
 import Grid from '@mui/material/Grid'
 import LightBox from '../../asset/svgs/LightBox'
 import Typography from '@mui/material/Typography'
-import Checkbox from '@mui/material/Checkbox'
-import { Button, FormControlLabel, TextField } from '@mui/material'
+import { Button, TextField } from '@mui/material'
 import { useFormik } from 'formik'
 import { resetPassSchema } from '../../schema'
-import { useLoginMutation } from '../../redux/api/authApi'
+import { useResetPasswordMutation } from '../../redux/api/authApi'
 import { toast } from 'react-toastify'
 
 const ResetPassword = () => {
-  const [login] = useLoginMutation()
+  const [resetPassword] = useResetPasswordMutation()
   const navigate = useNavigate()
+  const token = useParams().token;
 
   const { values, errors, touched, handleBlur, handleChange, handleSubmit } =
     useFormik({
       initialValues: { newpassword: '', confirmpassword: '' },
       validationSchema: resetPassSchema,
       onSubmit: async (values, actions) => {
-        console.log(values)
+     
+        const res = await resetPassword({newpassword: values.newpassword, token: token});
 
-        const res = await login(values)
+          console.log(values, 'values')
 
         // if error show error
         if (res.error) {

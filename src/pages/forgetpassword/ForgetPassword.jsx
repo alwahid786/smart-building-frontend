@@ -1,15 +1,14 @@
 import Box from '@mui/material/Box'
 import Grid from '@mui/material/Grid'
 import LightBox from '../../asset/svgs/LightBox'
-// TextField
-
 import Typography from '@mui/material/Typography'
 import { useNavigate } from 'react-router-dom'
 import { forgetPassSchema } from '../../schema'
 import { useFormik } from 'formik'
 import loginBg from '../../asset/Images/login/LogIn2.png'
 import { TextField, Button } from '@mui/material'
-import { useForgetPasswordMutation } from '../../redux/api/authApi'
+import { useForgetPasswordMutation } from '../../redux/api/authApi';
+import { toast } from 'react-toastify'
 
 const ForgetPassword = () => {
   const navigate = useNavigate()
@@ -24,8 +23,16 @@ const ForgetPassword = () => {
       onSubmit: async(values, action) => {
         
         const res = await forgetPassword({email: values.email})
-        console.log(res)
-        action.resetForm()
+
+        if(res.data.success === true){
+
+          toast.success(res.data.message)
+          action.resetForm()
+
+        }else{
+
+          toast.error(res.data.message)
+        }
       },
     })
   return (
