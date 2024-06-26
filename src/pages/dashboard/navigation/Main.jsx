@@ -19,7 +19,7 @@ const Main = () => {
         // }}
         sx={{
           // border: '2px solid red',
-          marginTop: '110px',
+          marginTop: '60px',
         }}
       >
         <Outlet />

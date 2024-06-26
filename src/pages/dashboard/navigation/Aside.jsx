@@ -17,7 +17,7 @@ const Aside = ({ toggleNav }) => {
   const [isSideBarOpen, setIsSideBarOpen] = useState(true)
   const [showMenuAndLogo, setShowMenuAndLogo] = useState(false)
   const [openPage, setOpenPage] = useState(null)
-  const [isActivePage, setIsActivePage] = useState('home')
+  const [isActivePage, setIsActivePage] = useState('list')
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
@@ -133,14 +133,13 @@ const Aside = ({ toggleNav }) => {
           transform: isSideBarOpen ? 'translateX(0)' : 'translateX(-100%)',
           opacity: isSideBarOpen ? 1 : 0,
           width: isSideBarOpen ? '174px' : '0px',
-          transition: 'transform 0.5s ease, opacity 0.5s ease',
+          transition: 'transform 0.5s ease-in-out, opacity 0.5s ease-in-out',
           backgroundImage:
-            'linear-gradient(178.55deg, rgba(123, 66, 246 ) 2.95%, rgba(85, 16, 207) 84.68%);',
-          height: { sm: '65%', xs: '100%' },
+            'linear-gradient(178.55deg, rgba(123, 66, 246 ) 2.95%, rgba(85, 16, 207) 84.68%)',
+          // height: { sm: '65%', xs: '100%' },
+          minHeight: '65%',
           overflowY: 'auto',
           borderRadius: isSideBarOpen ? '12px' : '0px',
-
-          // display: isSideBarOpen ? 'block' : 'none ',
         }}
       >
         <Stack
@@ -166,7 +165,7 @@ const Aside = ({ toggleNav }) => {
             </Box>
           </Box>
 
-          {/* {/ Links  /} */}
+          {/* Links */}
           <Box
             sx={{
               marginTop: {
@@ -186,11 +185,11 @@ const Aside = ({ toggleNav }) => {
                   component={Link}
                   to={page.route}
                   onClick={() => {
-                    handlePages(page.page)
-                    setIsActivePage(page.page)
-                    page.page === 'home' &&
-                      window.innerWidth <= 1199 &&
+                    handlePages(page.route)
+                    setIsActivePage(page.route)
+                    if (page.route === 'home' && window.innerWidth <= 1199) {
                       toggleNav(false)
+                    }
                   }}
                   sx={{
                     color: 'white',
@@ -202,9 +201,11 @@ const Aside = ({ toggleNav }) => {
                     borderRadius: '8px',
                     padding: '9px 16px',
                     marginBottom: '20px',
-                    background: '#ffffff30',
-                    // backgroundColor:
-                    //   isActivePage === page.page ? '#ffffff' : 'transparent',
+                    ':hover': {
+                      backgroundColor: '#ffffff70',
+                    },
+                    backgroundColor:
+                      isActivePage === page.route ? '#ffffff70' : '#ffffff20',
                   }}
                 >
                   {page.icon}
@@ -215,7 +216,6 @@ const Aside = ({ toggleNav }) => {
                       fontSize: '12px',
                       fontWeight: '600',
                       lineHeight: '16.34px',
-                      // color: isActivePage === page.page ? '#000' : '#fff',
                     }}
                   >
                     {page.label}
@@ -233,7 +233,6 @@ const Aside = ({ toggleNav }) => {
             transform: isSideBarOpen ? 'translateX(-100%)' : 'translateX(0)',
             opacity: isSideBarOpen ? 0 : 1,
             transition: 'transform 0.5s ease, opacity 0.5s ease',
-
             position: 'absolute',
             top: '28px',
             left: '25px',
@@ -247,9 +246,6 @@ const Aside = ({ toggleNav }) => {
               sm: '174px',
               xs: '0',
             },
-            // backgroundColor: 'rgba(0, 0, 0, 0.5)',
-            // borderRadius: '8px',
-            // padding: '8px',
           }}
         >
           <Box>

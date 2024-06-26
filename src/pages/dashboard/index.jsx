@@ -24,7 +24,7 @@ const Dashboard = () => {
             top: 0,
             left: 0,
             width: '100%',
-            height: '259px',
+            height: '230px',
             backgroundImage: `url(${HeaderBgImg})`,
             backgroundSize: 'cover',
             backgroundRepeat: 'no-repeat',
