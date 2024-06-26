@@ -87,6 +87,7 @@ const Login = () => {
                 // height: '100vh',
                 display: 'flex',
                 flexDirection: 'column',
+                justifyContent: 'center',
                 height: '100%',
               }}
             >
@@ -94,7 +95,8 @@ const Login = () => {
                 sx={{
                   display: 'flex',
                   gap: '34px',
-                  flexGrow: '1',
+                  marginBottom: '2vw',
+                  // flexGrow: '1',
                   alignItems: 'center',
                   // justifyContent: 'start',
                 }}
@@ -109,18 +111,16 @@ const Login = () => {
                       md: '30px',
                     },
                     fontWeight: '600',
-                    lineHeight: '45px',
-                    letterSpacing: '5px',
+                    lineHeight: '30px',
+                    letterSpacing: '3px',
                   }}
                 >
                   Smart
                   <br />
-                  Building
+                  Buildings
                 </Typography>
               </Box>
-              <Box
-                sx={{ display: 'flex', flexDirection: 'column', flexGrow: '1' }}
-              >
+              <Box sx={{ display: 'flex', flexDirection: 'column' }}>
                 <Typography
                   variant="h2"
                   sx={{
@@ -133,8 +133,7 @@ const Login = () => {
                     lineHeight: '60px',
                   }}
                 >
-                  Sign In to
-                  <br /> Digital Building Passport
+                  Login to <br /> Digital Building Passport
                 </Typography>
                 <Typography
                   variant="p"
@@ -152,8 +151,8 @@ const Login = () => {
                     lineHeight: '30px',
                   }}
                 >
-                  it is a long established fact that a reader will be distracted
-                  by the readable content of a page
+                  Welcome back! Please enter your email address and password to
+                  access your account.
                 </Typography>
               </Box>
             </Box>
@@ -172,7 +171,7 @@ const Login = () => {
               sx={{
                 background: '#FFFFFF',
                 borderRadius: '8px',
-
+                width: { xs: '300px', md: '400px', lg: '500px' },
                 padding: {
                   xs: '18px',
                   md: '24px',

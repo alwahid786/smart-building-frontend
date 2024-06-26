@@ -104,7 +104,6 @@ const ListCard = ({ status, imageUrl, subtitle, title, tags, actionText }) => {
         >
           <CardMedia
             component="img"
-            height="140"
             image={imageUrl}
             alt="Featured Image"
             className="imageEffect"
@@ -112,9 +111,9 @@ const ListCard = ({ status, imageUrl, subtitle, title, tags, actionText }) => {
               width: '100%',
               objectFit: 'cover',
               transition: 'transform 0.3s',
-              borderBottomLeftRadius: '15px',
-              borderBottomRightRadius: '15px',
-              boxShadow: '0px 4px 5px rgba(0, 0, 0, 0.25)',
+              borderBottomLeftRadius: '16px',
+              borderBottomRightRadius: '16px',
+              boxShadow: '0px 4px 2px 0px rgba(0, 0, 0, 0.12)',
             }}
           />
           <Box

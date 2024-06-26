@@ -14,6 +14,7 @@ import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew'
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos'
 import { SensorsStatusSkeleton } from '../../../../../../components/Skeleton'
 import { useDispatch, useSelector } from 'react-redux'
+import Heating from '../../../../../../asset/svgs/BuildignInfo/Heating'
 
 const Sensor = () => {
   const dispatch = useDispatch()
@@ -80,11 +81,20 @@ const Sensor = () => {
               }}
             >
               <ArrowBackIosNewIcon sx={{ cursor: 'pointer' }} />
-              <Typography
-                sx={{ fontWeight: 'medium', fontSize: { xs: 12, md: 16 } }}
+              <Box
+                sx={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'center',
+                }}
               >
-                Heating
-              </Typography>
+                <Heating />
+                <Typography
+                  sx={{ fontWeight: 'medium', fontSize: { xs: 12, md: 16 } }}
+                >
+                  Heating
+                </Typography>
+              </Box>
               <ArrowForwardIosIcon sx={{ cursor: 'pointer' }} />
             </Box>
 
@@ -94,33 +104,102 @@ const Sensor = () => {
               spacing={1}
               justifyContent="center"
             >
-              <Chip
+              <Box
                 sx={{
                   width: 'calc(40% - 16px)',
                   height: 64,
                   fontSize: { xs: 9, md: 14 },
+                  background: '#F5F7FB',
+                  borderRadius: '6px',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'center',
+                  justifyContent: 'center',
                 }}
-                label="Installed 436"
-                color="default"
-              />
-              <Chip
+              >
+                <Typography
+                  sx={{
+                    fontSize: '12px',
+                    lineHeight: '18px',
+                    fontWeight: '400',
+                  }}
+                >
+                  Installed
+                </Typography>
+                <Typography
+                  sx={{
+                    fontSize: '16px',
+                    lineHeight: '24px',
+                    fontWeight: '400',
+                  }}
+                >
+                  436
+                </Typography>
+              </Box>
+              <Box
                 sx={{
                   width: 'calc(40% - 16px)',
                   height: 64,
                   fontSize: { xs: 9, md: 14 },
+                  background: '#F5F7FB',
+                  borderRadius: '6px',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'center',
+                  justifyContent: 'center',
                 }}
-                label="Active 385"
-                color="default"
-              />
-              <Chip
+              >
+                <Typography
+                  sx={{
+                    fontSize: '12px',
+                    lineHeight: '18px',
+                    fontWeight: '400',
+                  }}
+                >
+                  Active
+                </Typography>
+                <Typography
+                  sx={{
+                    fontSize: '16px',
+                    lineHeight: '24px',
+                    fontWeight: '400',
+                  }}
+                >
+                  385
+                </Typography>
+              </Box>
+              <Box
                 sx={{
                   width: 'calc(40% - 16px)',
                   height: 64,
                   fontSize: { xs: 9, md: 14 },
+                  background: '#F5F7FB',
+                  borderRadius: '6px',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'center',
+                  justifyContent: 'center',
                 }}
-                label="Offline 50"
-                color="default"
-              />
+              >
+                <Typography
+                  sx={{
+                    fontSize: '12px',
+                    lineHeight: '18px',
+                    fontWeight: '400',
+                  }}
+                >
+                  Offline
+                </Typography>
+                <Typography
+                  sx={{
+                    fontSize: '16px',
+                    lineHeight: '24px',
+                    fontWeight: '400',
+                  }}
+                >
+                  50
+                </Typography>
+              </Box>
             </Stack>
 
             <Box
