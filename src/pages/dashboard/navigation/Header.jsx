@@ -1,4 +1,13 @@
-import { Box, Button, Drawer, Fade, Menu, MenuItem } from '@mui/material'
+import {
+  Badge,
+  Box,
+  Button,
+  Drawer,
+  Fade,
+  Menu,
+  MenuItem,
+  Tooltip,
+} from '@mui/material'
 import { useState } from 'react'
 
 import Aside from './Aside'
@@ -85,8 +94,10 @@ const Header = () => {
             onClick={handleClick}
             variant="contained"
             sx={{
-              background: '#ffffff50',
-              '&:hover': { background: 'inherit' },
+              background: '#ffffff40',
+              '&:hover': { backgroundColor: 'inherit', boxShadow: 'none' },
+              borderRadius: '10px',
+              boxShadow: 'none',
             }}
           >
             <Box
@@ -97,12 +108,13 @@ const Header = () => {
                 gap: '5px',
               }}
             >
+              {/* <Badge color="secondary" badgeContent="M" showZero> */}
               <Box
                 sx={{
                   // border: '2px solid red',
                   borderRadius: '50%',
-                  width: '27px',
-                  height: '27px',
+                  width: '30px',
+                  height: '30px',
                   overflow: 'hidden',
                   display: 'flex',
                   alignItems: 'center',
@@ -119,7 +131,7 @@ const Header = () => {
                   }}
                 />
               </Box>
-              Fname
+              FName
               <KeyboardArrowDownRoundedIcon />
             </Box>
           </Button>
@@ -134,8 +146,10 @@ const Header = () => {
             TransitionComponent={Fade}
             sx={{
               '& .MuiPaper-root': {
-                borderRadius: '10px',
+                borderRadius: '4px',
                 boxShadow: '0px 3px 6px rgba(0,0,0,0.16)',
+                marginTop: '7px',
+                width: '9rem',
               },
             }}
           >
@@ -152,7 +166,7 @@ const Header = () => {
               onClick={handleClose}
               sx={{ fontSize: '14px', fontWeight: '500' }}
             >
-              Logout
+              Sign out
             </MenuItem>
           </Menu>
           {/* </Link> */}
