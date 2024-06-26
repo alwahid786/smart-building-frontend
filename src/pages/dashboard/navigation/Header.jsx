@@ -1,14 +1,33 @@
-import { Box, Button, Drawer } from '@mui/material'
+import { Box, Button, Drawer, Fade, Menu, MenuItem } from '@mui/material'
 import { useState } from 'react'
 
 import Aside from './Aside'
 import MenuIcon from '../../../asset/svgs/Menu'
 import MailIcon from '../../../asset/svgs/header/MailIcon'
 import NotificationIcon from '../../../asset/svgs/header/NotificationIcon'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { Height } from '@mui/icons-material'
-
+import KeyboardArrowDownRoundedIcon from '@mui/icons-material/KeyboardArrowDownRounded'
+import profile from '../../../asset/Images/navbar/Ellipse.png'
+import rectProfile from '../../../asset/Images/list/Rectangle.png'
 const Header = () => {
+  // open Menu
+  const [anchorEl, setAnchorEl] = useState(null)
+  const open = Boolean(anchorEl)
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget)
+  }
+  const handleClose = () => {
+    setAnchorEl(null)
+  }
+  //  ---------
+  const navigate = useNavigate()
+  const profilePage = () => {
+    navigate('profile')
+    // setAnchorEl(null)
+    // handleClose()
+  }
+
   const [openNav, setOpenNav] = useState(false)
 
   const toggleNav = (newOpen) => {
@@ -57,17 +76,86 @@ const Header = () => {
         >
           <MailIcon />
           <NotificationIcon />
-          <Link to="profile">
-            <Button
-              variant="contained"
+          {/* <Link to="profile"> */}
+          <Button
+            id="fade-menu"
+            aria-controls={open ? 'fade-menu' : undefined}
+            aria-haspopup="true"
+            aria-expanded={open ? 'true' : undefined}
+            onClick={handleClick}
+            variant="contained"
+            sx={{
+              background: '#ffffff50',
+              '&:hover': { background: 'inherit' },
+            }}
+          >
+            <Box
               sx={{
-                background: '#ffffff50',
-                '&:hover': { background: 'inherit' },
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                gap: '5px',
               }}
             >
-              Profile
-            </Button>
-          </Link>
+              <Box
+                sx={{
+                  // border: '2px solid red',
+                  borderRadius: '50%',
+                  width: '27px',
+                  height: '27px',
+                  overflow: 'hidden',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}
+              >
+                <img
+                  src={profile}
+                  alt="profile"
+                  style={{
+                    width: '100%',
+                    height: '100%',
+                    objectFit: 'cover',
+                  }}
+                />
+              </Box>
+              Fname
+              <KeyboardArrowDownRoundedIcon />
+            </Box>
+          </Button>
+          <Menu
+            id="fade-menu"
+            MenuListProps={{
+              'aria-labelledby': 'fade-button',
+            }}
+            anchorEl={anchorEl}
+            open={open}
+            onClose={handleClose}
+            TransitionComponent={Fade}
+            sx={{
+              '& .MuiPaper-root': {
+                borderRadius: '10px',
+                boxShadow: '0px 3px 6px rgba(0,0,0,0.16)',
+              },
+            }}
+          >
+            <MenuItem
+              sx={{
+                fontSize: '14px',
+                fontWeight: '500',
+              }}
+              onClick={profilePage}
+            >
+              My Profile
+            </MenuItem>
+            <MenuItem
+              onClick={handleClose}
+              sx={{ fontSize: '14px', fontWeight: '500' }}
+            >
+              Logout
+            </MenuItem>
+          </Menu>
+          {/* </Link> */}
         </Box>
       </Box>
     </>

@@ -21,6 +21,7 @@ import Filter from '../../../../asset/svgs/Filter'
 import RedHeartIcon from '../../../../asset/svgs/RedHeartIcon'
 import DeleteIcon from '../../../../asset/svgs/DeleteIcon'
 import AddIcon from '../../../../asset/svgs/AddIcon'
+import BackFilter from '../../../../asset/svgs/BackFilter'
 
 const FilterBar = () => {
   const [isActive, setIsActive] = useState(false)
@@ -47,6 +48,11 @@ const FilterBar = () => {
   }
 
   const [isLoading, setIsLoading] = useState(true)
+  const [isFilterOpen, setIsFilterOpen] = useState(false)
+
+  const toggleFilterIcon = () => {
+    setIsFilterOpen(!isFilterOpen)
+  }
 
   useEffect(() => {
     setTimeout(() => {
@@ -298,10 +304,17 @@ const FilterBar = () => {
               }}
               placeholder="Search"
             />
-            {/* </Box> */}
-            <Filter />
+            {/* {isFilterOpen && <p>m here</p>} */}
+            <Box sx={{ cursor: 'pointer' }} onClick={toggleFilterIcon}>
+              {!isFilterOpen ? <Filter /> : <BackFilter />}
+            </Box>
+            {/* <Box sx={{ cursor: 'pointer' }}>
+              <BackFilter />
+            </Box> */}
 
-            <RedHeartIcon />
+            <Box sx={{ cursor: 'pointer' }}>
+              <RedHeartIcon />
+            </Box>
           </Box>
 
           <Box
@@ -312,8 +325,12 @@ const FilterBar = () => {
               gap: { sm: 1, xs: 0.5 },
             }}
           >
-            <DeleteIcon />
-            <AddIcon />
+            <Box sx={{ cursor: 'pointer' }}>
+              <DeleteIcon />
+            </Box>
+            <Box sx={{ cursor: 'pointer' }}>
+              <AddIcon />
+            </Box>
           </Box>
         </Box>
       )}
