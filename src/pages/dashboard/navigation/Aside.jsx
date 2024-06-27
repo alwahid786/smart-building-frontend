@@ -133,13 +133,16 @@ const Aside = ({ toggleNav }) => {
           transform: isSideBarOpen ? 'translateX(0)' : 'translateX(-100%)',
           opacity: isSideBarOpen ? 1 : 0,
           width: isSideBarOpen ? '174px' : '0px',
-          transition: 'transform 0.5s ease-in-out, opacity 0.5s ease-in-out',
+          transition:
+            'transform cubic-bezier(0.19, 1, 0.22, 1) 1s, opacity cubic-bezier(0.19, 1, 0.22, 1) 1s, width cubic-bezier(0.19, 1, 0.22, 1) 1s',
           backgroundImage:
             'linear-gradient(178.55deg, rgba(123, 66, 246 ) 2.95%, rgba(85, 16, 207) 84.68%)',
           // height: { sm: '65%', xs: '100%' },
-          minHeight: '65%',
+          height: '90vh',
           overflowY: 'auto',
           borderRadius: isSideBarOpen ? '12px' : '0px',
+          padding: '16px 8px',
+          marginRight: isSideBarOpen ? { xs: '0', sm: '1rem' } : '0',
         }}
       >
         <Stack
@@ -232,7 +235,7 @@ const Aside = ({ toggleNav }) => {
           sx={{
             transform: isSideBarOpen ? 'translateX(-100%)' : 'translateX(0)',
             opacity: isSideBarOpen ? 0 : 1,
-            transition: 'transform 0.5s ease, opacity 0.5s ease',
+            // transition: 'transform 0.5s ease, opacity 0.5s ease',
             position: 'absolute',
             top: '28px',
             left: '25px',
@@ -273,9 +276,9 @@ const Asidemain = styled(Box)({
   flexDirection: 'column',
   alignItems: 'flex-start',
   justifyContent: 'space-between',
-  padding: '16px 8px',
+
   position: 'sticky',
-  top: '0',
+  top: '10px',
   left: '0',
 
   // gap: '3rem',
