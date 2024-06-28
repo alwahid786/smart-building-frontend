@@ -8,7 +8,6 @@ const AddCard = () => {
   return (
     <Card
       sx={{
-        cursor: 'pointer',
         maxWidth: '300px',
         minHeight: '242px',
         position: 'relative',
@@ -25,11 +24,13 @@ const AddCard = () => {
       >
         <h4>Add Building</h4>
         <Link to="/dashboard/addbuilding">
-          <Box sx={{ display: 'flex', justifyContent: 'center' }}>
-            <AddLg />
-          </Box>
-          <Box sx={{ position: 'absolute', bottom: '0', right: '0' }}>
-            <img src={CardBg} style={{ width: '218px', height: '124px' }} />
+          <Box sx={{ cursor: 'pointer' }}>
+            <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+              <AddLg />
+            </Box>
+            <Box sx={{ position: 'absolute', bottom: '0', right: '0' }}>
+              <img src={CardBg} style={{ width: '218px', height: '124px' }} />
+            </Box>
           </Box>
         </Link>
       </CardContent>

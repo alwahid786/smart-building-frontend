@@ -1,6 +1,7 @@
 import { Box, Typography } from '@mui/material'
 import React from 'react'
 import GeneralBuildingInformation from './GeneralBuildingInformation'
+import StepperComponent from './components/StepperComponent'
 
 const AddBuilding = () => {
   return (
@@ -8,6 +9,7 @@ const AddBuilding = () => {
       sx={{
         background: '#FFFFFF',
         borderRadius: '14px',
+        minHeight: '100vh',
         p: { xs: 1, sm: 2, md: 3, lg: 4, xl: 5 },
       }}
     >
@@ -16,10 +18,13 @@ const AddBuilding = () => {
       >
         Add Building
       </Typography>
-
       <Box>
-        <GeneralBuildingInformation />
+        <StepperComponent />
       </Box>
+
+      {/* <Box>
+        <GeneralBuildingInformation />
+      </Box> */}
     </Box>
   )
 }

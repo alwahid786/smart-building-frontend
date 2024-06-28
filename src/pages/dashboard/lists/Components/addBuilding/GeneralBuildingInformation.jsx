@@ -4,6 +4,7 @@ import { useFormik } from 'formik'
 import { firstStepperGeneralInformation } from '../../../../../schema'
 import PhoneInput from 'react-phone-input-2'
 import 'react-phone-input-2/lib/bootstrap.css'
+import { WidthFull } from '@mui/icons-material'
 
 const GeneralBuildingInformation = () => {
   const {
@@ -75,9 +76,23 @@ const GeneralBuildingInformation = () => {
               value={values.mobile}
               onChange={(mobile) => setFieldValue('mobile', mobile)}
               onBlur={handleBlur('mobile')}
+              inputStyle={{
+                width: '100%', // Adjust width as needed
+                height: '40px', // Adjust height as needed
+                fontSize: '14px', // Adjust font size as needed
+                // padding: '5px', // Adjust padding as needed
+                border:
+                  touched.mobile && errors.mobile
+                    ? '1px solid #D63F3F '
+                    : '1px solid #ccc', // Example border style
+                borderRadius: '4px',
+                // Example border radius
+              }}
             />
             {touched.mobile && errors.mobile ? (
-              <div style={{ color: 'red', fontSize: '12px' }}>
+              <div
+                style={{ color: '#D63F3F', fontSize: '12px', marginTop: '5px' }}
+              >
                 {errors.mobile}
               </div>
             ) : null}
