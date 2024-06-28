@@ -72,9 +72,7 @@ export const resetPassSchema = Yup.object({
 export const firstStepperGeneralInformation = Yup.object({
   buildingName: Yup.string().required('Building name is required'),
   ownerName: Yup.string().required('Owner name is required'),
-  mobile:
-    Yup.string()
-    .required('Phone is required'),
+  mobile: Yup.string().required('Phone is required'),
   email: Yup.string()
     .email('Invalid email address')
     .required('Email is required'),
@@ -87,6 +85,6 @@ export const firstStepperGeneralInformation = Yup.object({
     .required('Number of floors is required'),
 
   description: Yup.string().required('Description is required'),
-  constructionYear: Yup.date().required('Date is required'),
+  constructionYear: Yup.date().required('Year of construction is required'),
   writtenAddress: Yup.string().required('Address is required'),
 })

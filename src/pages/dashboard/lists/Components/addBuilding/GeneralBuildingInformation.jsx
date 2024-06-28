@@ -132,7 +132,7 @@ const GeneralBuildingInformation = () => {
 
           <TextInput
             basic={{
-              label: 'Years of Construction',
+              // label: 'Years of Construction',
               type: 'date',
               name: 'constructionYear',
             }}
