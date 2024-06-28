@@ -1,34 +1,39 @@
 import { Box, Button, Grid } from '@mui/material'
-import {
-  TextInput,
-  TextDescription,
-} from './components/Input'
+import { TextInput, TextDescription } from './components/Input'
 import { useFormik } from 'formik'
 import { firstStepperGeneralInformation } from '../../../../../schema'
+import PhoneInput from 'react-phone-input-2'
+import 'react-phone-input-2/lib/bootstrap.css'
 
 const GeneralBuildingInformation = () => {
-  const { values, handleBlur, handleChange, handleSubmit, errors, touched } =
-    useFormik({
-      initialValues: {
-        buildingName: '',
-        ownerName: '',
-        mobile: '',
-        email: '',
-        totalArea: '',
-        numberOfFloors: '',
-        description: '',
-        constructionYear: '',
-        writtenAddress: '',
-      },
-      validationSchema: firstStepperGeneralInformation,
-      // validateOnChange: true,
-      // validateOnBlur: false,
-      onSubmit: (values, action) => {
-
-        console.log("values", values)
-        action.resetForm()
-      },
-    })
+  const {
+    values,
+    handleBlur,
+    handleChange,
+    handleSubmit,
+    errors,
+    touched,
+    setFieldValue,
+  } = useFormik({
+    initialValues: {
+      buildingName: '',
+      ownerName: '',
+      mobile: '',
+      email: '',
+      totalArea: '',
+      numberOfFloors: '',
+      description: '',
+      constructionYear: '',
+      writtenAddress: '',
+    },
+    validationSchema: firstStepperGeneralInformation,
+    // validateOnChange: true,
+    // validateOnBlur: false,
+    onSubmit: (values, action) => {
+      console.log('values', values)
+      action.resetForm()
+    },
+  })
   return (
     <Box>
       <form onSubmit={handleSubmit}>
@@ -58,11 +63,25 @@ const GeneralBuildingInformation = () => {
             }}
             formik={{ touched: touched.ownername, errors: errors.ownername }}
           />
-          <TextInput
+          {/* <TextInput
             basic={{ label: 'phone', type: 'text', name: 'mobile' }}
             valAndHandler={{ handleBlur, handleChange, value: values.mobile }}
             formik={{ touched: touched.mobile, errors: errors.mobile }}
-          />
+          /> */}
+          <Grid item md={4} sm={6} xs={12}>
+            <PhoneInput
+              country={'eg'}
+              enableSearch={true}
+              value={values.mobile}
+              onChange={(mobile) => setFieldValue('mobile', mobile)}
+              onBlur={handleBlur('mobile')}
+            />
+            {touched.mobile && errors.mobile ? (
+              <div style={{ color: 'red', fontSize: '12px' }}>
+                {errors.mobile}
+              </div>
+            ) : null}
+          </Grid>
           <TextInput
             basic={{ label: 'Email', type: 'text', name: 'email' }}
             valAndHandler={{ handleBlur, handleChange, value: values.email }}
@@ -74,7 +93,11 @@ const GeneralBuildingInformation = () => {
               type: 'number',
               name: 'totalArea',
             }}
-            valAndHandler={{ handleBlur, handleChange, value: values.totalArea }}
+            valAndHandler={{
+              handleBlur,
+              handleChange,
+              value: values.totalArea,
+            }}
             formik={{ touched: touched.totalArea, errors: errors.totalArea }}
           />
           <TextInput
@@ -83,8 +106,15 @@ const GeneralBuildingInformation = () => {
               type: 'number',
               name: 'numberOfFloors',
             }}
-            valAndHandler={{ handleBlur, handleChange, value: values.numberOfFloors }}
-            formik={{ touched: touched.numberOfFloors, errors: errors.numberOfFloors }}
+            valAndHandler={{
+              handleBlur,
+              handleChange,
+              value: values.numberOfFloors,
+            }}
+            formik={{
+              touched: touched.numberOfFloors,
+              errors: errors.numberOfFloors,
+            }}
           />
 
           <TextDescription
@@ -106,13 +136,27 @@ const GeneralBuildingInformation = () => {
               type: 'date',
               name: 'constructionYear',
             }}
-            valAndHandler={{ handleBlur, handleChange, value: values.constructionYear }}
-            formik={{ touched: touched.constructionYear, errors: errors.constructionYear }}
+            valAndHandler={{
+              handleBlur,
+              handleChange,
+              value: values.constructionYear,
+            }}
+            formik={{
+              touched: touched.constructionYear,
+              errors: errors.constructionYear,
+            }}
           />
           <TextInput
             basic={{ label: 'Address', type: 'text', name: 'writtenAddress' }}
-            valAndHandler={{ handleBlur, handleChange, value: values.writtenAddress }}
-            formik={{ touched: touched.writtenAddress, errors: errors.writtenAddress }}
+            valAndHandler={{
+              handleBlur,
+              handleChange,
+              value: values.writtenAddress,
+            }}
+            formik={{
+              touched: touched.writtenAddress,
+              errors: errors.writtenAddress,
+            }}
           />
         </Grid>
 

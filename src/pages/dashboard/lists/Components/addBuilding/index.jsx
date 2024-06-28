@@ -16,6 +16,7 @@ const AddBuilding = () => {
       >
         Add Building
       </Typography>
+
       <Box>
         <GeneralBuildingInformation />
       </Box>
