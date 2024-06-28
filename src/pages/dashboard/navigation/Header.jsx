@@ -14,20 +14,26 @@ import Aside from './Aside'
 import MenuIcon from '../../../asset/svgs/Menu'
 import MailIcon from '../../../asset/svgs/header/MailIcon'
 import NotificationIcon from '../../../asset/svgs/header/NotificationIcon'
-import { Link, useNavigate } from 'react-router-dom'
-import { Height } from '@mui/icons-material'
+import { useNavigate } from 'react-router-dom'
 import KeyboardArrowDownRoundedIcon from '@mui/icons-material/KeyboardArrowDownRounded'
 import profile from '../../../asset/Images/navbar/Ellipse.png'
-import rectProfile from '../../../asset/Images/list/Rectangle.png'
+import { useLogoutUserMutation} from '../../../redux/api/authApi'
+
 const Header = () => {
   // open Menu
   const [anchorEl, setAnchorEl] = useState(null)
+  const [logoutUser] = useLogoutUserMutation()
   const open = Boolean(anchorEl)
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget)
   }
-  const handleClose = () => {
+  const handleClose = async() => {
     setAnchorEl(null)
+
+    const res = await logoutUser()
+    if (res.data) {
+      console.log("Logout")
+    }
   }
   //  ---------
   const navigate = useNavigate()

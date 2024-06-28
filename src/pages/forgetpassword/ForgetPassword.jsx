@@ -20,15 +20,19 @@ const ForgetPassword = () => {
     useFormik({
       initialValues,
       validationSchema: forgetPassSchema,
-      onSubmit: async (values, action) => {
+      onSubmit: async (values) => {
+
         const res = await forgetPassword({ email: values.email });
 
         if (res.data.success === true) {
+
           toast.success(res.data.message);
-          action.resetForm();
-        } else {
-          toast.error(res.data.message);
+          
+         return setTimeout(() => {navigate('/login')}, 1000);
+
         }
+
+        return toast.error("This email not found");
       },
     });
 
