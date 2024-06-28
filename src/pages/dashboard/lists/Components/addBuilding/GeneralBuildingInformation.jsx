@@ -2,7 +2,6 @@ import { Box, Button, Grid } from '@mui/material'
 import {
   TextInput,
   TextDescription,
-  TextConstruction,
 } from './components/Input'
 import { useFormik } from 'formik'
 import { firstStepperGeneralInformation } from '../../../../../schema'
@@ -12,19 +11,21 @@ const GeneralBuildingInformation = () => {
     useFormik({
       initialValues: {
         buildingName: '',
-        ownername: '',
-        phone: '',
+        ownerName: '',
+        mobile: '',
         email: '',
-        area: '',
-        floors: '',
+        totalArea: '',
+        numberOfFloors: '',
         description: '',
-        year: '',
-        address: '',
+        constructionYear: '',
+        writtenAddress: '',
       },
       validationSchema: firstStepperGeneralInformation,
       // validateOnChange: true,
       // validateOnBlur: false,
       onSubmit: (values, action) => {
+
+        console.log("values", values)
         action.resetForm()
       },
     })
@@ -49,7 +50,7 @@ const GeneralBuildingInformation = () => {
             }}
           />
           <TextInput
-            basic={{ label: 'Owner name', type: 'text', name: 'ownername' }}
+            basic={{ label: 'Owner name', type: 'text', name: 'ownerName' }}
             valAndHandler={{
               handleBlur,
               handleChange,
@@ -58,9 +59,9 @@ const GeneralBuildingInformation = () => {
             formik={{ touched: touched.ownername, errors: errors.ownername }}
           />
           <TextInput
-            basic={{ label: 'phone', type: 'text', name: 'phone' }}
-            valAndHandler={{ handleBlur, handleChange, value: values.phone }}
-            formik={{ touched: touched.phone, errors: errors.phone }}
+            basic={{ label: 'phone', type: 'text', name: 'mobile' }}
+            valAndHandler={{ handleBlur, handleChange, value: values.mobile }}
+            formik={{ touched: touched.mobile, errors: errors.mobile }}
           />
           <TextInput
             basic={{ label: 'Email', type: 'text', name: 'email' }}
@@ -71,19 +72,19 @@ const GeneralBuildingInformation = () => {
             basic={{
               label: 'Total area (sq ft/m)',
               type: 'number',
-              name: 'area',
+              name: 'totalArea',
             }}
-            valAndHandler={{ handleBlur, handleChange, value: values.area }}
-            formik={{ touched: touched.area, errors: errors.area }}
+            valAndHandler={{ handleBlur, handleChange, value: values.totalArea }}
+            formik={{ touched: touched.totalArea, errors: errors.totalArea }}
           />
           <TextInput
             basic={{
               label: 'No. of floors',
               type: 'number',
-              name: 'floors',
+              name: 'numberOfFloors',
             }}
-            valAndHandler={{ handleBlur, handleChange, value: values.floors }}
-            formik={{ touched: touched.floors, errors: errors.floors }}
+            valAndHandler={{ handleBlur, handleChange, value: values.numberOfFloors }}
+            formik={{ touched: touched.numberOfFloors, errors: errors.numberOfFloors }}
           />
 
           <TextDescription
@@ -103,15 +104,15 @@ const GeneralBuildingInformation = () => {
             basic={{
               label: 'Years of Construction',
               type: 'date',
-              name: 'year',
+              name: 'constructionYear',
             }}
-            valAndHandler={{ handleBlur, handleChange, value: values.year }}
-            formik={{ touched: touched.year, errors: errors.year }}
+            valAndHandler={{ handleBlur, handleChange, value: values.constructionYear }}
+            formik={{ touched: touched.constructionYear, errors: errors.constructionYear }}
           />
           <TextInput
-            basic={{ label: 'Address', type: 'text', name: 'address' }}
-            valAndHandler={{ handleBlur, handleChange, value: values.address }}
-            formik={{ touched: touched.address, errors: errors.address }}
+            basic={{ label: 'Address', type: 'text', name: 'writtenAddress' }}
+            valAndHandler={{ handleBlur, handleChange, value: values.writtenAddress }}
+            formik={{ touched: touched.writtenAddress, errors: errors.writtenAddress }}
           />
         </Grid>
 
