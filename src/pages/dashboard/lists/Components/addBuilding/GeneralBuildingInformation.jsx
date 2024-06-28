@@ -59,9 +59,9 @@ const GeneralBuildingInformation = () => {
             valAndHandler={{
               handleBlur,
               handleChange,
-              value: values.ownername,
+              value: values.ownerName,
             }}
-            formik={{ touched: touched.ownername, errors: errors.ownername }}
+            formik={{ touched: touched.ownerName, errors: errors.ownerName }}
           />
           {/* <TextInput
             basic={{ label: 'phone', type: 'text', name: 'mobile' }}
