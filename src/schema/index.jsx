@@ -68,3 +68,28 @@ export const resetPassSchema = Yup.object({
     .oneOf([Yup.ref('newpassword'), null], 'Passwords must match')
     .required('Confirm new password is required'),
 })
+
+export const firstStepperGeneralInformation = Yup.object({
+  buildingName: Yup.string().required('Building name is required'),
+  ownername: Yup.string().required('Owner name is required'),
+  phone: Yup.string()
+    .matches(
+      /^[0-9]{10}$/,
+      'Phone number must be exactly 10 digits and contain only numbers'
+    )
+    .required('Phone is required'),
+  email: Yup.string()
+    .email('Invalid email address')
+    .required('Email is required'),
+  area: Yup.number()
+    .positive('Area must be greater than 0')
+    .required('Area is required'),
+
+  floors: Yup.number()
+    .positive('Number of floors must be greater than 0')
+    .required('Number of floors is required'),
+
+  description: Yup.string().required('Description is required'),
+  year: Yup.date().required('Date is required'),
+  address: Yup.string().required('Address is required'),
+})
