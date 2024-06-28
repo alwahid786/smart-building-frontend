@@ -4,8 +4,13 @@ import { useFormik } from 'formik'
 import { firstStepperGeneralInformation } from '../../../../../schema'
 import PhoneInput from 'react-phone-input-2'
 import 'react-phone-input-2/lib/bootstrap.css'
+import { useAddBuildingMutation } from '../../../../../redux/api/buildingApi'
+import { toast } from 'react-toastify'
 
 const GeneralBuildingInformation = () => {
+
+  const [addBuilding] = useAddBuildingMutation();
+
   const {
     values,
     handleBlur,
@@ -29,9 +34,19 @@ const GeneralBuildingInformation = () => {
     validationSchema: firstStepperGeneralInformation,
     // validateOnChange: true,
     // validateOnBlur: false,
-    onSubmit: (values, action) => {
-      console.log('values', values)
-      action.resetForm()
+    onSubmit: async(values, action) => {
+     
+      try {
+         
+      const res = await addBuilding({
+        buildingName: values.buildingName, ownerName: values.ownerName, mobile: values.mobile, email: values.email, totalArea: values.totalArea, numberOfFloors: values.numberOfFloors, description: values.description, constructionYear: values.constructionYear, writtenAddress: values.writtenAddress})
+        
+      } catch (error) {
+        
+        toast.error(error.data.message)
+      }
+      
+      // action.resetForm()
     },
   })
   return (
