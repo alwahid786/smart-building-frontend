@@ -22,6 +22,7 @@ import RedHeartIcon from '../../../../asset/svgs/RedHeartIcon'
 import DeleteIcon from '../../../../asset/svgs/DeleteIcon'
 import AddIcon from '../../../../asset/svgs/AddIcon'
 import BackFilter from '../../../../asset/svgs/BackFilter'
+import { Link } from 'react-router-dom'
 
 const FilterBar = () => {
   const [isActive, setIsActive] = useState(false)
@@ -328,9 +329,11 @@ const FilterBar = () => {
             <Box sx={{ cursor: 'pointer' }}>
               <DeleteIcon />
             </Box>
-            <Box sx={{ cursor: 'pointer' }}>
-              <AddIcon />
-            </Box>
+            <Link to="/dashboard/addbuilding">
+              <Box sx={{ cursor: 'pointer' }}>
+                <AddIcon />
+              </Box>
+            </Link>
           </Box>
         </Box>
       )}

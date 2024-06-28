@@ -2,6 +2,7 @@ import { Box, Card, CardContent, CardMedia } from '@mui/material'
 import React from 'react'
 import CardBg from '../../../../asset/Images/list/image.png'
 import AddLg from '../../../../asset/svgs/AddLg'
+import { Link } from 'react-router-dom'
 
 const AddCard = () => {
   return (
@@ -23,12 +24,14 @@ const AddCard = () => {
         }}
       >
         <h4>Add Building</h4>
-        <Box sx={{ display: 'flex', justifyContent: 'center' }}>
-          <AddLg />
-        </Box>
-        <Box sx={{ position: 'absolute', bottom: '0', right: '0' }}>
-          <img src={CardBg} style={{ width: '218px', height: '124px' }} />
-        </Box>
+        <Link to="/dashboard/addbuilding">
+          <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+            <AddLg />
+          </Box>
+          <Box sx={{ position: 'absolute', bottom: '0', right: '0' }}>
+            <img src={CardBg} style={{ width: '218px', height: '124px' }} />
+          </Box>
+        </Link>
       </CardContent>
     </Card>
   )

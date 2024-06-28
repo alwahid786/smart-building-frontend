@@ -36,10 +36,9 @@ const Dashboard = () => {
         <Box
           sx={{
             display: 'flex',
-            gap: {
-              xs: '0',
-              sm: '1rem',
-            },
+            // gap: {
+            //   xs: '0', sm: '1rem',
+            // },
           }}
         >
           <Box
