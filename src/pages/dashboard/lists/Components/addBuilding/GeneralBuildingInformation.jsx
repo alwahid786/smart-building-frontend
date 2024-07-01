@@ -63,14 +63,11 @@ const GeneralBuildingInformation = ({ handleNext }) => {
           writtenAddress: values.writtenAddress,
         })
 
-<<<<<<< Updated upstream
-        console.log("Response", res);
+        console.log('Response', res)
 
-        action.resetForm();
-=======
+        action.resetForm()
         await handleNext()
         setIsLoading(false)
->>>>>>> Stashed changes
       } catch (error) {
         toast.error(error.data.message)
         setIsLoading(false)
