@@ -2,12 +2,12 @@
 import { Box, Grid, TextField } from '@mui/material'
 import React, { useState } from 'react'
 
-const TextInput = ({ basic, valAndHandler, formik }) => {
+const TextInput = ({ basic, valAndHandler, formik, md }) => {
   const { label, type, name } = basic
   const { value, handleBlur, handleChange } = valAndHandler
   const { touched, errors } = formik
   return (
-    <Grid item md={4} sm={6} xs={12}>
+    <Grid item md={md} sm={6} xs={12}>
       <Box>
         <TextField
           // id="outlined-basic"

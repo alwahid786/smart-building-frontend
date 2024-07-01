@@ -80,6 +80,8 @@ export const firstStepperGeneralInformation = Yup.object({
     .positive('Area must be greater than 0')
     .required('Area is required'),
 
+  unitOfArea: Yup.string().required('Unit of area is required'),
+
   numberOfFloors: Yup.number()
     .positive('Number of floors must be greater than 0')
     .required('Number of floors is required'),
@@ -87,4 +89,9 @@ export const firstStepperGeneralInformation = Yup.object({
   description: Yup.string().required('Description is required'),
   constructionYear: Yup.date().required('Year of construction is required'),
   writtenAddress: Yup.string().required('Address is required'),
+})
+
+export const mappingInfoSchema = Yup.object({
+  longitude: Yup.number().required('Longitude is required'),
+  latitude: Yup.number().required('Latitude is required'),
 })

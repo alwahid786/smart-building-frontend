@@ -22,6 +22,19 @@ const PhotosInfo = () => {
 
   return (
     <Box>
+      <Box sx={{ textAlign: 'center', marginY: '24px' }}>
+        {' '}
+        <Typography
+          sx={{
+            fontWeight: '500',
+            fontSize: '20px',
+            lineHeight: '30px',
+            color: '#414141',
+          }}
+        >
+          Upload Photos
+        </Typography>{' '}
+      </Box>
       <Grid container spacing={1}>
         {selectedImages.map((image, index) => (
           <CardPhotos image={image} key={index} />
