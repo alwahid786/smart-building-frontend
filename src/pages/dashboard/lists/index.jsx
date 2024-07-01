@@ -1,34 +1,38 @@
-import { Box, Grid } from '@mui/material'
-import BuildingStatus from './Components/BuildingStatus'
-import FilterBar from './Components/FilterBar'
-import ListCard from './Components/ListCard'
-import dummyData from './Components/dummyData'
-import { useEffect, useRef, useState } from 'react'
-import AddCard from './Components/AddCard'
+import { Box, Grid } from '@mui/material';
+import BuildingStatus from './Components/BuildingStatus';
+import FilterBar from './Components/FilterBar';
+import ListCard from './Components/ListCard';
+import { useEffect, useRef, useState } from 'react';
+import AddCard from './Components/AddCard';
+import img from "../../../asset/Images/list/Rectangle.png";
+import { useGetBuildingQuery } from '../../../redux/api/buildingApi';
+import { Link } from 'react-router-dom';
 
 const List = () => {
-  const [isSticky, setIsSticky] = useState(false)
-  const scrollContainerRef = useRef(null)
+  const [isSticky, setIsSticky] = useState(false);
+  const scrollContainerRef = useRef(null);
 
+  // API call using useGetBuildingQuery hook
+  const { data: buildingData, error, isLoading } = useGetBuildingQuery();
+
+  // Handle scrolling
   const handleScroll = () => {
     if (scrollContainerRef.current) {
-      const scrollTop = scrollContainerRef.current.scrollTop
-      setIsSticky(scrollTop > 100)
+      const scrollTop = scrollContainerRef.current.scrollTop;
+      setIsSticky(scrollTop > 100);
     }
-  }
+  };
 
   useEffect(() => {
-    const scrollContainer = scrollContainerRef.current
+    const scrollContainer = scrollContainerRef.current;
     if (scrollContainer) {
-      scrollContainer.addEventListener('scroll', handleScroll, {
-        passive: true,
-      })
+      scrollContainer.addEventListener('scroll', handleScroll, { passive: true });
 
       return () => {
-        scrollContainer.removeEventListener('scroll', handleScroll)
-      }
+        scrollContainer.removeEventListener('scroll', handleScroll);
+      };
     }
-  }, [])
+  }, []);
 
   return (
     <>
@@ -58,8 +62,6 @@ const List = () => {
           background: '#FFFFFF',
           borderRadius: '14px',
           p: { lg: 2, xl: 4 },
-          // overflow: 'hidden',
-          // width: '100%',
           opacity: 0,
           transform: 'translateY(20px)',
           animation: 'fadeInUp 2s ease forwards',
@@ -116,20 +118,26 @@ const List = () => {
             'scrollbar-width': 'thin',
           }}
         >
-          {dummyData.length === 0 ? (
+          {isLoading ? (
+            <p>Loading...</p>
+          ) : error ? (
+            <p>Error loading data.</p>
+          ) : buildingData?.length === 0 ? (
             <AddCard />
           ) : (
             <Grid container spacing={2}>
-              {dummyData.map((card, index) => (
-                <Grid item xs={12} sm={6} md={6} lg={4} xl={3} key={index}>
-                  <ListCard
-                    imageUrl={card.imageUrl}
-                    subtitle={card.subtitle}
-                    status={card.status}
-                    title={card.title}
-                    tags={card.tags}
-                    actionText={card.actionText}
-                  />
+              {buildingData.map((building) => (
+                <Grid item xs={12} sm={6} md={6} lg={4} xl={3} key={building.id}>
+                  <Link to={`/dashboard/building-info/${building._id}`}>
+                    <ListCard
+                      imageUrl={building.buildingImages.length > 0 ? building.buildingImages[0] : img}
+                      subtitle={building.ownerName}
+                      status={"status"}
+                      title={building.buildingName}
+                      tags={String(building.totalArea)}
+                      actionText={"See Details"}
+                    />
+                  </Link>
                 </Grid>
               ))}
             </Grid>
@@ -137,7 +145,7 @@ const List = () => {
         </Box>
       </Box>
     </>
-  )
-}
+  );
+};
 
-export default List
+export default List;

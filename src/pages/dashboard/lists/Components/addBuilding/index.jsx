@@ -1,7 +1,5 @@
-import { Box, Typography } from '@mui/material'
-import React from 'react'
-import GeneralBuildingInformation from './GeneralBuildingInformation'
-import StepperComponent from './components/StepperComponent'
+import { Box, Typography } from '@mui/material';
+import StepperComponent from './components/StepperComponent';
 
 const AddBuilding = () => {
   return (

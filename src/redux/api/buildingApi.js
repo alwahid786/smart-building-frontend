@@ -20,8 +20,24 @@ export const buildingApiPoint= createApi({
                 body: data
             })
         }),
+        getBuilding: builder.query({
+
+            query: ()=> ({
+
+                url: "/api/all-building", 
+                method: "GET"
+            })
+        }),
+        getSingleBuilding: builder.query({
+
+            query: (data)=> ({
+
+                url: `/api/single-building/${data}`, 
+                method: "GET",
+            })
+        }),
         
     })
 })
 
-export const {useAddBuildingMutation} = buildingApiPoint;
+export const {useAddBuildingMutation, useGetBuildingQuery, useGetSingleBuildingQuery} = buildingApiPoint;

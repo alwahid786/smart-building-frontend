@@ -46,6 +46,10 @@ const GeneralBuildingInformation = () => {
           constructionYear: values.constructionYear,
           writtenAddress: values.writtenAddress,
         })
+
+        console.log("Response", res);
+
+        action.resetForm();
       } catch (error) {
         toast.error(error.data.message)
       }

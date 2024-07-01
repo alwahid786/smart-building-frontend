@@ -6,12 +6,9 @@ import {
   CardMedia,
   Grid,
   Typography,
-  styled,
 } from '@mui/material'
 
-import { useEffect, useState } from 'react'
-import ArrowForwardIcon from '../../../../asset/svgs/ArrowForwardIcon'
-import BadALertIcon from '../../../../asset/svgs/BadAlertIcon'
+import { useEffect, useState } from 'react';
 import CardFavoriteIcon from '../../../../asset/svgs/CardFavoriteIcon'
 import { CardSkeleton } from '../../../../components/Skeleton'
 import Bulb from '../../../../asset/svgs/buildingdetails/Bulb'
@@ -19,29 +16,16 @@ import GasFire from '../../../../asset/svgs/buildingdetails/GasFire'
 import Drop from '../../../../asset/svgs/buildingdetails/Drop'
 import Bad from '../../../../asset/svgs/buildingdetails/Bad'
 import CardBg from '../../../../asset/Images/list/image.png'
-// import { Translate } from '@mui/icons-material'
 
-const ListCard = ({ status, imageUrl, subtitle, title, tags, actionText }) => {
+
+const ListCard = ({ imageUrl, subtitle, title, tags }) => {
   // const { isLoading } = useSelector((state) => state.loading)
   const [isFavorite, setIsFavorite] = useState(false)
 
   const toggleFavorite = () => {
     setIsFavorite(!isFavorite)
   }
-  // const getStatusColor = (status) => {
-  //   switch (status) {
-  //     case 'Good':
-  //       return 'rgba(214, 242, 227, 1);'
-  //     case 'Bad':
-  //       return 'rgba(255, 234, 235, 1)'
-  //     case 'Need Action':
-  //       return 'rgba(254, 237, 224, 1)'
-  //     case 'Inspection':
-  //       return 'rgba(255, 246, 219, 1)'
-  //     default:
-  //       return 'rgba(245, 247, 251, 1)'
-  //   }
-  // }
+ 
   const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
@@ -109,6 +93,7 @@ const ListCard = ({ status, imageUrl, subtitle, title, tags, actionText }) => {
             className="imageEffect"
             sx={{
               width: '100%',
+              height: '15rem',
               objectFit: 'cover',
               transition: 'transform 0.3s',
               borderBottomLeftRadius: '16px',
@@ -140,23 +125,6 @@ const ListCard = ({ status, imageUrl, subtitle, title, tags, actionText }) => {
               }}
             >
               {tags[0]}
-            </Typography>
-
-            <Typography
-              sx={{
-                background: '#AD20FE',
-                color: 'white',
-                mt: 1,
-                width: 24,
-                height: 20,
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                fontSize: '0.75rem',
-                borderRadius: '4px',
-              }}
-            >
-              {tags[1]}
             </Typography>
           </Box>
           <Box

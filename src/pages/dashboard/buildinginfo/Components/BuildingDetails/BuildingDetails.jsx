@@ -1,5 +1,4 @@
-import React from 'react'
-import { Grid, Paper, Typography } from '@mui/material'
+import { Grid, Paper } from '@mui/material'
 import BuildingCard from './components/Card'
 import PrimaryEnergy from './components/PrimaryEnergy'
 import InspectionHistory from './components/InspectionHistory'
@@ -9,6 +8,8 @@ import FinancialProjection from './components/FinancialProjection'
 import MediaConsumption from './components/MediaConsumption'
 import EnergyUtilitiesCard from './components/EnergyUtilitiesCard'
 const BuildingDetails = () => {
+
+
   return (
     <>
       <Grid container spacing={1}>
