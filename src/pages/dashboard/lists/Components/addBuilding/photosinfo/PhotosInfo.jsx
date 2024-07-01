@@ -14,7 +14,11 @@ const PhotosInfo = () => {
         return
       }
       const newImages = filesArray.map((file) => URL.createObjectURL(file))
-      setSelectedImages((prevImages) => prevImages.concat(newImages))
+      setSelectedImages((prevImages) => {
+        const updatedImages = prevImages.concat(newImages)
+        console.log('Uploaded Images:', updatedImages)
+        return updatedImages
+      })
       setError('')
       filesArray.forEach((file) => URL.revokeObjectURL(file)) // avoid memory leak
     }
@@ -23,7 +27,6 @@ const PhotosInfo = () => {
   return (
     <Box>
       <Box sx={{ textAlign: 'center', marginY: '24px' }}>
-        {' '}
         <Typography
           sx={{
             fontWeight: '500',
@@ -33,7 +36,7 @@ const PhotosInfo = () => {
           }}
         >
           Upload Photos
-        </Typography>{' '}
+        </Typography>
       </Box>
       <Grid container spacing={1}>
         {selectedImages.map((image, index) => (
