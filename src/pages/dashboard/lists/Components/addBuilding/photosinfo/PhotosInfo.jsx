@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react'
 import { Box, Button, Grid, Typography } from '@mui/material'
 import { Formik, Form, ErrorMessage } from 'formik'
@@ -5,9 +6,19 @@ import { photosInfoSchema } from '../../../../../../schema'
 import CardPhotos from './CardPhotos'
 
 const PhotosInfo = ({ handleNext }) => {
+
+import { useState } from 'react';
+import { Box, Button, Grid, Typography } from '@mui/material';
+import CardPhotos from './CardPhotos';
+import { useAddBuildingMutation } from '../../../../../../redux/api/buildingApi';
+
+const PhotosInfo = () => {
+
+
   const [selectedImages, setSelectedImages] = useState([])
   const [error, setError] = useState('')
   const [isLoading, setIsLoading] = useState(false)
+
 
   const handleImageChange = (event, setFieldValue) => {
     const files = event.currentTarget.files
@@ -34,14 +45,25 @@ const PhotosInfo = ({ handleNext }) => {
       }
 
       if (uploadableFiles.length + selectedImages.length > 10) {
+
+  const [addBuilding] = useAddBuildingMutation()
+
+  const handleImageChange = (e) => {
+    if (e.target.files) {
+      const filesArray = Array.from(e.target.files)
+      if (filesArray.length + selectedImages.length > 10) {
+
         setError('You can only upload up to 10 images.')
         return
       }
 
       const newImages = uploadableFiles.map((file) => URL.createObjectURL(file))
       setSelectedImages((prevImages) => {
-        const updatedImages = prevImages.concat(newImages)
-        // console.log('Uploaded Images:', updatedImages)
+
+        
+        const updatedImages = prevImages.concat(newImages);
+        console.log('Uploaded Images:', updatedImages)
+
         return updatedImages
       })
       setFieldValue('photos', uploadableFiles)
