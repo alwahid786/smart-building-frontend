@@ -18,7 +18,7 @@ const getStepContent = (step, handleNext) => {
     case 0:
       return <GeneralBuildingInformation handleNext={handleNext} />
     case 1:
-      return <PhotosInfo />
+      return <PhotosInfo handleNext={handleNext} />
     case 2:
       return <MappingInfo />
     default:

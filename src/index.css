@@ -19,3 +19,7 @@ body::-webkit-scrollbar {
     rgba(176, 30, 255, 1)
   );
 }
+
+a {
+  text-decoration: none;
+}

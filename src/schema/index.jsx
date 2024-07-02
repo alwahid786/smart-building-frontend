@@ -91,6 +91,28 @@ export const firstStepperGeneralInformation = Yup.object({
   writtenAddress: Yup.string().required('Address is required'),
 })
 
+const FILE_SIZE = 5 * 1024 * 1024 // 5MB
+
+export const photosInfoSchema = Yup.object().shape({
+  photos: Yup.array()
+    .of(
+      Yup.mixed()
+        .required('A photo is required')
+        // .test(
+        //   'fileFormat',
+        //   'Unsupported Format',
+        //   value => value && SUPPORTED_FORMATS.includes(value.type)
+        // )
+        .test(
+          'fileSize',
+          'File too large',
+          (value) => value && value.size <= FILE_SIZE
+        )
+    )
+    .min(1, 'At least one photo is required')
+    .max(10, 'Cannot upload more than 10 photos'),
+})
+
 export const mappingInfoSchema = Yup.object({
   longitude: Yup.number().required('Longitude is required'),
   latitude: Yup.number().required('Latitude is required'),

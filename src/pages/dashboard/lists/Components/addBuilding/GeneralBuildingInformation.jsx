@@ -267,9 +267,24 @@ const GeneralBuildingInformation = ({ handleNext }) => {
             justifyContent: 'end',
           }}
         >
-          <Button variant="outlined">Cancel</Button>
+          <Button
+            variant="outlined"
+            sx={{
+              color: '#7B42F6',
+              textTransform: 'none',
+              border: '1px solid #7B42F6',
+              fontSize: '20px',
+              padding: '0 30px',
+            }}
+          >
+            Cancel
+          </Button>
           <Button
             sx={{
+              backgroundImage: 'linear-gradient(to right, #7E3FF6, #AC20FE)',
+              padding: '0 40px',
+              fontSize: '20px',
+              textTransform: 'none',
               ':disabled': {
                 color: 'white',
                 opacity: '0.5',
@@ -280,7 +295,7 @@ const GeneralBuildingInformation = ({ handleNext }) => {
             type="submit"
             variant="contained"
           >
-            {isLoading ? 'Saving...' : 'NEXT'}
+            {isLoading ? 'Saving...' : 'Next'}
           </Button>
         </Box>
       </form>

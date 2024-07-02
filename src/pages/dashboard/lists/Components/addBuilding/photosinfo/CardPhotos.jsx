@@ -1,30 +1,40 @@
-import { Box, Grid, Typography } from '@mui/material'
-import React from 'react'
+import { Box } from '@mui/material'
 
-const CardPhotos = ({ image }) => {
+import ImageEdit from '../../../../../../asset/svgs/ImageEdit'
+import ImageDelete from '../../../../../../asset/svgs/ImageDelete'
+
+const CardPhotos = ({ image, deleteImage }) => {
   return (
     <>
-      <Grid item xs={12} sm={6} md={3} xl={2}>
-        <Box
-          sx={{
-            width: '240px',
-            height: '220px',
+      <Box position="relative" width="240px" height="220px">
+        <img
+          src={image}
+          style={{
+            width: '100%',
+            height: '100%',
+            objectFit: 'cover',
           }}
+          alt="Uploaded Photo"
+        />
+        <Box
+          position="absolute"
+          top={5}
+          end={0}
+          right={5}
+          // bgcolor="rgba(255, 255, 255, 0.8)"
+          zIndex={1}
+          sx={{ display: 'flex', gap: '5px' }}
         >
-          {/* <Box sx={{ position: 'relative' }}> */}
-
-          <img
-            src={image}
-            style={{
-              width: '100%',
-              height: '100%',
-              objectFit: 'cover',
-            }}
-          ></img>
-
-          {/* </Box> */}
+          {/* <IconButton aria-label="edit" color="primary"> */}
+          <Box sx={{ cursor: 'pointer' }} onClick={() => console.log('edited')}>
+            <ImageEdit />
+          </Box>
+          <Box sx={{ cursor: 'pointer' }} onClick={deleteImage}>
+            <ImageDelete />
+          </Box>
+          {/* </IconButton> */}
         </Box>
-      </Grid>
+      </Box>
     </>
   )
 }
