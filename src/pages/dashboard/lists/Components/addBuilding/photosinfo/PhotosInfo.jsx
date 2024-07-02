@@ -1,10 +1,14 @@
-import React, { useState } from 'react'
-import { Box, Button, Grid, Typography } from '@mui/material'
-import CardPhotos from './CardPhotos'
+import { useState } from 'react';
+import { Box, Button, Grid, Typography } from '@mui/material';
+import CardPhotos from './CardPhotos';
+import { useAddBuildingMutation } from '../../../../../../redux/api/buildingApi';
 
 const PhotosInfo = () => {
+
   const [selectedImages, setSelectedImages] = useState([])
   const [error, setError] = useState('')
+
+  const [addBuilding] = useAddBuildingMutation()
 
   const handleImageChange = (e) => {
     if (e.target.files) {
@@ -15,7 +19,7 @@ const PhotosInfo = () => {
       }
       const newImages = filesArray.map((file) => URL.createObjectURL(file))
       setSelectedImages((prevImages) => {
-        const updatedImages = prevImages.concat(newImages)
+        const updatedImages = prevImages.concat(newImages);
         console.log('Uploaded Images:', updatedImages)
         return updatedImages
       })
