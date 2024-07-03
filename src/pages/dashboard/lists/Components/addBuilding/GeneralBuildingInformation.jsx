@@ -16,66 +16,73 @@ import PhoneInput from 'react-phone-input-2'
 import 'react-phone-input-2/lib/bootstrap.css'
 import { useAddBuildingMutation } from '../../../../../redux/api/buildingApi'
 import { toast } from 'react-toastify'
-import { useState } from 'react'
+import { useContext, useState } from 'react'
+import { AppContext } from '../../../../../context/context'
 
 const GeneralBuildingInformation = ({ handleNext }) => {
   const [isLoading, setIsLoading] = useState(false)
   const [addBuilding] = useAddBuildingMutation()
 
-  const {
-    values,
-    handleBlur,
-    handleChange,
-    handleSubmit,
-    errors,
-    touched,
-    setFieldValue,
-  } = useFormik({
-    initialValues: {
-      buildingName: '',
-      ownerName: '',
-      mobile: '',
-      email: '',
-      totalArea: '',
-      unitOfArea: '',
-      numberOfFloors: '',
-      description: '',
-      constructionYear: '',
-      writtenAddress: '',
-    },
-    validationSchema: firstStepperGeneralInformation,
-    // validateOnChange: true,
-    // validateOnBlur: false,
-    onSubmit: async (values, action) => {
-      console.log(values)
-      try {
-        setIsLoading(true)
-        const res = await addBuilding({
-          buildingName: values.buildingName,
-          ownerName: values.ownerName,
-          mobile: values.mobile,
-          email: values.email,
-          totalArea: values.totalArea,
-          unitOfArea: values.unitOfArea,
-          numberOfFloors: values.numberOfFloors,
-          description: values.description,
-          constructionYear: values.constructionYear,
-          writtenAddress: values.writtenAddress,
-        })
+  const { userData, setUserData } = useContext(AppContext)
 
-        console.log('Response', res)
+  // const {
+  //   values,
+  //   handleBlur,
+  //   handleChange,
+  //   handleSubmit,
+  //   errors,
+  //   touched,
+  //   setFieldValue,
+  // } = useFormik({
+  //   initialValues: {
+  //     buildingName: '',
+  //     ownerName: '',
+  //     mobile: '',
+  //     email: '',
+  //     totalArea: '',
+  //     unitOfArea: '',
+  //     numberOfFloors: '',
+  //     description: '',
+  //     constructionYear: '',
+  //     writtenAddress: '',
+  //   },
+  //   validationSchema: firstStepperGeneralInformation,
+  //   // validateOnChange: true,
+  //   // validateOnBlur: false,
+  //   onSubmit: async (values, action) => {
+  //     console.log(values)
+  //     try {
+  //       setIsLoading(true)
+  //       const res = await addBuilding({
+  //         buildingName: values.buildingName,
+  //         ownerName: values.ownerName,
+  //         mobile: values.mobile,
+  //         email: values.email,
+  //         totalArea: values.totalArea,
+  //         unitOfArea: values.unitOfArea,
+  //         numberOfFloors: values.numberOfFloors,
+  //         description: values.description,
+  //         constructionYear: values.constructionYear,
+  //         writtenAddress: values.writtenAddress,
+  //       })
 
-        action.resetForm()
-        await handleNext()
-        setIsLoading(false)
-      } catch (error) {
-        toast.error(error.data.message)
-        setIsLoading(false)
-      }
+  //       console.log('Response', res)
 
-      // action.resetForm()
-    },
-  })
+  //       action.resetForm()
+  //       await handleNext()
+  //       setIsLoading(false)
+  //     } catch (error) {
+  //       toast.error(error.data.message)
+  //       setIsLoading(false)
+  //     }
+
+  //     // action.resetForm()
+  //   },
+  // })
+
+  const handleSubmit = async () => {
+    await handleNext()
+  }
   return (
     <Box>
       <Box sx={{ textAlign: 'center', marginY: '24px' }}>
@@ -91,7 +98,7 @@ const GeneralBuildingInformation = ({ handleNext }) => {
           General Building Information
         </Typography>{' '}
       </Box>
-      <form onSubmit={handleSubmit}>
+      <form>
         <Grid container spacing={2}>
           <TextInput
             md="4"
@@ -100,17 +107,12 @@ const GeneralBuildingInformation = ({ handleNext }) => {
               type: 'text',
               name: 'buildingName',
             }}
-            valAndHandler={{
-              handleBlur,
-              handleChange,
-              value: values?.buildingName,
-            }}
-            formik={{
-              touched: touched?.buildingName,
-              errors: errors?.buildingName,
-            }}
+            value={userData['buildingName']}
+            onChange={(e) =>
+              setUserData({ ...userData, buildingName: e.target.value })
+            }
           />
-          <TextInput
+          {/* <TextInput
             md="4"
             basic={{ label: 'Owner name', type: 'text', name: 'ownerName' }}
             valAndHandler={{
@@ -119,13 +121,9 @@ const GeneralBuildingInformation = ({ handleNext }) => {
               value: values.ownerName,
             }}
             formik={{ touched: touched.ownerName, errors: errors.ownerName }}
-          />
-          {/* <TextInput
-            basic={{ label: 'phone', type: 'text', name: 'mobile' }}
-            valAndHandler={{ handleBlur, handleChange, value: values.mobile }}
-            formik={{ touched: touched.mobile, errors: errors.mobile }}
           /> */}
-          <Grid item md={4} sm={6} xs={12}>
+
+          {/* <Grid item md={4} sm={6} xs={12}>
             <PhoneInput
               country={''}
               enableSearch={true}
@@ -256,7 +254,7 @@ const GeneralBuildingInformation = ({ handleNext }) => {
               touched: touched.description,
               errors: errors.description,
             }}
-          />
+          /> */}
         </Grid>
 
         <Box
@@ -292,7 +290,7 @@ const GeneralBuildingInformation = ({ handleNext }) => {
               },
             }}
             disabled={isLoading}
-            type="submit"
+            onClick={handleSubmit}
             variant="contained"
           >
             {isLoading ? 'Saving...' : 'Next'}

@@ -4,8 +4,8 @@ import React, { useState } from 'react'
 
 const TextInput = ({ basic, valAndHandler, formik, md }) => {
   const { label, type, name } = basic
-  const { value, handleBlur, handleChange } = valAndHandler
-  const { touched, errors } = formik
+  // const { value, handleBlur, handleChange } = valAndHandler
+  // const { touched, errors } = formik
   return (
     <Grid item md={md} sm={6} xs={12}>
       <Box>
@@ -13,15 +13,15 @@ const TextInput = ({ basic, valAndHandler, formik, md }) => {
           // id="outlined-basic"
           label={label}
           name={name}
-          value={value}
-          onChange={handleChange}
-          onBlur={handleBlur}
+          // value={value}
+          // onChange={handleChange}
+          // onBlur={handleBlur}
           variant="outlined"
           size="small"
           type={type}
           fullWidth
-          error={touched && Boolean(errors)}
-          helperText={touched && errors}
+          // error={touched && Boolean(errors)}
+          // helperText={touched && errors}
         />
       </Box>
     </Grid>
