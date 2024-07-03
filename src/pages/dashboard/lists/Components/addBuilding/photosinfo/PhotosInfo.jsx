@@ -1,4 +1,5 @@
-import  { useState } from 'react'
+/* eslint-disable react/prop-types */
+import React, { useState } from 'react'
 import { Box, Button, Grid, Typography } from '@mui/material'
 import { Formik, Form, ErrorMessage } from 'formik'
 import { photosInfoSchema } from '../../../../../../schema'
@@ -39,18 +40,21 @@ const PhotosInfo = ({ handleNext }) => {
       }
 
       const newImages = uploadableFiles.map((file) => URL.createObjectURL(file))
-      setSelectedImages((prevImages) => {
-        const updatedImages = prevImages.concat(newImages)
-        console.log('Uploaded Images:', updatedImages)
-        return updatedImages
-      })
-      setFieldValue('photos', uploadableFiles)
+      setSelectedImages((prevImages) => [...prevImages, ...newImages])
+      setFieldValue(
+        'photos',
+        uploadableFiles.map((file) => ({
+          file: file,
+          path: URL.createObjectURL(file),
+        }))
+      )
     }
   }
 
   const deleteImage = (index, setFieldValue) => {
-    setSelectedImages((prevImages) => prevImages.filter((_, i) => i !== index))
-    setFieldValue('photos', (prev) => prev.filter((_, i) => i !== index))
+    // setSelectedImages((prevImages) => prevImages.filter((_, i) => i !== index))
+    // setFieldValue('photos', (prev) => prev.filter((_, i) => i !== index))
+    console.log('deleted successfull')
   }
 
   const handleSubmit = async (values, actions) => {
@@ -59,7 +63,7 @@ const PhotosInfo = ({ handleNext }) => {
       // Simulate API call
       await new Promise((resolve) => setTimeout(resolve, 1000))
 
-      console.log('Selected Images:', values)
+      console.log('Selected Images:', values.photos)
 
       actions.resetForm()
       setSelectedImages([])
@@ -89,7 +93,7 @@ const PhotosInfo = ({ handleNext }) => {
                   color: '#414141',
                 }}
               >
-                Upload Photos
+                Upload Building Photos
               </Typography>
             </Box>
             <Grid container spacing={3}>

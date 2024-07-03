@@ -1,4 +1,4 @@
-import { Box, Grid, Typography } from '@mui/material'
+import { Box, Button, Grid, Typography } from '@mui/material'
 import { useFormik } from 'formik'
 import L from 'leaflet'
 import 'leaflet/dist/leaflet.css'
@@ -38,28 +38,38 @@ const MappingInfo = () => {
     // validateOnChange: true,
     // validateOnBlur: false,
     onSubmit: async (values, action) => {
-      const res = await addBuilding({
-        longitude: values.longitude,
+      // const res = await addBuilding({
+      // longitude: values.longitude
+      // latitude: values.latitude
+      // })
+      const res = {
         latitude: values.latitude,
-      })
-      setPosition([lat, long])
+        longitude: values.longitude,
+      }
+      console.log(res)
 
-      // action.resetForm()
+      action.resetForm()
     },
   })
+  const checkLocation = () => {
+    setPosition([values.latitude, values.longitude])
+  }
   const RecenterMap = ({ position }) => {
     const map = useMap()
     useEffect(() => {
-      map.setView(position, map.getZoom())
+      map.flyTo(position, map.getZoom(), {
+        animate: true,
+        duration: 1.5,
+      })
     }, [position, map])
 
     return null
   }
-  useEffect(() => {
-    if (values.latitude && values.longitude) {
-      setPosition([values.latitude, values.longitude])
-    }
-  }, [values.latitude, values.longitude])
+  // useEffect(() => {
+  //   // if (values.latitude && values.longitude) {
+  //   //   setPosition([values.latitude, values.longitude])
+  //   // }
+  // }, [values.latitude, values.longitude])
   return (
     <Box>
       <Box sx={{ textAlign: 'center', marginY: '24px' }}>
@@ -88,7 +98,7 @@ const MappingInfo = () => {
               handleBlur: (e) => {
                 handleBlur(e)
                 setFieldValue('latitude', e.target.value)
-                setPosition([e.target.value, values.longitude])
+                // setPosition([e.target.value, values.longitude])
               },
               handleChange,
               value: values?.latitude,
@@ -109,7 +119,7 @@ const MappingInfo = () => {
               handleBlur: (e) => {
                 handleBlur(e)
                 setFieldValue('longitude', e.target.value)
-                setPosition([e.target.value, values.longitude])
+                // setPosition([e.target.value, values.longitude])
               },
               handleChange,
               value: values?.longitude,
@@ -120,33 +130,39 @@ const MappingInfo = () => {
             }}
           />
         </Grid>
-      </form>
-      {/* <Box> */}
+        {/* type="submit" */}
+        <Button onClick={checkLocation}>Check Location</Button>
 
-      <MapContainer
-        center={position}
-        zoom={13}
-        scrollWheelZoom={true}
-        style={{
-          height: '70vh',
-          width: '100%',
-          borderRadius: '10px',
-          border: '0.4px solid black',
-          marginTop: '30px',
-        }}
-      >
-        <TileLayer
-          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-        />
-        <Marker position={position} Icon={markerIcon}>
-          <Popup>
-            A pretty CSS3 popup. <br /> Easily customizable.
-          </Popup>
-        </Marker>
-        <RecenterMap position={position} />
-      </MapContainer>
-      {/* </Box> */}
+        {/* <Box> */}
+
+        <MapContainer
+          center={position}
+          zoom={13}
+          scrollWheelZoom={false}
+          style={{
+            height: '70vh',
+            width: '100%',
+            borderRadius: '10px',
+            border: '0.4px solid black',
+            marginTop: '30px',
+          }}
+        >
+          <TileLayer
+            // attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+          />
+          <Marker position={position} Icon={markerIcon}>
+            <Popup>
+              A pretty CSS3 popup. <br /> Easily customizable.
+            </Popup>
+          </Marker>
+          <RecenterMap position={position} />
+        </MapContainer>
+        {/* </Box> */}
+        <Button type="submit" variant="contained">
+          Submit
+        </Button>
+      </form>
     </Box>
   )
 }
