@@ -9,6 +9,7 @@ import { useState } from 'react'
 import GeneralBuildingInformation from '../GeneralBuildingInformation'
 import PhotosInfo from '../photosinfo/PhotosInfo'
 import MappingInfo from '../mappingInfo/MappingInfo'
+import AddFloor from '../addFloors/AddFloor'
 
 const steps = ['General Info', 'Photos', 'Mapping Info', 'Add Floors']
 
@@ -19,9 +20,9 @@ const getStepContent = (step, handleNext, handleBack) => {
     case 1:
       return <PhotosInfo handleNext={handleNext} handleBack={handleBack} />
     case 2:
-      return <MappingInfo handleBack={handleBack} />
-    // case 3:
-    // // return <MappingInfo handleBack={handleBack} />
+      return <MappingInfo handleBack={handleBack} handleNext={handleNext} />
+    case 3:
+      return <AddFloor handleBack={handleBack} />
     default:
       return 'Unknown step'
   }

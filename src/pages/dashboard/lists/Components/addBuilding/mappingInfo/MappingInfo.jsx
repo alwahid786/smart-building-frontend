@@ -3,21 +3,19 @@ import { Box, Button, Grid, TextField, Typography } from '@mui/material'
 import L from 'leaflet'
 import 'leaflet/dist/leaflet.css'
 import { MapContainer, Marker, Popup, TileLayer, useMap } from 'react-leaflet'
-import { useContext, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import MarkerMap from '../../../../../../asset/svgs/MarkerMap'
-import { AppContext } from '../../../../../../context/context'
 
 const markerIcon = new L.Icon({
   iconUrl: MarkerMap,
   iconSize: [45, 45],
 })
 
-const MappingInfo = ({ handleBack }) => {
+const MappingInfo = ({ handleBack, handleNext }) => {
   const [position, setPosition] = useState([51.505, -0.09])
-  const { userData, setUserData, submitData } = useContext(AppContext)
 
   const checkLocation = () => {
-    setPosition([userData?.latitude, userData?.longitude])
+    // setPosition([latitude, longitude])
   }
   const RecenterMap = ({ position }) => {
     const map = useMap()
@@ -26,16 +24,11 @@ const MappingInfo = ({ handleBack }) => {
         animate: true,
         duration: 1.5,
       })
-      console.log('running')
     }, [map, position])
 
     return null
   }
-  // useEffect(() => {
-  //   // if (values.latitude && values.longitude) {
-  //   //   setPosition([values.latitude, values.longitude])
-  //   // }
-  // }, [values.latitude, values.longitude])
+
   return (
     <Box>
       <Box sx={{ textAlign: 'center', marginY: '24px' }}>
@@ -60,10 +53,6 @@ const MappingInfo = ({ handleBack }) => {
               name="latitude"
               fullWidth
               size="small"
-              value={userData['latitude']}
-              onChange={(e) =>
-                setUserData({ ...userData, latitude: Number(e.target.value) })
-              }
             />
           </Grid>
           <Grid item md={6} sm={6} xs={12}>
@@ -73,33 +62,8 @@ const MappingInfo = ({ handleBack }) => {
               name="longitude"
               fullWidth
               size="small"
-              value={userData['longitude']}
-              onChange={(e) =>
-                setUserData({ ...userData, longitude: Number(e.target.value) })
-              }
             />
           </Grid>
-          {/* <TextInput
-            md="6"
-            basic={{
-              label: 'Longitude',
-              type: 'number',
-              name: 'longitude',
-            }}
-            valAndHandler={{
-              handleBlur: (e) => {
-                handleBlur(e)
-                setFieldValue('longitude', e.target.value)
-                // setPosition([e.target.value, values.longitude])
-              },
-              handleChange,
-              value: values?.longitude,
-            }}
-            formik={{
-              touched: touched?.longitude,
-              errors: errors?.longitude,
-            }}
-          /> */}
         </Grid>
         {/* type="submit" */}
         <Button onClick={checkLocation}>Check Location</Button>
@@ -181,9 +145,10 @@ const MappingInfo = ({ handleBack }) => {
             }}
             type="submit"
             variant="contained"
-            onClick={submitData}
+            // onClick={submitData}
+            onClick={handleNext}
           >
-            Submit
+            Next
           </Button>
         </Box>
       </form>

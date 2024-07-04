@@ -1,16 +1,12 @@
 /* eslint-disable react/prop-types */
-import { useContext, useEffect, useState } from 'react'
+import { useState } from 'react'
 import { Box, Button, Grid, Typography } from '@mui/material'
 import CardPhotos from './CardPhotos'
-import { AppContext } from '../../../../../../context/context'
 
 const PhotosInfo = ({ handleNext, handleBack }) => {
   const [error, setError] = useState('')
   const [photos, setPhotos] = useState([])
-  const { userData, setUserData } = useContext(AppContext)
-  const [selectedImages, setSelectedImages] = useState(
-    userData?.selectedImages || []
-  )
+  const [selectedImages, setSelectedImages] = useState([])
 
   const handleImageChange = (event) => {
     const files = event.currentTarget.files
@@ -52,15 +48,6 @@ const PhotosInfo = ({ handleNext, handleBack }) => {
       ])
     }
   }
-
-  // useEffect(() => {
-  //   console.log('Images are', userData.selectedImages)
-  // }, [userData.selectedImages])
-
-  useEffect(() => {
-    setUserData({ ...userData, selectedImages })
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedImages])
 
   const deleteImage = (index) => {
     const newSelectedImages = selectedImages.filter((_, i) => i !== index)

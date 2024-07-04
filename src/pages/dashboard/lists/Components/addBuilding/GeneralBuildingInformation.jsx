@@ -13,14 +13,8 @@ import {
 
 import PhoneInput from 'react-phone-input-2'
 import 'react-phone-input-2/lib/bootstrap.css'
-import { AppContext } from '../../../../../context/context'
-import { useContext } from 'react'
 
 const GeneralBuildingInformation = ({ handleNext }) => {
-  const { userData, setUserData } = useContext(AppContext)
-
-  console.log(userData)
-
   return (
     <Box>
       <Box sx={{ textAlign: 'center', marginY: '24px' }}>
@@ -40,18 +34,11 @@ const GeneralBuildingInformation = ({ handleNext }) => {
         <Grid container spacing={2}>
           <Grid item md={4} sm={6} xs={12}>
             <TextField
-              // md="4"
-              // basic={{
               size="small"
               label="Building name"
               type="text"
               name="buildingName"
               fullWidth
-              // }}
-              value={userData['buildingName']}
-              onChange={(e) =>
-                setUserData({ ...userData, buildingName: e.target.value })
-              }
               required
               aria-required
             />
@@ -61,10 +48,6 @@ const GeneralBuildingInformation = ({ handleNext }) => {
               label="Owner name"
               type="text"
               name="ownerName"
-              value={userData['ownerName']}
-              onChange={(e) =>
-                setUserData({ ...userData, ownerName: e.target.value })
-              }
               size="small"
               fullWidth
             />
@@ -74,8 +57,6 @@ const GeneralBuildingInformation = ({ handleNext }) => {
             <PhoneInput
               country={''}
               enableSearch={true}
-              value={userData['ownerName']}
-              onChange={(mobile) => setUserData({ ...userData, mobile })}
               inputStyle={{
                 width: '100%',
                 height: '40px',
@@ -94,10 +75,6 @@ const GeneralBuildingInformation = ({ handleNext }) => {
               name="email"
               size="small"
               fullWidth
-              value={userData['email']}
-              onChange={(e) =>
-                setUserData({ ...userData, email: e.target.value })
-              }
             />
           </Grid>
           <Grid item md={4} sm={6} xs={12}>
@@ -106,10 +83,6 @@ const GeneralBuildingInformation = ({ handleNext }) => {
               type="number"
               name="totalArea"
               fullWidth
-              value={userData['totalArea']}
-              onChange={(e) =>
-                setUserData({ ...userData, totalArea: e.target.value })
-              }
               size="small"
             />
           </Grid>
@@ -120,10 +93,6 @@ const GeneralBuildingInformation = ({ handleNext }) => {
               <Select
                 labelId="unit-label"
                 name="unitOfArea"
-                value={userData.unitOfArea || ''} // Ensure the value is not undefined
-                onChange={(e) =>
-                  setUserData({ ...userData, unitOfArea: e.target.value })
-                }
                 label="Unit of area(sq ft/m)"
               >
                 <MenuItem value="sq ft">Square Feet</MenuItem>
@@ -138,10 +107,6 @@ const GeneralBuildingInformation = ({ handleNext }) => {
               name="numberOfFloors"
               size="small"
               fullWidth
-              value={userData['numberOfFloors']}
-              onChange={(e) =>
-                setUserData({ ...userData, numberOfFloors: e.target.value })
-              }
             />
           </Grid>
           <Grid item md={4} sm={6} xs={12}>
@@ -150,10 +115,6 @@ const GeneralBuildingInformation = ({ handleNext }) => {
               name="constructionYear"
               size="small"
               fullWidth
-              value={userData['constructionYear']}
-              onChange={(e) =>
-                setUserData({ ...userData, constructionYear: e.target.value })
-              }
             />
           </Grid>
           <Grid item md={4} sm={6} xs={12}>
@@ -163,10 +124,6 @@ const GeneralBuildingInformation = ({ handleNext }) => {
               name="writtenAddress"
               size="small"
               fullWidth
-              value={userData['writtenAddress']}
-              onChange={(e) =>
-                setUserData({ ...userData, writtenAddress: e.target.value })
-              }
             />
           </Grid>
           <Grid item md={12} sm={12} xs={12}>
@@ -177,10 +134,6 @@ const GeneralBuildingInformation = ({ handleNext }) => {
               label="Description"
               type="text"
               name="description"
-              value={userData['description']}
-              onChange={(e) =>
-                setUserData({ ...userData, description: e.target.value })
-              }
             />
           </Grid>
         </Grid>
