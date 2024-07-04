@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 import Box from '@mui/material/Box'
 import Stepper from '@mui/material/Stepper'
 import Step from '@mui/material/Step'
@@ -9,18 +10,18 @@ import GeneralBuildingInformation from '../GeneralBuildingInformation'
 import PhotosInfo from '../photosinfo/PhotosInfo'
 import MappingInfo from '../mappingInfo/MappingInfo'
 
-const steps = ['General Info', 'Photos', 'Mapping Info']
+const steps = ['General Info', 'Photos', 'Mapping Info', 'Add Floors']
 
-const Photos = () => <Typography>Photos Content</Typography>
-
-const getStepContent = (step, handleNext) => {
+const getStepContent = (step, handleNext, handleBack) => {
   switch (step) {
     case 0:
       return <GeneralBuildingInformation handleNext={handleNext} />
     case 1:
-      return <PhotosInfo handleNext={handleNext} />
+      return <PhotosInfo handleNext={handleNext} handleBack={handleBack} />
     case 2:
-      return <MappingInfo />
+      return <MappingInfo handleBack={handleBack} />
+    // case 3:
+    // // return <MappingInfo handleBack={handleBack} />
     default:
       return 'Unknown step'
   }
@@ -64,9 +65,9 @@ const StepperComponent = () => {
         <>
           {/* <Typography sx={{ mt: 2, mb: 1 }}>Step {activeStep + 1}</Typography> */}
           <Box sx={{ mt: 2, mb: 1 }}>
-            {getStepContent(activeStep, handleNext)}
+            {getStepContent(activeStep, handleNext, handleBack)}
           </Box>
-          <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
+          {/* <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
             <Button
               color="inherit"
               disabled={activeStep === 0}
@@ -79,7 +80,7 @@ const StepperComponent = () => {
             <Button onClick={handleNext}>
               {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
             </Button>
-          </Box>
+          </Box> */}
         </>
       )}
     </Box>

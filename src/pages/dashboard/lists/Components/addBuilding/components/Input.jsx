@@ -1,9 +1,8 @@
 /* eslint-disable react/prop-types */
 import { Box, Grid, TextField } from '@mui/material'
-import React, { useState } from 'react'
 
-const TextInput = ({ basic, valAndHandler, formik, md }) => {
-  const { label, type, name } = basic
+const TextInput = ({ label, type, name, md }) => {
+  // const { label, type, name } = basic
   // const { value, handleBlur, handleChange } = valAndHandler
   // const { touched, errors } = formik
   return (

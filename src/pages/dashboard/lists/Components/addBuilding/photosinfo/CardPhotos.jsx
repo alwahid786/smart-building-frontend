@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { Box } from '@mui/material'
 
 import ImageEdit from '../../../../../../asset/svgs/ImageEdit'

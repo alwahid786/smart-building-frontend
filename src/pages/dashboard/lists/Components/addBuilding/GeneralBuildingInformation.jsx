@@ -1,88 +1,26 @@
+/* eslint-disable react/prop-types */
 import {
   Box,
   Button,
   FormControl,
-  FormHelperText,
   Grid,
   InputLabel,
   MenuItem,
   Select,
+  TextField,
   Typography,
 } from '@mui/material'
-import { TextInput, TextDescription } from './components/Input'
-import { useFormik } from 'formik'
-import { firstStepperGeneralInformation } from '../../../../../schema'
+
 import PhoneInput from 'react-phone-input-2'
 import 'react-phone-input-2/lib/bootstrap.css'
-import { useAddBuildingMutation } from '../../../../../redux/api/buildingApi'
-import { toast } from 'react-toastify'
-import { useContext, useState } from 'react'
 import { AppContext } from '../../../../../context/context'
+import { useContext } from 'react'
 
 const GeneralBuildingInformation = ({ handleNext }) => {
-  const [isLoading, setIsLoading] = useState(false)
-  const [addBuilding] = useAddBuildingMutation()
-
   const { userData, setUserData } = useContext(AppContext)
 
-  // const {
-  //   values,
-  //   handleBlur,
-  //   handleChange,
-  //   handleSubmit,
-  //   errors,
-  //   touched,
-  //   setFieldValue,
-  // } = useFormik({
-  //   initialValues: {
-  //     buildingName: '',
-  //     ownerName: '',
-  //     mobile: '',
-  //     email: '',
-  //     totalArea: '',
-  //     unitOfArea: '',
-  //     numberOfFloors: '',
-  //     description: '',
-  //     constructionYear: '',
-  //     writtenAddress: '',
-  //   },
-  //   validationSchema: firstStepperGeneralInformation,
-  //   // validateOnChange: true,
-  //   // validateOnBlur: false,
-  //   onSubmit: async (values, action) => {
-  //     console.log(values)
-  //     try {
-  //       setIsLoading(true)
-  //       const res = await addBuilding({
-  //         buildingName: values.buildingName,
-  //         ownerName: values.ownerName,
-  //         mobile: values.mobile,
-  //         email: values.email,
-  //         totalArea: values.totalArea,
-  //         unitOfArea: values.unitOfArea,
-  //         numberOfFloors: values.numberOfFloors,
-  //         description: values.description,
-  //         constructionYear: values.constructionYear,
-  //         writtenAddress: values.writtenAddress,
-  //       })
+  console.log(userData)
 
-  //       console.log('Response', res)
-
-  //       action.resetForm()
-  //       await handleNext()
-  //       setIsLoading(false)
-  //     } catch (error) {
-  //       toast.error(error.data.message)
-  //       setIsLoading(false)
-  //     }
-
-  //     // action.resetForm()
-  //   },
-  // })
-
-  const handleSubmit = async () => {
-    await handleNext()
-  }
   return (
     <Box>
       <Box sx={{ textAlign: 'center', marginY: '24px' }}>
@@ -100,161 +38,151 @@ const GeneralBuildingInformation = ({ handleNext }) => {
       </Box>
       <form>
         <Grid container spacing={2}>
-          <TextInput
-            md="4"
-            basic={{
-              label: 'Building name',
-              type: 'text',
-              name: 'buildingName',
-            }}
-            value={userData['buildingName']}
-            onChange={(e) =>
-              setUserData({ ...userData, buildingName: e.target.value })
-            }
-          />
-          {/* <TextInput
-            md="4"
-            basic={{ label: 'Owner name', type: 'text', name: 'ownerName' }}
-            valAndHandler={{
-              handleBlur,
-              handleChange,
-              value: values.ownerName,
-            }}
-            formik={{ touched: touched.ownerName, errors: errors.ownerName }}
-          /> */}
+          <Grid item md={4} sm={6} xs={12}>
+            <TextField
+              // md="4"
+              // basic={{
+              size="small"
+              label="Building name"
+              type="text"
+              name="buildingName"
+              fullWidth
+              // }}
+              value={userData['buildingName']}
+              onChange={(e) =>
+                setUserData({ ...userData, buildingName: e.target.value })
+              }
+              required
+              aria-required
+            />
+          </Grid>
+          <Grid item md={4} sm={6} xs={12}>
+            <TextField
+              label="Owner name"
+              type="text"
+              name="ownerName"
+              value={userData['ownerName']}
+              onChange={(e) =>
+                setUserData({ ...userData, ownerName: e.target.value })
+              }
+              size="small"
+              fullWidth
+            />
+          </Grid>
 
-          {/* <Grid item md={4} sm={6} xs={12}>
+          <Grid item md={4} sm={6} xs={12}>
             <PhoneInput
               country={''}
               enableSearch={true}
-              value={values.mobile}
-              onChange={(mobile) => setFieldValue('mobile', mobile)}
-              onBlur={handleBlur('mobile')}
+              value={userData['ownerName']}
+              onChange={(mobile) => setUserData({ ...userData, mobile })}
               inputStyle={{
-                width: '100%', // Adjust width as needed
-                height: '40px', // Adjust height as needed
-                fontSize: '14px', // Adjust font size as needed
-                // padding: '5px', // Adjust padding as needed
-                border:
-                  touched.mobile && errors.mobile
-                    ? '1px solid #D63F3F '
-                    : '1px solid #ccc', // Example border style
+                width: '100%',
+                height: '40px',
+                fontSize: '14px',
+
+                border: '1px solid #ccc',
                 borderRadius: '4px',
-                // Example border radius
               }}
             />
-            {touched.mobile && errors.mobile ? (
-              <div
-                style={{ color: '#D63F3F', fontSize: '12px', marginTop: '5px' }}
-              >
-                {errors.mobile}
-              </div>
-            ) : null}
           </Grid>
-          <TextInput
-            md="4"
-            basic={{ label: 'Email', type: 'text', name: 'email' }}
-            valAndHandler={{ handleBlur, handleChange, value: values.email }}
-            formik={{ touched: touched.email, errors: errors.email }}
-          />
-          <TextInput
-            md="4"
-            basic={{
-              label: 'Total area (sq ft/m)',
-              type: 'number',
-              name: 'totalArea',
-            }}
-            valAndHandler={{
-              handleBlur,
-              handleChange,
-              value: values.totalArea,
-            }}
-            formik={{ touched: touched.totalArea, errors: errors.totalArea }}
-          />
+
+          <Grid item md={4} sm={6} xs={12}>
+            <TextField
+              label="Email"
+              type="email"
+              name="email"
+              size="small"
+              fullWidth
+              value={userData['email']}
+              onChange={(e) =>
+                setUserData({ ...userData, email: e.target.value })
+              }
+            />
+          </Grid>
+          <Grid item md={4} sm={6} xs={12}>
+            <TextField
+              label="Total area (sq ft/m)"
+              type="number"
+              name="totalArea"
+              fullWidth
+              value={userData['totalArea']}
+              onChange={(e) =>
+                setUserData({ ...userData, totalArea: e.target.value })
+              }
+              size="small"
+            />
+          </Grid>
+
           <Grid item md={4} sm={6} xs={12}>
             <FormControl size="small" fullWidth variant="outlined">
-              <InputLabel id="unit-label">Unit of area</InputLabel>
+              <InputLabel id="unit-label">Unit of area(sq ft/m)</InputLabel>
               <Select
                 labelId="unit-label"
                 name="unitOfArea"
-                value={values.unitOfArea}
-                onChange={handleChange}
-                onBlur={handleBlur}
-                error={touched.unitOfArea && Boolean(errors.unitOfArea)}
-                helperText={touched.unitOfArea && errors.unitOfArea}
-                label="Unit of area"
+                value={userData.unitOfArea || ''} // Ensure the value is not undefined
+                onChange={(e) =>
+                  setUserData({ ...userData, unitOfArea: e.target.value })
+                }
+                label="Unit of area(sq ft/m)"
               >
                 <MenuItem value="sq ft">Square Feet</MenuItem>
                 <MenuItem value="m">Meters</MenuItem>
               </Select>
-              {touched.unitOfArea && errors.unitOfArea && (
-                <FormHelperText sx={{ color: '#D43131' }}>
-                  {errors.unitOfArea}
-                </FormHelperText>
-              )}
             </FormControl>
           </Grid>
-          <TextInput
-            md="4"
-            basic={{
-              label: 'No. of floors',
-              type: 'number',
-              name: 'numberOfFloors',
-            }}
-            valAndHandler={{
-              handleBlur,
-              handleChange,
-              value: values.numberOfFloors,
-            }}
-            formik={{
-              touched: touched.numberOfFloors,
-              errors: errors.numberOfFloors,
-            }}
-          />
-
-          <TextInput
-            md="4"
-            basic={{
-              // label: 'Years of Construction',
-              type: 'date',
-              name: 'constructionYear',
-            }}
-            valAndHandler={{
-              handleBlur,
-              handleChange,
-              value: values.constructionYear,
-            }}
-            formik={{
-              touched: touched.constructionYear,
-              errors: errors.constructionYear,
-            }}
-          />
-          <TextInput
-            md="4"
-            basic={{ label: 'Address', type: 'text', name: 'writtenAddress' }}
-            valAndHandler={{
-              handleBlur,
-              handleChange,
-              value: values.writtenAddress,
-            }}
-            formik={{
-              touched: touched.writtenAddress,
-              errors: errors.writtenAddress,
-            }}
-          />
-
-          <TextDescription
-            basic={{ label: 'Description', type: 'text', name: 'description' }}
-            valAndHandler={{
-              handleBlur,
-              handleChange,
-              value: values.description,
-            }}
-            formik={{
-              touched: touched.description,
-              errors: errors.description,
-            }}
-          /> */}
+          <Grid item md={4} sm={6} xs={12}>
+            <TextField
+              label="No. of floors"
+              type="number"
+              name="numberOfFloors"
+              size="small"
+              fullWidth
+              value={userData['numberOfFloors']}
+              onChange={(e) =>
+                setUserData({ ...userData, numberOfFloors: e.target.value })
+              }
+            />
+          </Grid>
+          <Grid item md={4} sm={6} xs={12}>
+            <TextField
+              type="date"
+              name="constructionYear"
+              size="small"
+              fullWidth
+              value={userData['constructionYear']}
+              onChange={(e) =>
+                setUserData({ ...userData, constructionYear: e.target.value })
+              }
+            />
+          </Grid>
+          <Grid item md={4} sm={6} xs={12}>
+            <TextField
+              label="Address"
+              type="text"
+              name="writtenAddress"
+              size="small"
+              fullWidth
+              value={userData['writtenAddress']}
+              onChange={(e) =>
+                setUserData({ ...userData, writtenAddress: e.target.value })
+              }
+            />
+          </Grid>
+          <Grid item md={12} sm={12} xs={12}>
+            <TextField
+              multiline
+              fullWidth
+              rows={4}
+              label="Description"
+              type="text"
+              name="description"
+              value={userData['description']}
+              onChange={(e) =>
+                setUserData({ ...userData, description: e.target.value })
+              }
+            />
+          </Grid>
         </Grid>
 
         <Box
@@ -289,11 +217,10 @@ const GeneralBuildingInformation = ({ handleNext }) => {
                 cursor: 'not-allowed',
               },
             }}
-            disabled={isLoading}
-            onClick={handleSubmit}
+            onClick={handleNext}
             variant="contained"
           >
-            {isLoading ? 'Saving...' : 'Next'}
+            Next
           </Button>
         </Box>
       </form>

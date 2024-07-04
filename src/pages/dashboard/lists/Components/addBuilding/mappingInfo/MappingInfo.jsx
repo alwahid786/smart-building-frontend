@@ -1,58 +1,23 @@
-import { Box, Button, Grid, Typography } from '@mui/material'
-import { useFormik } from 'formik'
+/* eslint-disable react/prop-types */
+import { Box, Button, Grid, TextField, Typography } from '@mui/material'
 import L from 'leaflet'
 import 'leaflet/dist/leaflet.css'
 import { MapContainer, Marker, Popup, TileLayer, useMap } from 'react-leaflet'
-// import markIcon from '../../../../../../asset/Images/login/LogIn2.png'
-import { mappingInfoSchema } from '../../../../../../schema'
-import { TextInput } from '../components/Input'
-
-// import markerIcon2x from 'leaflet/dist/images/marker-icon-2x.png'
-// import markerShadow from 'leaflet/dist/images/marker-shadow.png'
-import { useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import MarkerMap from '../../../../../../asset/svgs/MarkerMap'
+import { AppContext } from '../../../../../../context/context'
 
 const markerIcon = new L.Icon({
   iconUrl: MarkerMap,
   iconSize: [45, 45],
 })
 
-const MappingInfo = () => {
+const MappingInfo = ({ handleBack }) => {
   const [position, setPosition] = useState([51.505, -0.09])
-  const [long, setLong] = useState()
-  const [lat, setLat] = useState()
-  const {
-    values,
-    handleBlur,
-    handleChange,
-    handleSubmit,
-    errors,
-    touched,
-    setFieldValue,
-  } = useFormik({
-    initialValues: {
-      longitude: '',
-      latitude: '',
-    },
-    validationSchema: mappingInfoSchema,
-    // validateOnChange: true,
-    // validateOnBlur: false,
-    onSubmit: async (values, action) => {
-      // const res = await addBuilding({
-      // longitude: values.longitude
-      // latitude: values.latitude
-      // })
-      const res = {
-        latitude: values.latitude,
-        longitude: values.longitude,
-      }
-      console.log(res)
+  const { userData, setUserData, submitData } = useContext(AppContext)
 
-      action.resetForm()
-    },
-  })
   const checkLocation = () => {
-    setPosition([values.latitude, values.longitude])
+    setPosition([userData?.latitude, userData?.longitude])
   }
   const RecenterMap = ({ position }) => {
     const map = useMap()
@@ -61,7 +26,8 @@ const MappingInfo = () => {
         animate: true,
         duration: 1.5,
       })
-    }, [position, map])
+      console.log('running')
+    }, [map, position])
 
     return null
   }
@@ -85,30 +51,35 @@ const MappingInfo = () => {
           Mapping Location
         </Typography>{' '}
       </Box>
-      <form onSubmit={handleSubmit}>
+      <form>
         <Grid container spacing={2}>
-          <TextInput
-            md="6"
-            basic={{
-              label: 'Latitude',
-              type: 'number',
-              name: 'latitude',
-            }}
-            valAndHandler={{
-              handleBlur: (e) => {
-                handleBlur(e)
-                setFieldValue('latitude', e.target.value)
-                // setPosition([e.target.value, values.longitude])
-              },
-              handleChange,
-              value: values?.latitude,
-            }}
-            formik={{
-              touched: touched?.latitude,
-              errors: errors?.latitude,
-            }}
-          />
-          <TextInput
+          <Grid item md={6} sm={6} xs={12}>
+            <TextField
+              label="Latitude"
+              type="number"
+              name="latitude"
+              fullWidth
+              size="small"
+              value={userData['latitude']}
+              onChange={(e) =>
+                setUserData({ ...userData, latitude: Number(e.target.value) })
+              }
+            />
+          </Grid>
+          <Grid item md={6} sm={6} xs={12}>
+            <TextField
+              label="Longitude"
+              type="number"
+              name="longitude"
+              fullWidth
+              size="small"
+              value={userData['longitude']}
+              onChange={(e) =>
+                setUserData({ ...userData, longitude: Number(e.target.value) })
+              }
+            />
+          </Grid>
+          {/* <TextInput
             md="6"
             basic={{
               label: 'Longitude',
@@ -128,7 +99,7 @@ const MappingInfo = () => {
               touched: touched?.longitude,
               errors: errors?.longitude,
             }}
-          />
+          /> */}
         </Grid>
         {/* type="submit" */}
         <Button onClick={checkLocation}>Check Location</Button>
@@ -159,9 +130,62 @@ const MappingInfo = () => {
           <RecenterMap position={position} />
         </MapContainer>
         {/* </Box> */}
-        <Button type="submit" variant="contained">
-          Submit
-        </Button>
+        <Box
+          sx={{
+            marginTop: '20px',
+            display: 'flex',
+            gap: '10px',
+            justifyContent: 'end',
+          }}
+        >
+          <Button
+            sx={{
+              backgroundImage: 'linear-gradient(to right, #7E3FF6, #AC20FE)',
+              padding: '0 40px',
+              fontSize: '20px',
+              textTransform: 'none',
+              ':disabled': {
+                color: 'white',
+                opacity: '0.5',
+                cursor: 'not-allowed',
+              },
+            }}
+            variant="contained"
+            onClick={handleBack}
+          >
+            Back
+          </Button>
+          <Button
+            variant="outlined"
+            sx={{
+              color: '#7B42F6',
+              textTransform: 'none',
+              border: '1px solid #7B42F6',
+              fontSize: '20px',
+              padding: '0 30px',
+            }}
+          >
+            Cancel
+          </Button>
+          <Button
+            sx={{
+              backgroundImage: 'linear-gradient(to right, #7E3FF6, #AC20FE)',
+              padding: '0 40px',
+              fontSize: '20px',
+              textTransform: 'none',
+              ':disabled': {
+                color: 'white',
+                opacity: '0.5',
+                cursor: 'not-allowed',
+              },
+            }}
+            type="submit"
+            variant="contained"
+            onClick={submitData}
+          >
+            Submit
+          </Button>
+        </Box>
       </form>
     </Box>
   )

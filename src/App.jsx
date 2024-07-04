@@ -4,12 +4,13 @@ import {
   Route,
   Navigate,
 } from 'react-router-dom'
-import { lazy, Suspense } from 'react'
+import { lazy, Suspense, useContext } from 'react'
 import GlobalLoader from './components/Loader'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import ResetPassword from './pages/resetpassword/ResetPassword'
 import AddBuilding from './pages/dashboard/lists/Components/addBuilding'
+import { AppContext } from './context/context'
 
 const SignUpPage = lazy(() => import('./pages/signup/SignUp'))
 const List = lazy(() => import('./pages/dashboard/lists'))
