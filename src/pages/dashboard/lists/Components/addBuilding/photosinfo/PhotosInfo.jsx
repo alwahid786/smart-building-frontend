@@ -1,15 +1,38 @@
-
 import { Box, Button, Grid, Typography } from '@mui/material';
+import { useState } from 'react';
 import CardPhotos from './CardPhotos';
 import PropTypes from 'prop-types'; 
+import { useAddBuildingImageMutation } from '../../../../../../redux/api/buildingApi';
 
 const PhotosInfo = ({ handleNext, handleBack }) => {
+  const [selectedFiles, setSelectedFiles] = useState([]); // State to store selected files
+  const [addBuildingImage] = useAddBuildingImageMutation();
+  
+  // Handle file selection
+  const handleFileChange = (event) => {
+    const files = Array.from(event.target.files); // Convert FileList to Array
+    setSelectedFiles(files); // Update state with selected files
+  };
 
- 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    handleNext(); // Proceed to the next step
+    
+    try {
+      // Create a FormData object to send selected files
+      const formData = new FormData();
+      selectedFiles.forEach((file) => {
+        formData.append('images', file); // Append each file to the FormData with the key 'images'
+      });
 
+      // Use the mutation to send the files to the backend
+      const res = await addBuildingImage(formData).unwrap();
+
+      console.log(res); // Handle the response if needed
+      handleNext(); // Proceed to the next step after successful upload
+    } catch (error) {
+      console.error("Failed to upload images:", error); // Log error message to console
+      
+    }
   };
 
   return (
@@ -21,9 +44,17 @@ const PhotosInfo = ({ handleNext, handleBack }) => {
       </Box>
 
       <Grid container spacing={3}>
-      <Grid item xs={12} sm={6} md={3} xl={2} >
+        {selectedFiles.length > 0 ? (
+          selectedFiles.map((file, index) => (
+            <Grid item xs={12} sm={6} md={3} xl={2} key={index}>
+              <CardPhotos image={URL.createObjectURL(file)} /> {/* Display selected image */}
+            </Grid>
+          ))
+        ) : (
+          <Grid item xs={12} sm={6} md={3} xl={2}>
             <CardPhotos image={"https://images.unsplash.com/photo-1581472723648-909f4851d4ae?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"} />
           </Grid>
+        )}
       </Grid>
 
       <input
@@ -32,7 +63,7 @@ const PhotosInfo = ({ handleNext, handleBack }) => {
         multiple
         style={{ display: 'none' }}
         accept="image/*"
-
+        onChange={handleFileChange} // Handle file selection
       />
       <label htmlFor="file">
         <Button
@@ -98,7 +129,6 @@ const PhotosInfo = ({ handleNext, handleBack }) => {
     </Box>
   );
 };
-
 
 // PropTypes validation
 PhotosInfo.propTypes = {

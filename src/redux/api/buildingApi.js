@@ -21,6 +21,15 @@ export const buildingApiPoint= createApi({
                 body: data
             })
         }),
+        addBuildingImage: builder.mutation({
+
+            query: (data)=> ({
+
+                url: "/api/create/building-image", 
+                method: "POST",
+                body: data
+            })
+        }),
         getBuilding: builder.query({
 
             query: ()=> ({
@@ -41,4 +50,4 @@ export const buildingApiPoint= createApi({
     })
 })
 
-export const {useAddBuildingMutation, useGetBuildingQuery, useGetSingleBuildingQuery} = buildingApiPoint;
+export const {useAddBuildingMutation, useAddBuildingImageMutation, useGetBuildingQuery, useGetSingleBuildingQuery} = buildingApiPoint;
