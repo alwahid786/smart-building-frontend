@@ -1,94 +1,56 @@
-/* eslint-disable react/prop-types */
-import { useState } from 'react'
-import { Box, Button, Grid, Typography } from '@mui/material'
-import CardPhotos from './CardPhotos'
+// src/components/PhotosInfo.js
+import { useState } from 'react';
+import { Box, Button, Grid, Typography } from '@mui/material';
+import CardPhotos from './CardPhotos';
+import { useDispatch } from 'react-redux';
+import { addSelectedFiles } from '../../../../../../redux/reducers/formReducer';
 
 const PhotosInfo = ({ handleNext, handleBack }) => {
-  const [error, setError] = useState('')
-  const [photos, setPhotos] = useState([])
-  const [selectedImages, setSelectedImages] = useState([])
+  const [selectedFiles, setSelectedFiles] = useState([]);
+  const dispatch = useDispatch();
 
-  const handleImageChange = (event) => {
-    const files = event.currentTarget.files
-    if (files) {
-      const filesArray = Array.from(files)
-      const MAX_FILE_SIZE = 2 * 1024 * 1024 // 2MB limit
+  const handleFileChange = (event) => {
+    const files = Array.from(event.target.files);
 
-      // Filter out images larger than 2MB
-      const uploadableFiles = filesArray.filter(
-        (file) => file.size <= MAX_FILE_SIZE
-      )
-      const rejectedFiles = filesArray.filter(
-        (file) => file.size > MAX_FILE_SIZE
-      )
+    const newFiles = files.map((file) => ({
+      file,
+      url: URL.createObjectURL(file),
+    }));
 
-      if (rejectedFiles.length > 0) {
-        setError(
-          `The following file(s) exceed the 2MB size limit and won't be uploaded: ${rejectedFiles
-            .map((file) => file.name)
-            .join(', ')}`
-        )
-      } else {
-        setError('')
-      }
+    setSelectedFiles((prevFiles) => [...prevFiles, ...newFiles]);
 
-      if (uploadableFiles.length + selectedImages.length > 10) {
-        setError('You can only upload up to 10 images.')
-        return
-      }
+    // Dispatch selected files to Redux store
+    dispatch(addSelectedFiles(newFiles));
+  };
 
-      const newImages = uploadableFiles.map((file) => URL.createObjectURL(file))
-      setSelectedImages((prevImages) => [...prevImages, ...newImages])
-      setPhotos((prevPhotos) => [
-        ...prevPhotos,
-        ...uploadableFiles.map((file) => ({
-          file: file,
-          path: URL.createObjectURL(file),
-        })),
-      ])
-    }
-  }
-
-  const deleteImage = (index) => {
-    const newSelectedImages = selectedImages.filter((_, i) => i !== index)
-    const newPhotos = photos.filter((_, i) => i !== index)
-    setSelectedImages(newSelectedImages)
-    setPhotos(newPhotos)
-  }
-
-  // eslint-disable-next-line no-unused-vars
   const handleSubmit = (event) => {
-    handleNext()
-  }
+    event.preventDefault();
+    handleNext(); // Proceed to the next step
+  };
 
   return (
     <Box component="form" onSubmit={handleSubmit}>
       <Box sx={{ textAlign: 'center', marginY: '24px' }}>
-        <Typography
-          sx={{
-            fontWeight: '500',
-            fontSize: '20px',
-            lineHeight: '30px',
-            color: '#414141',
-          }}
-        >
+        <Typography sx={{ fontWeight: '500', fontSize: '20px', lineHeight: '30px', color: '#414141' }}>
           Upload Building Photos
         </Typography>
       </Box>
+
       <Grid container spacing={3}>
-        {selectedImages.map((image, index) => (
+        {selectedFiles.map(({ url }, index) => (
           <Grid item xs={12} sm={6} md={3} xl={2} key={index}>
-            <CardPhotos image={image} deleteImage={() => deleteImage(index)} />
+            <CardPhotos image={url} />
           </Grid>
         ))}
       </Grid>
+
       <input
         type="file"
         id="file"
         multiple
-        onChange={handleImageChange}
         style={{ display: 'none' }}
         accept="image/*"
+        onChange={handleFileChange}
       />
       <label htmlFor="file">
         <Button
@@ -103,29 +65,13 @@ const PhotosInfo = ({ handleNext, handleBack }) => {
             marginY: '20px',
           }}
           component="span"
-          disabled={selectedImages.length >= 10}
         >
           Drop your file here or &nbsp;{' '}
-          <Box sx={{ color: '#B029FC' }}> browse</Box>
+          <Box sx={{ color: '#B029FC' }}>browse</Box>
         </Button>
       </label>
-      {error && (
-        <Typography
-          color="error"
-          variant="body2"
-          sx={{ color: 'red', fontSize: '12px' }}
-        >
-          {error}
-        </Typography>
-      )}
-      <Box
-        sx={{
-          marginTop: '20px',
-          display: 'flex',
-          gap: '10px',
-          justifyContent: 'end',
-        }}
-      >
+
+      <Box sx={{ marginTop: '20px', display: 'flex', gap: '10px', justifyContent: 'end' }}>
         <Button
           sx={{
             backgroundImage: 'linear-gradient(to right, #7E3FF6, #AC20FE)',
@@ -139,23 +85,18 @@ const PhotosInfo = ({ handleNext, handleBack }) => {
             },
           }}
           variant="contained"
-          onClick={handleBack}
+          onClick={handleBack} // Go back to previous step
         >
           Back
         </Button>
         <Button
           variant="outlined"
-          sx={{
-            color: '#7B42F6',
-            textTransform: 'none',
-            border: '1px solid #7B42F6',
-            fontSize: '20px',
-            padding: '0 30px',
-          }}
+          sx={{ color: '#7B42F6', textTransform: 'none', border: '1px solid #7B42F6', fontSize: '20px', padding: '0 30px' }}
         >
           Cancel
         </Button>
         <Button
+          type="submit"
           sx={{
             backgroundImage: 'linear-gradient(to right, #7E3FF6, #AC20FE)',
             padding: '0 40px',
@@ -167,14 +108,13 @@ const PhotosInfo = ({ handleNext, handleBack }) => {
               cursor: 'not-allowed',
             },
           }}
-          type="submit"
           variant="contained"
         >
           Next
         </Button>
       </Box>
     </Box>
-  )
-}
+  );
+};
 
-export default PhotosInfo
+export default PhotosInfo;
