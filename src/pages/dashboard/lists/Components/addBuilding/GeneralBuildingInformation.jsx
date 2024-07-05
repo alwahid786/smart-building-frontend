@@ -1,4 +1,5 @@
-/* eslint-disable react/prop-types */
+// src/components/GeneralBuildingInformation.js
+import { useState } from 'react'
 import {
   Box,
   Button,
@@ -10,15 +11,47 @@ import {
   TextField,
   Typography,
 } from '@mui/material'
-
-import PhoneInput from 'react-phone-input-2'
-import 'react-phone-input-2/lib/bootstrap.css'
+import { useAddBuildingMutation } from '../../../../../redux/api/buildingApi'
 
 const GeneralBuildingInformation = ({ handleNext }) => {
+  const [unitOfArea, setUnitOfArea] = useState('')
+
+  const handleUnitChange = (event) => {
+    setUnitOfArea(event.target.value)
+  }
+  const [addBuilding] = useAddBuildingMutation()
+
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    const formData = new FormData(e.target)
+
+    const buildingData = {
+      buildingName: formData.get('buildingName'),
+      ownerName: formData.get('ownerName'),
+      phoneNumber: formData.get('phoneNumber'),
+      email: formData.get('email'),
+      totalArea: formData.get('totalArea'),
+      unitOfArea: unitOfArea,
+      numberOfFloors: formData.get('numberOfFloors'),
+      constructionYear: formData.get('constructionYear'),
+      writtenAddress: formData.get('writtenAddress'),
+      description: formData.get('description'),
+    }
+
+    try {
+      const res = await addBuilding(buildingData)
+
+      console.log('Response', res)
+    } catch (error) {
+      console.log('Error', error)
+    }
+
+    handleNext() // Proceed to the next step
+  }
+
   return (
     <Box>
       <Box sx={{ textAlign: 'center', marginY: '24px' }}>
-        {' '}
         <Typography
           sx={{
             fontWeight: '500',
@@ -28,24 +61,25 @@ const GeneralBuildingInformation = ({ handleNext }) => {
           }}
         >
           General Building Information
-        </Typography>{' '}
+        </Typography>
       </Box>
-      <form>
+
+      <form onSubmit={handleSubmit}>
         <Grid container spacing={2}>
           <Grid item md={4} sm={6} xs={12}>
             <TextField
               size="small"
-              label="Building name"
+              label="Building Name"
               type="text"
               name="buildingName"
               fullWidth
               required
-              aria-required
             />
           </Grid>
+
           <Grid item md={4} sm={6} xs={12}>
             <TextField
-              label="Owner name"
+              label="Owner Name"
               type="text"
               name="ownerName"
               size="small"
@@ -54,17 +88,12 @@ const GeneralBuildingInformation = ({ handleNext }) => {
           </Grid>
 
           <Grid item md={4} sm={6} xs={12}>
-            <PhoneInput
-              country={''}
-              enableSearch={true}
-              inputStyle={{
-                width: '100%',
-                height: '40px',
-                fontSize: '14px',
-
-                border: '1px solid #ccc',
-                borderRadius: '4px',
-              }}
+            <TextField
+              label="Phone Number"
+              type="tel"
+              name="phoneNumber"
+              size="small"
+              fullWidth
             />
           </Grid>
 
@@ -77,9 +106,10 @@ const GeneralBuildingInformation = ({ handleNext }) => {
               fullWidth
             />
           </Grid>
+
           <Grid item md={4} sm={6} xs={12}>
             <TextField
-              label="Total area (sq ft/m)"
+              label="Total Area (sq ft/m)"
               type="number"
               name="totalArea"
               fullWidth
@@ -89,26 +119,30 @@ const GeneralBuildingInformation = ({ handleNext }) => {
 
           <Grid item md={4} sm={6} xs={12}>
             <FormControl size="small" fullWidth variant="outlined">
-              <InputLabel id="unit-label">Unit of area(sq ft/m)</InputLabel>
+              <InputLabel id="unit-label">Unit of Area (sq ft/m)</InputLabel>
               <Select
                 labelId="unit-label"
                 name="unitOfArea"
-                label="Unit of area(sq ft/m)"
+                label="Unit of Area (sq ft/m)"
+                value={unitOfArea}
+                onChange={handleUnitChange}
               >
                 <MenuItem value="sq ft">Square Feet</MenuItem>
                 <MenuItem value="m">Meters</MenuItem>
               </Select>
             </FormControl>
           </Grid>
+
           <Grid item md={4} sm={6} xs={12}>
             <TextField
-              label="No. of floors"
+              label="Number of Floors"
               type="number"
               name="numberOfFloors"
               size="small"
               fullWidth
             />
           </Grid>
+
           <Grid item md={4} sm={6} xs={12}>
             <TextField
               type="date"
@@ -117,6 +151,7 @@ const GeneralBuildingInformation = ({ handleNext }) => {
               fullWidth
             />
           </Grid>
+
           <Grid item md={4} sm={6} xs={12}>
             <TextField
               label="Address"
@@ -126,6 +161,7 @@ const GeneralBuildingInformation = ({ handleNext }) => {
               fullWidth
             />
           </Grid>
+
           <Grid item md={12} sm={12} xs={12}>
             <TextField
               multiline
@@ -159,6 +195,7 @@ const GeneralBuildingInformation = ({ handleNext }) => {
             Cancel
           </Button>
           <Button
+            type="submit"
             sx={{
               backgroundImage: 'linear-gradient(to right, #7E3FF6, #AC20FE)',
               padding: '0 40px',
@@ -170,7 +207,6 @@ const GeneralBuildingInformation = ({ handleNext }) => {
                 cursor: 'not-allowed',
               },
             }}
-            onClick={handleNext}
             variant="contained"
           >
             Next
