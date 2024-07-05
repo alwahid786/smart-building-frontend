@@ -1,4 +1,4 @@
-// src/components/GeneralBuildingInformation.js
+import PropTypes from 'prop-types';
 import { useState } from 'react'
 import {
   Box,
@@ -216,5 +216,10 @@ const GeneralBuildingInformation = ({ handleNext }) => {
     </Box>
   )
 }
+
+GeneralBuildingInformation.propTypes = {
+  handleNext: PropTypes.func.isRequired, // Specify that handleNext is a required function
+  otherProp: PropTypes.string, // Example of another prop type
+};
 
 export default GeneralBuildingInformation

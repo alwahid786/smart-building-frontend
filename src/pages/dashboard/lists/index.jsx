@@ -1,38 +1,40 @@
-import { Box, Grid } from '@mui/material';
-import BuildingStatus from './Components/BuildingStatus';
-import FilterBar from './Components/FilterBar';
-import ListCard from './Components/ListCard';
-import { useEffect, useRef, useState } from 'react';
-import AddCard from './Components/AddCard';
-import img from "../../../asset/Images/list/Rectangle.png";
-import { useGetBuildingQuery } from '../../../redux/api/buildingApi';
-import { Link } from 'react-router-dom';
+import { Box, Grid } from '@mui/material'
+import BuildingStatus from './Components/BuildingStatus'
+import FilterBar from './Components/FilterBar'
+import ListCard from './Components/ListCard'
+import { useEffect, useRef, useState } from 'react'
+import AddCard from './Components/AddCard'
+import img from '../../../asset/Images/list/Rectangle.png'
+import { useGetBuildingQuery } from '../../../redux/api/buildingApi'
+import { Link } from 'react-router-dom'
 
 const List = () => {
-  const [isSticky, setIsSticky] = useState(false);
-  const scrollContainerRef = useRef(null);
+  const [isSticky, setIsSticky] = useState(false)
+  const scrollContainerRef = useRef(null)
 
   // API call using useGetBuildingQuery hook
-  const { data: buildingData, error, isLoading } = useGetBuildingQuery();
+  const { data: buildingData, error, isLoading } = useGetBuildingQuery()
 
   // Handle scrolling
   const handleScroll = () => {
     if (scrollContainerRef.current) {
-      const scrollTop = scrollContainerRef.current.scrollTop;
-      setIsSticky(scrollTop > 100);
+      const scrollTop = scrollContainerRef.current.scrollTop
+      setIsSticky(scrollTop > 100)
     }
-  };
+  }
 
   useEffect(() => {
-    const scrollContainer = scrollContainerRef.current;
+    const scrollContainer = scrollContainerRef.current
     if (scrollContainer) {
-      scrollContainer.addEventListener('scroll', handleScroll, { passive: true });
+      scrollContainer.addEventListener('scroll', handleScroll, {
+        passive: true,
+      })
 
       return () => {
-        scrollContainer.removeEventListener('scroll', handleScroll);
-      };
+        scrollContainer.removeEventListener('scroll', handleScroll)
+      }
     }
-  }, []);
+  }, [])
 
   return (
     <>
@@ -127,15 +129,34 @@ const List = () => {
           ) : (
             <Grid container spacing={2}>
               {buildingData.map((building) => (
-                <Grid item xs={12} sm={6} md={6} lg={4} xl={3} key={building.id}>
+                <Grid
+                  item
+                  xs={12}
+                  sm={6}
+                  md={6}
+                  lg={4}
+                  xl={3}
+                  key={building.id}
+                >
                   <Link to={`/dashboard/building-info/${building._id}`}>
-                    <ListCard
+                    {/* <ListCard
                       imageUrl={building.buildingImages.length > 0 ? building.buildingImages[0] : img}
                       subtitle={building.ownerName}
                       status={"status"}
                       title={building.buildingName}
                       tags={String(building.totalArea)}
                       actionText={"See Details"}
+                    /> */}
+
+                    <ListCard
+                      imageUrl={
+                        "https://images.unsplash.com/photo-1580927752452-89d86da3fa0a?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                      }
+                      subtitle={"Dilawar"}
+                      status={'status'}
+                      title={"Tetra tech"}
+                      tags={String("3")}
+                      actionText={'See Details'}
                     />
                   </Link>
                 </Grid>
@@ -145,7 +166,7 @@ const List = () => {
         </Box>
       </Box>
     </>
-  );
-};
+  )
+}
 
-export default List;
+export default List

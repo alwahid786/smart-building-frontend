@@ -1,31 +1,15 @@
-// src/components/PhotosInfo.js
-import { useState } from 'react';
+
 import { Box, Button, Grid, Typography } from '@mui/material';
 import CardPhotos from './CardPhotos';
-import { useDispatch } from 'react-redux';
-import { addSelectedFiles } from '../../../../../../redux/reducers/formReducer';
+import PropTypes from 'prop-types'; 
 
 const PhotosInfo = ({ handleNext, handleBack }) => {
-  const [selectedFiles, setSelectedFiles] = useState([]);
-  const dispatch = useDispatch();
 
-  const handleFileChange = (event) => {
-    const files = Array.from(event.target.files);
-
-    const newFiles = files.map((file) => ({
-      file,
-      url: URL.createObjectURL(file),
-    }));
-
-    setSelectedFiles((prevFiles) => [...prevFiles, ...newFiles]);
-
-    // Dispatch selected files to Redux store
-    dispatch(addSelectedFiles(newFiles));
-  };
-
-  const handleSubmit = (event) => {
+ 
+  const handleSubmit = async (event) => {
     event.preventDefault();
     handleNext(); // Proceed to the next step
+
   };
 
   return (
@@ -37,11 +21,9 @@ const PhotosInfo = ({ handleNext, handleBack }) => {
       </Box>
 
       <Grid container spacing={3}>
-        {selectedFiles.map(({ url }, index) => (
-          <Grid item xs={12} sm={6} md={3} xl={2} key={index}>
-            <CardPhotos image={url} />
+      <Grid item xs={12} sm={6} md={3} xl={2} >
+            <CardPhotos image={"https://images.unsplash.com/photo-1581472723648-909f4851d4ae?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"} />
           </Grid>
-        ))}
       </Grid>
 
       <input
@@ -50,7 +32,7 @@ const PhotosInfo = ({ handleNext, handleBack }) => {
         multiple
         style={{ display: 'none' }}
         accept="image/*"
-        onChange={handleFileChange}
+
       />
       <label htmlFor="file">
         <Button
@@ -115,6 +97,13 @@ const PhotosInfo = ({ handleNext, handleBack }) => {
       </Box>
     </Box>
   );
+};
+
+
+// PropTypes validation
+PhotosInfo.propTypes = {
+  handleNext: PropTypes.func.isRequired,
+  handleBack: PropTypes.func.isRequired,
 };
 
 export default PhotosInfo;
