@@ -1,34 +1,32 @@
-// src/redux/features/formDataSlice.js
 import { createSlice } from '@reduxjs/toolkit';
 
-const initialState = {
-  building: {
-    buildingName: '',
-    ownerName: '',
-    phoneNumber: '',
-    email: '',
-    totalArea: '',
-    unitOfArea: '',
-    numberOfFloors: '',
-    constructionYear: '',
-    writtenAddress: '',
-    description: '',
-    selectedFiles: [],
-  },
+const initialFormData = {
+  buildingName: '',
+  ownerName: '',
+  phoneNumber: '',
+  email: '',
+  totalArea: '',
+  unitOfArea: '',
+  numberOfFloors: '',
+  constructionYear: '',
+  writtenAddress: '',
+  description: '',
 };
 
 const formDataSlice = createSlice({
   name: 'formData',
-  initialState,
+  initialState: {
+    buildingData: initialFormData,
+  },
   reducers: {
     setBuildingData: (state, action) => {
-      state.building = action.payload; // Replace entire building object with payload
-    },
-    addSelectedFiles: (state, action) => {
-      state.building.selectedFiles = [...state.building.selectedFiles, ...action.payload];
+      state.buildingData = action.payload;
     },
   },
 });
 
-export const { setBuildingData, addSelectedFiles } = formDataSlice.actions;
+export const { setBuildingData } = formDataSlice.actions;
+
+export const selectBuildingData = (state) => state.formData.buildingData;
+
 export default formDataSlice.reducer;

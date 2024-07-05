@@ -2,11 +2,11 @@ import { Box, Button, Grid, Typography } from '@mui/material';
 import { useState } from 'react';
 import CardPhotos from './CardPhotos';
 import PropTypes from 'prop-types'; 
-import { useAddBuildingImageMutation } from '../../../../../../redux/api/buildingApi';
+import { useAddBuildingMutation } from '../../../../../../redux/api/buildingApi';
 
-const PhotosInfo = ({ handleNext, handleBack }) => {
+const PhotosInfo = ({ handleNext, handleBack, buildingId }) => {
   const [selectedFiles, setSelectedFiles] = useState([]); // State to store selected files
-  const [addBuildingImage] = useAddBuildingImageMutation();
+  const [addBuilding] = useAddBuildingMutation();
   
   // Handle file selection
   const handleFileChange = (event) => {
@@ -16,22 +16,24 @@ const PhotosInfo = ({ handleNext, handleBack }) => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    
+  
+
     try {
       // Create a FormData object to send selected files
       const formData = new FormData();
+      formData.append('buildingId', buildingId); // Append buildingId to FormData
       selectedFiles.forEach((file) => {
         formData.append('images', file); // Append each file to the FormData with the key 'images'
       });
 
       // Use the mutation to send the files to the backend
-      const res = await addBuildingImage(formData).unwrap();
+      const res = await addBuilding(formData).unwrap();
 
       console.log(res); // Handle the response if needed
       handleNext(); // Proceed to the next step after successful upload
     } catch (error) {
       console.error("Failed to upload images:", error); // Log error message to console
-      
+
     }
   };
 
@@ -134,6 +136,7 @@ const PhotosInfo = ({ handleNext, handleBack }) => {
 PhotosInfo.propTypes = {
   handleNext: PropTypes.func.isRequired,
   handleBack: PropTypes.func.isRequired,
+  buildingId: PropTypes.string.isRequired, // Ensure buildingId is a required string prop
 };
 
 export default PhotosInfo;

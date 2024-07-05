@@ -1,5 +1,6 @@
+// GeneralBuildingInformation.jsx
+import { useState } from 'react';
 import PropTypes from 'prop-types';
-import { useState } from 'react'
 import {
   Box,
   Button,
@@ -10,22 +11,28 @@ import {
   Select,
   TextField,
   Typography,
-} from '@mui/material'
-import { useAddBuildingMutation } from '../../../../../redux/api/buildingApi'
+} from '@mui/material';
+import { useAddBuildingMutation } from '../../../../../redux/api/buildingApi';
+import { useDispatch, useSelector } from 'react-redux';
+import { setBuildingData, selectBuildingData } from 'path/to/formDataSlice'; // Adjust path as per your project structure
 
 const GeneralBuildingInformation = ({ handleNext }) => {
-  const [unitOfArea, setUnitOfArea] = useState('')
+  const dispatch = useDispatch();
+  const buildingData = useSelector(selectBuildingData);
+
+  const [unitOfArea, setUnitOfArea] = useState('');
 
   const handleUnitChange = (event) => {
-    setUnitOfArea(event.target.value)
-  }
-  const [addBuilding] = useAddBuildingMutation()
+    setUnitOfArea(event.target.value);
+  };
+
+  const [addBuilding] = useAddBuildingMutation();
 
   const handleSubmit = async (e) => {
-    e.preventDefault()
-    const formData = new FormData(e.target)
+    e.preventDefault();
+    const formData = new FormData(e.target);
 
-    const buildingData = {
+    const newBuildingData = {
       buildingName: formData.get('buildingName'),
       ownerName: formData.get('ownerName'),
       phoneNumber: formData.get('phoneNumber'),
@@ -36,18 +43,21 @@ const GeneralBuildingInformation = ({ handleNext }) => {
       constructionYear: formData.get('constructionYear'),
       writtenAddress: formData.get('writtenAddress'),
       description: formData.get('description'),
-    }
+    };
 
     try {
-      const res = await addBuilding(buildingData)
+      // Dispatch action to update Redux store
+      dispatch(setBuildingData(newBuildingData));
 
-      console.log('Response', res)
+      // Perform other actions like API call
+      const res = await addBuilding(newBuildingData);
+      console.log('Response', res);
     } catch (error) {
-      console.log('Error', error)
+      console.log('Error', error);
     }
 
-    handleNext() // Proceed to the next step
-  }
+    handleNext(); // Proceed to the next step
+  };
 
   return (
     <Box>
@@ -214,12 +224,11 @@ const GeneralBuildingInformation = ({ handleNext }) => {
         </Box>
       </form>
     </Box>
-  )
-}
-
-GeneralBuildingInformation.propTypes = {
-  handleNext: PropTypes.func.isRequired, // Specify that handleNext is a required function
-  otherProp: PropTypes.string, // Example of another prop type
+  );
 };
 
-export default GeneralBuildingInformation
+GeneralBuildingInformation.propTypes = {
+  handleNext: PropTypes.func.isRequired,
+};
+
+export default GeneralBuildingInformation;
