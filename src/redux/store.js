@@ -2,18 +2,17 @@ import { configureStore } from "@reduxjs/toolkit";
 import { authApiPoint } from "./api/authApi";
 import { buildingApiPoint } from "./api/buildingApi";
 import formDataReducer from "./reducers/formReducer";
+import fileReducer from "./reducers/floorFileReducer";
 
 const store = configureStore({
-    reducer: {
-      [authApiPoint.reducerPath]: authApiPoint.reducer,
-      [buildingApiPoint.reducerPath]: buildingApiPoint.reducer,
-      formData: formDataReducer
-    },
+  reducer: {
+    [authApiPoint.reducerPath]: authApiPoint.reducer,
+    [buildingApiPoint.reducerPath]: buildingApiPoint.reducer,
+    formData: formDataReducer,
+    file: fileReducer
+  },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware().concat([authApiPoint.middleware, buildingApiPoint.middleware]),
+});
 
-    middleware: (getDefaultMiddleware) =>
-        getDefaultMiddleware().concat([authApiPoint.middleware, buildingApiPoint.middleware]),
-           
-  });
-  
-  
-  export default store;
+export default store;

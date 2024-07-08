@@ -40,10 +40,10 @@ const PhotosInfo = ({ handleNext, handleBack }) => {
       });
 
       // Use the mutation to send the FormData to the backend
-      const res = await addBuilding(formData).unwrap();
+      // const res = await addBuilding(formData).unwrap();
 
-      // Show success notification
-      toast.success(`${res.message}`);
+      // // Show success notification
+      // toast.success(`${res.message}`);
 
       handleNext(); // Proceed to the next step after successful upload
     } catch (error) {

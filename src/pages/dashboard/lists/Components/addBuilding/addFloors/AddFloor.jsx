@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import {
   Accordion,
   AccordionDetails,
@@ -15,26 +14,27 @@ import {
   Typography,
 } from '@mui/material'
 import { useEffect, useState } from 'react'
+import PropTypes from 'prop-types'
 import CustomInputFileBtn from '../components/CustomInputFileBtn'
 import ImageEdit from '../../../../../../asset/svgs/GrayImageEdit'
 import ImageDelete from '../../../../../../asset/svgs/ImageDelete'
+import { useSelector } from 'react-redux'
+import { useAddBuildingFloorMutation } from '../../../../../../redux/api/buildingApi'
 
-const DUMMYSENSOS = [
-  { value: 'sensor1', label: 'Sensor 1' },
-  { value: 'sensor2', label: 'Sensor 2' },
-  { value: 'sensor3', label: 'Sensor 3' },
-]
 
 const AddFloor = ({ handleBack }) => {
-  const [singleSensor, setSingleSensor] = useState('default')
+  const [singleSensor, setSingleSensor] = useState('')
   const [sensors, setSensors] = useState([])
+  const [formData, setFormData] = useState({ floor: '', rooms: '' })
+  const [selectedFile, setSelectedFile] = useState(null)
+  const [previewUrl, setPreviewUrl] = useState(null)
+  const fileMetadata = useSelector(state => state.file.fileMetadata);
+  const [addBuildingFloor] = useAddBuildingFloorMutation()
 
   const handleChange = (event) => {
     setSingleSensor(event.target.value)
   }
 
-  const [selectedFile, setSelectedFile] = useState(null)
-  const [previewUrl, setPreviewUrl] = useState(null)
   const handleFileSelect = (file) => {
     setSelectedFile(file)
     const fileUrl = URL.createObjectURL(file)
@@ -47,8 +47,42 @@ const AddFloor = ({ handleBack }) => {
   }
 
   const sensorDeleteHandler = (name) => {
-    let filteredSensrs = sensors.filter((sensor) => sensor !== name)
-    setSensors(filteredSensrs)
+    let filteredSensors = sensors.filter((sensor) => sensor !== name)
+    setSensors(filteredSensors)
+  }
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+  
+    // Create a new FormData object
+    const newFormData = new FormData();
+  
+    // Append form data to FormData object
+    newFormData.append('floor', formData.floor);
+    newFormData.append('rooms', formData.rooms);
+    newFormData.append('image', selectedFile); // Assuming selectedFile is the File object from input
+
+
+    console.log(formData)
+  
+    try {
+      // Call your API or function to handle form submission
+     await addBuildingFloor(newFormData); // Pass FormData object directly
+
+      // Clear selected file and reset form data after successful submission
+      setSelectedFile(null); // Reset selected file state
+      setPreviewUrl(null);   // Reset preview URL state
+      setFormData({ floor: '', rooms: '' }); // Reset form data state
+    } catch (error) {
+      console.error('Error adding floor:', error);
+      // Handle error as needed, e.g., show error message to user
+    }
+  };
+  
+
+  const handleInputChange = (event) => {
+    const { name, value } = event.target
+    setFormData({ ...formData, [name]: value })
   }
 
   useEffect(() => {
@@ -56,21 +90,17 @@ const AddFloor = ({ handleBack }) => {
       setSensors((prev) => [...prev, singleSensor])
       setSingleSensor('')
     }
-    console.log(sensors)
   }, [singleSensor, sensors])
 
   return (
     <Box>
       <Accordion defaultExpanded>
-        <AccordionSummary
-          // expandIcon=""
-          aria-controls="panel1-content"
-          id="panel1-header"
-        >
+        <AccordionSummary aria-controls="panel1-content" id="panel1-header">
           <Typography>Expanded by default</Typography>
         </AccordionSummary>
         <AccordionDetails>
           <SubAddFloors
+            formData={formData}
             sensors={sensors}
             sensorDeleteHandler={sensorDeleteHandler}
             deleteImage={deleteImage}
@@ -78,6 +108,7 @@ const AddFloor = ({ handleBack }) => {
             previewUrl={previewUrl}
             handleChange={handleChange}
             handleFileSelect={handleFileSelect}
+            handleInputChange={handleInputChange}
           />
         </AccordionDetails>
       </Accordion>
@@ -139,6 +170,7 @@ const AddFloor = ({ handleBack }) => {
           Cancel
         </Button>
         <Button
+          onClick={handleSubmit}
           sx={{
             backgroundImage: 'linear-gradient(to right, #7E3FF6, #AC20FE)',
             padding: '0 40px',
@@ -160,9 +192,14 @@ const AddFloor = ({ handleBack }) => {
   )
 }
 
+AddFloor.propTypes = {
+  handleBack: PropTypes.func.isRequired,
+}
+
 export default AddFloor
 
-export const SubAddFloors = ({
+const SubAddFloors = ({
+  formData,
   previewUrl,
   deleteImage,
   sensorDeleteHandler,
@@ -170,11 +207,21 @@ export const SubAddFloors = ({
   sensors,
   singleSensor,
   handleChange,
+  handleInputChange,
 }) => {
+  // Ensure DUMMYSENSORS is defined and accessible
+  const DUMMYSENSOS = [
+    { label: 'Sensor 1', value: 'sensor1' },
+    { label: 'Sensor 2', value: 'sensor2' },
+    { label: 'Sensor 3', value: 'sensor3' },
+  ]
+
+  // Handle undefined singleSensor by providing a default value
+  const selectedSensorValue = singleSensor ?? ''
+
   return (
     <>
       <Box sx={{ textAlign: 'left', marginY: '24px' }}>
-        {' '}
         <Typography
           sx={{
             fontWeight: '600',
@@ -184,45 +231,100 @@ export const SubAddFloors = ({
           }}
         >
           Add Floors
-        </Typography>{' '}
+        </Typography>
       </Box>
 
-      <Grid container spacing={2}>
-        <Grid item md={6} sm={6} xs={12}>
-          <TextField
-            label="Floor"
-            type="number"
-            name="floor"
-            fullWidth
-            size="small"
-            min="0"
-            inputProps={{ min: 1 }}
-          />
+      <form>
+        <Grid container spacing={2}>
+          <Grid item md={6} sm={6} xs={12}>
+            <TextField
+              label="Floor"
+              type="number"
+              name="floor"
+              fullWidth
+              size="small"
+              inputProps={{ min: 1 }}
+              value={formData.floor}
+              onChange={handleInputChange}
+            />
+          </Grid>
+          <Grid item md={6} sm={6} xs={12}>
+            <TextField
+              label="Rooms"
+              type="number"
+              name="rooms"
+              fullWidth
+              size="small"
+              inputProps={{ min: 1 }}
+              onInput={(e) => {
+                e.target.value = Math.max('1', parseInt(e.target.value) || '1')
+              }}
+              value={formData.rooms}
+              onChange={handleInputChange}
+            />
+          </Grid>
         </Grid>
-        <Grid item md={6} sm={6} xs={12}>
-          <TextField
-            label="Rooms"
-            type="number"
-            name="rooms"
-            fullWidth
-            size="small"
-            inputProps={{ min: 1 }}
-            onInput={(e) => {
-              e.target.value = Math.max('1', parseInt(e.target.value) || '1')
-            }}
-          />
-        </Grid>
-      </Grid>
-      <Box>
-        <Box sx={{ textAlign: 'left', marginY: '24px' }}>
-          <Box
-            sx={{
-              display: 'flex',
-              alignItems: 'end',
-              justifyContent: 'space-between',
-            }}
-          >
-            {' '}
+        <Box>
+          <Box sx={{ textAlign: 'left', marginY: '24px' }}>
+            <Box
+              sx={{
+                display: 'flex',
+                alignItems: 'end',
+                justifyContent: 'space-between',
+              }}
+            >
+              <Typography
+                sx={{
+                  fontWeight: '600',
+                  fontSize: '18px',
+                  lineHeight: '27px',
+                  color: '#414141',
+                }}
+              >
+                Upload 2D Model Of Building
+              </Typography>
+              {previewUrl && (
+                <Box sx={{ display: 'flex', gap: '20px' }}>
+                  <Box sx={{ cursor: 'pointer' }} onClick={deleteImage}>
+                    <ImageDelete />
+                  </Box>
+                  <Box sx={{ cursor: 'pointer' }}>
+                    <ImageEdit />
+                  </Box>
+                </Box>
+              )}
+            </Box>
+          </Box>
+
+          {previewUrl ? (
+            <Box
+              sx={{
+                marginTop: '20px',
+                border: '2px solid #FF7F3E',
+                borderRadius: '20px',
+                overflow: 'hidden', // Ensure the border-radius is applied to the image
+                boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)', // Add a subtle shadow for depth
+                maxWidth: '100%', // Ensure the box does not overflow its container
+                height: 'auto',
+              }}
+            >
+              <img
+                src={previewUrl}
+                alt="Selected"
+                style={{
+                  width: '100%',
+                  height: 'auto', // Ensure the image maintains its aspect ratio
+                  display: 'block', // Remove the gap below the image
+                  borderRadius: '20px', // Apply the border-radius to the image
+                }}
+              />
+            </Box>
+          ) : (
+            <CustomInputFileBtn onFileSelect={handleFileSelect} />
+          )}
+        </Box>
+        <Box>
+          <Box sx={{ textAlign: 'left', marginY: '24px' }}>
             <Typography
               sx={{
                 fontWeight: '600',
@@ -231,94 +333,57 @@ export const SubAddFloors = ({
                 color: '#414141',
               }}
             >
-              Upload 2D Model Of Building
-            </Typography>{' '}
-            {previewUrl && (
-              <Box sx={{ display: 'flex', gap: '20px' }}>
-                <Box sx={{ cursor: 'pointer' }} onClick={deleteImage}>
-                  <ImageDelete />
-                </Box>
-                <Box sx={{ cursor: 'pointer' }}>
-                  <ImageEdit />
-                </Box>{' '}
-              </Box>
-            )}
+              Add Sensor
+            </Typography>
           </Box>
-        </Box>
+          <FormControl fullWidth>
+            <InputLabel id="demo-simple-select-label">Add Sensor</InputLabel>
+            <Select
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
+              value={selectedSensorValue}
+              label="Add Sensor"
+              onChange={handleChange}
+              size="medium"
+            >
+              {DUMMYSENSOS.map((sensor, index) => (
+                <MenuItem value={sensor.value} key={index}>
+                  {sensor.label}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
 
-        {previewUrl ? (
-          <Box
-            sx={{
-              marginTop: '20px',
-              border: '2px solid #FF7F3E',
-              borderRadius: '20px',
-              overflow: 'hidden', // Ensure the border-radius is applied to the image
-              boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)', // Add a subtle shadow for depth
-              maxWidth: '100%', // Ensure the box does not overflow its container
-              height: 'auto',
-            }}
-          >
-            <img
-              src={previewUrl}
-              alt="Selected"
-              style={{
-                width: '100%',
-                height: 'auto', // Ensure the image maintains its aspect ratio
-                display: 'block', // Remove the gap below the image
-                borderRadius: '20px', // Apply the border-radius to the image
-              }}
-            />
-          </Box>
-        ) : (
-          <CustomInputFileBtn onFileSelect={handleFileSelect} />
-        )}
-      </Box>
-      <Box>
-        <Box sx={{ textAlign: 'left', marginY: '24px' }}>
-          {' '}
-          <Typography
-            sx={{
-              fontWeight: '600',
-              fontSize: '18px',
-              lineHeight: '27px',
-              color: '#414141',
-            }}
-          >
-            Add Sensor
-          </Typography>{' '}
-        </Box>
-        <FormControl fullWidth>
-          <InputLabel id="demo-simple-select-label">Add Sensor</InputLabel>
-          <Select
-            labelId="demo-simple-select-label"
-            id="demo-simple-select"
-            value={singleSensor}
-            label="Add Sensor"
-            onChange={handleChange}
-            size="medium"
-          >
-            {DUMMYSENSOS.map((sensor, index) => (
-              <MenuItem value={sensor.value} key={index}>
-                {sensor.label}
-              </MenuItem>
+          {sensors?.length > 0 &&
+            sensors.map((s, i) => (
+              <SingleSensor
+                sensorDeleteHandler={sensorDeleteHandler}
+                key={i}
+                name={s}
+              />
             ))}
-          </Select>
-        </FormControl>
-
-        {sensors?.length > 0 &&
-          sensors.map((s, i) => (
-            <SingleSensor
-              sensorDeleteHandler={sensorDeleteHandler}
-              key={i}
-              name={s}
-            />
-          ))}
-      </Box>
+        </Box>
+      </form>
     </>
   )
 }
 
-export const SingleSensor = ({ name, sensorDeleteHandler }) => {
+SubAddFloors.propTypes = {
+  formData: PropTypes.shape({
+    floor: PropTypes.string.isRequired,
+    rooms: PropTypes.string.isRequired,
+  }).isRequired,
+  previewUrl: PropTypes.string,
+  deleteImage: PropTypes.func.isRequired,
+  sensorDeleteHandler: PropTypes.func.isRequired,
+  handleFileSelect: PropTypes.func.isRequired,
+  sensors: PropTypes.array.isRequired,
+  singleSensor: PropTypes.string.isRequired,
+  handleChange: PropTypes.func.isRequired,
+  handleInputChange: PropTypes.func.isRequired,
+}
+
+const SingleSensor = ({ name, sensorDeleteHandler }) => {
   return (
     <Box
       sx={{
@@ -373,4 +438,9 @@ export const SingleSensor = ({ name, sensorDeleteHandler }) => {
       </Box>
     </Box>
   )
+}
+
+SingleSensor.propTypes = {
+  name: PropTypes.string.isRequired,
+  sensorDeleteHandler: PropTypes.func.isRequired,
 }
