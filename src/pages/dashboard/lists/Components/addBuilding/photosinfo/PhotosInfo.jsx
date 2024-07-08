@@ -5,6 +5,8 @@ import PropTypes from 'prop-types';
 import { useAddBuildingMutation } from '../../../../../../redux/api/buildingApi';
 import { selectBuildingData } from '../../../../../../redux/reducers/formReducer';
 import { useSelector } from 'react-redux';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const PhotosInfo = ({ handleNext, handleBack }) => {
   const [selectedFiles, setSelectedFiles] = useState([]); // State to store selected files
@@ -15,8 +17,6 @@ const PhotosInfo = ({ handleNext, handleBack }) => {
   useEffect(() => {
     setBuildingDetails(buildingData);
   }, [buildingData]);
-
-  console.log(buildingDetails)
 
   // Handle file selection
   const handleFileChange = (event) => {
@@ -31,27 +31,34 @@ const PhotosInfo = ({ handleNext, handleBack }) => {
       // Create a FormData object
       const formData = new FormData();
 
-      formData.append('buildingDetails', buildingDetails)
+      // Append building details as a JSON string
+      formData.append('buildingDetails', JSON.stringify(buildingDetails));
 
       // Append each selected file to the FormData
       selectedFiles.forEach((file) => {
-        formData.append('images', file);
+        formData.append('images', file, file.name);
       });
-
-      console.log(buildingDetails)
 
       // Use the mutation to send the FormData to the backend
       const res = await addBuilding(formData).unwrap();
 
-      console.log(res); // Handle the response if needed
+      // Show success notification
+      toast.success(`${res.message}`);
+
       handleNext(); // Proceed to the next step after successful upload
     } catch (error) {
       console.error("Failed to upload images and building data:", error); // Log error message to console
+
+      // Show error notification
+      toast.error('Failed to create building. Please try again.');
     }
   };
 
   return (
     <Box component="form" onSubmit={handleSubmit}>
+      {/* Add ToastContainer at a top level */}
+      <ToastContainer />
+
       <Box sx={{ textAlign: 'center', marginY: '24px' }}>
         <Typography sx={{ fontWeight: '500', fontSize: '20px', lineHeight: '30px', color: '#414141' }}>
           Upload Building Photos
