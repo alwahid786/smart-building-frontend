@@ -4,14 +4,14 @@ import {
   AccordionSummary,
   Box,
   Button,
-  FormControl,
+  Typography,
   Grid,
+  TextField,
+  FormControl,
   InputLabel,
   MenuItem,
   Select,
   Switch,
-  TextField,
-  Typography,
 } from '@mui/material'
 import { useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
@@ -21,15 +21,23 @@ import ImageDelete from '../../../../../../asset/svgs/ImageDelete'
 import { useSelector } from 'react-redux'
 import { useAddBuildingFloorMutation } from '../../../../../../redux/api/buildingApi'
 
-
 const AddFloor = ({ handleBack }) => {
   const [singleSensor, setSingleSensor] = useState('')
   const [sensors, setSensors] = useState([])
   const [formData, setFormData] = useState({ floor: '', rooms: '' })
   const [selectedFile, setSelectedFile] = useState(null)
   const [previewUrl, setPreviewUrl] = useState(null)
-  const fileMetadata = useSelector(state => state.file.fileMetadata);
+  const fileMetadata = useSelector((state) => state.file.fileMetadata)
   const [addBuildingFloor] = useAddBuildingFloorMutation()
+  const [floors, setFloors] = useState([
+    {
+      id: 1,
+      sensors: [],
+      selectedFile: null,
+      previewUrl: null,
+      singleSensor: '',
+    },
+  ])
 
   const handleChange = (event) => {
     setSingleSensor(event.target.value)
@@ -51,34 +59,45 @@ const AddFloor = ({ handleBack }) => {
     setSensors(filteredSensors)
   }
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-  
-    // Create a new FormData object
-    const newFormData = new FormData();
-  
-    // Append form data to FormData object
-    newFormData.append('floor', formData.floor);
-    newFormData.append('rooms', formData.rooms);
-    newFormData.append('image', selectedFile); // Assuming selectedFile is the File object from input
+  const handleAddFloor = () => {
+    setFloors([
+      ...floors,
+      {
+        id: floors.length + 1,
+        sensors: [],
+        selectedFile: null,
+        previewUrl: null,
+        singleSensor: '',
+      },
+    ])
+  }
 
+  const handleSubmit = async (event) => {
+    event.preventDefault()
+
+    // Create a new FormData object
+    const newFormData = new FormData()
+
+    // Append form data to FormData object
+    newFormData.append('floor', formData.floor)
+    newFormData.append('rooms', formData.rooms)
+    newFormData.append('image', selectedFile) // Assuming selectedFile is the File object from input
 
     console.log(formData)
-  
+
     try {
       // Call your API or function to handle form submission
-     await addBuildingFloor(newFormData); // Pass FormData object directly
+      await addBuildingFloor(newFormData) // Pass FormData object directly
 
       // Clear selected file and reset form data after successful submission
-      setSelectedFile(null); // Reset selected file state
-      setPreviewUrl(null);   // Reset preview URL state
-      setFormData({ floor: '', rooms: '' }); // Reset form data state
+      setSelectedFile(null) // Reset selected file state
+      setPreviewUrl(null) // Reset preview URL state
+      setFormData({ floor: '', rooms: '' }) // Reset form data state
     } catch (error) {
-      console.error('Error adding floor:', error);
+      console.error('Error adding floor:', error)
       // Handle error as needed, e.g., show error message to user
     }
-  };
-  
+  }
 
   const handleInputChange = (event) => {
     const { name, value } = event.target
@@ -125,8 +144,10 @@ const AddFloor = ({ handleBack }) => {
               opacity: '0.5',
               cursor: 'not-allowed',
             },
+            marginTop: '10px',
           }}
           variant="contained"
+          onClick={handleAddFloor}
         >
           Add More Floor
         </Button>
