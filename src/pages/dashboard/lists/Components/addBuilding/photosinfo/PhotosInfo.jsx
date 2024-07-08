@@ -1,13 +1,23 @@
 import { Box, Button, Grid, Typography } from '@mui/material';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import CardPhotos from './CardPhotos';
-import PropTypes from 'prop-types'; 
+import PropTypes from 'prop-types';
 import { useAddBuildingMutation } from '../../../../../../redux/api/buildingApi';
+import { selectBuildingData } from '../../../../../../redux/reducers/formReducer';
+import { useSelector } from 'react-redux';
 
-const PhotosInfo = ({ handleNext, handleBack, buildingId }) => {
+const PhotosInfo = ({ handleNext, handleBack }) => {
   const [selectedFiles, setSelectedFiles] = useState([]); // State to store selected files
   const [addBuilding] = useAddBuildingMutation();
-  
+  const buildingData = useSelector(selectBuildingData);
+  const [buildingDetails, setBuildingDetails] = useState();
+
+  useEffect(() => {
+    setBuildingDetails(buildingData);
+  }, [buildingData]);
+
+  console.log(buildingDetails)
+
   // Handle file selection
   const handleFileChange = (event) => {
     const files = Array.from(event.target.files); // Convert FileList to Array
@@ -16,24 +26,27 @@ const PhotosInfo = ({ handleNext, handleBack, buildingId }) => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-  
 
     try {
-      // Create a FormData object to send selected files
+      // Create a FormData object
       const formData = new FormData();
-      formData.append('buildingId', buildingId); // Append buildingId to FormData
+
+      formData.append('buildingDetails', buildingDetails)
+
+      // Append each selected file to the FormData
       selectedFiles.forEach((file) => {
-        formData.append('images', file); // Append each file to the FormData with the key 'images'
+        formData.append('images', file);
       });
 
-      // Use the mutation to send the files to the backend
+      console.log(buildingDetails)
+
+      // Use the mutation to send the FormData to the backend
       const res = await addBuilding(formData).unwrap();
 
       console.log(res); // Handle the response if needed
       handleNext(); // Proceed to the next step after successful upload
     } catch (error) {
-      console.error("Failed to upload images:", error); // Log error message to console
-
+      console.error("Failed to upload images and building data:", error); // Log error message to console
     }
   };
 
@@ -136,7 +149,6 @@ const PhotosInfo = ({ handleNext, handleBack, buildingId }) => {
 PhotosInfo.propTypes = {
   handleNext: PropTypes.func.isRequired,
   handleBack: PropTypes.func.isRequired,
-  buildingId: PropTypes.string.isRequired, // Ensure buildingId is a required string prop
 };
 
 export default PhotosInfo;

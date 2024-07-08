@@ -12,13 +12,13 @@ import {
   TextField,
   Typography,
 } from '@mui/material';
-import { useAddBuildingMutation } from '../../../../../redux/api/buildingApi';
-import { useDispatch, useSelector } from 'react-redux';
-import { setBuildingData, selectBuildingData } from 'path/to/formDataSlice'; // Adjust path as per your project structure
+// import { useAddBuildingMutation } from '../../../../../redux/api/buildingApi';
+import { useDispatch } from 'react-redux';
+import { setBuildingData} from '../../../../../redux/reducers/formReducer';
 
 const GeneralBuildingInformation = ({ handleNext }) => {
   const dispatch = useDispatch();
-  const buildingData = useSelector(selectBuildingData);
+ 
 
   const [unitOfArea, setUnitOfArea] = useState('');
 
@@ -26,7 +26,7 @@ const GeneralBuildingInformation = ({ handleNext }) => {
     setUnitOfArea(event.target.value);
   };
 
-  const [addBuilding] = useAddBuildingMutation();
+  // const [addBuilding] = useAddBuildingMutation();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -49,9 +49,9 @@ const GeneralBuildingInformation = ({ handleNext }) => {
       // Dispatch action to update Redux store
       dispatch(setBuildingData(newBuildingData));
 
-      // Perform other actions like API call
-      const res = await addBuilding(newBuildingData);
-      console.log('Response', res);
+      // // Perform other actions like API call
+      // const res = await addBuilding(newBuildingData);
+      // console.log('Response', res);
     } catch (error) {
       console.log('Error', error);
     }
