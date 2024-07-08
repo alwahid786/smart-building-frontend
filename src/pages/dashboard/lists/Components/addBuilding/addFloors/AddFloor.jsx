@@ -39,9 +39,9 @@ const AddFloor = ({ handleBack }) => {
     },
   ])
 
-  const handleChange = (event) => {
-    setSingleSensor(event.target.value)
-  }
+  // const handleChange = (event) => {
+
+  // }
 
   const handleFileSelect = (file) => {
     setSelectedFile(file)
@@ -70,6 +70,12 @@ const AddFloor = ({ handleBack }) => {
         singleSensor: '',
       },
     ])
+  }
+  const handleChange = (event, index) => {
+    setSingleSensor(event.target.value)
+    const updatedFloors = [...floors]
+    updatedFloors[index].singleSensor = event.target.value
+    setFloors(updatedFloors)
   }
 
   const handleSubmit = async (event) => {
@@ -111,26 +117,46 @@ const AddFloor = ({ handleBack }) => {
     }
   }, [singleSensor, sensors])
 
+  const handleDeleteFloor = (index) => {
+    const updatedFloors = [...floors]
+    updatedFloors.splice(index, 1)
+    setFloors(updatedFloors)
+  }
   return (
     <Box>
-      <Accordion defaultExpanded>
-        <AccordionSummary aria-controls="panel1-content" id="panel1-header">
-          <Typography>Expanded by default</Typography>
-        </AccordionSummary>
-        <AccordionDetails>
-          <SubAddFloors
-            formData={formData}
-            sensors={sensors}
-            sensorDeleteHandler={sensorDeleteHandler}
-            deleteImage={deleteImage}
-            selectedFile={selectedFile}
-            previewUrl={previewUrl}
-            handleChange={handleChange}
-            handleFileSelect={handleFileSelect}
-            handleInputChange={handleInputChange}
-          />
-        </AccordionDetails>
-      </Accordion>
+      {floors.map((floor, index) => (
+        <Accordion key={floor.id} defaultExpanded>
+          <AccordionSummary
+            aria-controls={`panel${floor.id}-content`}
+            id={`panel${floor.id}-header`}
+          >
+            <Typography
+              sx={{
+                fontWeight: '600',
+                fontSize: '18px',
+                lineHeight: '27px',
+                color: '#414141',
+              }}
+            >
+              Add Floor Data
+            </Typography>
+          </AccordionSummary>
+          <AccordionDetails>
+            <SubAddFloors
+              formData={formData}
+              sensors={floor.sensors}
+              sensorDeleteHandler={(name) => sensorDeleteHandler(name, index)}
+              deleteImage={() => deleteImage(index)}
+              selectedFile={floor.selectedFile}
+              previewUrl={floor.previewUrl}
+              handleChange={(e) => handleChange(e, index)}
+              handleFileSelect={(file) => handleFileSelect(file, index)}
+              singleSensor={floor.singleSensor}
+              handleDeleteFloor={() => handleDeleteFloor(index)}
+            />
+          </AccordionDetails>
+        </Accordion>
+      ))}
 
       <Box>
         <Button
@@ -229,6 +255,7 @@ const SubAddFloors = ({
   singleSensor,
   handleChange,
   handleInputChange,
+  handleDeleteFloor,
 }) => {
   // Ensure DUMMYSENSORS is defined and accessible
   const DUMMYSENSOS = [
@@ -242,19 +269,6 @@ const SubAddFloors = ({
 
   return (
     <>
-      <Box sx={{ textAlign: 'left', marginY: '24px' }}>
-        <Typography
-          sx={{
-            fontWeight: '600',
-            fontSize: '18px',
-            lineHeight: '27px',
-            color: '#414141',
-          }}
-        >
-          Add Floors
-        </Typography>
-      </Box>
-
       <form>
         <Grid container spacing={2}>
           <Grid item md={6} sm={6} xs={12}>
@@ -383,6 +397,16 @@ const SubAddFloors = ({
                 name={s}
               />
             ))}
+
+          <Box sx={{ marginY: '15px', textAlign: 'right' }}>
+            <Button
+              variant="contained"
+              onClick={handleDeleteFloor}
+              color="error"
+            >
+              Delete Floor
+            </Button>
+          </Box>
         </Box>
       </form>
     </>
