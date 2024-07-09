@@ -153,6 +153,7 @@ const AddFloor = ({ handleBack }) => {
               handleFileSelect={(file) => handleFileSelect(file, index)}
               singleSensor={floor.singleSensor}
               handleDeleteFloor={() => handleDeleteFloor(index)}
+              handleInputChange={handleInputChange}
             />
           </AccordionDetails>
         </Accordion>
