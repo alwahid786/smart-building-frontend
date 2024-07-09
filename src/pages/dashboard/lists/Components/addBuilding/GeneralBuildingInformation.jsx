@@ -1,6 +1,6 @@
 // GeneralBuildingInformation.jsx
-import { useState } from 'react';
-import PropTypes from 'prop-types';
+import { useState } from 'react'
+import PropTypes from 'prop-types'
 import {
   Box,
   Button,
@@ -11,26 +11,27 @@ import {
   Select,
   TextField,
   Typography,
-} from '@mui/material';
+} from '@mui/material'
 // import { useAddBuildingMutation } from '../../../../../redux/api/buildingApi';
-import { useDispatch } from 'react-redux';
-import { setBuildingData} from '../../../../../redux/reducers/formReducer';
+import { useDispatch } from 'react-redux'
+import { setBuildingData } from '../../../../../redux/reducers/formReducer'
+import PhoneInput from 'react-phone-input-2'
+import 'react-phone-input-2/lib/style.css'
 
 const GeneralBuildingInformation = ({ handleNext }) => {
-  const dispatch = useDispatch();
- 
+  const dispatch = useDispatch()
 
-  const [unitOfArea, setUnitOfArea] = useState('');
+  const [unitOfArea, setUnitOfArea] = useState('')
 
   const handleUnitChange = (event) => {
-    setUnitOfArea(event.target.value);
-  };
+    setUnitOfArea(event.target.value)
+  }
 
   // const [addBuilding] = useAddBuildingMutation();
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    const formData = new FormData(e.target);
+    e.preventDefault()
+    const formData = new FormData(e.target)
 
     const newBuildingData = {
       buildingName: formData.get('buildingName'),
@@ -43,21 +44,21 @@ const GeneralBuildingInformation = ({ handleNext }) => {
       constructionYear: formData.get('constructionYear'),
       writtenAddress: formData.get('writtenAddress'),
       description: formData.get('description'),
-    };
+    }
 
     try {
       // Dispatch action to update Redux store
-      dispatch(setBuildingData(newBuildingData));
+      dispatch(setBuildingData(newBuildingData))
 
       // // Perform other actions like API call
       // const res = await addBuilding(newBuildingData);
       // console.log('Response', res);
     } catch (error) {
-      console.log('Error', error);
+      console.log('Error', error)
     }
 
-    handleNext(); // Proceed to the next step
-  };
+    handleNext() // Proceed to the next step
+  }
 
   return (
     <Box>
@@ -98,12 +99,15 @@ const GeneralBuildingInformation = ({ handleNext }) => {
           </Grid>
 
           <Grid item md={4} sm={6} xs={12}>
-            <TextField
+            <PhoneInput
+              // country={'us'}
               label="Phone Number"
               type="tel"
               name="phoneNumber"
-              size="small"
+              placeholder="Phone"
               fullWidth
+              containerStyle={{ width: '100%' }}
+              inputStyle={{ width: '100%', height: '40px' }}
             />
           </Grid>
 
@@ -224,11 +228,11 @@ const GeneralBuildingInformation = ({ handleNext }) => {
         </Box>
       </form>
     </Box>
-  );
-};
+  )
+}
 
 GeneralBuildingInformation.propTypes = {
   handleNext: PropTypes.func.isRequired,
-};
+}
 
-export default GeneralBuildingInformation;
+export default GeneralBuildingInformation
