@@ -18,7 +18,6 @@ import PropTypes from 'prop-types'
 import CustomInputFileBtn from '../components/CustomInputFileBtn'
 import ImageEdit from '../../../../../../asset/svgs/GrayImageEdit'
 import ImageDelete from '../../../../../../asset/svgs/ImageDelete'
-import { useSelector } from 'react-redux'
 import { useAddBuildingFloorMutation } from '../../../../../../redux/api/buildingApi'
 
 const AddFloor = ({ handleBack }) => {
@@ -32,7 +31,7 @@ const AddFloor = ({ handleBack }) => {
       formData: { floor: '', rooms: '' },
     },
   ])
-  const fileMetadata = useSelector((state) => state.file.fileMetadata)
+
   const [addBuildingFloor] = useAddBuildingFloorMutation()
 
   const handleAddFloor = () => {
