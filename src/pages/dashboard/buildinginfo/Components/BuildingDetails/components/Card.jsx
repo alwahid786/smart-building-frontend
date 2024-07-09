@@ -21,8 +21,8 @@ const BuildingCard = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    if (data && Array.isArray(data.buildingImages) && data.buildingImages.length > 0) {
-      const firstImageUrl = data.buildingImages[0];
+    if (data && Array.isArray(data.images) && data.images.length > 0) {
+      const firstImageUrl = data.images[0];
       setImage(firstImageUrl);
     }
   }, [data]);

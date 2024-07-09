@@ -24,15 +24,6 @@ const CustomInputFileBtn = ({ onFileSelect }) => {
   const handleFileChange = (event) => {
     const file = event.target.files[0];
     if (file) {
-      // Extract metadata to dispatch to Redux instead of the entire File object
-      // const fileMetadata = {
-      //   name: file.name,
-      //   size: file.size,
-      //   type: file.type,
-      //   lastModified: file.lastModified,
-      //   // Add more metadata fields if needed
-      // };
-      
 
       // Pass the entire file object if necessary for other operations
       onFileSelect(file);

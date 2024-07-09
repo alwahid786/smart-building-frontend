@@ -23,11 +23,7 @@ const GeneralBuildingInformation = ({ handleNext }) => {
 
   const [unitOfArea, setUnitOfArea] = useState('')
 
-  const handleUnitChange = (event) => {
-    setUnitOfArea(event.target.value)
-  }
-
-  // const [addBuilding] = useAddBuildingMutation();
+  const handleUnitChange = (event) => {setUnitOfArea(event.target.value)}
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -50,9 +46,6 @@ const GeneralBuildingInformation = ({ handleNext }) => {
       // Dispatch action to update Redux store
       dispatch(setBuildingData(newBuildingData))
 
-      // // Perform other actions like API call
-      // const res = await addBuilding(newBuildingData);
-      // console.log('Response', res);
     } catch (error) {
       console.log('Error', error)
     }

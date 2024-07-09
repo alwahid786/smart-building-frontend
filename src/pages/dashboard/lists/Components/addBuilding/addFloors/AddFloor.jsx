@@ -19,6 +19,9 @@ import CustomInputFileBtn from '../components/CustomInputFileBtn'
 import ImageEdit from '../../../../../../asset/svgs/GrayImageEdit'
 import ImageDelete from '../../../../../../asset/svgs/ImageDelete'
 import { useAddBuildingFloorMutation } from '../../../../../../redux/api/buildingApi'
+import {toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { useNavigate } from 'react-router-dom'
 
 const AddFloor = ({ handleBack }) => {
   const [floors, setFloors] = useState([
@@ -33,6 +36,7 @@ const AddFloor = ({ handleBack }) => {
   ])
 
   const [addBuildingFloor] = useAddBuildingFloorMutation()
+  const navigate = useNavigate()
 
   const handleAddFloor = () => {
     setFloors([
@@ -92,19 +96,12 @@ const AddFloor = ({ handleBack }) => {
         newFormData.append('rooms', floor.formData.rooms)
         newFormData.append('image', floor.selectedFile)
         const res = await addBuildingFloor(newFormData)
-        console.log(res)
+
+        // if res.status is success then redirect /dashboard/list page
+        if (res.data.success === true) {navigate('/dashboard/list')}
       }
-      // Clear selected file and reset form data after successful submission
-      setFloors([
-        {
-          id: 1,
-          sensors: [],
-          selectedFile: null,
-          previewUrl: null,
-          singleSensor: '',
-          formData: { floor: '', rooms: '' },
-        },
-      ])
+
+      toast.success('Floors added successfully')
     } catch (error) {
       console.error('Error adding floor:', error)
     }
