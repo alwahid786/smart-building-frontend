@@ -15,11 +15,6 @@ const BuildingCard = () => {
   const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
-<<<<<<< Updated upstream
-    if (data && Array.isArray(data.images) && data.images.length > 0) {
-      const firstImageUrl = data.images[0];
-      setImage(firstImageUrl);
-=======
     if (
       data &&
       Array.isArray(data.buildingImages) &&
@@ -27,7 +22,6 @@ const BuildingCard = () => {
     ) {
       const firstImageUrl = data.buildingImages[0]
       setImage(firstImageUrl)
->>>>>>> Stashed changes
     }
   }, [data])
 
