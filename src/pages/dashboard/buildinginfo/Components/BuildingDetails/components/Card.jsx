@@ -52,7 +52,7 @@ const BuildingCard = () => {
     >
       <CardMedia
         component="img"
-        height="140"
+        height="170"
         image={image}
         alt="Featured Image"
         sx={{

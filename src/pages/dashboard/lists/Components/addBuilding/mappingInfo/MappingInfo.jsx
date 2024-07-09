@@ -6,12 +6,17 @@ import { MapContainer, Marker, Popup, TileLayer, useMap } from 'react-leaflet'
 import { useEffect, useState } from 'react'
 import MarkerMap from '../../../../../../asset/svgs/MarkerMap'
 
+import Card from '@mui/material/Card'
+import CardActions from '@mui/material/CardActions'
+import CardContent from '@mui/material/CardContent'
+import CardMedia from '@mui/material/CardMedia'
+
 const markerIcon = new L.Icon({
   iconUrl: MarkerMap,
   iconSize: [45, 45],
 })
 
-const MappingInfo = ({ handleBack, handleNext }) => {
+const MappingInfo = ({ handleBack, handleNext, imageUrl }) => {
   const [position, setPosition] = useState([51.505, -0.09])
   const [latitude, setLatitude] = useState(51.505)
   const [longitude, setLongitude] = useState(-0.09)
@@ -95,12 +100,44 @@ const MappingInfo = ({ handleBack, handleNext }) => {
             marginTop: '30px',
           }}
         >
-          <TileLayer
-            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-          />
+          <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
           <Marker position={position} icon={markerIcon}>
             <Popup>
-              A pretty CSS3 popup. <br /> Easily customizable.
+              <Box>
+                <CardMedia
+                  sx={{ height: 100, maxWidth: 700 }}
+                  image="https://plus.unsplash.com/premium_photo-1661852207925-4f1d03556a2e?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8bGFyZ2UlMjBmb3JtYXR8ZW58MHx8MHx8fDA%3D"
+                  title="green iguana"
+                />
+                <CardContent sx={{ width: '100%', padding: '0 !important' }}>
+                  <Typography
+                    variant="subtitle1"
+                    sx={{
+                      fontSize: '14px',
+                      lineHeight: '19.07px',
+                      fontWeight: '400',
+                      color: '#11111180',
+                    }}
+                  >
+                    Subtitle
+                  </Typography>
+                  <Typography
+                    variant="h6"
+                    sx={{
+                      fontSize: '18px',
+                      lineHeight: '24.51px',
+                      fontWeight: '600',
+                      color: '#414141',
+                    }}
+                  >
+                    Name
+                  </Typography>
+                </CardContent>
+                <CardActions>
+                  <Button size="small">Share</Button>
+                  <Button size="small">Learn More</Button>
+                </CardActions>
+              </Box>
             </Popup>
           </Marker>
           <RecenterMap position={position} />
