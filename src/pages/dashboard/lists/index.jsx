@@ -4,7 +4,6 @@ import FilterBar from './Components/FilterBar'
 import ListCard from './Components/ListCard'
 import { useEffect, useRef, useState } from 'react'
 import AddCard from './Components/AddCard'
-import img from '../../../asset/Images/list/Rectangle.png'
 import { useGetBuildingQuery } from '../../../redux/api/buildingApi'
 import { Link } from 'react-router-dom'
 

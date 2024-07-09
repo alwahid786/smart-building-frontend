@@ -9,7 +9,7 @@ import { useGetSingleBuildingQuery } from '../../../../../../redux/api/buildingA
 
 const BuildingCard = () => {
   const { id } = useParams()
-  const { data, error } = useGetSingleBuildingQuery(id)
+  const { data } = useGetSingleBuildingQuery(id)
   const [image, setImage] = useState(null)
   const [isFavorite, setIsFavorite] = useState(false)
   const [isLoading, setIsLoading] = useState(true)

@@ -1,17 +1,19 @@
-import { Box, Button, Grid, Typography } from '@mui/material';
+import { Box, Button, Grid, Typography, CircularProgress } from '@mui/material';
 import { useEffect, useState } from 'react';
 import CardPhotos from './CardPhotos';
 import PropTypes from 'prop-types';
 import { useAddBuildingMutation } from '../../../../../../redux/api/buildingApi';
-import { selectBuildingData } from '../../../../../../redux/reducers/formReducer';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectBuildingData, setBuildingId } from '../../../../../../redux/reducers/formReducer';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const PhotosInfo = ({ handleNext, handleBack }) => {
   const [selectedFiles, setSelectedFiles] = useState([]); // State to store selected files
+  const [loading, setLoading] = useState(false); // State to manage loading
   const [addBuilding] = useAddBuildingMutation();
   const buildingData = useSelector(selectBuildingData);
+  const dispatch = useDispatch(); // Add this line to use dispatch
   const [buildingDetails, setBuildingDetails] = useState();
 
   useEffect(() => {
@@ -26,6 +28,7 @@ const PhotosInfo = ({ handleNext, handleBack }) => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    setLoading(true); // Set loading to true when submission starts
 
     try {
       // Create a FormData object
@@ -42,8 +45,12 @@ const PhotosInfo = ({ handleNext, handleBack }) => {
       // Use the mutation to send the FormData to the backend
       const res = await addBuilding(formData).unwrap();
 
+      console.log("Response", res.building._id);
       // Show success notification
       toast.success(`${res.message}`);
+
+      // Dispatch the building ID to the Redux store
+      dispatch(setBuildingId(res.building._id)); // Assuming the response contains a buildingId
 
       handleNext(); // Proceed to the next step after successful upload
     } catch (error) {
@@ -51,6 +58,8 @@ const PhotosInfo = ({ handleNext, handleBack }) => {
 
       // Show error notification
       toast.error('Failed to create building. Please try again.');
+    } finally {
+      setLoading(false); // Set loading to false when submission ends
     }
   };
 
@@ -145,7 +154,7 @@ const PhotosInfo = ({ handleNext, handleBack }) => {
           }}
           variant="contained"
         >
-          Next
+          {loading ? <CircularProgress size={24} color="inherit" /> : 'Next'}
         </Button>
       </Box>
     </Box>

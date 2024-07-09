@@ -9,7 +9,7 @@ const store = configureStore({
     [authApiPoint.reducerPath]: authApiPoint.reducer,
     [buildingApiPoint.reducerPath]: buildingApiPoint.reducer,
     formData: formDataReducer,
-    mapping: mappingReducer
+    mapping: mappingReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat([authApiPoint.middleware, buildingApiPoint.middleware]),

@@ -22,8 +22,12 @@ import { useAddBuildingFloorMutation } from '../../../../../../redux/api/buildin
 import {toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from 'react-router-dom'
+import { useSelector } from 'react-redux'
 
 const AddFloor = ({ handleBack }) => {
+
+  const buildingId = useSelector(state => state.formData.buildingId);
+
   const [floors, setFloors] = useState([
     {
       id: 1,
@@ -88,24 +92,29 @@ const AddFloor = ({ handleBack }) => {
   }
 
   const handleSubmit = async (event) => {
-    event.preventDefault()
+    event.preventDefault();
     try {
       for (const floor of floors) {
-        const newFormData = new FormData()
-        newFormData.append('floor', floor.formData.floor)
-        newFormData.append('rooms', floor.formData.rooms)
-        newFormData.append('image', floor.selectedFile)
-        const res = await addBuildingFloor(newFormData)
-
-        // if res.status is success then redirect /dashboard/list page
-        if (res.data.success === true) {navigate('/dashboard/list')}
+        const newFormData = new FormData();
+        newFormData.append('floor', floor.formData.floor);
+        newFormData.append('rooms', floor.formData.rooms);
+        newFormData.append('image', floor.selectedFile);
+        newFormData.append('buildingId', buildingId); // Include buildingId here
+  
+        const res = await addBuildingFloor(newFormData);
+  
+        // Check response status for success handling
+        if (res.data.success === true) {
+          toast.success('Floor added successfully');
+        }
       }
-
-      toast.success('Floors added successfully')
+  
+      navigate('/dashboard/list');
     } catch (error) {
-      console.error('Error adding floor:', error)
+      console.error('Error adding floor:', error);
     }
-  }
+  };
+  
 
   const handleDeleteFloor = (index) => {
     const updatedFloors = [...floors]
