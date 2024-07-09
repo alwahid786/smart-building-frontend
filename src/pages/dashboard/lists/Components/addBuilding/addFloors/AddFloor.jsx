@@ -96,7 +96,9 @@ const AddFloor = ({ handleBack }) => {
 
     try {
       // Call your API or function to handle form submission
-      await addBuildingFloor(newFormData) // Pass FormData object directly
+      const res = await addBuildingFloor(newFormData) // Pass FormData object directly
+
+      console.log(res)
 
       // Clear selected file and reset form data after successful submission
       setSelectedFile(null) // Reset selected file state
