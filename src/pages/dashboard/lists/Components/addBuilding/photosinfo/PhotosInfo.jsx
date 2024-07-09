@@ -23,9 +23,9 @@ const PhotosInfo = ({ handleNext, handleBack }) => {
   // Handle file selection
   const handleFileChange = (event) => {
     const files = Array.from(event.target.files); // Convert FileList to Array
-    setSelectedFiles(files); // Update state with selected files
+    setSelectedFiles(prevFiles => [...prevFiles, ...files]); // Append new files to the existing state
   };
-
+  
   const handleSubmit = async (event) => {
     event.preventDefault();
     setLoading(true); // Set loading to true when submission starts
@@ -45,7 +45,6 @@ const PhotosInfo = ({ handleNext, handleBack }) => {
       // Use the mutation to send the FormData to the backend
       const res = await addBuilding(formData).unwrap();
 
-      console.log("Response", res.building._id);
       // Show success notification
       toast.success(`${res.message}`);
 
