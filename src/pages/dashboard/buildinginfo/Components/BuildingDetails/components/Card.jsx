@@ -1,49 +1,54 @@
-import {
-  Box,
-  Card,
-  CardContent,
-  CardMedia,
-  Typography,
-} from '@mui/material';
-import  { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
-import CardFavoriteIcon from '../../../../../../asset/svgs/CardFavoriteIcon';
-import Mail from '../../../../../../asset/svgs/buildingdetails/Mail';
-import Map from '../../../../../../asset/svgs/buildingdetails/Map';
-import { BuildingCardSkeleton } from '../../../../../../components/Skeleton';
-import { useGetSingleBuildingQuery } from '../../../../../../redux/api/buildingApi';
+import { Box, Card, CardContent, CardMedia, Typography } from '@mui/material'
+import { useEffect, useState } from 'react'
+import { useParams } from 'react-router-dom'
+import CardFavoriteIcon from '../../../../../../asset/svgs/CardFavoriteIcon'
+import Mail from '../../../../../../asset/svgs/buildingdetails/Mail'
+import Map from '../../../../../../asset/svgs/buildingdetails/Map'
+import { BuildingCardSkeleton } from '../../../../../../components/Skeleton'
+import { useGetSingleBuildingQuery } from '../../../../../../redux/api/buildingApi'
 
 const BuildingCard = () => {
-  const { id } = useParams();
-  const { data, error } = useGetSingleBuildingQuery(id);
-  const [image, setImage] = useState(null);
-  const [isFavorite, setIsFavorite] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
+  const { id } = useParams()
+  const { data, error } = useGetSingleBuildingQuery(id)
+  const [image, setImage] = useState(null)
+  const [isFavorite, setIsFavorite] = useState(false)
+  const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
+<<<<<<< Updated upstream
     if (data && Array.isArray(data.images) && data.images.length > 0) {
       const firstImageUrl = data.images[0];
       setImage(firstImageUrl);
+=======
+    if (
+      data &&
+      Array.isArray(data.buildingImages) &&
+      data.buildingImages.length > 0
+    ) {
+      const firstImageUrl = data.buildingImages[0]
+      setImage(firstImageUrl)
+>>>>>>> Stashed changes
     }
-  }, [data]);
+  }, [data])
 
   useEffect(() => {
     setTimeout(() => {
-      setIsLoading(false);
-    }, 3000);
-  }, []);
+      setIsLoading(false)
+    }, 3000)
+  }, [])
 
   const toggleFavorite = () => {
-    setIsFavorite(!isFavorite);
-  };
+    setIsFavorite(!isFavorite)
+  }
 
   if (isLoading) {
-    return <BuildingCardSkeleton />;
+    return <BuildingCardSkeleton />
   }
 
   return (
     <Card
       sx={{
+        height: '100%',
         Width: 'fit-content !important',
         position: 'relative',
         mb: 2,
@@ -144,12 +149,19 @@ const BuildingCard = () => {
             </Typography>
           </Box>
         </Box>
-        <Box sx={{ display: 'flex', justifyContent: 'space-between', mt: 2, gap: 1 }}>
+        <Box
+          sx={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            mt: 2,
+            gap: 1,
+          }}
+        >
           {/* Additional content */}
         </Box>
       </CardContent>
     </Card>
-  );
-};
+  )
+}
 
-export default BuildingCard;
+export default BuildingCard

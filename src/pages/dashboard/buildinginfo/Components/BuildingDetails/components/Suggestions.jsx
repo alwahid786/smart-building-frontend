@@ -35,6 +35,7 @@ const Suggestions = () => {
             minWidth: 275,
             boxShadow: 3,
             borderRadius: 2,
+            height: '100%',
           }}
         >
           <CardContent>

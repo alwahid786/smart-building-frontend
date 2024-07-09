@@ -8,67 +8,35 @@ import FinancialProjection from './components/FinancialProjection'
 import MediaConsumption from './components/MediaConsumption'
 import EnergyUtilitiesCard from './components/EnergyUtilitiesCard'
 const BuildingDetails = () => {
-
-
   return (
     <>
-      <Grid container spacing={1}>
-        {/* Left Column */}
-        <Grid item xs={12} md={3}>
-          <Grid container spacing={2}>
-            <Grid item xs={12}>
-              <Paper
-                // sx={{ width: { sm: "fit-content", lg: 286 } }}
-                elevation={2}
-              >
-                <BuildingCard />
-              </Paper>
-            </Grid>
-            <Grid item xs={12}>
-              <Paper
-                //  sx={{ width: { sm: "fit-content", lg: 286 } }}
-                elevation={2}
-              >
-                <PrimaryEnergy />
-              </Paper>
-            </Grid>
-          </Grid>
+      <Grid container spacing={2}>
+        <Grid item xs={12} lg={4}>
+          <BuildingCard />
+        </Grid>
+        <Grid item xs={12} lg={4}>
+          <Suggestions />
+        </Grid>
+        <Grid item xs={12} lg={4}>
+          <Sensor />
+        </Grid>
+        <Grid item xs={12} lg={12}>
+          <FinancialProjection />
+        </Grid>
+        <Grid item xs={12} lg={4}>
+          <PrimaryEnergy />
         </Grid>
 
-        {/* Right Column */}
-        <Grid item xs={12} md={9}>
-          <Grid container spacing={2}>
-            <Grid item xs={12} sm={6}>
-              <Paper style={{}} elevation={2}>
-                <Suggestions />
-              </Paper>
-            </Grid>
-            <Grid item xs={12} sm={6}>
-              <Paper style={{}} elevation={2}>
-                <Sensor />
-              </Paper>
-            </Grid>
-            <Grid item xs={12}>
-              <Paper elevation={2}>
-                <FinancialProjection />
-              </Paper>
-            </Grid>
-            <Grid item xs={12} sm={6}>
-              <Paper elevation={2}>
-                <MediaConsumption />
-              </Paper>
-            </Grid>
-            <Grid item xs={12} sm={6}>
-              <Paper elevation={2}>
-                <EnergyUtilitiesCard />
-              </Paper>
-            </Grid>
-            <Grid item xs={12}>
-              <Paper style={{}} elevation={2}>
-                <InspectionHistory />
-              </Paper>
-            </Grid>
-          </Grid>
+        <Grid item xs={12} lg={4}>
+          <MediaConsumption />
+        </Grid>
+        <Grid item xs={12} lg={4}>
+          <EnergyUtilitiesCard />
+        </Grid>
+        <Grid item xs={12} lg={12}>
+          <Paper style={{}} elevation={2}>
+            <InspectionHistory />
+          </Paper>
         </Grid>
       </Grid>
     </>
