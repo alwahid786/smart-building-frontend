@@ -71,8 +71,11 @@ const AddFloor = ({ handleBack }) => {
       },
     ])
   }
-  const handleChange = (event, index) => {
+
+  const handleSensorChange = (event) => {
     setSingleSensor(event.target.value)
+  }
+  const handleChange = (event, index) => {
     const updatedFloors = [...floors]
     updatedFloors[index].singleSensor = event.target.value
     setFloors(updatedFloors)
@@ -93,7 +96,9 @@ const AddFloor = ({ handleBack }) => {
 
     try {
       // Call your API or function to handle form submission
-      await addBuildingFloor(newFormData) // Pass FormData object directly
+      const res = await addBuildingFloor(newFormData) // Pass FormData object directly
+
+      console.log(res)
 
       // Clear selected file and reset form data after successful submission
       setSelectedFile(null) // Reset selected file state
@@ -144,15 +149,18 @@ const AddFloor = ({ handleBack }) => {
           <AccordionDetails>
             <SubAddFloors
               formData={formData}
-              sensors={floor.sensors}
+              sensors={sensors}
               sensorDeleteHandler={(name) => sensorDeleteHandler(name, index)}
               deleteImage={() => deleteImage(index)}
               selectedFile={floor.selectedFile}
-              previewUrl={floor.previewUrl}
+              // previewUrl={floor.previewUrl}
+              previewUrl={previewUrl}
               handleChange={(e) => handleChange(e, index)}
               handleFileSelect={(file) => handleFileSelect(file, index)}
               singleSensor={floor.singleSensor}
               handleDeleteFloor={() => handleDeleteFloor(index)}
+              handleInputChange={handleInputChange}
+              handleSensorChange={handleSensorChange}
             />
           </AccordionDetails>
         </Accordion>
@@ -253,9 +261,9 @@ const SubAddFloors = ({
   handleFileSelect,
   sensors,
   singleSensor,
-  handleChange,
   handleInputChange,
   handleDeleteFloor,
+  handleSensorChange,
 }) => {
   // Ensure DUMMYSENSORS is defined and accessible
   const DUMMYSENSOS = [
@@ -378,7 +386,7 @@ const SubAddFloors = ({
               id="demo-simple-select"
               value={selectedSensorValue}
               label="Add Sensor"
-              onChange={handleChange}
+              onChange={handleSensorChange}
               size="medium"
             >
               {DUMMYSENSOS.map((sensor, index) => (
