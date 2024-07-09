@@ -31,7 +31,7 @@ const PrimaryEnergy = () => {
       {isLoading ? (
         <PrimaryEnergySkeleton />
       ) : (
-        <Card sx={{ borderRadius: 2, boxShadow: 3 }}>
+        <Card sx={{ borderRadius: 2, boxShadow: 3, height: '100%' }}>
           <CardContent>
             <Typography
               sx={{
@@ -79,7 +79,7 @@ const PrimaryEnergy = () => {
             >
               (m² years)
             </Typography>
-            <Box sx={{ width: '100%', padding: 2 }}>
+            <Box sx={{ padding: 2 }}>
               <LinearProgress
                 variant="determinate"
                 value={progress}
@@ -118,7 +118,6 @@ const PrimaryEnergy = () => {
               <Box
                 sx={{
                   width: '100%',
-                  height: 58,
                   background: 'rgba(245, 247, 251, 1)',
                   p: 1,
                   alignItems: 'center',
@@ -161,7 +160,6 @@ const PrimaryEnergy = () => {
               <Box
                 sx={{
                   width: '100%',
-                  height: 58,
                   background: 'rgba(245, 247, 251, 1)',
                   p: 1,
                   alignItems: 'center',

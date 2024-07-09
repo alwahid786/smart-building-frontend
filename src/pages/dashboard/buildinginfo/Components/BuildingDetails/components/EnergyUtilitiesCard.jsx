@@ -44,7 +44,7 @@ function EnergyUtilitiesCard() {
       {isLoading ? (
         <BuildingCustomCardSkeleton />
       ) : (
-        <CustomCard>
+        <CustomCard sx={{ height: '100%' }}>
           <TitleContainer>
             <Typography sx={{ fontSize: { sx: 12, md: 16 }, fontWeight: 600 }}>
               Energy utilities
@@ -70,8 +70,24 @@ function EnergyUtilitiesCard() {
             <MyAreaLineChart data={data} />
           </GraphContent>
           <CardContent>
-            <Box sx={{ width: '100%', display: 'flex', justifyContent: 'end' }}>
-              <Button variant="contained" sx={{ ml: 'auto' }}>
+            <Box sx={{ display: 'flex', justifyContent: 'end' }}>
+              <Button
+                variant="contained"
+                sx={{
+                  background:
+                    'linear-gradient(95.25deg, #7B42F6 0%, #B01EFF 100%)',
+                  textTransform: 'none',
+                  borderRadius: '8px',
+                  marginBottom: '6px',
+                  color: 'white',
+                  borderColor: 'transparent',
+                  // borderWidth: 2,
+                  borderStyle: 'solid',
+                  borderImageSlice: 1,
+                  borderImageSource:
+                    'linear-gradient(95.25deg, #7B42F6 0%, #B01EFF 100%)',
+                }}
+              >
                 See full report
               </Button>
             </Box>
@@ -85,7 +101,6 @@ function EnergyUtilitiesCard() {
 export default EnergyUtilitiesCard
 const CustomCard = styled(Card)(({ theme }) => ({
   // maxWidth: 485,
-  maxHeight: '355px',
   borderRadius: '16px',
   boxShadow: '0 2px 10px rgba(0,0,0,0.1)',
 }))
@@ -101,5 +116,4 @@ const TitleContainer = styled('div')(({ theme }) => ({
 const GraphContent = styled(CardContent)(({ theme }) => ({
   padding: 0,
   // maxHeight: '150px',
-  width: 'auto',
 }))

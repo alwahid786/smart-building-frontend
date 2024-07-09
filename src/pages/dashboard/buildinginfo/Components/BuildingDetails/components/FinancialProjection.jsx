@@ -101,10 +101,22 @@ const FinancialProjection = () => {
               <Grid item xs={12} md={2}>
                 <Button
                   variant="contained"
-                  color="primary"
-                  sx={{ borderRadius: 1, margin: 1 }}
+                  sx={{
+                    background:
+                      'linear-gradient(95.25deg, #7B42F6 0%, #B01EFF 100%)',
+                    textTransform: 'none',
+                    borderRadius: '8px',
+                    marginBottom: '6px',
+                    color: 'white',
+                    borderColor: 'transparent',
+                    // borderWidth: 2,
+                    borderStyle: 'solid',
+                    borderImageSlice: 1,
+                    borderImageSource:
+                      'linear-gradient(95.25deg, #7B42F6 0%, #B01EFF 100%)',
+                  }}
                 >
-                  View more
+                  See full report
                 </Button>
               </Grid>
             </Grid>

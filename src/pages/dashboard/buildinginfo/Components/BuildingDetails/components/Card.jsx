@@ -41,7 +41,7 @@ const BuildingCard = () => {
         height: '100%',
         Width: 'fit-content !important',
         position: 'relative',
-        mb: 2,
+        // mb: 2,
         transition: 'border-bottom 0.1s',
         '&:hover': {
           '& .showHeart': {
@@ -141,13 +141,78 @@ const BuildingCard = () => {
         </Box>
         <Box
           sx={{
+            mt: '10px',
             display: 'flex',
             justifyContent: 'space-between',
-            mt: 2,
-            gap: 1,
+            gap: '10px',
           }}
         >
-          {/* Additional content */}
+          <Box
+            sx={{
+              width: '100%',
+              bgcolor: '#F5F7FB',
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'left',
+              alignItems: 'left',
+              borderRadius: '6px',
+              p: 2,
+            }}
+          >
+            <Typography
+              sx={{
+                color: '#11111190',
+                fontWeight: '400',
+                fontSize: '12px',
+                lineHeight: '16.34px',
+              }}
+            >
+              Area
+            </Typography>
+            <Typography
+              sx={{
+                color: '#414141',
+                fontWeight: '400',
+                fontSize: '14px',
+                lineHeight: '19.07px',
+              }}
+            >
+              1500m
+            </Typography>
+          </Box>
+          <Box
+            sx={{
+              width: '100%',
+              bgcolor: '#F5F7FB',
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'left',
+              alignItems: 'left',
+              borderRadius: '6px',
+              p: 2,
+            }}
+          >
+            <Typography
+              sx={{
+                color: '#11111190',
+                fontWeight: '400',
+                fontSize: '12px',
+                lineHeight: '16.34px',
+              }}
+            >
+              Year of building
+            </Typography>
+            <Typography
+              sx={{
+                color: '#414141',
+                fontWeight: '400',
+                fontSize: '14px',
+                lineHeight: '19.07px',
+              }}
+            >
+              20-09-1996
+            </Typography>
+          </Box>
         </Box>
       </CardContent>
     </Card>

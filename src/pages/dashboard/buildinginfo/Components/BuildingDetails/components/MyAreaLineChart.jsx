@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react'
 import {
   LineChart,
   Line,
@@ -9,11 +9,11 @@ import {
   AreaChart,
   Area,
   ReferenceDot,
-} from "recharts";
+} from 'recharts'
 
 const MyAreaLineChart = ({ data }) => {
   return (
-    <ResponsiveContainer width="98%" height={150}>
+    <ResponsiveContainer width="100%" height={150}>
       <AreaChart
         data={data}
         margin={{ top: 10, right: 30, left: 0, bottom: 0 }}
@@ -48,7 +48,7 @@ const MyAreaLineChart = ({ data }) => {
           ))}
       </AreaChart>
     </ResponsiveContainer>
-  );
-};
+  )
+}
 
-export default MyAreaLineChart;
+export default MyAreaLineChart

@@ -37,12 +37,13 @@ function MediaConsumption() {
       {isLoading ? (
         <BuildingMediaConsumptionSkeleton />
       ) : (
-        <Card sx={{ padding: 1, width: 'auto' }}>
+        <Card sx={{ width: 'auto', height: '100%' }}>
           <Box
             sx={{
               display: 'flex',
               justifyContent: 'space-between',
               alignItems: 'center',
+              padding: '1rem',
             }}
           >
             <Typography sx={{ fontSize: 16, fontWeight: 600 }} gutterBottom>
@@ -108,7 +109,23 @@ function MediaConsumption() {
               mt: 2,
             }}
           >
-            <Button variant="contained" sx={{ mt: 2, ml: 'auto' }}>
+            <Button
+              variant="contained"
+              sx={{
+                background:
+                  'linear-gradient(95.25deg, #7B42F6 0%, #B01EFF 100%)',
+                textTransform: 'none',
+                borderRadius: '8px',
+                marginBottom: '6px',
+                color: 'white',
+                borderColor: 'transparent',
+                // borderWidth: 2,
+                borderStyle: 'solid',
+                borderImageSlice: 1,
+                borderImageSource:
+                  'linear-gradient(95.25deg, #7B42F6 0%, #B01EFF 100%)',
+              }}
+            >
               See full report
             </Button>
           </Box>

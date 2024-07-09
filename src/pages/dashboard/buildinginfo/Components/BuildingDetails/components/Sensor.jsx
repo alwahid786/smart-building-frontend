@@ -30,7 +30,7 @@ const Sensor = () => {
       {isLoading ? (
         <SensorsStatusSkeleton />
       ) : (
-        <Card sx={{ minWidth: 275, borderRadius: 2, boxShadow: 3 }}>
+        <Card sx={{ height: '100%', borderRadius: 2, boxShadow: 3 }}>
           <CardContent>
             <Box
               sx={{
