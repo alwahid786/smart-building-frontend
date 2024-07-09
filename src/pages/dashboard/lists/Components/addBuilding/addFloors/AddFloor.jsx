@@ -22,13 +22,6 @@ import { useSelector } from 'react-redux'
 import { useAddBuildingFloorMutation } from '../../../../../../redux/api/buildingApi'
 
 const AddFloor = ({ handleBack }) => {
-  const [singleSensor, setSingleSensor] = useState('')
-  const [sensors, setSensors] = useState([])
-  const [formData, setFormData] = useState({ floor: '', rooms: '' })
-  const [selectedFile, setSelectedFile] = useState(null)
-  const [previewUrl, setPreviewUrl] = useState(null)
-  const fileMetadata = useSelector((state) => state.file.fileMetadata)
-  const [addBuildingFloor] = useAddBuildingFloorMutation()
   const [floors, setFloors] = useState([
     {
       id: 1,
@@ -36,28 +29,11 @@ const AddFloor = ({ handleBack }) => {
       selectedFile: null,
       previewUrl: null,
       singleSensor: '',
+      formData: { floor: '', rooms: '' },
     },
   ])
-
-  // const handleChange = (event) => {
-
-  // }
-
-  const handleFileSelect = (file) => {
-    setSelectedFile(file)
-    const fileUrl = URL.createObjectURL(file)
-    setPreviewUrl(fileUrl)
-  }
-
-  const deleteImage = () => {
-    setSelectedFile(null)
-    setPreviewUrl(null)
-  }
-
-  const sensorDeleteHandler = (name) => {
-    let filteredSensors = sensors.filter((sensor) => sensor !== name)
-    setSensors(filteredSensors)
-  }
+  const fileMetadata = useSelector((state) => state.file.fileMetadata)
+  const [addBuildingFloor] = useAddBuildingFloorMutation()
 
   const handleAddFloor = () => {
     setFloors([
@@ -68,65 +44,93 @@ const AddFloor = ({ handleBack }) => {
         selectedFile: null,
         previewUrl: null,
         singleSensor: '',
+        formData: { floor: '', rooms: '' },
       },
     ])
   }
 
-  const handleSensorChange = (event) => {
-    setSingleSensor(event.target.value)
-  }
-  const handleChange = (event, index) => {
+  const handleSensorChange = (event, index) => {
     const updatedFloors = [...floors]
     updatedFloors[index].singleSensor = event.target.value
     setFloors(updatedFloors)
   }
 
+  const handleChange = (event, index) => {
+    const { name, value } = event.target
+    const updatedFloors = [...floors]
+    updatedFloors[index].formData[name] = value
+    setFloors(updatedFloors)
+  }
+
+  const handleFileSelect = (file, index) => {
+    const updatedFloors = [...floors]
+    updatedFloors[index].selectedFile = file
+    updatedFloors[index].previewUrl = URL.createObjectURL(file)
+    setFloors(updatedFloors)
+  }
+
+  const deleteImage = (index) => {
+    const updatedFloors = [...floors]
+    updatedFloors[index].selectedFile = null
+    updatedFloors[index].previewUrl = null
+    setFloors(updatedFloors)
+  }
+
+  const sensorDeleteHandler = (name, index) => {
+    const updatedFloors = [...floors]
+    updatedFloors[index].sensors = updatedFloors[index].sensors.filter(
+      (sensor) => sensor !== name
+    )
+    setFloors(updatedFloors)
+  }
+
   const handleSubmit = async (event) => {
     event.preventDefault()
-
-    // Create a new FormData object
-    const newFormData = new FormData()
-
-    // Append form data to FormData object
-    newFormData.append('floor', formData.floor)
-    newFormData.append('rooms', formData.rooms)
-    newFormData.append('image', selectedFile) // Assuming selectedFile is the File object from input
-
-    console.log(formData)
-
     try {
-      // Call your API or function to handle form submission
-      const res = await addBuildingFloor(newFormData) // Pass FormData object directly
-
-      console.log(res)
-
+      for (const floor of floors) {
+        const newFormData = new FormData()
+        newFormData.append('floor', floor.formData.floor)
+        newFormData.append('rooms', floor.formData.rooms)
+        newFormData.append('image', floor.selectedFile)
+        const res = await addBuildingFloor(newFormData)
+        console.log(res)
+      }
       // Clear selected file and reset form data after successful submission
-      setSelectedFile(null) // Reset selected file state
-      setPreviewUrl(null) // Reset preview URL state
-      setFormData({ floor: '', rooms: '' }) // Reset form data state
+      setFloors([
+        {
+          id: 1,
+          sensors: [],
+          selectedFile: null,
+          previewUrl: null,
+          singleSensor: '',
+          formData: { floor: '', rooms: '' },
+        },
+      ])
     } catch (error) {
       console.error('Error adding floor:', error)
-      // Handle error as needed, e.g., show error message to user
     }
   }
-
-  const handleInputChange = (event) => {
-    const { name, value } = event.target
-    setFormData({ ...formData, [name]: value })
-  }
-
-  useEffect(() => {
-    if (singleSensor && !sensors.includes(singleSensor)) {
-      setSensors((prev) => [...prev, singleSensor])
-      setSingleSensor('')
-    }
-  }, [singleSensor, sensors])
 
   const handleDeleteFloor = (index) => {
     const updatedFloors = [...floors]
     updatedFloors.splice(index, 1)
     setFloors(updatedFloors)
   }
+
+  useEffect(() => {
+    const updatedFloors = floors.map((floor) => {
+      if (floor.singleSensor && !floor.sensors.includes(floor.singleSensor)) {
+        return {
+          ...floor,
+          sensors: [...floor.sensors, floor.singleSensor],
+          singleSensor: '',
+        }
+      }
+      return floor
+    })
+    setFloors(updatedFloors)
+  }, [floors])
+
   return (
     <Box>
       {floors.map((floor, index) => (
@@ -148,19 +152,18 @@ const AddFloor = ({ handleBack }) => {
           </AccordionSummary>
           <AccordionDetails>
             <SubAddFloors
-              formData={formData}
-              sensors={sensors}
+              formData={floor.formData}
+              sensors={floor.sensors}
               sensorDeleteHandler={(name) => sensorDeleteHandler(name, index)}
               deleteImage={() => deleteImage(index)}
               selectedFile={floor.selectedFile}
-              // previewUrl={floor.previewUrl}
-              previewUrl={previewUrl}
+              previewUrl={floor.previewUrl}
               handleChange={(e) => handleChange(e, index)}
               handleFileSelect={(file) => handleFileSelect(file, index)}
               singleSensor={floor.singleSensor}
               handleDeleteFloor={() => handleDeleteFloor(index)}
-              handleInputChange={handleInputChange}
-              handleSensorChange={handleSensorChange}
+              handleInputChange={(e) => handleChange(e, index)}
+              handleSensorChange={(e) => handleSensorChange(e, index)}
             />
           </AccordionDetails>
         </Accordion>
@@ -265,14 +268,12 @@ const SubAddFloors = ({
   handleDeleteFloor,
   handleSensorChange,
 }) => {
-  // Ensure DUMMYSENSORS is defined and accessible
   const DUMMYSENSOS = [
     { label: 'Sensor 1', value: 'sensor1' },
     { label: 'Sensor 2', value: 'sensor2' },
     { label: 'Sensor 3', value: 'sensor3' },
   ]
 
-  // Handle undefined singleSensor by providing a default value
   const selectedSensorValue = singleSensor ?? ''
 
   return (
@@ -345,9 +346,9 @@ const SubAddFloors = ({
                 marginTop: '20px',
                 border: '2px solid #FF7F3E',
                 borderRadius: '20px',
-                overflow: 'hidden', // Ensure the border-radius is applied to the image
-                boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)', // Add a subtle shadow for depth
-                maxWidth: '100%', // Ensure the box does not overflow its container
+                overflow: 'hidden',
+                boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
+                maxWidth: '100%',
                 height: 'auto',
               }}
             >
@@ -356,9 +357,9 @@ const SubAddFloors = ({
                 alt="Selected"
                 style={{
                   width: '100%',
-                  height: 'auto', // Ensure the image maintains its aspect ratio
-                  display: 'block', // Remove the gap below the image
-                  borderRadius: '20px', // Apply the border-radius to the image
+                  height: 'auto',
+                  display: 'block',
+                  borderRadius: '20px',
                 }}
               />
             </Box>
