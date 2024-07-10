@@ -1,5 +1,4 @@
-// GeneralBuildingInformation.jsx
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import {
   Box,
@@ -12,45 +11,77 @@ import {
   TextField,
   Typography,
 } from '@mui/material'
-// import { useAddBuildingMutation } from '../../../../../redux/api/buildingApi';
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { setBuildingData } from '../../../../../redux/reducers/formReducer'
 import PhoneInput from 'react-phone-input-2'
 import 'react-phone-input-2/lib/style.css'
 
 const GeneralBuildingInformation = ({ handleNext }) => {
   const dispatch = useDispatch()
+  const buildingData = useSelector((state) => state.form.buildingData)
+  
+  // Local state for form data
+  const [formData, setFormData] = useState({
+    buildingName: '',
+    ownerName: '',
+    phoneNumber: '',
+    email: '',
+    totalArea: '',
+    unitOfArea: '',
+    numberOfFloors: '',
+    constructionYear: '',
+    writtenAddress: '',
+    description: ''
+  })
 
-  const [unitOfArea, setUnitOfArea] = useState('')
+  useEffect(() => {
+    // Populate local state with Redux data when component mounts or Redux state changes
+    setFormData(buildingData)
+  }, [buildingData])
 
-  const handleUnitChange = (event) => {setUnitOfArea(event.target.value)}
+  const handleInputChange = (e) => {
+    const { name, value } = e.target
+    setFormData({
+      ...formData,
+      [name]: value
+    })
+  }
+
+  const handleUnitChange = (event) => {
+    setFormData({
+      ...formData,
+      unitOfArea: event.target.value
+    })
+  }
+
+  const handlePhoneChange = (value) => {
+    setFormData({
+      ...formData,
+      phoneNumber: value
+    })
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    const formData = new FormData(e.target)
-
-    const newBuildingData = {
-      buildingName: formData.get('buildingName'),
-      ownerName: formData.get('ownerName'),
-      phoneNumber: formData.get('phoneNumber'),
-      email: formData.get('email'),
-      totalArea: formData.get('totalArea'),
-      unitOfArea: unitOfArea,
-      numberOfFloors: formData.get('numberOfFloors'),
-      constructionYear: formData.get('constructionYear'),
-      writtenAddress: formData.get('writtenAddress'),
-      description: formData.get('description'),
-    }
-
-    try {
-      // Dispatch action to update Redux store
-      dispatch(setBuildingData(newBuildingData))
-
-    } catch (error) {
-      console.log('Error', error)
-    }
-
+    dispatch(setBuildingData(formData))
     handleNext() // Proceed to the next step
+  }
+
+  // i want when i click cancel button then empty all inputs value
+  const handleCancel = () => {
+    setFormData({
+      buildingName: '',
+      ownerName: '',
+      phoneNumber: '',
+      email: '',
+      totalArea: '',
+      unitOfArea: '',
+      numberOfFloors: '',
+      constructionYear: '',
+      writtenAddress: '',
+      description: ''
+    })
+
   }
 
   return (
@@ -78,6 +109,8 @@ const GeneralBuildingInformation = ({ handleNext }) => {
               name="buildingName"
               fullWidth
               required
+              value={formData.buildingName}
+              onChange={handleInputChange}
             />
           </Grid>
 
@@ -88,12 +121,15 @@ const GeneralBuildingInformation = ({ handleNext }) => {
               name="ownerName"
               size="small"
               fullWidth
+              required
+              value={formData.ownerName}
+              onChange={handleInputChange}
             />
           </Grid>
 
           <Grid item md={4} sm={6} xs={12}>
             <PhoneInput
-              // country={'us'}
+              country={'pk'}
               label="Phone Number"
               type="tel"
               name="phoneNumber"
@@ -101,6 +137,8 @@ const GeneralBuildingInformation = ({ handleNext }) => {
               fullWidth
               containerStyle={{ width: '100%' }}
               inputStyle={{ width: '100%', height: '40px' }}
+              value={formData.phoneNumber}
+              onChange={handlePhoneChange}
             />
           </Grid>
 
@@ -111,6 +149,9 @@ const GeneralBuildingInformation = ({ handleNext }) => {
               name="email"
               size="small"
               fullWidth
+              required
+              value={formData.email}
+              onChange={handleInputChange}
             />
           </Grid>
 
@@ -121,6 +162,9 @@ const GeneralBuildingInformation = ({ handleNext }) => {
               name="totalArea"
               fullWidth
               size="small"
+              required
+              value={formData.totalArea}
+              onChange={handleInputChange}
             />
           </Grid>
 
@@ -131,7 +175,7 @@ const GeneralBuildingInformation = ({ handleNext }) => {
                 labelId="unit-label"
                 name="unitOfArea"
                 label="Unit of Area (sq ft/m)"
-                value={unitOfArea}
+                value={formData.unitOfArea}
                 onChange={handleUnitChange}
               >
                 <MenuItem value="sq ft">Square Feet</MenuItem>
@@ -147,6 +191,9 @@ const GeneralBuildingInformation = ({ handleNext }) => {
               name="numberOfFloors"
               size="small"
               fullWidth
+              required
+              value={formData.numberOfFloors}
+              onChange={handleInputChange}
             />
           </Grid>
 
@@ -156,6 +203,9 @@ const GeneralBuildingInformation = ({ handleNext }) => {
               name="constructionYear"
               size="small"
               fullWidth
+              required
+              value={formData.constructionYear}
+              onChange={handleInputChange}
             />
           </Grid>
 
@@ -166,6 +216,9 @@ const GeneralBuildingInformation = ({ handleNext }) => {
               name="writtenAddress"
               size="small"
               fullWidth
+              required
+              value={formData.writtenAddress}
+              onChange={handleInputChange}
             />
           </Grid>
 
@@ -177,6 +230,9 @@ const GeneralBuildingInformation = ({ handleNext }) => {
               label="Description"
               type="text"
               name="description"
+              required
+              value={formData.description}
+              onChange={handleInputChange}
             />
           </Grid>
         </Grid>
@@ -198,6 +254,7 @@ const GeneralBuildingInformation = ({ handleNext }) => {
               fontSize: '20px',
               padding: '0 30px',
             }}
+            onClick={handleCancel}
           >
             Cancel
           </Button>

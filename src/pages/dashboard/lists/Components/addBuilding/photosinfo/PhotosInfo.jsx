@@ -1,19 +1,19 @@
-import { Box, Button, Grid, Typography, CircularProgress } from '@mui/material';
+import { Box, Button, Grid, Typography, CircularProgress, Backdrop } from '@mui/material';
 import { useEffect, useState } from 'react';
 import CardPhotos from './CardPhotos';
 import PropTypes from 'prop-types';
 import { useAddBuildingMutation } from '../../../../../../redux/api/buildingApi';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectBuildingData, setBuildingId } from '../../../../../../redux/reducers/formReducer';
+import { selectBuildingData, setBuildingId, selectSelectedFiles, setSelectedFiles } from '../../../../../../redux/reducers/formReducer';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const PhotosInfo = ({ handleNext, handleBack }) => {
-  const [selectedFiles, setSelectedFiles] = useState([]); // State to store selected files
   const [loading, setLoading] = useState(false); // State to manage loading
   const [addBuilding] = useAddBuildingMutation();
   const buildingData = useSelector(selectBuildingData);
-  const dispatch = useDispatch(); // Add this line to use dispatch
+  const selectedFiles = useSelector(selectSelectedFiles);
+  const dispatch = useDispatch();
   const [buildingDetails, setBuildingDetails] = useState();
 
   useEffect(() => {
@@ -23,9 +23,27 @@ const PhotosInfo = ({ handleNext, handleBack }) => {
   // Handle file selection
   const handleFileChange = (event) => {
     const files = Array.from(event.target.files); // Convert FileList to Array
-    setSelectedFiles(prevFiles => [...prevFiles, ...files]); // Append new files to the existing state
+    dispatch(setSelectedFiles([...selectedFiles, ...files])); // Append new files to the existing state
   };
-  
+
+  // Handle file deletion
+  const handleFileDelete = (index) => {
+    const updatedFiles = selectedFiles.filter((_, i) => i !== index);
+    dispatch(setSelectedFiles(updatedFiles));
+  };
+
+  // Handle file editing
+  const handleFileEdit = (index) => {
+    document.getElementById('file').click();
+    const editFileHandler = (event) => {
+      const updatedFiles = [...selectedFiles];
+      updatedFiles[index] = event.target.files[0];
+      dispatch(setSelectedFiles(updatedFiles));
+      document.getElementById('file').removeEventListener('change', editFileHandler);
+    };
+    document.getElementById('file').addEventListener('change', editFileHandler);
+  };
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     setLoading(true); // Set loading to true when submission starts
@@ -67,6 +85,11 @@ const PhotosInfo = ({ handleNext, handleBack }) => {
       {/* Add ToastContainer at a top level */}
       <ToastContainer />
 
+      {/* Full-screen loader */}
+      <Backdrop sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }} open={loading}>
+        <CircularProgress color="inherit" />
+      </Backdrop>
+
       <Box sx={{ textAlign: 'center', marginY: '24px' }}>
         <Typography sx={{ fontWeight: '500', fontSize: '20px', lineHeight: '30px', color: '#414141' }}>
           Upload Building Photos
@@ -77,7 +100,11 @@ const PhotosInfo = ({ handleNext, handleBack }) => {
         {selectedFiles.length > 0 ? (
           selectedFiles.map((file, index) => (
             <Grid item xs={12} sm={6} md={3} xl={2} key={index}>
-              <CardPhotos image={URL.createObjectURL(file)} /> {/* Display selected image */}
+              <CardPhotos 
+                image={URL.createObjectURL(file)} 
+                onDelete={() => handleFileDelete(index)} // Handle image deletion
+                onEdit={() => handleFileEdit(index)} // Handle image editing
+              />
             </Grid>
           ))
         ) : (
@@ -152,8 +179,9 @@ const PhotosInfo = ({ handleNext, handleBack }) => {
             },
           }}
           variant="contained"
+          disabled={loading} // Disable button when loading
         >
-          {loading ? <CircularProgress size={24} color="inherit" /> : 'Next'}
+          Next
         </Button>
       </Box>
     </Box>

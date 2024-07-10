@@ -1,37 +1,33 @@
+// formReducer.js
+
 import { createSlice } from '@reduxjs/toolkit';
 
-const initialFormData = {
-  buildingName: '',
-  ownerName: '',
-  phoneNumber: '',
-  email: '',
-  totalArea: '',
-  unitOfArea: '',
-  numberOfFloors: '',
-  constructionYear: '',
-  writtenAddress: '',
-  description: '',
+const initialState = {
+  buildingData: {},
+  buildingId: null,
+  selectedFiles: [],
 };
 
-const formDataSlice = createSlice({
-  name: 'formData',
-  initialState: {
-    buildingData: initialFormData,
-    buildingId: null, // Add this line to store the building ID
-  },
+const formSlice = createSlice({
+  name: 'form',
+  initialState,
   reducers: {
     setBuildingData: (state, action) => {
       state.buildingData = action.payload;
     },
     setBuildingId: (state, action) => {
-      state.buildingId = action.payload; // Add this reducer to update the building ID
+      state.buildingId = action.payload;
+    },
+    setSelectedFiles: (state, action) => {
+      state.selectedFiles = action.payload;
     },
   },
 });
 
-export const { setBuildingData, setBuildingId } = formDataSlice.actions;
+export const { setBuildingData, setBuildingId, setSelectedFiles } = formSlice.actions;
 
-export const selectBuildingData = (state) => state.formData.buildingData;
-export const selectBuildingId = (state) => state.formData.buildingId;
+export const selectBuildingData = (state) => state.form.buildingData;
+export const selectBuildingId = (state) => state.form.buildingId;
+export const selectSelectedFiles = (state) => state.form.selectedFiles;
 
-export default formDataSlice.reducer;
+export default formSlice.reducer;

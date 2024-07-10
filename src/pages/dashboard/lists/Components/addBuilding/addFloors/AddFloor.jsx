@@ -26,7 +26,7 @@ import { useSelector } from 'react-redux'
 
 const AddFloor = ({ handleBack }) => {
 
-  const buildingId = useSelector(state => state.formData.buildingId);
+  const buildingId = useSelector(state => state.form.buildingId);
 
   const [floors, setFloors] = useState([
     {
