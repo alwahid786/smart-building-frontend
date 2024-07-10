@@ -1,10 +1,9 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import {
   Card,
   CardContent,
   Typography,
   Button,
-  Chip,
   Stack,
   Box,
   Divider,
@@ -13,11 +12,9 @@ import {
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew'
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos'
 import { SensorsStatusSkeleton } from '../../../../../../components/Skeleton'
-import { useDispatch, useSelector } from 'react-redux'
 import Heating from '../../../../../../asset/svgs/BuildignInfo/Heating'
 
 const Sensor = () => {
-  const dispatch = useDispatch()
   const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {

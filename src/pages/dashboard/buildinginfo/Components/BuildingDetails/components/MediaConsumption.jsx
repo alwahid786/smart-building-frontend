@@ -15,11 +15,10 @@ import Electricity from '../../../../../../asset/svgs/buildingdetails/BuildingMe
 import Water from '../../../../../../asset/svgs/buildingdetails/BuildingMedia/Water'
 import Fire from '../../../../../../asset/svgs/buildingdetails/BuildingMedia/Fire'
 import { BuildingMediaConsumptionSkeleton } from '../../../../../../components/Skeleton'
-import { useDispatch, useSelector } from 'react-redux'
+
 
 function MediaConsumption() {
   const [tenant, setTenant] = React.useState('')
-  const dispatch = useDispatch()
 
   const [isLoading, setIsLoading] = useState(true)
 

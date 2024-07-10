@@ -270,8 +270,6 @@ const SubAddFloors = ({
   sensors,
   singleSensor,
   handleInputChange,
-  handleDeleteFloor,
-  handleSensorChange,
 }) => {
   const DUMMYSENSOS = [
     { label: 'Sensor 1', value: 'sensor1' },
@@ -392,7 +390,6 @@ const SubAddFloors = ({
               id="demo-simple-select"
               value={selectedSensorValue}
               label="Add Sensor"
-              onChange={handleSensorChange}
               size="medium"
             >
               {DUMMYSENSOS.map((sensor, index) => (
@@ -415,7 +412,6 @@ const SubAddFloors = ({
           <Box sx={{ marginY: '15px', textAlign: 'right' }}>
             <Button
               variant="contained"
-              onClick={handleDeleteFloor}
               color="error"
             >
               Delete Floor

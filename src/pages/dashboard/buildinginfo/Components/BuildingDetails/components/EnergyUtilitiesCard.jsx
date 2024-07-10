@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react';
 import {
   Card,
   CardContent,
@@ -7,12 +7,11 @@ import {
   Select,
   MenuItem,
   Box,
-} from '@mui/material'
-import { styled } from '@mui/material/styles'
-import MyAreaLineChart from './MyAreaLineChart'
-import Car from '../../../../../../asset/svgs/buildingdetails/BuildingMedia/Car'
-import { BuildingCustomCardSkeleton } from '../../../../../../components/Skeleton'
-import { useDispatch, useSelector } from 'react-redux'
+} from '@mui/material';
+import { styled } from '@mui/material/styles';
+import MyAreaLineChart from './MyAreaLineChart';
+import Car from '../../../../../../asset/svgs/buildingdetails/BuildingMedia/Car';
+import { BuildingCustomCardSkeleton } from '../../../../../../components/Skeleton';
 
 const data = [
   { time: '07:00', value: 100 },
@@ -23,21 +22,22 @@ const data = [
   { time: '11:00', value: 260 },
   { time: '12:00', value: 350 },
   { time: '13:00', value: 200 },
-]
-function EnergyUtilitiesCard() {
-  const [tenant, setTenant] = React.useState('')
-  const dispatch = useDispatch()
-  const handleChange = (event) => {
-    setTenant(event.target.value)
-  }
+];
 
-  const [isLoading, setIsLoading] = useState(true)
+const EnergyUtilitiesCard = () => {
+  const [tenant, setTenant] = useState('');
+  const handleChange = (event) => {
+    setTenant(event.target.value);
+  };
+
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
+    // Simulate loading delay
     setTimeout(() => {
-      setIsLoading(false)
-    }, 3000)
-  }, [])
+      setIsLoading(false);
+    }, 3000);
+  }, []);
 
   return (
     <>
@@ -81,7 +81,6 @@ function EnergyUtilitiesCard() {
                   marginBottom: '6px',
                   color: 'white',
                   borderColor: 'transparent',
-                  // borderWidth: 2,
                   borderStyle: 'solid',
                   borderImageSlice: 1,
                   borderImageSource:
@@ -95,25 +94,24 @@ function EnergyUtilitiesCard() {
         </CustomCard>
       )}
     </>
-  )
-}
+  );
+};
 
-export default EnergyUtilitiesCard
+export default EnergyUtilitiesCard;
+
 const CustomCard = styled(Card)(({ theme }) => ({
-  // maxWidth: 485,
   borderRadius: '16px',
   boxShadow: '0 2px 10px rgba(0,0,0,0.1)',
-}))
+}));
 
 const TitleContainer = styled('div')(({ theme }) => ({
   display: 'flex',
   justifyContent: 'space-between',
   alignItems: 'center',
   padding: '8px',
-  borderBottom: '1px solid rgba(0, 0, 0, 0.12)',
-}))
+  borderBottom: `1px solid ${theme.palette.divider}`,
+}));
 
 const GraphContent = styled(CardContent)(({ theme }) => ({
   padding: 0,
-  // maxHeight: '150px',
-}))
+}));

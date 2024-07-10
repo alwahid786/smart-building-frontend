@@ -5,8 +5,6 @@ import 'leaflet/dist/leaflet.css'
 import { MapContainer, Marker, Popup, TileLayer, useMap } from 'react-leaflet'
 import { useEffect, useState } from 'react'
 import MarkerMap from '../../../../../../asset/svgs/MarkerMap'
-
-import Card from '@mui/material/Card'
 import CardActions from '@mui/material/CardActions'
 import CardContent from '@mui/material/CardContent'
 import CardMedia from '@mui/material/CardMedia'
@@ -16,7 +14,7 @@ const markerIcon = new L.Icon({
   iconSize: [45, 45],
 })
 
-const MappingInfo = ({ handleBack, handleNext, imageUrl }) => {
+const MappingInfo = ({ handleBack, handleNext }) => {
   const [position, setPosition] = useState([51.505, -0.09])
   const [latitude, setLatitude] = useState(51.505)
   const [longitude, setLongitude] = useState(-0.09)
@@ -43,8 +41,6 @@ const MappingInfo = ({ handleBack, handleNext, imageUrl }) => {
     formData.append('latitude', latitude)
     formData.append('longitude', longitude)
     // Now you can send formData to your backend
-    console.log('Form Data:', Object.fromEntries(formData.entries()))
-
     handleNext()
   }
 

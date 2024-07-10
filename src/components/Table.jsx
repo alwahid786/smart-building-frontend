@@ -1,30 +1,32 @@
-import React, { useState } from 'react'
-import Table from '@mui/material/Table'
-import TableBody from '@mui/material/TableBody'
-import TableCell from '@mui/material/TableCell'
-import TableRow from '@mui/material/TableRow'
-import Checkbox from '@mui/material/Checkbox'
-import { grey } from '@mui/material/colors'
-import Typography from '@mui/material/Typography'
-import TextField from '@mui/material/TextField'
-import { MenuItem, Menu, Button, Box, TableContainer } from '@mui/material'
-import Divider from '@mui/material/Divider'
-import InputAdornment from '@mui/material/InputAdornment'
-import FilterIcon from '../asset/svgs/FilterIcon'
-import MagnifineGlassIcon from '../asset/svgs/MagnifineGlassIcon'
-import DownArrowWhite from '../asset/svgs/DownArrowWhite'
+import PropTypes from 'prop-types';
+import {
+  Box,
+  Button,
+  Checkbox,
+  Divider,
+  InputAdornment,
+  Menu,
+  MenuItem,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableRow,
+  TextField,
+  Typography,
+} from '@mui/material';
+import { grey } from '@mui/material/colors';
+import FilterIcon from '../asset/svgs/FilterIcon';
+import MagnifineGlassIcon from '../asset/svgs/MagnifineGlassIcon';
+import { useState } from 'react';
 
 const DynamicTable = ({ columns, rows, title }) => {
-  const [anchorEl, setAnchorEl] = useState(null)
-  const open = Boolean(anchorEl)
-
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget)
-  }
+  const [anchorEl, setAnchorEl] = useState(null);
+  const open = Boolean(anchorEl);
 
   const handleClose = () => {
-    setAnchorEl(null)
-  }
+    setAnchorEl(null);
+  };
 
   return (
     <Box
@@ -93,13 +95,13 @@ const DynamicTable = ({ columns, rows, title }) => {
           <Button
             variant="contained"
             sx={{
-              background: 'linear-gradient(95.25deg, #7B42F6 0%, #B01EFF 100%)',
+              background:
+                'linear-gradient(95.25deg, #7B42F6 0%, #B01EFF 100%)',
               textTransform: 'none',
               borderRadius: '8px',
               marginBottom: '6px',
               color: 'white',
               borderColor: 'transparent',
-              // borderWidth: 2,
               borderStyle: 'solid',
               borderImageSlice: 1,
               borderImageSource:
@@ -165,7 +167,7 @@ const DynamicTable = ({ columns, rows, title }) => {
                 alignItems: 'center',
               }}
             ></TableCell>
-            {columns.map((column, index) => (
+            {columns.map((column) => (
               <TableCell
                 key={column.id}
                 sx={{
@@ -188,7 +190,7 @@ const DynamicTable = ({ columns, rows, title }) => {
                     <Checkbox sx={{ color: grey[300] }} />
                   </TableCell>
                   {columns.map((column) => {
-                    const value = row[column.id]
+                    const value = row[column.id];
                     return (
                       <TableCell
                         sx={{
@@ -203,16 +205,32 @@ const DynamicTable = ({ columns, rows, title }) => {
                           ? column.format(value)
                           : value}
                       </TableCell>
-                    )
+                    );
                   })}
                 </TableRow>
-              )
+              );
             })}
           </TableBody>
         </Table>
       </TableContainer>
     </Box>
-  )
-}
+  );
+};
 
-export default DynamicTable
+DynamicTable.propTypes = {
+  columns: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      label: PropTypes.string.isRequired,
+      format: PropTypes.func, // Optional function for formatting cell content
+    })
+  ).isRequired,
+  rows: PropTypes.arrayOf(
+    PropTypes.objectOf(
+      PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+    )
+  ).isRequired,
+  title: PropTypes.string.isRequired,
+};
+
+export default DynamicTable;

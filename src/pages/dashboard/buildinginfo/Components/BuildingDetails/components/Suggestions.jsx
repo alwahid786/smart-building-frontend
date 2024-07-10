@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import {
   Card,
   CardContent,
@@ -7,17 +7,14 @@ import {
   ListItem,
   ListItemIcon,
   ListItemText,
-  Alert,
   Box,
   Divider,
 } from '@mui/material'
-import LightbulbIcon from '@mui/icons-material/Lightbulb'
 import AcUnitIcon from '@mui/icons-material/AcUnit'
 import { BuildingPrimaryEnergySkeleton } from '../../../../../../components/Skeleton'
-import { useDispatch, useSelector } from 'react-redux'
 
 const Suggestions = () => {
-  const dispatch = useDispatch()
+
   const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {

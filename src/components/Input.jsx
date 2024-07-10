@@ -1,4 +1,4 @@
-import React from "react";
+import PropTypes from "prop-types";
 
 const Input = ({ type, placeholder }) => {
   return (
@@ -14,6 +14,11 @@ const Input = ({ type, placeholder }) => {
       placeholder={placeholder}
     />
   );
+};
+
+Input.propTypes = {
+  type: PropTypes.string.isRequired,
+  placeholder: PropTypes.string.isRequired,
 };
 
 export default Input;

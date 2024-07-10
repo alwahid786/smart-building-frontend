@@ -1,5 +1,7 @@
-import { Box, Card, CardContent,Grid,styled ,CardMedia,IconButton,List,ListItemText, ListItemIcon,ListItem, Paper, Stack,Typography, Divider,Table, TableBody, TableCell, TableRow, TableHead, TableContainer, Button,} from "@mui/material";
+import { Box, Card, CardContent,Grid,styled ,CardMedia,IconButton,List,ListItemText, ListItemIcon,ListItem, Paper, Stack,Typography, Divider,Table, TableBody, TableCell, TableRow, TableHead, TableContainer,} from "@mui/material";
 import Skeleton from "@mui/material/Skeleton";
+import PropTypes from 'prop-types';
+
 const Item = styled(Paper)(({ theme }) => ({
   padding: theme.spacing(1),
   display: 'flex',
@@ -152,7 +154,7 @@ export const StatusGridSkeleton = () => (
   </Grid>
 );
 
-export const InspectionTableSkeleton = ({ isMobile }) => (
+const InspectionTableSkeleton = ({ isMobile }) => (
   <Card variant="outlined" sx={{ p: 0 }}>
     <Stack
       direction="row"
@@ -196,7 +198,13 @@ export const InspectionTableSkeleton = ({ isMobile }) => (
   </Card>
 );
 
-export const InspectionHistorySkeleton = ({ columns, rowsCount = 5 }) => (
+InspectionTableSkeleton.propTypes = {
+  isMobile: PropTypes.bool.isRequired,
+};
+
+
+
+const InspectionHistorySkeleton = ({ columns, rowsCount = 5 }) => (
   <Box sx={{ backgroundColor: '#FFFFFF', p: 2, borderRadius: '8px' }}>
     <Box sx={{
       display: 'flex',
@@ -247,6 +255,14 @@ export const InspectionHistorySkeleton = ({ columns, rowsCount = 5 }) => (
     </TableContainer>
   </Box>
 );
+
+InspectionHistorySkeleton.propTypes = {
+  columns: PropTypes.array.isRequired, // Adjust type as per your columns data structure
+  rowsCount: PropTypes.number,
+};
+
+export default InspectionHistorySkeleton;
+
 
 
 export const CurrentInspectionSkeleton = () => {
@@ -634,10 +650,7 @@ export const BuildingInfoSkeleton = () => {
 };
 
 export const SensorCardSkeleton = ({ iconsCount = 3 }) => (
-  <Card   sx={{
-marginBottom:'5px',
-    width: "100%",
-  }}>
+  <Card sx={{ marginBottom: '5px', width: "100%" }}>
     <CardContent
       sx={{
         display: "flex",
@@ -680,6 +693,10 @@ marginBottom:'5px',
     </CardContent>
   </Card>
 );
+
+SensorCardSkeleton.propTypes = {
+  iconsCount: PropTypes.number,
+};
 
 export const FinancialCardSkeleton = () => {
   return (

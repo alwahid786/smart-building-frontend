@@ -1,7 +1,5 @@
-import React from 'react'
+import PropTypes from 'prop-types';
 import {
-  LineChart,
-  Line,
   XAxis,
   YAxis,
   Tooltip,
@@ -9,7 +7,7 @@ import {
   AreaChart,
   Area,
   ReferenceDot,
-} from 'recharts'
+} from 'recharts';
 
 const MyAreaLineChart = ({ data }) => {
   return (
@@ -48,7 +46,15 @@ const MyAreaLineChart = ({ data }) => {
           ))}
       </AreaChart>
     </ResponsiveContainer>
-  )
-}
+  );
+};
 
-export default MyAreaLineChart
+MyAreaLineChart.propTypes = {
+  data: PropTypes.arrayOf(PropTypes.shape({
+    time: PropTypes.string.isRequired,
+    value: PropTypes.number.isRequired,
+    max: PropTypes.bool, // Optional boolean
+  })).isRequired,
+};
+
+export default MyAreaLineChart;

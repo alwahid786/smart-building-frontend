@@ -11,12 +11,7 @@ import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'
 
 const BuildingCard = () => {
-  const imageList = [
-    'image',
-    'image',
-    'image',
-    // Add more image URLs as needed
-  ]
+
 
   const settings = {
     dots: true,
@@ -107,28 +102,7 @@ const BuildingCard = () => {
         <CardFavoriteIcon filled={isFavorite} />
       </Box>
       <CardContent sx={{ p: 1, display: 'flex', flexDirection: 'column' }}>
-        {/* <Box>
-          <Slider {...settings}>
-            <div>
-              <h3>1</h3>
-            </div>
-            <div>
-              <h3>2</h3>
-            </div>
-            <div>
-              <h3>3</h3>
-            </div>
-            <div>
-              <h3>4</h3>
-            </div>
-            <div>
-              <h3>5</h3>
-            </div>
-            <div>
-              <h3>6</h3>
-            </div>
-          </Slider>
-        </Box> */}
+ 
         <Box
           sx={{
             display: 'flex',

@@ -1,11 +1,8 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Card, CardContent, Grid, Typography, Button, Box } from '@mui/material'
 import { BuildingCustomCardSkeleton } from '../../../../../../components/Skeleton'
-import { useDispatch, useSelector } from 'react-redux'
 
 const FinancialProjection = () => {
-  const dispatch = useDispatch()
-
   const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {

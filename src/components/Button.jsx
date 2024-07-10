@@ -1,4 +1,4 @@
-import React from 'react'
+import PropTypes from 'prop-types';
 
 const Button = ({ text, textColor, bgColor, border, onClick }) => {
 
@@ -20,4 +20,12 @@ const Button = ({ text, textColor, bgColor, border, onClick }) => {
   )
 }
 
-export default Button
+Button.propTypes = {
+  text: PropTypes.string.isRequired,
+  textColor: PropTypes.string,
+  bgColor: PropTypes.string,
+  border: PropTypes.string,
+  onClick: PropTypes.func.isRequired,
+};
+
+export default Button;
