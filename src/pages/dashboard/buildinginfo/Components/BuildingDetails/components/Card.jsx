@@ -38,7 +38,7 @@ const BuildingCard = () => {
     //   const firstImageUrl = data.images[0]
     //   setImage(firstImageUrl)
     // }
-    setImage(data.images || [])
+    setImage(data?.images || [])
   }, [data])
 
   useEffect(() => {
