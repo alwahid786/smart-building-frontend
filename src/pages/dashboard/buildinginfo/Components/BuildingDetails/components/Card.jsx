@@ -69,6 +69,7 @@ const BuildingCard = () => {
         },
       }}
     >
+<<<<<<< Updated upstream
       <Slider {...settings}>
         {imageList.map((image, index) => (
           <div key={index}>
@@ -88,6 +89,21 @@ const BuildingCard = () => {
           </div>
         ))}
       </Slider>
+=======
+      <CardMedia
+        component="img"
+        height="170"
+        image={image}
+        alt="Featured Image"
+        sx={{
+          width: '100%',
+          objectFit: 'cover',
+          borderBottomLeftRadius: '16px',
+          borderBottomRightRadius: '16px',
+          boxShadow: '0px 4px 2px 0px rgba(0, 0, 0, 0.12)',
+        }}
+      />
+>>>>>>> Stashed changes
 
       <Box
         sx={{
