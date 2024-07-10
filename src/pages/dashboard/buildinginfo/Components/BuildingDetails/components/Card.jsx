@@ -34,10 +34,10 @@ const BuildingCard = () => {
   const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
-    if (data && Array.isArray(data.images) && data.images.length > 0) {
-      const firstImageUrl = data.images[0]
-      setImage(firstImageUrl)
-    }
+
+
+    setImage(data?.images || [])
+
   }, [data])
 
   useEffect(() => {
@@ -69,9 +69,9 @@ const BuildingCard = () => {
         },
       }}
     >
-<<<<<<< Updated upstream
+
       <Slider {...settings}>
-        {imageList.map((image, index) => (
+        {image?.map((image, index) => (
           <div key={index}>
             <CardMedia
               component="img"
@@ -89,22 +89,7 @@ const BuildingCard = () => {
           </div>
         ))}
       </Slider>
-=======
-      <CardMedia
-        component="img"
-        height="170"
-        image={image}
-        alt="Featured Image"
-        sx={{
-          width: '100%',
-          objectFit: 'cover',
-          borderBottomLeftRadius: '16px',
-          borderBottomRightRadius: '16px',
-          boxShadow: '0px 4px 2px 0px rgba(0, 0, 0, 0.12)',
-        }}
-      />
->>>>>>> Stashed changes
-
+  
       <Box
         sx={{
           position: 'absolute',
