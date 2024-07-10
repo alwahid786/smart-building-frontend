@@ -41,7 +41,7 @@ const Suggestions = () => {
           <CardContent>
             <Box
               sx={{
-                maxHeight: 300,
+                maxHeight: 350,
                 overflowY: 'auto',
                 '&::-webkit-scrollbar': { width: '6px' },
                 '&::-webkit-scrollbar-thumb': {

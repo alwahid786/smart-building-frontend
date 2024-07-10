@@ -74,21 +74,54 @@ const FinancialProjection = () => {
                   Building renovation
                 </Typography>
               </Grid>
-              <Grid item xs={4} md={2}>
+              <Grid item xs={3} md={1}>
                 <Typography variant="body2" color="text.secondary">
                   Roof
                 </Typography>
                 <Typography variant="body2" sx={{ fontWeight: 'bold' }}>
                   -5 mln
                 </Typography>
+                {/* <Box sx={{ display: 'flex' }}> */}
+
+                {/* </Box> */}
               </Grid>
-              <Grid item xs={4} md={2}>
+              <Grid
+                item
+                xs={1}
+                md={1}
+                display={'flex'}
+                justifyContent={'center'}
+              >
+                <Box
+                  sx={{
+                    border: '1px solid #11111120',
+                    height: '50px',
+                    width: '0',
+                  }}
+                />
+              </Grid>
+              <Grid item xs={3} md={1}>
                 <Typography variant="body2" color="text.secondary">
                   Elevator
                 </Typography>
                 <Typography variant="body2" sx={{ fontWeight: 'bold' }}>
                   -5 mln
                 </Typography>
+              </Grid>
+              <Grid
+                item
+                xs={1}
+                md={1}
+                display={'flex'}
+                justifyContent={'center'}
+              >
+                <Box
+                  sx={{
+                    border: '1px solid #11111120',
+                    height: '50px',
+                    width: '0',
+                  }}
+                />
               </Grid>
               <Grid item xs={4} md={2}>
                 <Typography variant="body2" color="text.secondary">

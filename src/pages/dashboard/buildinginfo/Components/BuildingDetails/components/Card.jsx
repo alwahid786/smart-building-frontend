@@ -6,8 +6,27 @@ import Mail from '../../../../../../asset/svgs/buildingdetails/Mail'
 import Map from '../../../../../../asset/svgs/buildingdetails/Map'
 import { BuildingCardSkeleton } from '../../../../../../components/Skeleton'
 import { useGetSingleBuildingQuery } from '../../../../../../redux/api/buildingApi'
+import Slider from 'react-slick'
+import 'slick-carousel/slick/slick.css'
+import 'slick-carousel/slick/slick-theme.css'
 
 const BuildingCard = () => {
+  const imageList = [
+    'image',
+    'image',
+    'image',
+    // Add more image URLs as needed
+  ]
+
+  const settings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1,
+    autoplay: true,
+    slidesToScroll: 1,
+  }
+
   const { id } = useParams()
   const { data } = useGetSingleBuildingQuery(id)
   const [image, setImage] = useState(null)
@@ -50,19 +69,25 @@ const BuildingCard = () => {
         },
       }}
     >
-      <CardMedia
-        component="img"
-        height="170"
-        image={image}
-        alt="Featured Image"
-        sx={{
-          width: '100%',
-          objectFit: 'cover',
-          borderBottomLeftRadius: '16px',
-          borderBottomRightRadius: '16px',
-          boxShadow: '0px 4px 2px 0px rgba(0, 0, 0, 0.12)',
-        }}
-      />
+      <Slider {...settings}>
+        {imageList.map((image, index) => (
+          <div key={index}>
+            <CardMedia
+              component="img"
+              height="170"
+              image={image}
+              alt="Featured Image"
+              sx={{
+                width: '100%',
+                objectFit: 'cover',
+                borderBottomLeftRadius: '16px',
+                borderBottomRightRadius: '16px',
+                boxShadow: '0px 4px 2px 0px rgba(0, 0, 0, 0.12)',
+              }}
+            />
+          </div>
+        ))}
+      </Slider>
 
       <Box
         sx={{
@@ -81,6 +106,28 @@ const BuildingCard = () => {
         <CardFavoriteIcon filled={isFavorite} />
       </Box>
       <CardContent sx={{ p: 1, display: 'flex', flexDirection: 'column' }}>
+        {/* <Box>
+          <Slider {...settings}>
+            <div>
+              <h3>1</h3>
+            </div>
+            <div>
+              <h3>2</h3>
+            </div>
+            <div>
+              <h3>3</h3>
+            </div>
+            <div>
+              <h3>4</h3>
+            </div>
+            <div>
+              <h3>5</h3>
+            </div>
+            <div>
+              <h3>6</h3>
+            </div>
+          </Slider>
+        </Box> */}
         <Box
           sx={{
             display: 'flex',
