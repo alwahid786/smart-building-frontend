@@ -105,7 +105,9 @@ const PrimaryEnergy = () => {
                 Adjust progress (1-100)
               </Typography>
             </Box>
-            <Box sx={{ display: 'flex', mt: 1 }}>
+            <Box
+              sx={{ display: 'flex', mt: 1, justifyContent: 'space-between' }}
+            >
               <Typography
                 sx={{
                   fontSize: 12,
@@ -117,7 +119,7 @@ const PrimaryEnergy = () => {
               </Typography>
               <Box
                 sx={{
-                  width: '100%',
+                  minWidth: '130px',
                   background: 'rgba(245, 247, 251, 1)',
                   p: 1,
                   alignItems: 'center',
@@ -132,7 +134,7 @@ const PrimaryEnergy = () => {
                     p: 0.2,
                   }}
                 >
-                  123.3 kWh
+                  123.3
                   <br />
                   <Box
                     component="span"
@@ -142,12 +144,14 @@ const PrimaryEnergy = () => {
                       color: 'rgba(17, 17, 17, 0.6)',
                     }}
                   >
-                    m² years
+                    Kwh / m² years
                   </Box>
                 </Typography>
               </Box>
             </Box>
-            <Box sx={{ display: 'flex', mt: 1 }}>
+            <Box
+              sx={{ display: 'flex', mt: 1, justifyContent: 'space-between' }}
+            >
               <Typography
                 sx={{
                   fontSize: 12,
@@ -159,7 +163,7 @@ const PrimaryEnergy = () => {
               </Typography>
               <Box
                 sx={{
-                  width: '100%',
+                  minWidth: '130px',
                   background: 'rgba(245, 247, 251, 1)',
                   p: 1,
                   alignItems: 'center',
@@ -174,7 +178,7 @@ const PrimaryEnergy = () => {
                     p: 0.2,
                   }}
                 >
-                  123.3 kWh
+                  123.3
                   <br />
                   <Box
                     component="span"
@@ -184,7 +188,7 @@ const PrimaryEnergy = () => {
                       color: 'rgba(17, 17, 17, 0.6)',
                     }}
                   >
-                    m² years
+                    kWh / m² years
                   </Box>
                 </Typography>
               </Box>
