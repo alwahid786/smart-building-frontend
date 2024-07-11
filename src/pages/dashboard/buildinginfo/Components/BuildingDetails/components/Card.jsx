@@ -11,13 +11,6 @@ import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'
 
 const BuildingCard = () => {
-  const imageList = [
-    'image',
-    'image',
-    'image',
-    // Add more image URLs as needed
-  ]
-
   const settings = {
     dots: true,
     infinite: true,
@@ -34,10 +27,7 @@ const BuildingCard = () => {
   const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
-
-
     setImage(data?.images || [])
-
   }, [data])
 
   useEffect(() => {
@@ -69,7 +59,6 @@ const BuildingCard = () => {
         },
       }}
     >
-
       <Slider {...settings}>
         {image?.map((image, index) => (
           <div key={index}>
@@ -89,7 +78,7 @@ const BuildingCard = () => {
           </div>
         ))}
       </Slider>
-  
+
       <Box
         sx={{
           position: 'absolute',
@@ -106,29 +95,14 @@ const BuildingCard = () => {
       >
         <CardFavoriteIcon filled={isFavorite} />
       </Box>
-      <CardContent sx={{ p: 1, display: 'flex', flexDirection: 'column' }}>
-        {/* <Box>
-          <Slider {...settings}>
-            <div>
-              <h3>1</h3>
-            </div>
-            <div>
-              <h3>2</h3>
-            </div>
-            <div>
-              <h3>3</h3>
-            </div>
-            <div>
-              <h3>4</h3>
-            </div>
-            <div>
-              <h3>5</h3>
-            </div>
-            <div>
-              <h3>6</h3>
-            </div>
-          </Slider>
-        </Box> */}
+      <CardContent
+        sx={{
+          p: 1,
+          display: 'flex',
+          flexDirection: 'column',
+          marginTop: '20px',
+        }}
+      >
         <Box
           sx={{
             display: 'flex',
@@ -177,9 +151,9 @@ const BuildingCard = () => {
             <Typography
               variant="body2"
               sx={{
-                color: 'rgba(0, 0, 0, 1)',
+                color: '#414141',
                 fontWeight: '400',
-                fontSize: '16px',
+                fontSize: '14px',
                 lineHeight: '21.79px',
               }}
             >
