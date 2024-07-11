@@ -3,7 +3,7 @@ import DeleteIcon from '@mui/icons-material/Delete'
 import EditIcon from '@mui/icons-material/Edit'
 import PropTypes from 'prop-types'
 
-const CardPhotos = ({ image, onDelete, onEdit }) => {
+const SinglePhoto = ({ image, onDelete, onEdit }) => {
   return (
     <Box sx={{ position: 'relative', width: '100%', height: '100%' }}>
       <img
@@ -45,10 +45,10 @@ const CardPhotos = ({ image, onDelete, onEdit }) => {
   )
 }
 
-CardPhotos.propTypes = {
+SinglePhoto.propTypes = {
   image: PropTypes.string.isRequired,
   onDelete: PropTypes.func,
   onEdit: PropTypes.func,
 }
 
-export default CardPhotos
+export default SinglePhoto

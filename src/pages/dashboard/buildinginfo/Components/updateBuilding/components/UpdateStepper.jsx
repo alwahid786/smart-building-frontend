@@ -7,6 +7,9 @@ import Typography from '@mui/material/Typography'
 import { useState } from 'react'
 import { StepConnector } from '@mui/material'
 import UpdateInfo from '../firstStepper/UpdateInfo'
+import UpdatePhotos from '../secondStepper/UpdatePhotos'
+import UpdateMap from '../thirdStepper/UpdateMap'
+import UpdateFloor from '../fourthStepper/UpdateFloor'
 
 const steps = ['General Info', 'Photos', 'Mapping Info', 'Add Floors']
 
@@ -14,12 +17,12 @@ const getStepContent = (step, handleNext, handleBack) => {
   switch (step) {
     case 0:
       return <UpdateInfo handleNext={handleNext} />
-    // case 1:
-    //   return <PhotosInfo handleNext={handleNext} handleBack={handleBack} />
-    // case 2:
-    //   return <MappingInfo handleBack={handleBack} handleNext={handleNext} />
-    // case 3:
-    //   return <AddFloor handleBack={handleBack} />
+    case 1:
+      return <UpdatePhotos handleNext={handleNext} handleBack={handleBack} />
+    case 2:
+      return <UpdateMap handleBack={handleBack} handleNext={handleNext} />
+    case 3:
+      return <UpdateFloor handleBack={handleBack} />
     default:
       return 'Unknown step'
   }

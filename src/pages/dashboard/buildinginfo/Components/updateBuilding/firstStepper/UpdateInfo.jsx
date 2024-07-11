@@ -104,7 +104,7 @@ const UpdateInfo = ({ handleNext }) => {
               type="text"
               name="buildingName"
               fullWidth
-              required
+              // required
               value={formData.buildingName}
               onChange={handleInputChange}
             />
@@ -117,7 +117,7 @@ const UpdateInfo = ({ handleNext }) => {
               name="ownerName"
               size="small"
               fullWidth
-              required
+              // required
               value={formData.ownerName}
               onChange={handleInputChange}
             />
@@ -145,7 +145,7 @@ const UpdateInfo = ({ handleNext }) => {
               name="email"
               size="small"
               fullWidth
-              required
+              // // required
               value={formData.email}
               onChange={handleInputChange}
             />
@@ -158,7 +158,7 @@ const UpdateInfo = ({ handleNext }) => {
               name="totalArea"
               fullWidth
               size="small"
-              required
+              // // required
               value={formData.totalArea}
               onChange={handleInputChange}
             />
@@ -187,7 +187,7 @@ const UpdateInfo = ({ handleNext }) => {
               name="numberOfFloors"
               size="small"
               fullWidth
-              required
+              // required
               value={formData.numberOfFloors}
               onChange={handleInputChange}
             />
@@ -199,7 +199,7 @@ const UpdateInfo = ({ handleNext }) => {
               name="constructionYear"
               size="small"
               fullWidth
-              required
+              // required
               value={formData.constructionYear}
               onChange={handleInputChange}
             />
@@ -212,7 +212,7 @@ const UpdateInfo = ({ handleNext }) => {
               name="writtenAddress"
               size="small"
               fullWidth
-              required
+              // required
               value={formData.writtenAddress}
               onChange={handleInputChange}
             />
@@ -226,7 +226,7 @@ const UpdateInfo = ({ handleNext }) => {
               label="Description"
               type="text"
               name="description"
-              required
+              // required
               value={formData.description}
               onChange={handleInputChange}
             />

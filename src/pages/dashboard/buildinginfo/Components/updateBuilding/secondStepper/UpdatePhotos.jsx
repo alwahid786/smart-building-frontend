@@ -7,7 +7,6 @@ import {
   Backdrop,
 } from '@mui/material'
 import { useEffect, useState } from 'react'
-import CardPhotos from './CardPhotos'
 import PropTypes from 'prop-types'
 import { useAddBuildingMutation } from '../../../../../../redux/api/buildingApi'
 import { useDispatch, useSelector } from 'react-redux'
@@ -20,8 +19,9 @@ import {
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import DialoguePermission from '../../../../../../components/DialoguePermission'
+import SinglePhoto from './SinglePhoto'
 
-const PhotosInfo = ({ handleNext, handleBack }) => {
+const UpdatePhotos = ({ handleNext, handleBack }) => {
   // Dialogue state and function
 
   const [dialogueOpen, setDialogueOpen] = useState(false)
@@ -141,7 +141,7 @@ const PhotosInfo = ({ handleNext, handleBack }) => {
         {selectedFiles.length > 0 ? (
           selectedFiles.map((file, index) => (
             <Grid item xs={12} sm={6} md={3} xl={2} key={index}>
-              <CardPhotos
+              <SinglePhoto
                 image={URL.createObjectURL(file)}
                 onDelete={() => handleFileDelete(index)} // Handle image deletion
                 onEdit={() => handleFileEdit(index)} // Handle image editing
@@ -150,7 +150,7 @@ const PhotosInfo = ({ handleNext, handleBack }) => {
           ))
         ) : (
           <Grid item xs={12} sm={6} md={3} xl={2}>
-            <CardPhotos
+            <SinglePhoto
               image={
                 'https://images.unsplash.com/photo-1581472723648-909f4851d4ae?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
               }
@@ -253,9 +253,9 @@ const PhotosInfo = ({ handleNext, handleBack }) => {
 }
 
 // PropTypes validation
-PhotosInfo.propTypes = {
+UpdatePhotos.propTypes = {
   handleNext: PropTypes.func.isRequired,
   handleBack: PropTypes.func.isRequired,
 }
 
-export default PhotosInfo
+export default UpdatePhotos

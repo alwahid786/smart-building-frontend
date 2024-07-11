@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import { Box, Button, Grid, TextField, Typography } from '@mui/material'
-import L from 'leaflet'
+import L, { icon } from 'leaflet'
 import 'leaflet/dist/leaflet.css'
 import { MapContainer, Marker, Popup, TileLayer, useMap } from 'react-leaflet'
 import { useEffect, useState } from 'react'
@@ -14,7 +14,7 @@ import CardMedia from '@mui/material/CardMedia'
 //   iconSize: [45, 45],
 // })
 
-const MappingInfo = ({ handleBack, handleNext }) => {
+const UpdateMap = ({ handleBack, handleNext }) => {
   const [position, setPosition] = useState([51.505, -0.09])
   const [latitude, setLatitude] = useState(51.505)
   const [longitude, setLongitude] = useState(-0.09)
@@ -198,4 +198,4 @@ const MappingInfo = ({ handleBack, handleNext }) => {
   )
 }
 
-export default MappingInfo
+export default UpdateMap
