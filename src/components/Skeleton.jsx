@@ -204,7 +204,7 @@ InspectionTableSkeleton.propTypes = {
 
 
 
-const InspectionHistorySkeleton = ({ columns, rowsCount = 5 }) => (
+export const InspectionHistorySkeleton = ({ columns, rowsCount = 5 }) => (
   <Box sx={{ backgroundColor: '#FFFFFF', p: 2, borderRadius: '8px' }}>
     <Box sx={{
       display: 'flex',

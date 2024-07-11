@@ -1,4 +1,4 @@
-import { Grid, Paper } from '@mui/material'
+import { Box, Button, Grid, Paper } from '@mui/material'
 import BuildingCard from './components/Card'
 import PrimaryEnergy from './components/PrimaryEnergy'
 import InspectionHistory from './components/InspectionHistory'
@@ -10,6 +10,9 @@ import EnergyUtilitiesCard from './components/EnergyUtilitiesCard'
 const BuildingDetails = () => {
   return (
     <>
+      <Box sx={{ textAlign: 'end', marginY: '10px' }}>
+        <Button variant="contained">Update Building</Button>
+      </Box>
       <Grid container spacing={2}>
         <Grid item xs={12} lg={4}>
           <BuildingCard />

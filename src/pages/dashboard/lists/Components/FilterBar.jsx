@@ -1,17 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import {
-  Box,
-  Typography,
-  IconButton,
-  TextField,
-  MenuItem,
-  Select,
-  InputAdornment,
-  FormControl,
-  useMediaQuery,
-  Button,
-  Menu,
-} from '@mui/material'
+import { Box, TextField, InputAdornment, useMediaQuery } from '@mui/material'
 import HeartFilter from '../../../../asset/svgs/HeartFilter'
 import SearchIcon from '../../../../asset/svgs/SearchIcon'
 import { useTheme } from '@mui/material/styles'
@@ -303,9 +291,9 @@ const FilterBar = () => {
                   </InputAdornment>
                 ),
               }}
-              placeholder="Search"
+              placeholder="Search by name"
             />
-            {/* {isFilterOpen && <p>m here</p>} */}
+            {isFilterOpen && <p>Status , city</p>}
             <Box sx={{ cursor: 'pointer' }} onClick={toggleFilterIcon}>
               {!isFilterOpen ? <Filter /> : <BackFilter />}
             </Box>
@@ -326,9 +314,9 @@ const FilterBar = () => {
               gap: { sm: 1, xs: 0.5 },
             }}
           >
-            <Box sx={{ cursor: 'pointer' }}>
+            {/* <Box sx={{ cursor: 'pointer' }}>
               <DeleteIcon />
-            </Box>
+            </Box> */}
             <Link to="/dashboard/addbuilding">
               <Box sx={{ cursor: 'pointer' }}>
                 <AddIcon />
