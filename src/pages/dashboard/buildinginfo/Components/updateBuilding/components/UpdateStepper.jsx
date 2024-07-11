@@ -5,24 +5,21 @@ import StepLabel from '@mui/material/StepLabel'
 import Button from '@mui/material/Button'
 import Typography from '@mui/material/Typography'
 import { useState } from 'react'
-import GeneralBuildingInformation from '../GeneralBuildingInformation'
-import PhotosInfo from '../photosinfo/PhotosInfo'
-import MappingInfo from '../mappingInfo/MappingInfo'
-import AddFloor from '../addFloors/AddFloor'
 import { StepConnector } from '@mui/material'
+import UpdateInfo from '../firstStepper/UpdateInfo'
 
 const steps = ['General Info', 'Photos', 'Mapping Info', 'Add Floors']
 
 const getStepContent = (step, handleNext, handleBack) => {
   switch (step) {
     case 0:
-      return <GeneralBuildingInformation handleNext={handleNext} />
-    case 1:
-      return <PhotosInfo handleNext={handleNext} handleBack={handleBack} />
-    case 2:
-      return <MappingInfo handleBack={handleBack} handleNext={handleNext} />
-    case 3:
-      return <AddFloor handleBack={handleBack} />
+      return <UpdateInfo handleNext={handleNext} />
+    // case 1:
+    //   return <PhotosInfo handleNext={handleNext} handleBack={handleBack} />
+    // case 2:
+    //   return <MappingInfo handleBack={handleBack} handleNext={handleNext} />
+    // case 3:
+    //   return <AddFloor handleBack={handleBack} />
     default:
       return 'Unknown step'
   }

@@ -10,6 +10,7 @@ import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import ResetPassword from './pages/resetpassword/ResetPassword'
 import AddBuilding from './pages/dashboard/lists/Components/addBuilding'
+import UpdateBuilding from './pages/dashboard/buildinginfo/Components/updateBuilding'
 const SignUpPage = lazy(() => import('./pages/signup/SignUp'))
 const List = lazy(() => import('./pages/dashboard/lists'))
 const General = lazy(() => import('./pages/dashboard/general'))
@@ -40,6 +41,8 @@ const App = () => {
           <Route path="/dashboard" element={<Dashboard />}>
             <Route index element={<Navigate replace to="list" />} />
             <Route path="addbuilding" element={<AddBuilding />} />
+
+            <Route path="updatebuilding" element={<UpdateBuilding />} />
 
             <Route path="profile" element={<Profile />} />
             <Route path="list" element={<List />} />

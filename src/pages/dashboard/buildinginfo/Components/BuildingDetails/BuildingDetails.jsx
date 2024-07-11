@@ -7,12 +7,15 @@ import Sensor from './components/Sensor'
 import FinancialProjection from './components/FinancialProjection'
 import MediaConsumption from './components/MediaConsumption'
 import EnergyUtilitiesCard from './components/EnergyUtilitiesCard'
+import { Link } from 'react-router-dom'
 const BuildingDetails = () => {
   return (
     <>
-      <Box sx={{ textAlign: 'end', marginY: '10px' }}>
-        <Button variant="contained">Update Building</Button>
-      </Box>
+      <Link to="/dashboard/updatebuilding">
+        <Box sx={{ textAlign: 'end', marginY: '10px' }}>
+          <Button variant="contained">Update Building</Button>
+        </Box>
+      </Link>
       <Grid container spacing={2}>
         <Grid item xs={12} lg={4}>
           <BuildingCard />

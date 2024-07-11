@@ -1,5 +1,5 @@
-import { Box, Card, CardContent, CardMedia } from '@mui/material'
-import React from 'react'
+import { Box, Card, CardContent } from '@mui/material'
+
 import CardBg from '../../../../asset/Images/list/image.png'
 import AddLg from '../../../../asset/svgs/AddLg'
 import { Link } from 'react-router-dom'
