@@ -1,12 +1,10 @@
 import {
-  Badge,
   Box,
   Button,
   Drawer,
   Fade,
   Menu,
   MenuItem,
-  Tooltip,
 } from '@mui/material'
 import { useState } from 'react'
 
@@ -18,8 +16,13 @@ import { useNavigate } from 'react-router-dom'
 import KeyboardArrowDownRoundedIcon from '@mui/icons-material/KeyboardArrowDownRounded'
 import profile from '../../../asset/Images/navbar/Ellipse.png'
 import { useLogoutUserMutation} from '../../../redux/api/authApi'
+import { useSelector } from 'react-redux'
 
 const Header = () => {
+
+  const user = useSelector(state => state?.user?.user);
+
+
   // open Menu
   const [anchorEl, setAnchorEl] = useState(null)
   const [logoutUser] = useLogoutUserMutation()
@@ -38,7 +41,9 @@ const Header = () => {
   //  ---------
   const navigate = useNavigate()
   const profilePage = () => {
-    navigate('profile')
+
+
+    navigate(`profile/${user.user.data._id}`)
     // setAnchorEl(null)
     // handleClose()
   }
@@ -137,7 +142,7 @@ const Header = () => {
                   }}
                 />
               </Box>
-              FName
+              {user.user.data.firstName}
               <KeyboardArrowDownRoundedIcon />
             </Box>
           </Button>

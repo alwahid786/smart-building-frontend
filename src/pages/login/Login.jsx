@@ -1,20 +1,22 @@
-import { useNavigate } from 'react-router-dom'
-
-import loginbg from '../../asset/Images/login/LogIn2.png'
-import Box from '@mui/material/Box'
-import Grid from '@mui/material/Grid'
-import LightBox from '../../asset/svgs/LightBox'
-import Typography from '@mui/material/Typography'
-import Checkbox from '@mui/material/Checkbox'
-import { Button, FormControlLabel, TextField } from '@mui/material'
-import { useFormik } from 'formik'
-import { loginSchema } from '../../schema'
-import { useLoginMutation } from '../../redux/api/authApi'
-import { toast } from 'react-toastify'
+import { useNavigate } from 'react-router-dom';
+import loginbg from '../../asset/Images/login/LogIn2.png';
+import Box from '@mui/material/Box';
+import Grid from '@mui/material/Grid';
+import LightBox from '../../asset/svgs/LightBox';
+import Typography from '@mui/material/Typography';
+import Checkbox from '@mui/material/Checkbox';
+import { Button, FormControlLabel, TextField } from '@mui/material';
+import { useFormik } from 'formik';
+import { loginSchema } from '../../schema';
+import { useLoginMutation } from '../../redux/api/authApi';
+import { toast } from 'react-toastify';
+import { useDispatch } from 'react-redux';
+import { setUser } from '../../redux/reducers/userReducer';
 
 const Login = () => {
-  const [login] = useLoginMutation()
-  const navigate = useNavigate()
+  const [login] = useLoginMutation();
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const { values, errors, touched, handleBlur, handleChange, handleSubmit } =
     useFormik({
@@ -25,44 +27,42 @@ const Login = () => {
           const res = await login({
             email: values.email,
             password: values.password,
-          })
+          });
 
           // if error show error
           if (res.error) {
-            toast.error(res.error.data.message)
+            toast.error(res.error.data.message);
           }
 
           // if success show success
           if (res.data) {
-            toast.success(res.data.message)
+            toast.success(res.data.message);
+
+            // Dispatch setUser action
+            dispatch(setUser({user: res?.data}));
 
             setTimeout(() => {
-              navigate('/dashboard')
-            }, 1000)
+              navigate('/dashboard');
+            }, 1000);
           }
 
           // Reset the form
-          actions.resetForm()
+          actions.resetForm();
         } catch (error) {
-
-          toast.error(error.data.message)
+          toast.error(error.data.message);
         }
       },
-    })
+    });
 
   return (
     <>
-      {/* {isLoading && <GlobalLoader />} */}
       <Box
         maxWidth="false"
         sx={{
-          // height: '100vh',
-          // },
           backgroundImage: `url(${loginbg})`,
           backgroundPosition: '100% 0%',
           backgroundSize: 'cover',
           backgroundRepeat: 'no-repeat',
-          // overflowY: 'hidden',
           overflowY: { md: 'auto', lg: 'hidden' },
           padding: {
             xs: '0 !important',
@@ -74,17 +74,13 @@ const Login = () => {
           <Grid
             item
             md={6}
-            // xs={12}
-
             display={{ xs: 'none', md: 'flex' }}
             alignItems="start"
             justifyContent="center"
-            // height="100vh"
           >
             <Box
               sx={{
                 color: '#fff',
-                // height: '100vh',
                 display: 'flex',
                 flexDirection: 'column',
                 justifyContent: 'center',
@@ -96,9 +92,7 @@ const Login = () => {
                   display: 'flex',
                   gap: '34px',
                   marginBottom: '2vw',
-                  // flexGrow: '1',
                   alignItems: 'center',
-                  // justifyContent: 'start',
                 }}
               >
                 <LightBox />
@@ -161,7 +155,6 @@ const Login = () => {
             item
             md={6}
             xs={12}
-            // padding={{ xs: '20px', md: '50px' }}
             display="flex"
             alignItems="center"
             justifyContent="center"
@@ -315,7 +308,6 @@ const Login = () => {
                         />
                       }
                       label="Remember Me"
-                      // labelPlacement="top"
                       sx={{
                         color: 'rgba(17, 17, 17, 0.4)',
                         padding: '0 !important',
@@ -350,7 +342,7 @@ const Login = () => {
                     },
                   }}
                   onClick={() => {
-                    navigate('/forgetpassword')
+                    navigate('/forgetpassword');
                   }}
                 >
                   Forgot your password?
@@ -411,7 +403,7 @@ const Login = () => {
         </Grid>
       </Box>
     </>
-  )
-}
+  );
+};
 
-export default Login
+export default Login;
