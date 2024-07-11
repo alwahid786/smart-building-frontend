@@ -16,7 +16,6 @@ import Water from '../../../../../../asset/svgs/buildingdetails/BuildingMedia/Wa
 import Fire from '../../../../../../asset/svgs/buildingdetails/BuildingMedia/Fire'
 import { BuildingMediaConsumptionSkeleton } from '../../../../../../components/Skeleton'
 
-
 function MediaConsumption() {
   const [tenant, setTenant] = React.useState('')
 
@@ -102,10 +101,9 @@ function MediaConsumption() {
           </Grid>
           <Box
             sx={{
-              width: '100%',
               display: 'flex',
-              justifyContent: 'end',
-              mt: 2,
+              justifyContent: 'center',
+              my: 6,
             }}
           >
             <Button

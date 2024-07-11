@@ -6,8 +6,13 @@ export const buildingApiPoint= createApi({
 
     baseQuery: fetchBaseQuery({
 
+<<<<<<< Updated upstream
         // baseUrl: "https://smart-building-backend-production-0bae.up.railway.app"
         baseUrl: "http://localhost:4000"
+=======
+        baseUrl: "https://smart-building-backend-production.up.railway.app"
+        // baseUrl: "http://localhost:4000"
+>>>>>>> Stashed changes
     }),
 
     endpoints: (builder)=> ({
