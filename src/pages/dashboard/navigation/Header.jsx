@@ -133,7 +133,7 @@ const Header = () => {
                 }}
               >
                 <img
-                  src={profile}
+                  src={user.user.data.profilePic}
                   alt="profile"
                   style={{
                     width: '100%',

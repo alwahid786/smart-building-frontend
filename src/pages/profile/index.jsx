@@ -1,6 +1,5 @@
 import {
   Box,
-  Container,
   TextField,
   Button,
   Avatar,
@@ -15,9 +14,9 @@ import { useEffect, useState } from 'react'
 import { profileSchema } from '../../schema'
 import { useFormik } from 'formik'
 import { Country, State, City } from 'country-state-city'
-import PhoneInput from 'react-phone-input-2'
 import 'react-phone-input-2/lib/style.css'
-import { Translate } from '@mui/icons-material'
+import { useParams } from 'react-router-dom'
+import { useGetUserDetailQuery } from '../../redux/api/buildingApi'
 // import { gridColumnsTotalWidthSelector } from '@mui/x-data-grid'
 
 const ProfilePage = () => {
@@ -26,6 +25,10 @@ const ProfilePage = () => {
   const [states, setStates] = useState([])
   const [cities, setCities] = useState([])
   const [selectedCountry, setSelectedCountry] = useState('')
+  const {id} = useParams()
+  const {data} =useGetUserDetailQuery(id)
+
+  console.log(data.firstName)
 
   const handleCountryChange = async (countryCode) => {
     // console.log(countryCode)
@@ -69,15 +72,14 @@ const ProfilePage = () => {
     handleSubmit,
   } = useFormik({
     initialValues: {
-      firstname: '',
-      lastname: '',
-      email: '',
-      address: '',
-      contact: '',
-      country: '',
-      state: '',
-      city: '',
-
+      firstname: data?.firstName,
+      lastname: data?.lastName,
+      email: data?.email,
+      address: data?.address,
+      contact: data?.phoneNumber,
+      country: data?.country,
+      state: data?.state,
+      city: data?.city,
       password: '',
     },
     validationSchema: profileSchema,
@@ -126,7 +128,7 @@ const ProfilePage = () => {
         <label htmlFor="avatarInput">
           <Avatar
             alt="Uploaded Avatar"
-            src={imageSrc}
+            src={data?.profilePic}
             sx={{
               width: {
                 xs: '60px',
