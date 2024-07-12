@@ -45,17 +45,21 @@ function MediaConsumption() {
             }}
           >
             <Typography sx={{ fontSize: 16, fontWeight: 600 }} gutterBottom>
-              Media consumption
+              Media Consumption
             </Typography>
             <Select
               value={tenant}
               onChange={handleChange}
               displayEmpty
               inputProps={{ 'aria-label': 'Without label' }}
-              sx={{ mb: 1, width: 120, height: 40 }}
+              sx={{ width: 120, height: 30 }}
             >
               <MenuItem value="">
-                <em sx={{ color: 'rgba(17, 17, 17, 0.6)' }}>Tenants</em>
+                <span
+                  style={{ color: 'rgba(17, 17, 17, 0.6)', fontSize: '14px' }}
+                >
+                  Tenants
+                </span>
               </MenuItem>
               <MenuItem value="1">Tenant 1</MenuItem>
               <MenuItem value="2">Tenant 2</MenuItem>

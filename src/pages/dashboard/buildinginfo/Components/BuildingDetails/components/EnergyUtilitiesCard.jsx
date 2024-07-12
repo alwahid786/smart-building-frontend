@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react'
 import {
   Card,
   CardContent,
@@ -7,11 +7,12 @@ import {
   Select,
   MenuItem,
   Box,
-} from '@mui/material';
-import { styled } from '@mui/material/styles';
-import MyAreaLineChart from './MyAreaLineChart';
-import Car from '../../../../../../asset/svgs/buildingdetails/BuildingMedia/Car';
-import { BuildingCustomCardSkeleton } from '../../../../../../components/Skeleton';
+  Divider,
+} from '@mui/material'
+import { styled } from '@mui/material/styles'
+import MyAreaLineChart from './MyAreaLineChart'
+import Car from '../../../../../../asset/svgs/buildingdetails/BuildingMedia/Car'
+import { BuildingCustomCardSkeleton } from '../../../../../../components/Skeleton'
 
 const data = [
   { time: '07:00', value: 100 },
@@ -22,30 +23,37 @@ const data = [
   { time: '11:00', value: 260 },
   { time: '12:00', value: 350 },
   { time: '13:00', value: 200 },
-];
+]
 
 const EnergyUtilitiesCard = () => {
-  const [tenant, setTenant] = useState('');
+  const [tenant, setTenant] = useState('')
   const handleChange = (event) => {
-    setTenant(event.target.value);
-  };
+    setTenant(event.target.value)
+  }
 
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
     // Simulate loading delay
     setTimeout(() => {
-      setIsLoading(false);
-    }, 3000);
-  }, []);
+      setIsLoading(false)
+    }, 3000)
+  }, [])
 
   return (
     <>
       {isLoading ? (
         <BuildingCustomCardSkeleton />
       ) : (
-        <CustomCard sx={{ height: '100%' }}>
-          <TitleContainer>
+        <Card sx={{ width: 'auto', height: '100%' }}>
+          <Box
+            sx={{
+              display: 'flex',
+              justifyContent: 'space-around',
+              alignItems: 'center',
+              paddingY: '1rem',
+            }}
+          >
             <Typography sx={{ fontSize: { sx: 12, md: 16 }, fontWeight: 600 }}>
               Energy utilities
             </Typography>
@@ -54,23 +62,32 @@ const EnergyUtilitiesCard = () => {
               onChange={handleChange}
               displayEmpty
               inputProps={{ 'aria-label': 'Without label' }}
-              sx={{ mb: 1, width: 180, height: 40 }}
+              sx={{ height: 30 }}
             >
               <MenuItem value="">
-                <em sx={{ color: 'rgba(17, 17, 17, 0.6)' }}>
+                <span
+                  style={{ color: 'rgba(17, 17, 17, 0.6)', fontSize: '14px' }}
+                >
                   {' '}
                   <Car /> Car Chargers
-                </em>
+                </span>
               </MenuItem>
               <MenuItem value="1">Tenant 1</MenuItem>
               <MenuItem value="2">Tenant 2</MenuItem>
             </Select>
-          </TitleContainer>
+          </Box>
+          <Divider />
           <GraphContent>
             <MyAreaLineChart data={data} />
           </GraphContent>
           <CardContent>
-            <Box sx={{ display: 'flex', justifyContent: 'end' }}>
+            <Box
+              sx={{
+                display: 'flex',
+                justifyContent: 'center',
+                my: 6,
+              }}
+            >
               <Button
                 variant="contained"
                 sx={{
@@ -81,6 +98,7 @@ const EnergyUtilitiesCard = () => {
                   marginBottom: '6px',
                   color: 'white',
                   borderColor: 'transparent',
+                  // borderWidth: 2,
                   borderStyle: 'solid',
                   borderImageSlice: 1,
                   borderImageSource:
@@ -91,18 +109,18 @@ const EnergyUtilitiesCard = () => {
               </Button>
             </Box>
           </CardContent>
-        </CustomCard>
+        </Card>
       )}
     </>
-  );
-};
+  )
+}
 
-export default EnergyUtilitiesCard;
+export default EnergyUtilitiesCard
 
 const CustomCard = styled(Card)(({ theme }) => ({
   borderRadius: '16px',
   boxShadow: '0 2px 10px rgba(0,0,0,0.1)',
-}));
+}))
 
 const TitleContainer = styled('div')(({ theme }) => ({
   display: 'flex',
@@ -110,8 +128,8 @@ const TitleContainer = styled('div')(({ theme }) => ({
   alignItems: 'center',
   padding: '8px',
   borderBottom: `1px solid ${theme.palette.divider}`,
-}));
+}))
 
 const GraphContent = styled(CardContent)(({ theme }) => ({
   padding: 0,
-}));
+}))

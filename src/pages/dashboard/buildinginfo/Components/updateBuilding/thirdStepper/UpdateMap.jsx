@@ -1,10 +1,9 @@
 /* eslint-disable react/prop-types */
 import { Box, Button, Grid, TextField, Typography } from '@mui/material'
-import L, { icon } from 'leaflet'
+
 import 'leaflet/dist/leaflet.css'
 import { MapContainer, Marker, Popup, TileLayer, useMap } from 'react-leaflet'
 import { useEffect, useState } from 'react'
-import MarkerMap from '../../../../../../asset/svgs/MarkerMap'
 import CardActions from '@mui/material/CardActions'
 import CardContent from '@mui/material/CardContent'
 import CardMedia from '@mui/material/CardMedia'

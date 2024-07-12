@@ -14,7 +14,6 @@ import AcUnitIcon from '@mui/icons-material/AcUnit'
 import { BuildingPrimaryEnergySkeleton } from '../../../../../../components/Skeleton'
 
 const Suggestions = () => {
-
   const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
@@ -22,6 +21,8 @@ const Suggestions = () => {
       setIsLoading(false)
     }, 3000)
   }, [])
+
+  const suggestions = [{ title: 'lighting' }, { title: 'heating' }]
   return (
     <>
       {isLoading ? (
@@ -87,7 +88,11 @@ const Suggestions = () => {
                   lineHeight: '24px',
                 }}
               >
-                Heating - 1 sensor has problem
+                Heating -{' '}
+                <Typography style={{ fontWeight: '600' }}>
+                  1 sensor &nbsp;
+                </Typography>{' '}
+                has problem
               </Box>
 
               <Typography
@@ -101,7 +106,7 @@ const Suggestions = () => {
                 ML Suggestions
               </Typography>
               <List sx={{ width: '100%', bgcolor: '', marginBottom: 1 }}>
-                {Array.from({ length: 10 }).map((_, index) => (
+                {suggestions.map((suggestion, index) => (
                   <ListItem
                     sx={{
                       display: 'flex',
@@ -120,8 +125,10 @@ const Suggestions = () => {
                         component: 'div',
                         style: { display: 'flex', alignItems: 'center' },
                       }}
-                      primary={`Extra suggestion ${index + 1}`}
-                    />
+                      // primary={`New suggestion ${index + 1}`}
+                    >
+                      {suggestion.title}
+                    </ListItemText>
                   </ListItem>
                 ))}
               </List>

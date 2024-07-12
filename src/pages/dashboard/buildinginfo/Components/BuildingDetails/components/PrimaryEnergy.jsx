@@ -31,20 +31,21 @@ const PrimaryEnergy = () => {
       {isLoading ? (
         <PrimaryEnergySkeleton />
       ) : (
-        <Card sx={{ borderRadius: 2, boxShadow: 3, height: '100%' }}>
-          <CardContent>
-            <Typography
-              sx={{
-                fontSize: 16,
-                fontWeight: 600,
-                color: 'rgba(17, 17, 17, 1)',
-              }}
-              color="text.secondary"
-              gutterBottom
-            >
+        <Card sx={{ height: '100%' }}>
+          <Box
+            sx={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              padding: '1rem',
+            }}
+          >
+            <Typography sx={{ fontSize: 16, fontWeight: 600 }} gutterBottom>
               Primary Energy
             </Typography>
-            <Divider />
+          </Box>
+          <Divider />
+          <CardContent>
             <Box
               sx={{
                 display: 'flex',
