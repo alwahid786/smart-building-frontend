@@ -28,8 +28,6 @@ const ProfilePage = () => {
   const {id} = useParams()
   const {data} =useGetUserDetailQuery(id)
 
-  console.log(data.firstName)
-
   const handleCountryChange = async (countryCode) => {
     // console.log(countryCode)
     const statesData = await State.getStatesOfCountry(countryCode)
