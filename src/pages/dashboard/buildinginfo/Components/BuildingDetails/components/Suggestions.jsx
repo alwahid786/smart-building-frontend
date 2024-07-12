@@ -12,6 +12,8 @@ import {
 } from '@mui/material'
 import AcUnitIcon from '@mui/icons-material/AcUnit'
 import { BuildingPrimaryEnergySkeleton } from '../../../../../../components/Skeleton'
+import Lighting from '../../../../../../asset/svgs/buildingdetails/Lighting'
+import Heating from '../../../../../../asset/svgs/buildingdetails/Heating'
 
 const Suggestions = () => {
   const [isLoading, setIsLoading] = useState(true)
@@ -22,7 +24,10 @@ const Suggestions = () => {
     }, 3000)
   }, [])
 
-  const suggestions = [{ title: 'lighting' }, { title: 'heating' }]
+  const suggestionList = [
+    { title: 'lighting', number: '+5%' },
+    { title: 'heating', number: '+9%' },
+  ]
   return (
     <>
       {isLoading ? (
@@ -39,7 +44,7 @@ const Suggestions = () => {
           <CardContent>
             <Box
               sx={{
-                maxHeight: 350,
+                maxHeight: 370,
                 overflowY: 'auto',
                 '&::-webkit-scrollbar': { width: '6px' },
                 '&::-webkit-scrollbar-thumb': {
@@ -56,7 +61,7 @@ const Suggestions = () => {
                   fontSize: 16,
                   fontWeight: 600,
                   color: 'rgba(17, 17, 17, 1)',
-                  marginBottom: 1,
+                  marginBottom: 2,
                 }}
               >
                 Primary energy
@@ -106,11 +111,9 @@ const Suggestions = () => {
                 ML Suggestions
               </Typography>
               <List sx={{ width: '100%', bgcolor: '', marginBottom: 1 }}>
-                {suggestions.map((suggestion, index) => (
+                {suggestionList.map((suggestion, index) => (
                   <ListItem
                     sx={{
-                      display: 'flex',
-                      alignItems: 'center',
                       width: '100%',
                       bgcolor: '#F5F7FB',
                       marginBottom: 1,
@@ -118,16 +121,33 @@ const Suggestions = () => {
                     key={index}
                   >
                     <ListItemIcon>
-                      <AcUnitIcon />
+                      {suggestion.title === 'lighting' ? (
+                        <Lighting />
+                      ) : (
+                        <Heating />
+                      )}
                     </ListItemIcon>
                     <ListItemText
                       primaryTypographyProps={{
                         component: 'div',
-                        style: { display: 'flex', alignItems: 'center' },
+                        style: {
+                          display: 'flex',
+                          alignItems: 'start',
+                          justifyContent: 'start',
+                        },
                       }}
                       // primary={`New suggestion ${index + 1}`}
                     >
-                      {suggestion.title}
+                      <Typography sx={{ fontSize: '13px', color: '#111111' }}>
+                        New{' '}
+                        <span style={{ fontWeight: '600' }}>
+                          {suggestion.title}
+                        </span>{' '}
+                        suggestions{' '}
+                        <span style={{ color: '#7B42F6' }}>
+                          {suggestion.number}
+                        </span>{' '}
+                      </Typography>
                     </ListItemText>
                   </ListItem>
                 ))}

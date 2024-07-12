@@ -8,12 +8,29 @@ import FinancialProjection from './components/FinancialProjection'
 import MediaConsumption from './components/MediaConsumption'
 import EnergyUtilitiesCard from './components/EnergyUtilitiesCard'
 import { Link } from 'react-router-dom'
+import EditLocationAltIcon from '@mui/icons-material/EditLocationAlt'
 const BuildingDetails = () => {
   return (
     <>
       <Link to="/dashboard/updatebuilding">
         <Box sx={{ textAlign: 'end', marginY: '10px' }}>
-          <Button variant="contained">Update Building</Button>
+          <Button
+            variant="outlined"
+            startIcon={<EditLocationAltIcon />}
+            sx={{
+              color: '#7E40F6',
+              textTransform: 'none',
+              fontSize: '14px', // Text size ko chhota karne ke liye
+              border: ' 2px solid #7E40F6', // Border color ko red karne ke liye
+              '&:hover': {
+                border: ' 2px solid #AD20FE',
+                color: '#AD20FE',
+                // Hover state mein border color ko dark red karne ke liye
+              },
+            }}
+          >
+            Update Building
+          </Button>
         </Box>
       </Link>
       <Grid container spacing={2}>

@@ -1,5 +1,13 @@
 import React, { useState, useEffect } from 'react'
-import { Box, TextField, InputAdornment, useMediaQuery } from '@mui/material'
+import {
+  Box,
+  TextField,
+  InputAdornment,
+  useMediaQuery,
+  MenuItem,
+  Select,
+  FormControl,
+} from '@mui/material'
 import HeartFilter from '../../../../asset/svgs/HeartFilter'
 import SearchIcon from '../../../../asset/svgs/SearchIcon'
 import { useTheme } from '@mui/material/styles'
@@ -293,14 +301,57 @@ const FilterBar = () => {
               }}
               placeholder="Search by name"
             />
-            {isFilterOpen && <p>Status , city</p>}
+            {isFilterOpen && (
+              <>
+                <Select
+                  value={value}
+                  onChange={handleChange}
+                  displayEmpty
+                  inputProps={{ 'aria-label': 'Without label' }}
+                  sx={{ width: 120, height: 40 }}
+                >
+                  <MenuItem value="">
+                    <span
+                      style={{
+                        color: 'rgba(17, 17, 17, 0.6)',
+                        fontSize: '14px',
+                      }}
+                    >
+                      Status
+                    </span>
+                  </MenuItem>
+                  <MenuItem value="1">Status 1</MenuItem>
+                  <MenuItem value="2">Status 2</MenuItem>
+                </Select>
+                <Select
+                  value={value}
+                  onChange={handleChange}
+                  displayEmpty
+                  inputProps={{ 'aria-label': 'Without label' }}
+                  sx={{ width: 120, height: 40 }}
+                >
+                  <MenuItem value="">
+                    <span
+                      style={{
+                        color: 'rgba(17, 17, 17, 0.6)',
+                        fontSize: '14px',
+                      }}
+                    >
+                      City
+                    </span>
+                  </MenuItem>
+                  <MenuItem value="1">City 1</MenuItem>
+                  <MenuItem value="2">City 2</MenuItem>
+                </Select>
+              </>
+            )}
+
             <Box sx={{ cursor: 'pointer' }} onClick={toggleFilterIcon}>
               {!isFilterOpen ? <Filter /> : <BackFilter />}
             </Box>
             {/* <Box sx={{ cursor: 'pointer' }}>
               <BackFilter />
             </Box> */}
-
             <Box sx={{ cursor: 'pointer' }}>
               <RedHeartIcon />
             </Box>

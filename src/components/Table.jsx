@@ -1,4 +1,4 @@
-import PropTypes from 'prop-types';
+import PropTypes from 'prop-types'
 import {
   Box,
   Button,
@@ -14,19 +14,19 @@ import {
   TableRow,
   TextField,
   Typography,
-} from '@mui/material';
-import { grey } from '@mui/material/colors';
-import FilterIcon from '../asset/svgs/FilterIcon';
-import MagnifineGlassIcon from '../asset/svgs/MagnifineGlassIcon';
-import { useState } from 'react';
+} from '@mui/material'
+import { grey } from '@mui/material/colors'
+import FilterIcon from '../asset/svgs/FilterIcon'
+import MagnifineGlassIcon from '../asset/svgs/MagnifineGlassIcon'
+import { useState } from 'react'
 
 const DynamicTable = ({ columns, rows, title }) => {
-  const [anchorEl, setAnchorEl] = useState(null);
-  const open = Boolean(anchorEl);
+  const [anchorEl, setAnchorEl] = useState(null)
+  const open = Boolean(anchorEl)
 
   const handleClose = () => {
-    setAnchorEl(null);
-  };
+    setAnchorEl(null)
+  }
 
   return (
     <Box
@@ -57,7 +57,7 @@ const DynamicTable = ({ columns, rows, title }) => {
               display: { sm: 'flex' },
               width: { xs: 'none', md: 150 },
               fontWeight: 600,
-              fontSize: { xs: 12, md: 14 },
+              fontSize: { xs: 12, md: 16 },
             }}
           >
             {title}
@@ -85,18 +85,11 @@ const DynamicTable = ({ columns, rows, title }) => {
             placeholder="Type to search"
             variant="standard"
           />
-          <Box
-            sx={{
-              display: { xs: 'none', sm: 'flex' },
-            }}
-          >
-            <FilterIcon />
-          </Box>
+
           <Button
             variant="contained"
             sx={{
-              background:
-                'linear-gradient(95.25deg, #7B42F6 0%, #B01EFF 100%)',
+              background: 'linear-gradient(95.25deg, #7B42F6 0%, #B01EFF 100%)',
               textTransform: 'none',
               borderRadius: '8px',
               marginBottom: '6px',
@@ -190,7 +183,7 @@ const DynamicTable = ({ columns, rows, title }) => {
                     <Checkbox sx={{ color: grey[300] }} />
                   </TableCell>
                   {columns.map((column) => {
-                    const value = row[column.id];
+                    const value = row[column.id]
                     return (
                       <TableCell
                         sx={{
@@ -205,17 +198,17 @@ const DynamicTable = ({ columns, rows, title }) => {
                           ? column.format(value)
                           : value}
                       </TableCell>
-                    );
+                    )
                   })}
                 </TableRow>
-              );
+              )
             })}
           </TableBody>
         </Table>
       </TableContainer>
     </Box>
-  );
-};
+  )
+}
 
 DynamicTable.propTypes = {
   columns: PropTypes.arrayOf(
@@ -231,6 +224,6 @@ DynamicTable.propTypes = {
     )
   ).isRequired,
   title: PropTypes.string.isRequired,
-};
+}
 
-export default DynamicTable;
+export default DynamicTable
