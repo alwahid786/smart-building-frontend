@@ -10,13 +10,10 @@ import { useFormik } from 'formik';
 import { loginSchema } from '../../schema';
 import { useLoginMutation } from '../../redux/api/authApi';
 import { toast } from 'react-toastify';
-import { useDispatch } from 'react-redux';
-import { setUser } from '../../redux/reducers/userReducer';
 
 const Login = () => {
   const [login] = useLoginMutation();
   const navigate = useNavigate();
-  const dispatch = useDispatch();
 
   const { values, errors, touched, handleBlur, handleChange, handleSubmit } =
     useFormik({
@@ -29,6 +26,8 @@ const Login = () => {
             password: values.password,
           });
 
+          console.log("Login response", res)
+
           // if error show error
           if (res.error) {
             toast.error(res.error.data.message);
@@ -37,9 +36,6 @@ const Login = () => {
           // if success show success
           if (res.data) {
             toast.success(res.data.message);
-
-            // Dispatch setUser action
-            dispatch(setUser({user: res?.data}));
 
             setTimeout(() => {
               navigate('/dashboard');

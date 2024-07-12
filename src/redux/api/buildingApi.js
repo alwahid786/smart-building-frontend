@@ -6,8 +6,9 @@ export const buildingApiPoint= createApi({
 
     baseQuery: fetchBaseQuery({
 
-        baseUrl: "https://smart-building-backend-production.up.railway.app"
-        // baseUrl: "http://localhost:4000"
+        // baseUrl: "https://smart-building-backend-production.up.railway.app"
+        baseUrl: "http://localhost:4000",
+        credentials: "include"
 
     }),
 
@@ -58,10 +59,10 @@ export const buildingApiPoint= createApi({
         }),
         getUserDetail: builder.query({
 
-            query: (data)=> ({
+            query: ()=> ({
 
-                url: `/api/user/single-user/${data}`, 
-                method: "GET",
+                url: `/api/user/userProfile`, 
+                method: "GET"
             })
         }),
         

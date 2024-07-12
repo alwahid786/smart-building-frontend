@@ -38,13 +38,13 @@ const App = () => {
           <Route path="/forgetpassword" element={<ForgetPassword />} />
           <Route path="/resetpassword/:token" element={<ResetPassword />} />
 
-          <Route path="/dashboard" element={<Dashboard />}>
+          <Route path="/dashboard/" element={<Dashboard />}>
             <Route index element={<Navigate replace to="list" />} />
             <Route path="addbuilding" element={<AddBuilding />} />
 
             <Route path="updatebuilding" element={<UpdateBuilding />} />
 
-            <Route path="profile/:id" element={<Profile />} />
+            <Route path="profile" element={<Profile />} />
             <Route path="list" element={<List />} />
             <Route path="building-info/:id" element={<BuildingInfo />} />
             <Route path="general" element={<General />} />

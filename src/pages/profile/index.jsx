@@ -15,7 +15,6 @@ import { profileSchema } from '../../schema'
 import { useFormik } from 'formik'
 import { Country, State, City } from 'country-state-city'
 import 'react-phone-input-2/lib/style.css'
-import { useParams } from 'react-router-dom'
 import { useGetUserDetailQuery } from '../../redux/api/buildingApi'
 // import { gridColumnsTotalWidthSelector } from '@mui/x-data-grid'
 
@@ -25,8 +24,9 @@ const ProfilePage = () => {
   const [states, setStates] = useState([])
   const [cities, setCities] = useState([])
   const [selectedCountry, setSelectedCountry] = useState('')
-  const {id} = useParams()
-  const {data} =useGetUserDetailQuery(id)
+  const {data} =useGetUserDetailQuery()
+
+  console.log("Data", data)
 
   const handleCountryChange = async (countryCode) => {
     // console.log(countryCode)

@@ -14,18 +14,18 @@ import MailIcon from '../../../asset/svgs/header/MailIcon'
 import NotificationIcon from '../../../asset/svgs/header/NotificationIcon'
 import { useNavigate } from 'react-router-dom'
 import KeyboardArrowDownRoundedIcon from '@mui/icons-material/KeyboardArrowDownRounded'
-import profile from '../../../asset/Images/navbar/Ellipse.png'
 import { useLogoutUserMutation} from '../../../redux/api/authApi'
-import { useSelector } from 'react-redux'
+import { useGetUserDetailQuery } from '../../../redux/api/buildingApi'
 
 const Header = () => {
 
-  const user = useSelector(state => state?.user?.user);
-
+  const {data} =useGetUserDetailQuery();
+  const navigate = useNavigate()
 
   // open Menu
   const [anchorEl, setAnchorEl] = useState(null)
   const [logoutUser] = useLogoutUserMutation()
+
   const open = Boolean(anchorEl)
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget)
@@ -33,17 +33,18 @@ const Header = () => {
   const handleClose = async() => {
     setAnchorEl(null)
 
-    const res = await logoutUser()
-    if (res.data) {
-      console.log("Logout")
+    const res = await logoutUser();
+
+    if (res.data.success=== true) {
+
+      navigate(`/login`)
     }
   }
-  //  ---------
-  const navigate = useNavigate()
+ 
   const profilePage = () => {
 
 
-    navigate(`profile/${user.user.data._id}`)
+    navigate(`profile`)
     // setAnchorEl(null)
     // handleClose()
   }
@@ -133,7 +134,7 @@ const Header = () => {
                 }}
               >
                 <img
-                  src={user.user.data.profilePic}
+                  src={data?.profilePic}
                   alt="profile"
                   style={{
                     width: '100%',
@@ -142,7 +143,7 @@ const Header = () => {
                   }}
                 />
               </Box>
-              {user.user.data.firstName}
+                {data?.firstName}
               <KeyboardArrowDownRoundedIcon />
             </Box>
           </Button>
