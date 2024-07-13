@@ -50,7 +50,7 @@ const StepperComponent = () => {
         sx={{ marginY: '2rem' }}
         connector={<StepConnector sx={{ border: '1px solid #B029FC' }} />}
       >
-        {steps.map((label, index) => (
+        {steps.map((label) => (
           <Step key={label}>
             <StepLabel
               StepIconProps={{
@@ -70,7 +70,7 @@ const StepperComponent = () => {
       {activeStep === steps.length ? (
         <>
           <Typography sx={{ mt: 2, mb: 1 }}>
-            All steps completed - you're finished
+            All steps completed - you are finished
           </Typography>
           <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
             <Box sx={{ flex: '1 1 auto' }} />

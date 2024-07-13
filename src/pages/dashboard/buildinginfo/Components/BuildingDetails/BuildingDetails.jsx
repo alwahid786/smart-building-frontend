@@ -6,13 +6,16 @@ import Suggestions from './components/Suggestions'
 import Sensor from './components/Sensor'
 import FinancialProjection from './components/FinancialProjection'
 import MediaConsumption from './components/MediaConsumption'
-import EnergyUtilitiesCard from './components/EnergyUtilitiesCard'
-import { Link } from 'react-router-dom'
+import EnergyUtilitiesCard from './components/EnergyUtilitiesCard' 
+import { Link, useParams } from 'react-router-dom'
 import EditLocationAltIcon from '@mui/icons-material/EditLocationAlt'
 const BuildingDetails = () => {
+
+  const {id} = useParams()
+
   return (
     <>
-      <Link to="/dashboard/updatebuilding">
+      <Link to={`/dashboard/updatebuilding/${id}`}>
         <Box sx={{ textAlign: 'end', marginY: '10px' }}>
           <Button
             variant="outlined"

@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react'
-import PropTypes from 'prop-types'
+import { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import {
   Box,
   Button,
@@ -10,15 +10,13 @@ import {
   Select,
   TextField,
   Typography,
-} from '@mui/material'
-import { useDispatch, useSelector } from 'react-redux'
-// import { setBuildingData } from '../../../../../redux/reducers/formReducer'
-import PhoneInput from 'react-phone-input-2'
-import 'react-phone-input-2/lib/style.css'
+} from '@mui/material';
+import { useParams } from 'react-router-dom';
+import { useGetSingleBuildingQuery } from '../../../../../../redux/api/buildingApi';
 
 const UpdateInfo = ({ handleNext }) => {
-  const dispatch = useDispatch()
-  const buildingData = useSelector((state) => state.form.buildingData)
+  const { id } = useParams();
+  const { data, error, isLoading } = useGetSingleBuildingQuery(id);
 
   const [formData, setFormData] = useState({
     buildingName: '',
@@ -31,39 +29,48 @@ const UpdateInfo = ({ handleNext }) => {
     constructionYear: '',
     writtenAddress: '',
     description: '',
-  })
+  });
 
   useEffect(() => {
-    setFormData(buildingData)
-  }, [buildingData])
+    if (data) {
+     
+      setFormData({
+        buildingName: data?.buildingName || '',
+        ownerName: data?.ownerName || '',
+        phoneNumber: data?.phoneNumber || '',
+        email: data?.email || '',
+        totalArea: data?.totalArea || '',
+        unitOfArea: data?.unitOfArea || '',
+        numberOfFloors: data?.numberOfFloors || '',
+        constructionYear: data?.constructionYear || '',
+        writtenAddress: data?.writtenAddress || '',
+        description: data?.description || '',
+      });
+    }
+  }, [data]);
+
+  useEffect(() => {}, [formData]);
 
   const handleInputChange = (e) => {
-    const { name, value } = e.target
+    const { name, value } = e.target;
     setFormData({
       ...formData,
       [name]: value,
-    })
-  }
+    });
+  };
 
   const handleUnitChange = (event) => {
     setFormData({
       ...formData,
       unitOfArea: event.target.value,
-    })
-  }
-
-  const handlePhoneChange = (value) => {
-    setFormData({
-      ...formData,
-      phoneNumber: value,
-    })
-  }
+    });
+  };
 
   const handleSubmit = async (e) => {
-    e.preventDefault()
+    e.preventDefault();
     // dispatch(setBuildingData(formData))
-    handleNext() // Proceed to the next step
-  }
+    handleNext(); // Proceed to the next step
+  };
 
   const handleCancel = () => {
     setFormData({
@@ -77,7 +84,15 @@ const UpdateInfo = ({ handleNext }) => {
       constructionYear: '',
       writtenAddress: '',
       description: '',
-    })
+    });
+  };
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>Error loading data</div>;
   }
 
   return (
@@ -104,8 +119,7 @@ const UpdateInfo = ({ handleNext }) => {
               type="text"
               name="buildingName"
               fullWidth
-              // required
-              value={formData.buildingName}
+              value={formData?.buildingName}
               onChange={handleInputChange}
             />
           </Grid>
@@ -117,24 +131,20 @@ const UpdateInfo = ({ handleNext }) => {
               name="ownerName"
               size="small"
               fullWidth
-              // required
-              value={formData.ownerName}
+              value={formData?.ownerName}
               onChange={handleInputChange}
             />
           </Grid>
 
           <Grid item md={4} sm={6} xs={12}>
-            <PhoneInput
-              country={'pk'}
+            <TextField
               label="Phone Number"
               type="tel"
               name="phoneNumber"
-              placeholder="Phone"
+              size="small"
               fullWidth
-              containerStyle={{ width: '100%' }}
-              inputStyle={{ width: '100%', height: '40px' }}
-              value={formData.phoneNumber}
-              onChange={handlePhoneChange}
+              value={formData?.phoneNumber}
+              onChange={handleInputChange}
             />
           </Grid>
 
@@ -145,8 +155,7 @@ const UpdateInfo = ({ handleNext }) => {
               name="email"
               size="small"
               fullWidth
-              // // required
-              value={formData.email}
+              value={formData?.email}
               onChange={handleInputChange}
             />
           </Grid>
@@ -158,8 +167,7 @@ const UpdateInfo = ({ handleNext }) => {
               name="totalArea"
               fullWidth
               size="small"
-              // // required
-              value={formData.totalArea}
+              value={formData?.totalArea}
               onChange={handleInputChange}
             />
           </Grid>
@@ -171,7 +179,7 @@ const UpdateInfo = ({ handleNext }) => {
                 labelId="unit-label"
                 name="unitOfArea"
                 label="Unit of Area (sq ft/m)"
-                value={formData.unitOfArea}
+                value={formData?.unitOfArea}
                 onChange={handleUnitChange}
               >
                 <MenuItem value="sq ft">Square Feet</MenuItem>
@@ -187,8 +195,7 @@ const UpdateInfo = ({ handleNext }) => {
               name="numberOfFloors"
               size="small"
               fullWidth
-              // required
-              value={formData.numberOfFloors}
+              value={formData?.numberOfFloors}
               onChange={handleInputChange}
             />
           </Grid>
@@ -199,8 +206,7 @@ const UpdateInfo = ({ handleNext }) => {
               name="constructionYear"
               size="small"
               fullWidth
-              // required
-              value={formData.constructionYear}
+              value={formData?.constructionYear}
               onChange={handleInputChange}
             />
           </Grid>
@@ -212,8 +218,7 @@ const UpdateInfo = ({ handleNext }) => {
               name="writtenAddress"
               size="small"
               fullWidth
-              // required
-              value={formData.writtenAddress}
+              value={formData?.writtenAddress}
               onChange={handleInputChange}
             />
           </Grid>
@@ -226,8 +231,7 @@ const UpdateInfo = ({ handleNext }) => {
               label="Description"
               type="text"
               name="description"
-              // required
-              value={formData.description}
+              value={formData?.description}
               onChange={handleInputChange}
             />
           </Grid>
@@ -274,11 +278,11 @@ const UpdateInfo = ({ handleNext }) => {
         </Box>
       </form>
     </Box>
-  )
-}
+  );
+};
 
 UpdateInfo.propTypes = {
   handleNext: PropTypes.func.isRequired,
-}
+};
 
-export default UpdateInfo
+export default UpdateInfo;
