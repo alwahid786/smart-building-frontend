@@ -1,3 +1,4 @@
+import React, { useEffect, useState } from 'react'
 import {
   Box,
   Card,
@@ -7,7 +8,6 @@ import {
   Dialog,
   IconButton,
 } from '@mui/material'
-import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import CardFavoriteIcon from '../../../../../../asset/svgs/CardFavoriteIcon'
 import Mail from '../../../../../../asset/svgs/buildingdetails/Mail'
@@ -22,7 +22,7 @@ import CloseIcon from '@mui/icons-material/Close'
 const BuildingCard = () => {
   const settings = {
     dots: true,
-    infinite: true,
+    infinite: false,
     speed: 500,
     autoplay: true,
     slidesToShow: 1,
@@ -39,7 +39,7 @@ const BuildingCard = () => {
           background: 'transparent',
         }}
       >
-        <ul style={{ margin: 0, padding: 0, display: 'flex' }}> {dots} </ul>
+        <ul style={{ margin: 0, padding: 0, display: 'flex' }}>{dots}</ul>
       </div>
     ),
     customPaging: () => (
@@ -56,13 +56,17 @@ const BuildingCard = () => {
 
   const { id } = useParams()
   const { data } = useGetSingleBuildingQuery(id)
-  const [image, setImage] = useState(null)
+  const [images, setImages] = useState([])
   const [isFavorite, setIsFavorite] = useState(false)
   const [isLoading, setIsLoading] = useState(true)
   const [open, setOpen] = useState(false)
 
   useEffect(() => {
-    setImage(data?.images || [])
+    if (data?.images && data.images.length > 0) {
+      setImages(data.images)
+    } else {
+      setImages([]) // Set empty array if no images
+    }
   }, [data])
 
   useEffect(() => {
@@ -103,13 +107,13 @@ const BuildingCard = () => {
         }}
       >
         <Slider {...settings}>
-          {image?.map((image, index) => (
+          {images.map((image, index) => (
             <div key={index}>
               <CardMedia
                 component="img"
                 height="170"
                 image={image}
-                alt="Featured Image"
+                alt={`Featured Image ${index}`}
                 onClick={handleOpen}
                 sx={{
                   width: '100%',
@@ -318,7 +322,7 @@ const BuildingCard = () => {
           }}
         >
           <Slider {...settings} style={{ width: '100%' }}>
-            {image?.map((img, index) => (
+            {images.map((img, index) => (
               <div key={index}>
                 <Box
                   component="img"

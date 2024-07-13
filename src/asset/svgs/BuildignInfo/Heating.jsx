@@ -17,13 +17,13 @@ const Heating = () => {
           height="38"
           rx="19"
           fill="#FF8932"
-          fill-opacity="0.4"
+          fillOpacity="0.4"
         />
         <path
           d="M23 13H19L16 22L10 4L7 13H3"
           stroke="#FF8932"
-          stroke-width="2"
-          stroke-linecap="round"
+          strokeWidth="2"
+          strokeLinecap="round"
           stroke-linejoin="round"
         />
       </g>

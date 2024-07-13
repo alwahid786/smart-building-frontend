@@ -12,14 +12,14 @@ const AddLg = () => {
       <path
         d="M49 4V94"
         stroke="#7B42F6"
-        stroke-width="8"
-        stroke-linecap="round"
+        strokeWidth="8"
+        strokeLinecap="round"
       />
       <path
         d="M4 49L94 49"
         stroke="#7B42F6"
-        stroke-width="8"
-        stroke-linecap="round"
+        strokeWidth="8"
+        strokeLinecap="round"
       />
     </svg>
   )
