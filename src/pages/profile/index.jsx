@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react'
 import {
   Box,
   TextField,
@@ -10,13 +11,13 @@ import {
   InputLabel,
   FormControl,
 } from '@mui/material'
-import { useEffect, useState } from 'react'
-import { profileSchema } from '../../schema'
 import { useFormik } from 'formik'
 import { Country, State, City } from 'country-state-city'
-import 'react-phone-input-2/lib/style.css'
-import { useGetUserDetailQuery } from '../../redux/api/buildingApi'
-// import { gridColumnsTotalWidthSelector } from '@mui/x-data-grid'
+import {
+  useGetUserDetailQuery,
+  useUpdateProfileMutation,
+} from '../../redux/api/buildingApi'
+import { profileSchema } from '../../schema'
 
 const ProfilePage = () => {
   const [imageSrc, setImageSrc] = useState(null)
@@ -24,28 +25,39 @@ const ProfilePage = () => {
   const [states, setStates] = useState([])
   const [cities, setCities] = useState([])
   const [selectedCountry, setSelectedCountry] = useState('')
-  const {data} =useGetUserDetailQuery()
+  const { data } = useGetUserDetailQuery()
+  const [updateProfile] = useUpdateProfileMutation()
 
-  console.log("Data", data)
+  const id = data?._id
+
+  useEffect(() => {
+    setCountries(Country.getAllCountries())
+    if (data) {
+      setFieldValue('firstname', data.firstName)
+      setFieldValue('lastname', data.lastName)
+      setFieldValue('email', data.email)
+      setFieldValue('address', data.address)
+      setFieldValue('contact', data.phoneNumber)
+      setFieldValue('country', data.country)
+      setFieldValue('state', data.state)
+      setFieldValue('city', data.city)
+      setImageSrc(data.profilePic)
+    }
+  }, [data])
 
   const handleCountryChange = async (countryCode) => {
-    // console.log(countryCode)
     const statesData = await State.getStatesOfCountry(countryCode)
     setStates(statesData)
     setCities([])
     setSelectedCountry(countryCode)
+    setFieldValue('country', countryCode)
   }
 
   const handleStateChange = async (stateCode) => {
     const citiesData = await City.getCitiesOfState(selectedCountry, stateCode)
-    // console.log(citiesData)
     setCities(citiesData)
-    setSelectedState(stateCode)
+    setFieldValue('state', stateCode)
   }
-  // useEffect for getting all countries when page loaded
-  useEffect(() => {
-    setCountries(Country.getAllCountries())
-  }, [])
 
   const handleImageUpload = (event) => {
     const file = event.target.files[0]
@@ -53,6 +65,7 @@ const ProfilePage = () => {
 
     reader.onloadend = () => {
       setImageSrc(reader.result)
+      setFieldValue('image', reader.result)
     }
 
     if (file) {
@@ -60,59 +73,67 @@ const ProfilePage = () => {
     }
   }
 
+  const formik = useFormik({
+    initialValues: {
+      firstname: '',
+      lastname: '',
+      email: '',
+      address: '',
+      contact: '',
+      country: '',
+      state: '',
+      city: '',
+      image: '',
+    },
+    validationSchema: profileSchema,
+    onSubmit: async (values, { resetForm }) => {
+      const formData = new FormData()
+      formData.append('firstName', values.firstname)
+      formData.append('lastName', values.lastname)
+      formData.append('email', values.email)
+      formData.append('address', values.address)
+      formData.append('phoneNumber', values.contact)
+      formData.append('country', values.country)
+      formData.append('state', values.state)
+      formData.append('city', values.city)
+      formData.append('image', values.image)
+
+      try {
+        const res = await updateProfile({ formData, id }).unwrap()
+        console.log('Update Response:', res)
+        resetForm()
+      } catch (error) {
+        console.error('Update Error:', error)
+      }
+    },
+  })
+
   const {
     values,
     errors,
     touched,
     handleBlur,
-    setFieldValue,
     handleChange,
     handleSubmit,
-  } = useFormik({
-    initialValues: {
-      firstname: data?.firstName,
-      lastname: data?.lastName,
-      email: data?.email,
-      address: data?.address,
-      contact: data?.phoneNumber,
-      country: data?.country,
-      state: data?.state,
-      city: data?.city,
-      password: '',
-    },
-    validationSchema: profileSchema,
-    onSubmit: (values, action) => {
-      console.log('values', values)
-      action.resetForm()
-    },
-  })
+    setFieldValue,
+  } = formik
 
   return (
-    // <Container>
     <Box
       sx={{
-        // padding: '40px 0',
-        borderRadius: '14px 14px 0 0 ',
+        borderRadius: '14px 14px 0 0',
         textAlign: 'center',
         background: 'white',
-        // width: '100%',
         display: 'flex',
         justifyContent: 'center',
         position: 'relative',
       }}
     >
-      {/* <Box sx={{ position: 'relative' }}> */}
       <Box
         sx={{
           position: 'absolute',
-          top: {
-            xs: '-20px',
-            md: '-50px',
-          },
-          right: {
-            xs: '60px',
-            md: '170px',
-          },
+          top: { xs: '-20px', md: '-50px' },
+          right: { xs: '60px', md: '170px' },
           transform: 'Translate(40px,0px)',
         }}
       >
@@ -126,22 +147,15 @@ const ProfilePage = () => {
         <label htmlFor="avatarInput">
           <Avatar
             alt="Uploaded Avatar"
-            src={data?.profilePic}
+            src={imageSrc}
             sx={{
-              width: {
-                xs: '60px',
-                md: '120px',
-              },
-              height: {
-                xs: '60px',
-                md: '120px',
-              },
+              width: { xs: '60px', md: '120px' },
+              height: { xs: '60px', md: '120px' },
               cursor: 'pointer',
               border: '4px solid white',
             }}
           />
         </label>
-        {/* </Box> */}
       </Box>
       <Box>
         <Box
@@ -157,10 +171,7 @@ const ProfilePage = () => {
             variant="h4"
             sx={{
               fontWeight: '600',
-              fontSize: {
-                xs: '20px',
-                md: '34px',
-              },
+              fontSize: { xs: '20px', md: '34px' },
               lineHeight: '51px',
             }}
           >
@@ -170,10 +181,7 @@ const ProfilePage = () => {
         <Box
           sx={{
             marginTop: '40px',
-            padding: {
-              xs: '20px 10px ',
-              md: '40px 0',
-            },
+            padding: { xs: '20px 10px', md: '40px 0' },
           }}
         >
           <form onSubmit={handleSubmit}>
@@ -181,7 +189,6 @@ const ProfilePage = () => {
               <Grid item xs={12} sm={6}>
                 <TextField
                   label="First Name"
-                  defaultValue=""
                   variant="outlined"
                   fullWidth
                   id="firstname"
@@ -196,7 +203,6 @@ const ProfilePage = () => {
               <Grid item xs={12} sm={6}>
                 <TextField
                   label="Last Name"
-                  defaultValue=""
                   variant="outlined"
                   fullWidth
                   id="lastname"
@@ -211,7 +217,6 @@ const ProfilePage = () => {
               <Grid item xs={12}>
                 <TextField
                   label="Email"
-                  defaultValue=""
                   variant="outlined"
                   fullWidth
                   id="email"
@@ -221,13 +226,12 @@ const ProfilePage = () => {
                   onBlur={handleBlur}
                   error={touched.email && Boolean(errors.email)}
                   helperText={touched.email && errors.email}
+                  readOnly
                 />
               </Grid>
-
               <Grid item xs={12}>
                 <TextField
                   label="Address"
-                  defaultValue=""
                   variant="outlined"
                   fullWidth
                   id="address"
@@ -242,7 +246,6 @@ const ProfilePage = () => {
               <Grid item xs={12}>
                 <TextField
                   label="Contact Number"
-                  defaultValue=""
                   variant="outlined"
                   fullWidth
                   id="contact"
@@ -259,12 +262,11 @@ const ProfilePage = () => {
                   <InputLabel id="country-label">Country</InputLabel>
                   <Select
                     labelId="country-label"
-                    // placeholder="Country"
                     label="country"
                     value={values.country}
                     onChange={(e) => {
                       handleChange(e)
-                      handleCountryChange(e.target.value, setFieldValue)
+                      handleCountryChange(e.target.value)
                     }}
                     onBlur={handleBlur}
                     name="country"
@@ -285,7 +287,6 @@ const ProfilePage = () => {
                   </Select>
                 </FormControl>
               </Grid>
-
               <Grid item xs={12} sm={6}>
                 <FormControl fullWidth>
                   <InputLabel id="state-label">State</InputLabel>
@@ -300,7 +301,7 @@ const ProfilePage = () => {
                     value={values.state}
                     onChange={(e) => {
                       handleChange(e)
-                      handleStateChange(e.target.value, setFieldValue)
+                      handleStateChange(e.target.value)
                     }}
                     onBlur={handleBlur}
                     error={touched.state && Boolean(errors.state)}
@@ -310,21 +311,19 @@ const ProfilePage = () => {
                     <MenuItem value="">
                       <em>Select State</em>
                     </MenuItem>
-                    {states.map((states) => (
-                      <MenuItem key={states.isoCode} value={states.isoCode}>
-                        {states.name}
+                    {states.map((state) => (
+                      <MenuItem key={state.isoCode} value={state.isoCode}>
+                        {state.name}
                       </MenuItem>
                     ))}
                   </Select>
                 </FormControl>
               </Grid>
-
               <Grid item xs={12} sm={6}>
                 <FormControl fullWidth>
-                  <InputLabel id="city">City</InputLabel>
-
+                  <InputLabel id="city-label">City</InputLabel>
                   <Select
-                    labelId="city"
+                    labelId="city-label"
                     label="City"
                     defaultValue=""
                     variant="outlined"
@@ -332,9 +331,8 @@ const ProfilePage = () => {
                     name="city"
                     value={values.city}
                     onChange={(e) => {
-                      // handleChange(e)
                       handleChange(e)
-                      setSelectedCity(e.target.value, setFieldValue)
+                      setFieldValue('city', e.target.value)
                     }}
                     onBlur={handleBlur}
                     error={touched.city && Boolean(errors.city)}
@@ -352,31 +350,12 @@ const ProfilePage = () => {
                   </Select>
                 </FormControl>
               </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  label="Password"
-                  type="password"
-                  defaultValue=""
-                  variant="outlined"
-                  fullWidth
-                  id="password"
-                  name="password"
-                  value={values.password}
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  error={touched.password && Boolean(errors.password)}
-                  helperText={touched.password && errors.password}
-                />
-              </Grid>
               <Grid
                 item
                 xs={12}
                 sx={{
                   display: 'flex',
-                  flexDirection: {
-                    xs: 'column',
-                    md: 'row',
-                  },
+                  flexDirection: { xs: 'column', md: 'row' },
                   justifyContent: 'center',
                   gap: 2,
                 }}
@@ -386,7 +365,6 @@ const ProfilePage = () => {
                   variant="contained"
                   sx={{
                     padding: '8px 100px',
-
                     color: '#fff',
                     background:
                       'linear-gradient(93.36deg, #7B42F6 0%, #B01EFF 100%)',
@@ -395,11 +373,10 @@ const ProfilePage = () => {
                       background:
                         'linear-gradient(93.36deg, #7B42F6 0%, #B01EFF 100%)',
                       border: '2px solid rgba(123, 66, 246, 1)',
-                      borderColor: 'rgba(123, 66, 246, 1)',
                     },
                   }}
                 >
-                  Save
+                  Update Profile
                 </Button>
                 <Button
                   variant="outlined"
@@ -409,9 +386,7 @@ const ProfilePage = () => {
                     border: '2px solid rgba(123, 66, 246, 1)',
                     '&:hover': {
                       background: 'inherit',
-                      // color: 'white',
                       border: '2px solid rgba(123, 66, 246, 1)',
-                      borderColor: 'rgba(123, 66, 246, 1)',
                     },
                   }}
                 >
@@ -423,7 +398,6 @@ const ProfilePage = () => {
         </Box>
       </Box>
     </Box>
-    // </Container>
   )
 }
 

@@ -57,6 +57,8 @@ export const buildingApiPoint= createApi({
                 method: "GET",
             })
         }),
+
+        // user profile
         getUserDetail: builder.query({
 
             query: ()=> ({
@@ -65,8 +67,20 @@ export const buildingApiPoint= createApi({
                 method: "GET"
             })
         }),
+
+        // user update profile
+        updateProfile: builder.mutation({
+
+            query: ({id, formData})=> ({
+
+                url: `/api/user/update-user/${id}`, 
+                method: "PUT",
+                body: formData
+            })
+        })
+
         
     })
 })
 
-export const {useAddBuildingMutation, useAddBuildingImageMutation, useGetBuildingQuery, useGetSingleBuildingQuery, useAddBuildingFloorMutation, useGetUserDetailQuery} = buildingApiPoint;
+export const {useAddBuildingMutation, useAddBuildingImageMutation, useGetBuildingQuery, useGetSingleBuildingQuery, useAddBuildingFloorMutation, useGetUserDetailQuery, useUpdateProfileMutation} = buildingApiPoint;

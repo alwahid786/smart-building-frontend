@@ -27,26 +27,14 @@ const Header = () => {
   const [logoutUser] = useLogoutUserMutation()
 
   const open = Boolean(anchorEl)
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget)
-  }
-  const handleClose = async() => {
-    setAnchorEl(null)
-
-    const res = await logoutUser();
-
-    if (res.data.success=== true) {
-
-      navigate(`/login`)
-    }
-  }
+  const handleClick = (event) => {setAnchorEl(event.currentTarget)}
+  const handleClose = async() => {setAnchorEl(null)}
  
-  const profilePage = () => {
+  const profilePage = () => {navigate(`profile`)}
 
-
-    navigate(`profile`)
-    // setAnchorEl(null)
-    // handleClose()
+  const handleLogout = async () => {
+    const res = await logoutUser()
+    if (res.data.success === true) {navigate(`/login`)}
   }
 
   const [openNav, setOpenNav] = useState(false)
@@ -175,7 +163,7 @@ const Header = () => {
               My Profile
             </MenuItem>
             <MenuItem
-              onClick={handleClose}
+              onClick={handleLogout}
               sx={{ fontSize: '14px', fontWeight: '500' }}
             >
               Sign out
