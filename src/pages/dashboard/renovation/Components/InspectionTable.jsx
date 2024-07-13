@@ -1,20 +1,19 @@
-import React, { useState, useEffect } from 'react'
 import {
-  Grid,
-  Typography,
   Box,
-  Stack,
-  Divider,
-  styled,
-  CardMedia,
   Card,
-  useTheme,
+  CardMedia,
+  Divider,
+  Grid,
+  Stack,
+  styled,
+  Typography,
   useMediaQuery,
+  useTheme,
 } from '@mui/material'
-import ReportIcon from './../../../../asset/svgs/ReportIcon'
+import React, { useEffect, useState } from 'react'
+import { useDispatch } from 'react-redux'
 import Rectangle from '../../../../asset/Images/renovation/Rectangle.png'
-import { InspectionTableSkeleton } from '../../../../components/Skeleton'
-import { useDispatch, useSelector } from 'react-redux'
+import ReportIcon from './../../../../asset/svgs/ReportIcon'
 const rows = [
   {
     image: Rectangle,
@@ -71,9 +70,7 @@ const InspectionTable = () => {
   }, [])
   return (
     <>
-      {isLoading ? (
-        <InspectionTableSkeleton isMobile={isMobile} />
-      ) : (
+      
         <Card variant="outlined" sx={{ p: 0 }}>
           <Stack
             direction="row"
@@ -235,7 +232,7 @@ const InspectionTable = () => {
             </Grid>
           ))}
         </Card>
-      )}
+     
     </>
   )
 }
