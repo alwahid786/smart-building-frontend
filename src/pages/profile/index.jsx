@@ -18,6 +18,7 @@ import {
   useUpdateProfileMutation,
 } from '../../redux/api/buildingApi'
 import { profileSchema } from '../../schema'
+import { toast } from 'react-toastify'
 
 const ProfilePage = () => {
   const [imageSrc, setImageSrc] = useState(null)
@@ -99,11 +100,14 @@ const ProfilePage = () => {
       formData.append('image', values.image)
 
       try {
+
         const res = await updateProfile({ formData, id }).unwrap()
-        console.log('Update Response:', res)
+
+        if (res) {toast.success('Profile Updated Successfully')}
         resetForm()
       } catch (error) {
-        console.error('Update Error:', error)
+
+        toast.error('Update Error:', error)
       }
     },
   })

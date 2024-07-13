@@ -16,6 +16,7 @@ import { useNavigate } from 'react-router-dom'
 import KeyboardArrowDownRoundedIcon from '@mui/icons-material/KeyboardArrowDownRounded'
 import { useLogoutUserMutation} from '../../../redux/api/authApi'
 import { useGetUserDetailQuery } from '../../../redux/api/buildingApi'
+import { toast } from 'react-toastify'
 
 const Header = () => {
 
@@ -34,7 +35,16 @@ const Header = () => {
 
   const handleLogout = async () => {
     const res = await logoutUser()
-    if (res.data.success === true) {navigate(`/login`)}
+
+    if (res.data.success === true) {
+      
+      toast.success(res.data.message)
+      
+      navigate(`/login`) 
+    } else {
+      navigate(`/login`) 
+      toast.error(res.data.message)
+    }
   }
 
   const [openNav, setOpenNav] = useState(false)

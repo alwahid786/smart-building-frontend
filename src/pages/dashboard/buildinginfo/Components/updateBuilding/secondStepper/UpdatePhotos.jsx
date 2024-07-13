@@ -8,15 +8,13 @@ import {
 } from '@mui/material'
 import { useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
-import { useAddBuildingMutation } from '../../../../../../redux/api/buildingApi'
 import { useDispatch, useSelector } from 'react-redux'
 import {
   selectBuildingData,
-  setBuildingId,
   selectSelectedFiles,
   setSelectedFiles,
 } from '../../../../../../redux/reducers/formReducer'
-import { ToastContainer, toast } from 'react-toastify'
+import { ToastContainer} from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import DialoguePermission from '../../../../../../components/DialoguePermission'
 import SinglePhoto from './SinglePhoto'
@@ -31,11 +29,9 @@ const UpdatePhotos = ({ handleNext, handleBack }) => {
   }
 
   const [loading, setLoading] = useState(false) // State to manage loading
-  const [addBuilding] = useAddBuildingMutation()
   const buildingData = useSelector(selectBuildingData)
   const selectedFiles = useSelector(selectSelectedFiles)
   const dispatch = useDispatch()
-  const [buildingDetails, setBuildingDetails] = useState()
 
   useEffect(() => {
     setBuildingDetails(buildingData)
@@ -77,38 +73,7 @@ const UpdatePhotos = ({ handleNext, handleBack }) => {
     event.preventDefault()
     setLoading(true) // Set loading to true when submission starts
 
-    try {
-      // Create a FormData object
-      const formData = new FormData()
-
-      // Append building details as a JSON string
-      formData.append('buildingDetails', JSON.stringify(buildingDetails))
-
-      // Append each selected file to the FormData
-      selectedFiles.forEach((file) => {
-        formData.append('images', file, file.name)
-      })
-
-      // Use the mutation to send the FormData to the backend
-      const res = await addBuilding(formData).unwrap()
-
-      // Show success notification
-      toast.success(`${res.message}`)
-
-      // Dispatch the building ID to the Redux store
-      dispatch(setBuildingId(res.building._id)) // Assuming the response contains a buildingId
-
-      setTimeout(() => {
-        handleNext()
-      }, 300)
-    } catch (error) {
-      console.error('Failed to upload images and building data:', error) // Log error message to console
-
-      // Show error notification
-      toast.error('Failed to create building. Please try again.')
-    } finally {
-      setLoading(false) // Set loading to false when submission ends
-    }
+    handleNext()
   }
 
   return (

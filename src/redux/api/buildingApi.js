@@ -58,6 +58,16 @@ export const buildingApiPoint= createApi({
             })
         }),
 
+        updateBuilding: builder.mutation({
+
+            query: ({id, data})=> ({
+
+                url: `/api/update-building/${id}`, 
+                method: "PUT",
+                body: data
+            })
+        }),
+
         // user profile
         getUserDetail: builder.query({
 
@@ -83,4 +93,4 @@ export const buildingApiPoint= createApi({
     })
 })
 
-export const {useAddBuildingMutation, useAddBuildingImageMutation, useGetBuildingQuery, useGetSingleBuildingQuery, useAddBuildingFloorMutation, useGetUserDetailQuery, useUpdateProfileMutation} = buildingApiPoint;
+export const {useAddBuildingMutation, useAddBuildingImageMutation, useGetBuildingQuery, useGetSingleBuildingQuery, useAddBuildingFloorMutation, useGetUserDetailQuery, useUpdateProfileMutation, useUpdateBuildingMutation} = buildingApiPoint;

@@ -12,11 +12,13 @@ import {
   Typography,
 } from '@mui/material';
 import { useParams } from 'react-router-dom';
-import { useGetSingleBuildingQuery } from '../../../../../../redux/api/buildingApi';
+import { useGetSingleBuildingQuery, useUpdateBuildingMutation } from '../../../../../../redux/api/buildingApi';
+import { toast } from 'react-toastify';
 
 const UpdateInfo = ({ handleNext }) => {
   const { id } = useParams();
   const { data, error, isLoading } = useGetSingleBuildingQuery(id);
+  const [ updateBuilding ] =useUpdateBuildingMutation()
 
   const [formData, setFormData] = useState({
     buildingName: '',
@@ -68,8 +70,24 @@ const UpdateInfo = ({ handleNext }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // dispatch(setBuildingData(formData))
-    handleNext(); // Proceed to the next step
+
+   try {
+
+    const { buildingName, ownerName, phoneNumber, email, totalArea, unitOfArea, numberOfFloors, constructionYear, writtenAddress, description } = formData;
+    const data = { buildingName, ownerName, phoneNumber, email, totalArea, unitOfArea, numberOfFloors, constructionYear, writtenAddress, description };
+    const res = await updateBuilding({ id, data });
+
+    if (res) {
+
+        toast.success('Building Info Updated Successfully')
+        setTimeout(() => {handleNext()}, 3000);
+    }
+
+   } catch (error) {
+    
+      toast.error(error.data.message)
+   }
+    
   };
 
   const handleCancel = () => {
