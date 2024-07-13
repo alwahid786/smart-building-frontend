@@ -16,7 +16,7 @@ const AddIcon = () => {
         height="27"
         rx="7.5"
         fill="#7B42F6"
-        fill-opacity="0.1"
+        fillOpacity="0.1"
       />
       <rect x="0.5" y="0.5" width="27" height="27" rx="7.5" stroke="#7B42F6" />
       <path

@@ -17,7 +17,7 @@ const BackFilter = () => {
         height="27"
         rx="7.5"
         fill="#3F68CB"
-        fill-opacity="0.1"
+        fillOpacity="0.1"
       />
       <rect x="0.5" y="0.5" width="29" height="27" rx="7.5" stroke="#3F68CB" />
       <path

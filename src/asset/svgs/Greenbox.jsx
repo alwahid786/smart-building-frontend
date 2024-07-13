@@ -18,13 +18,13 @@ const Greenbox = () => {
           height="18"
           rx="9"
           stroke="#259B59"
-          stroke-width="0.4"
+          strokeWidth="0.4"
         />
         <path
           d="M4.00367 10.8008L5.78752 13.3726C6.12762 13.863 6.8187 13.9482 7.26776 13.5552L14.7585 7"
           stroke="#FBFBFB"
-          stroke-width="2"
-          stroke-linecap="round"
+          strokeWidth="2"
+          strokeLinecap="round"
         />
       </svg>
     </>

@@ -24,7 +24,7 @@ const Filter = () => {
         height="27"
         rx="7.5"
         fill="#3F68CB"
-        fill-opacity="0.1"
+        fillOpacity="0.1"
       />
       <rect
         x="0.500122"
