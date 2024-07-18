@@ -6,7 +6,9 @@ import OrangeBox from '../../../../../asset/svgs/OrangeBox'
 import { Box, Typography, styled } from '@mui/material'
 import { BuildingInfoSkeleton } from '../../../../../components/Skeleton'
 import { useDispatch, useSelector } from 'react-redux'
+// import BuildingIcon from '../../../../asset/svgs/BuildingIcon'
 
+import BuildingIcon from '../../../../../asset/svgs/BuildingIcon'
 const BuildingStatus = () => {
   const dispatch = useDispatch()
   const [isLoading, setIsLoading] = useState(true)
@@ -41,7 +43,7 @@ const BuildingStatus = () => {
               fontSize: { xs: '16px', sm: '10px', md: '12px', lg: '16px' },
             }}
           >
-            You have <strong>13</strong> buildings:
+            <BuildingIcon /> Total Number Of Yours Buildings:<strong>13</strong>
           </Typography>
           <Box
             sx={{
