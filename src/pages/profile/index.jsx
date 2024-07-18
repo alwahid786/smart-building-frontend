@@ -29,6 +29,8 @@ const ProfilePage = () => {
   const { data } = useGetUserDetailQuery()
   const [updateProfile] = useUpdateProfileMutation()
 
+  console.log(data)
+
   const id = data?._id
 
   useEffect(() => {
