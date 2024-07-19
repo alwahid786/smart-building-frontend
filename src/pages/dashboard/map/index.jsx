@@ -1,146 +1,128 @@
-import { useState, useEffect, useRef } from "react";
-import Box from "@mui/material/Box";
-import { useTheme } from "@mui/material/styles";
-import useMediaQuery from "@mui/material/useMediaQuery";
-import MapComponent from "./Components/MapComponent ";
+/* eslint-disable react/prop-types */
+import Box from '@mui/material/Box'
+import { useEffect, useState } from 'react'
+import 'leaflet/dist/leaflet.css'
+import { MapContainer, Marker, Popup, TileLayer, useMap } from 'react-leaflet'
+import CardContent from '@mui/material/CardContent'
+import CardMedia from '@mui/material/CardMedia'
+import { Typography } from '@mui/material'
 
 const Index = () => {
-  const blueShade = "#0080ff";
-  let initial = {
-    latitude: 29.2985,
-    longitude: 42.551,
-    zoom: 6,
-    pitch: 0,
-    antialias: true,
-  };
-  const [layerColor, setLayerColor] = useState(blueShade);
-  const [count, setCount] = useState(100);
-  const [newPlace, setNewPlace] = useState(null);
-  const [polygonCord, setPolygonCord] = useState([]);
-  let area = 250;
-  const [viewport, setViewport] = useState(initial);
+  const [position, setPosition] = useState([51.505, -0.09])
 
-  const mapRef = useRef();
+  const RecenterMap = ({ position }) => {
+    const map = useMap()
+    useEffect(() => {
+      map.flyTo(position, map.getZoom(), {
+        animate: true,
+        duration: 1.5,
+      })
+    }, [map, position])
 
-  // ** Hooks
-  const theme = useTheme();
-  const lgAbove = useMediaQuery(theme.breakpoints.up("lg"));
-
-  // useEffect(() => {
-  //   navigator.geolocation.getCurrentPosition(
-  //     position => {
-  //       setViewport({
-  //         ...viewport,
-  //         latitude: position.coords.latitude,
-  //         longitude: position.coords.longitude
-  //       });
-  //     },
-  //     error => {
-  //       console.error("Error obtaining location", error);
-  //     }
-  //   );
-  // }, []);
-
-  function getLayerCord(bearing, initial_position) {
-    const bearing_rad = (bearing * Math.PI) / 180;
-
-    const distance = 5;
-    const EARTH_RADIUS = 6378.137;
-    const init_lat = (initial_position.latitude * Math.PI) / 180;
-    const init_lon = (initial_position.longitude * Math.PI) / 180;
-
-    const final_lat =
-      (180 / Math.PI) *
-      Math.asin(
-        Math.sin(init_lat) * Math.cos(distance / EARTH_RADIUS) +
-          Math.cos(init_lat) *
-            Math.sin(distance / EARTH_RADIUS) *
-            Math.cos(bearing_rad)
-      );
-
-    const final_lon =
-      (180 / Math.PI) *
-      (init_lon +
-        Math.atan2(
-          Math.sin(bearing_rad) *
-            Math.sin(distance / EARTH_RADIUS) *
-            Math.cos(init_lat),
-          Math.cos(distance / EARTH_RADIUS) -
-            Math.sin(init_lat) * Math.sin(final_lat)
-        ));
-
-    let finalCord = [];
-    finalCord = [...finalCord, final_lon, final_lat];
-    return finalCord;
+    return null
   }
-
-  function getAllCordinates() {
-    const initial_position = {
-      latitude: newPlace?.lat,
-      longitude: newPlace?.lng,
-    };
-
-    let oneC = getLayerCord(45, initial_position);
-    let twoC = getLayerCord(135, initial_position);
-    let threeC = getLayerCord(225, initial_position);
-    let fourC = getLayerCord(315, initial_position);
-    setPolygonCord([oneC, twoC, threeC, fourC]);
-  }
-
-  useEffect(() => {
-    if (newPlace) {
-      getAllCordinates(area);
-    }
-  }, [newPlace]);
-
-  function clearAll() {
-    setNewPlace(null);
-    setPolygonCord([]);
-    setViewport(initial);
-    setLayerColor(blueShade);
-  }
-
-  console.log("polygonCord", polygonCord);
 
   return (
     <>
       <Box
         sx={{
-          display: "flex",
+          display: 'flex',
           borderRadius: 1,
-          overflow: "hidden",
-          position: "relative",
+          overflow: 'hidden',
+          position: 'relative',
           boxShadow: 6,
-          width: "100%",
-          height: "100vh",
+          width: '100%',
+          height: '100vh',
           marginTop: 1,
-          border: `1px solid ${theme.palette.divider}`,
         }}
       >
-        <Box
-          sx={{
-            width: "100%",
-            overflow: "hidden",
-            position: "relative",
-            "& .ps__rail-y": { zIndex: 5 },
+        <MapContainer
+          center={position}
+          zoom={8}
+          scrollWheelZoom={false}
+          style={{
+            height: '100vh',
+            width: '100%',
+            borderRadius: '10px',
+            border: '0.4px solid black',
+            marginTop: '30px',
           }}
         >
-          <Box sx={{ width: "100%", height: "100%", zIndex: 999 }}>
-            <MapComponent
-              mapRef={mapRef}
-              count={count}
-              layerColor={layerColor}
-              polygonCord={polygonCord}
-              setNewPlace={setNewPlace}
-              newPlace={newPlace}
-              viewport={viewport}
-              setViewport={setViewport}
-            />
-          </Box>
-        </Box>
+          <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
+          <Marker position={position}>
+            <Popup>
+              <Box>
+                <CardMedia
+                  sx={{ height: 100, minWidth: '250px', borderRadius: '10px' }}
+                  image="https://plus.unsplash.com/premium_photo-1661852207925-4f1d03556a2e?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8bGFyZ2UlMjBmb3JtYXR8ZW58MHx8MHx8fDA%3D"
+                />
+                <CardContent sx={{ padding: '10px !important' }}>
+                  <Typography
+                    variant="h6"
+                    sx={{
+                      fontSize: '18px',
+                      lineHeight: '24.51px',
+                      fontWeight: '600',
+                      color: '#414141',
+                    }}
+                  >
+                    Name
+                  </Typography>
+                  <Typography
+                    variant="subtitle1"
+                    sx={{
+                      fontSize: '14px',
+                      lineHeight: '19.07px',
+                      fontWeight: '400',
+                      color: '#11111180',
+                    }}
+                  >
+                    Description
+                  </Typography>
+                  <Typography
+                    variant="subtitle1"
+                    sx={{
+                      fontSize: '14px',
+                      lineHeight: '19.07px',
+                      fontWeight: '600',
+                      color: '#000000',
+                    }}
+                  >
+                    Area: <span style={{ fontWeight: '500' }}>area</span>
+                  </Typography>
+                  <Typography
+                    variant="subtitle1"
+                    sx={{
+                      fontSize: '14px',
+                      lineHeight: '19.07px',
+                      fontWeight: '600',
+                      color: '#000000',
+                    }}
+                  >
+                    No. of floor:
+                    <span style={{ fontWeight: '500' }}> Floor?</span>
+                  </Typography>
+                  <Typography
+                    variant="subtitle1"
+                    sx={{
+                      fontSize: '14px',
+                      lineHeight: '19.07px',
+                      fontWeight: '600',
+                      color: '#000000',
+                    }}
+                  >
+                    Owner Name:{' '}
+                    <span style={{ fontWeight: '500' }}> ownerName?</span>
+                  </Typography>
+                </CardContent>
+              </Box>
+            </Popup>
+          </Marker>
+          <RecenterMap position={position} />
+        </MapContainer>
       </Box>
     </>
-  );
-};
+  )
+}
 
-export default Index;
+export default Index

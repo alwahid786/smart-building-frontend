@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { Box, Button, Typography, styled } from '@mui/material'
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
@@ -10,7 +11,7 @@ import YellowBox from '../../../../asset/svgs/YellowBox'
 import { BuildingStatusSkeleton } from '../../../../components/Skeleton'
 import BuildingIcon from '../../../../asset/svgs/BuildingIcon'
 
-const BuildingStatus = () => {
+const BuildingStatus = ({ buildingLength }) => {
   const navigate = useNavigate()
   // const { isLoading } = useSelector((state) => state.loading)
   const [isLoading, setIsLoading] = useState(true)
@@ -60,7 +61,7 @@ const BuildingStatus = () => {
                 fontSize: { xs: '16px', sm: '10px', md: '12px', lg: '16px' },
               }}
             >
-              Total Number Of Yours Buildings: 20
+              Total Number Of Yours Buildings: {buildingLength}
             </Typography>
           </StatusBox>
           <StatusBox>

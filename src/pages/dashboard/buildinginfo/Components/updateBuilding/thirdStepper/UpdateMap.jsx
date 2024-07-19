@@ -102,7 +102,6 @@ const UpdateMap = ({ handleBack, handleNext }) => {
                 <CardMedia
                   sx={{ height: 100, minWidth: '250px', borderRadius: '10px' }}
                   image="https://plus.unsplash.com/premium_photo-1661852207925-4f1d03556a2e?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8bGFyZ2UlMjBmb3JtYXR8ZW58MHx8MHx8fDA%3D"
-                  title="green iguana"
                 />
                 <CardContent sx={{ padding: '10px !important' }}>
                   <Typography

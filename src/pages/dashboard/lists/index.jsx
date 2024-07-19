@@ -14,6 +14,9 @@ const List = () => {
   // API call using useGetBuildingQuery hook
   const { data: buildingData, error, isLoading } = useGetBuildingQuery()
 
+  const buildingLength = buildingData?.length
+  console.log(buildingLength)
+
   // Handle scrolling
   const handleScroll = () => {
     if (scrollContainerRef.current) {
@@ -53,7 +56,7 @@ const List = () => {
               padding: '5px 20px',
             }}
           >
-            <BuildingStatus />
+            <BuildingStatus buildingLength={buildingLength} />
           </Box>
         </Box>
       )}
@@ -127,29 +130,33 @@ const List = () => {
             <AddCard />
           ) : (
             <Grid container spacing={2}>
-            {buildingData.map((building) => (
-              <Grid
-                item
-                xs={12}
-                sm={6}
-                md={6}
-                lg={4}
-                xl={3}
-                key={building.id}
-              >
-                <Link to={`/dashboard/building-info/${building._id}`}>
-                  <ListCard
-                    imageUrl={building.images.length > 0 ? building.images[0] : 'https://images.unsplash.com/photo-1580927752452-89d86da3fa0a?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'}
-                    subtitle={building.ownerName}
-                    status={'status'}
-                    title={building.buildingName}
-                    tags={String(building.totalArea)}
-                    actionText={'See Details'}
-                  />
-                </Link>
-              </Grid>
-            ))}
-          </Grid>
+              {buildingData.map((building) => (
+                <Grid
+                  item
+                  xs={12}
+                  sm={6}
+                  md={6}
+                  lg={4}
+                  xl={3}
+                  key={building.id}
+                >
+                  <Link to={`/dashboard/building-info/${building._id}`}>
+                    <ListCard
+                      imageUrl={
+                        building.images.length > 0
+                          ? building.images[0]
+                          : 'https://images.unsplash.com/photo-1580927752452-89d86da3fa0a?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
+                      }
+                      subtitle={building.ownerName}
+                      status={'status'}
+                      title={building.buildingName}
+                      tags={String(building.totalArea)}
+                      actionText={'See Details'}
+                    />
+                  </Link>
+                </Grid>
+              ))}
+            </Grid>
           )}
         </Box>
       </Box>

@@ -14,7 +14,7 @@ import {
   selectSelectedFiles,
   setSelectedFiles,
 } from '../../../../../../redux/reducers/formReducer'
-import { ToastContainer} from 'react-toastify'
+import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import DialoguePermission from '../../../../../../components/DialoguePermission'
 import SinglePhoto from './SinglePhoto'
@@ -202,12 +202,12 @@ const UpdatePhotos = ({ handleNext, handleBack }) => {
             },
           }}
           variant="contained"
-          disabled={loading} // Disable button when loading
+          disabled={loading}
         >
           Next
         </Button>
         <DialoguePermission
-          message="Are you sure you want to delete this image?"
+          // message="Are you sure you want to delete this image?"
           dialogueOpen={dialogueOpen}
           handleYes={handleYes}
           handleNo={handleNo}

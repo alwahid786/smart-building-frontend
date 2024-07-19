@@ -6,17 +6,71 @@ import Suggestions from './components/Suggestions'
 import Sensor from './components/Sensor'
 import FinancialProjection from './components/FinancialProjection'
 import MediaConsumption from './components/MediaConsumption'
-import EnergyUtilitiesCard from './components/EnergyUtilitiesCard' 
+import EnergyUtilitiesCard from './components/EnergyUtilitiesCard'
 import { Link, useParams } from 'react-router-dom'
 import EditLocationAltIcon from '@mui/icons-material/EditLocationAlt'
-const BuildingDetails = () => {
+import DeleteSharpIcon from '@mui/icons-material/DeleteSharp'
+import { useState } from 'react'
+import {
+  DeleteBuildingDialogue,
+  VerifyDeleteBuilding,
+} from '../../../../../components/DeleteBuildingDialogue'
 
-  const {id} = useParams()
+const BuildingDetails = () => {
+  const { id } = useParams()
+  const [dialogueOpen, setDialogueOpen] = useState(false)
+  const handleNo = () => {
+    setDialogueOpen(false)
+  }
+  const handleYes = () => {
+    setDialogueOpen(false)
+    setConfirmDialogueOpen(true)
+  }
+  const confirmation = () => {
+    setDialogueOpen(true)
+  }
+
+  // Verify Deletion
+  const [confirmDialogueOpen, setConfirmDialogueOpen] = useState(false)
+  const handleCancel = () => {
+    setConfirmDialogueOpen(false)
+  }
 
   return (
     <>
-      <Link to={`/dashboard/updatebuilding/${id}`}>
-        <Box sx={{ textAlign: 'end', marginY: '10px' }}>
+      <DeleteBuildingDialogue
+        message="Are you sure you want to delete this Building?"
+        dialogueOpen={dialogueOpen}
+        handleYes={handleYes}
+        handleNo={handleNo}
+      />
+
+      <VerifyDeleteBuilding
+        confirmDialogueOpen={confirmDialogueOpen}
+        handleCancel={handleCancel}
+      />
+
+      <Box sx={{ display: 'flex', justifyContent: 'end', gap: '5px' }}>
+        <Button
+          variant="contained"
+          startIcon={<DeleteSharpIcon />}
+          onClick={confirmation}
+          sx={{
+            color: 'white',
+            textTransform: 'none',
+            fontSize: '14px',
+            background: 'red',
+
+            '&:hover': {
+              background: 'white',
+              border: '1px solid red',
+              color: 'red',
+            },
+          }}
+        >
+          Delete Building
+        </Button>
+        <Link to={`/dashboard/updatebuilding/${id}`}>
           <Button
             variant="outlined"
             startIcon={<EditLocationAltIcon />}
@@ -34,8 +88,9 @@ const BuildingDetails = () => {
           >
             Update Building
           </Button>
-        </Box>
-      </Link>
+        </Link>
+      </Box>
+
       <Grid container spacing={2}>
         <Grid item xs={12} lg={4}>
           <BuildingCard />

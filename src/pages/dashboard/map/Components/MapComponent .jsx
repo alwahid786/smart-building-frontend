@@ -1,16 +1,16 @@
-import { useState } from "react";
-import { Box, styled } from "@mui/material";
+import { useState } from 'react'
+import { Box, styled } from '@mui/material'
 import ReactMapGL, {
   NavigationControl,
   GeolocateControl,
   FullscreenControl,
-} from "react-map-gl";
+} from 'react-map-gl'
 // import PropTypes from "prop-types";
-import MapMarkers from "./MapMarkers";
-import FilterButton from "./FilterButton";
+import MapMarkers from './MapMarkers'
+import FilterButton from './FilterButton'
 
-const TOKEN = import.meta.env.VITE_REACT_APP_MAP_TOKEN;
-console.log("Token", TOKEN);
+const TOKEN = import.meta.env.VITE_REACT_APP_MAP_TOKEN
+console.log('Token', TOKEN)
 const MapComponent = ({
   mapRef,
   newPlace,
@@ -18,7 +18,7 @@ const MapComponent = ({
   viewport,
   setViewport,
 }) => {
-  const [hoveredMarker, setHoveredMarker] = useState(null);
+  const [hoveredMarker, setHoveredMarker] = useState(null)
 
   const predefinedCoordinates = () => {
     return [
@@ -26,15 +26,15 @@ const MapComponent = ({
       { id: 1, longitude: -95, latitude: 45 },
       { id: 2, longitude: -90, latitude: 50 },
       { id: 3, longitude: -85, latitude: 55 },
-    ];
-  };
-  const markersArray = predefinedCoordinates();
+    ]
+  }
+  const markersArray = predefinedCoordinates()
   const handleAddClick = (e) => {
-    setNewPlace({ lat: e.lngLat.lat, lng: e.lngLat.lng });
-  };
+    setNewPlace({ lat: e.lngLat.lat, lng: e.lngLat.lng })
+  }
 
   return (
-    <Box style={{ height: "100vh", width: "100%" }}>
+    <Box style={{ height: '100vh', width: '100%' }}>
       <ReactMapGL
         ref={mapRef}
         mapboxAccessToken={TOKEN}
@@ -60,8 +60,8 @@ const MapComponent = ({
       </ReactMapGL>
       <FilterButton />
     </Box>
-  );
-};
+  )
+}
 
 // MapComponent.propTypes = {
 //   mapRef: PropTypes.object.isRequired,
@@ -74,4 +74,4 @@ const MapComponent = ({
 //   newPlace: null,
 // };
 
-export default MapComponent;
+export default MapComponent
