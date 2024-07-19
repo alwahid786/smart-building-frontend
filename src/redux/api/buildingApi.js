@@ -6,8 +6,8 @@ export const buildingApiPoint= createApi({
 
     baseQuery: fetchBaseQuery({
 
-        baseUrl: "https://smart-building-backend-production.up.railway.app",
-        // baseUrl: "http://localhost:4000",
+        // baseUrl: "https://smart-building-backend-production.up.railway.app",
+        baseUrl: "http://localhost:4000",
         credentials: "include"
 
     }),
@@ -68,6 +68,14 @@ export const buildingApiPoint= createApi({
             })
         }),
 
+        buildingLocation: builder.mutation({
+            query: ( {data, buildingId} ) => ({
+              url: `/api/add-building-location/${buildingId}`,
+              method: 'PUT',
+              body: data,
+            }),
+          }),
+          
         // user profile
         getUserDetail: builder.query({
 
@@ -93,4 +101,4 @@ export const buildingApiPoint= createApi({
     })
 })
 
-export const {useAddBuildingMutation, useAddBuildingImageMutation, useGetBuildingQuery, useGetSingleBuildingQuery, useAddBuildingFloorMutation, useGetUserDetailQuery, useUpdateProfileMutation, useUpdateBuildingMutation} = buildingApiPoint;
+export const {useAddBuildingMutation, useAddBuildingImageMutation, useGetBuildingQuery, useGetSingleBuildingQuery, useAddBuildingFloorMutation, useGetUserDetailQuery, useUpdateProfileMutation, useUpdateBuildingMutation, useBuildingLocationMutation} = buildingApiPoint;

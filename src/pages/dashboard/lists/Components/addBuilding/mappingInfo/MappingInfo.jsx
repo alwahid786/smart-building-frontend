@@ -1,48 +1,62 @@
 /* eslint-disable react/prop-types */
-import { Box, Button, Grid, TextField, Typography } from '@mui/material'
-import L from 'leaflet'
-import 'leaflet/dist/leaflet.css'
-import { MapContainer, Marker, Popup, TileLayer, useMap } from 'react-leaflet'
-import { useEffect, useState } from 'react'
-import MarkerMap from '../../../../../../asset/svgs/MarkerMap'
-import CardActions from '@mui/material/CardActions'
-import CardContent from '@mui/material/CardContent'
-import CardMedia from '@mui/material/CardMedia'
-
-// const markerIcon = new L.Icon({
-//   iconUrl: MarkerMap,
-//   iconSize: [45, 45],
-// })
+import { Box, Button, Grid, TextField, Typography } from '@mui/material';
+import 'leaflet/dist/leaflet.css';
+import { MapContainer, Marker, Popup, TileLayer, useMap } from 'react-leaflet';
+import { useEffect, useState } from 'react';
+import CardContent from '@mui/material/CardContent';
+import CardMedia from '@mui/material/CardMedia';
+import { useBuildingLocationMutation, useGetSingleBuildingQuery } from '../../../../../../redux/api/buildingApi';
+import { useSelector } from 'react-redux';
+import moment from 'moment/moment';
 
 const MappingInfo = ({ handleBack, handleNext }) => {
-  const [position, setPosition] = useState([51.505, -0.09])
-  const [latitude, setLatitude] = useState(51.505)
-  const [longitude, setLongitude] = useState(-0.09)
+  const [position, setPosition] = useState([51.505, -0.09]);
+  const [latitude, setLatitude] = useState(51.505);
+  const [longitude, setLongitude] = useState(-0.09);
+  const buildingId = useSelector((state) => state.form?.buildingId);
+  const [buildingLocation] = useBuildingLocationMutation();
+
+  const { data } = useGetSingleBuildingQuery(buildingId);
 
   const checkLocation = () => {
-    setPosition([latitude, longitude])
-  }
+    setPosition([latitude, longitude]);
+  };
 
   const RecenterMap = ({ position }) => {
-    const map = useMap()
+    const map = useMap();
     useEffect(() => {
       map.flyTo(position, map.getZoom(), {
         animate: true,
         duration: 1.5,
-      })
-    }, [map, position])
+      });
+    }, [map, position]);
 
-    return null
-  }
+    return null;
+  };
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    try {
+      // Create a data object instead of FormData
+      const data = {
+        latitude,
+        longitude
+      };
+  
+      console.log(data);
+      // Call the mutation with the data object
+      const response = await buildingLocation({data, buildingId}).unwrap();
+      
+      console.log(response);
+  
+      handleNext();
+    } catch (error) {
+      console.error('Failed to add building location:', error);
+    }
+  };
+  
+  
 
-  const handleSubmit = (event) => {
-    event.preventDefault()
-    const formData = new FormData()
-    formData.append('latitude', latitude)
-    formData.append('longitude', longitude)
-    // Now you can send formData to your backend
-    handleNext()
-  }
+  const firstImage = data?.images?.length ? data.images[0] : 'default_image_url'; // Use a default image URL if there are no images
 
   return (
     <Box>
@@ -99,34 +113,34 @@ const MappingInfo = ({ handleBack, handleNext }) => {
           <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
           <Marker position={position}>
             <Popup>
-              <Box>
+              <Box sx={{ height: '100%', width: '100%' }}>
                 <CardMedia
-                  sx={{ height: 100, minWidth: '250px', borderRadius: '10px' }}
-                  image="https://plus.unsplash.com/premium_photo-1661852207925-4f1d03556a2e?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8bGFyZ2UlMjBmb3JtYXR8ZW58MHx8MHx8fDA%3D"
-                  title="green iguana"
+                  sx={{ height: 250, minWidth: '300px', borderRadius: '10px' }}
+                  image={firstImage}
+                  title="Building Image"
                 />
                 <CardContent sx={{ padding: '10px !important' }}>
                   <Typography
                     variant="h6"
                     sx={{
-                      fontSize: '18px',
+                      fontSize: '15px',
                       lineHeight: '24.51px',
                       fontWeight: '600',
                       color: '#414141',
                     }}
                   >
-                    Name
+                    Building Name: <span style={{ fontWeight: '500' }}>{data?.buildingName || 'buildingName'}</span>
                   </Typography>
                   <Typography
-                    variant="subtitle1"
+                    variant="h6"
                     sx={{
-                      fontSize: '14px',
-                      lineHeight: '19.07px',
-                      fontWeight: '400',
-                      color: '#11111180',
+                      fontSize: '15px',
+                      lineHeight: '24.51px',
+                      fontWeight: '600',
+                      color: '#414141',
                     }}
                   >
-                    Description
+                    Owner Name: <span style={{ fontWeight: '500' }}>{data?.ownerName || 'ownerName'}</span>
                   </Typography>
                   <Typography
                     variant="subtitle1"
@@ -137,7 +151,7 @@ const MappingInfo = ({ handleBack, handleNext }) => {
                       color: '#000000',
                     }}
                   >
-                    Area: <span style={{ fontWeight: '500' }}>area</span>
+                    Total Area: <span style={{ fontWeight: '500' }}>{data?.totalArea || 'area'}</span>
                   </Typography>
                   <Typography
                     variant="subtitle1"
@@ -148,8 +162,7 @@ const MappingInfo = ({ handleBack, handleNext }) => {
                       color: '#000000',
                     }}
                   >
-                    No. of floor:
-                    <span style={{ fontWeight: '500' }}> Floor?</span>
+                    No. Of Floors: <span style={{ fontWeight: '500' }}>{data?.numberOfFloors || 'Floor?'}</span>
                   </Typography>
                   <Typography
                     variant="subtitle1"
@@ -160,8 +173,7 @@ const MappingInfo = ({ handleBack, handleNext }) => {
                       color: '#000000',
                     }}
                   >
-                    Owner Name:{' '}
-                    <span style={{ fontWeight: '500' }}> ownerName?</span>
+                    Construction Year: <span style={{ fontWeight: '500' }}>{moment(data?.constructionYear).format('YYYY') || 'N/A'}</span>
                   </Typography>
                 </CardContent>
               </Box>
@@ -226,7 +238,7 @@ const MappingInfo = ({ handleBack, handleNext }) => {
         </Box>
       </form>
     </Box>
-  )
-}
+  );
+};
 
-export default MappingInfo
+export default MappingInfo;

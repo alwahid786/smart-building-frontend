@@ -29,8 +29,6 @@ const ProfilePage = () => {
   const { data } = useGetUserDetailQuery()
   const [updateProfile] = useUpdateProfileMutation()
 
-  console.log(data)
-
   const id = data?._id
 
   useEffect(() => {
@@ -62,19 +60,36 @@ const ProfilePage = () => {
     setFieldValue('state', stateCode)
   }
 
-  const handleImageUpload = (event) => {
+  const handleImageUpload = async (event) => {
     const file = event.target.files[0]
     const reader = new FileReader()
-
-    reader.onloadend = () => {
+  
+    reader.onloadend = async () => {
       setImageSrc(reader.result)
       setFieldValue('image', reader.result)
+  
+      const formData = new FormData()
+      formData.append('image', file)
+  
+      try {
+        const res = await updateProfile({ id, image: formData.get('image') }).unwrap()
+  
+        if (res.success) {
+          toast.success('Profile Image Updated Successfully')
+        } else {
+          toast.error('Image Update Error:', res.message)
+        }
+      } catch (error) {
+        console.error('Error', error)
+        toast.error('Image Update Error:', error.message)
+      }
     }
-
+  
     if (file) {
       reader.readAsDataURL(file)
     }
   }
+  
 
   const formik = useFormik({
     initialValues: {
@@ -102,13 +117,14 @@ const ProfilePage = () => {
       formData.append('image', values.image)
 
       try {
-
         const res = await updateProfile({ formData, id }).unwrap()
 
-        if (res) {toast.success('Profile Updated Successfully')}
+        if (res) {
+          toast.success('Profile Updated Successfully')
+        }
         resetForm()
       } catch (error) {
-
+        console.log('Error', error)
         toast.error('Update Error:', error)
       }
     },
@@ -293,23 +309,21 @@ const ProfilePage = () => {
                   </Select>
                 </FormControl>
               </Grid>
-              <Grid item xs={12} sm={6}>
+              <Grid item xs={12}>
                 <FormControl fullWidth>
                   <InputLabel id="state-label">State</InputLabel>
                   <Select
                     labelId="state-label"
-                    label="State"
-                    defaultValue=""
-                    variant="outlined"
-                    fullWidth
-                    id="state"
-                    name="state"
+                    label="state"
                     value={values.state}
                     onChange={(e) => {
                       handleChange(e)
                       handleStateChange(e.target.value)
                     }}
                     onBlur={handleBlur}
+                    name="state"
+                    id="state"
+                    fullWidth
                     error={touched.state && Boolean(errors.state)}
                     helperText={touched.state && errors.state}
                     sx={{ textAlign: 'left' }}
@@ -325,22 +339,18 @@ const ProfilePage = () => {
                   </Select>
                 </FormControl>
               </Grid>
-              <Grid item xs={12} sm={6}>
+              <Grid item xs={12}>
                 <FormControl fullWidth>
                   <InputLabel id="city-label">City</InputLabel>
                   <Select
                     labelId="city-label"
-                    label="City"
-                    defaultValue=""
-                    variant="outlined"
-                    id="city"
-                    name="city"
+                    label="city"
                     value={values.city}
-                    onChange={(e) => {
-                      handleChange(e)
-                      setFieldValue('city', e.target.value)
-                    }}
+                    onChange={handleChange}
                     onBlur={handleBlur}
+                    name="city"
+                    id="city"
+                    fullWidth
                     error={touched.city && Boolean(errors.city)}
                     helperText={touched.city && errors.city}
                     sx={{ textAlign: 'left' }}
@@ -349,54 +359,21 @@ const ProfilePage = () => {
                       <em>Select City</em>
                     </MenuItem>
                     {cities.map((city) => (
-                      <MenuItem key={city.isoCode} value={city.name}>
+                      <MenuItem key={city.name} value={city.name}>
                         {city.name}
                       </MenuItem>
                     ))}
                   </Select>
                 </FormControl>
               </Grid>
-              <Grid
-                item
-                xs={12}
-                sx={{
-                  display: 'flex',
-                  flexDirection: { xs: 'column', md: 'row' },
-                  justifyContent: 'center',
-                  gap: 2,
-                }}
-              >
+              <Grid item xs={12}>
                 <Button
                   type="submit"
                   variant="contained"
-                  sx={{
-                    padding: '8px 100px',
-                    color: '#fff',
-                    background:
-                      'linear-gradient(93.36deg, #7B42F6 0%, #B01EFF 100%)',
-                    border: '2px solid rgba(123, 66, 246, 1)',
-                    '&:hover': {
-                      background:
-                        'linear-gradient(93.36deg, #7B42F6 0%, #B01EFF 100%)',
-                      border: '2px solid rgba(123, 66, 246, 1)',
-                    },
-                  }}
+                  color="primary"
+                  fullWidth
                 >
-                  Update Profile
-                </Button>
-                <Button
-                  variant="outlined"
-                  sx={{
-                    padding: '8px 100px',
-                    color: 'rgba(123, 66, 246, 1)',
-                    border: '2px solid rgba(123, 66, 246, 1)',
-                    '&:hover': {
-                      background: 'inherit',
-                      border: '2px solid rgba(123, 66, 246, 1)',
-                    },
-                  }}
-                >
-                  Cancel
+                  Save
                 </Button>
               </Grid>
             </Grid>
