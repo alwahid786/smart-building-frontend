@@ -6,11 +6,29 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import { Typography } from '@mui/material';
 import { useGetBuildingQuery } from '../../../redux/api/buildingApi';
+import PropTypes from 'prop-types';
+
+const RecenterMap = ({ position }) => {
+  const map = useMap();
+  useEffect(() => {
+    if (position && position.length === 2) {
+      map.flyTo(position, map.getZoom(), {
+        animate: true,
+        duration: 1.5,
+      });
+    }
+  }, [map, position]);
+
+  return null;
+};
+
+RecenterMap.propTypes = {
+  position: PropTypes.arrayOf(PropTypes.number).isRequired,
+};
 
 const Index = () => {
   const { data } = useGetBuildingQuery();
 
-  // Initialize positions based on fetched building data
   const [positions, setPositions] = useState([]);
 
   useEffect(() => {
@@ -23,18 +41,6 @@ const Index = () => {
       setPositions(newPositions);
     }
   }, [data]);
-
-  const RecenterMap = ({ position }) => {
-    const map = useMap();
-    useEffect(() => {
-      map.flyTo(position, map.getZoom(), {
-        animate: true,
-        duration: 1.5,
-      });
-    }, [map, position]);
-
-    return null;
-  };
 
   return (
     <Box
