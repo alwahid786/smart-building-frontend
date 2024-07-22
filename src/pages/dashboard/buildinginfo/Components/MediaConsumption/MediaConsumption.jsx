@@ -31,7 +31,7 @@ import {
   MediaButtonsAndDatePickerSkeleton,
   MediaGraphSkeleton,
 } from '../../../../../components/Skeleton'
-import { useDispatch, useSelector } from 'react-redux'
+
 
 const buttonLabels = ['1D', '1W', '1M', '1Y']
 const buttonsData = [
@@ -48,8 +48,6 @@ const MediaConsumption = () => {
   const [value, setValue] = useState(0)
   const theme = useTheme()
   const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'))
-  const dispatch = useDispatch()
-  console.log('value', value)
 
   const data = [
     { time: '2021-01-01T00:00:00Z', value: 20 },
@@ -68,7 +66,6 @@ const MediaConsumption = () => {
   ]
   const handleChange = (event, newValue) => {
     setValue(newValue || event.target.value)
-    console.log('value', value)
   }
 
   const [isLoading, setIsLoading] = useState(true)

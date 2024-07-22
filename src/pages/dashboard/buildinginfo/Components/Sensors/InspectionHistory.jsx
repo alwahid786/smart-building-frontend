@@ -59,7 +59,6 @@ function createData(sensor1, sensor2, inspection, status, setting, report) {
 
 const InspectionHistory = () => {
   const [openModal, setOpenModal] = useState(false)
-  console.log('openModal', openModal)
   const handleOpenModal = () => {
     setOpenModal(true)
   }
@@ -67,11 +66,7 @@ const InspectionHistory = () => {
   const handleCloseModal = () => {
     setOpenModal(false)
   }
-  const handleRowClick = (row) => {
-    console.log('Row clicked:', row)
-    handleOpenModal()
-    // You can perform any action here, e.g., open a modal, navigate, or fetch more details
-  }
+
   const rows = [
     createData(
       '1234567899',

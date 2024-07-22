@@ -15,7 +15,6 @@ const List = () => {
   const { data: buildingData, error, isLoading } = useGetBuildingQuery()
 
   const buildingLength = buildingData?.length
-  console.log(buildingLength)
 
   // Handle scrolling
   const handleScroll = () => {

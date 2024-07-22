@@ -14,6 +14,7 @@ export const buildingApiPoint= createApi({
 
     endpoints: (builder)=> ({
 
+        // add building
         addBuilding: builder.mutation({
 
             query: (data)=> ({
@@ -23,6 +24,8 @@ export const buildingApiPoint= createApi({
                 body: data
             })
         }),
+
+        // add building floor
         addBuildingFloor: builder.mutation({
 
             query: (data)=> ({
@@ -32,6 +35,8 @@ export const buildingApiPoint= createApi({
                 body: data
             })
         }),
+
+        // add building image
         addBuildingImage: builder.mutation({
 
             query: (data)=> ({
@@ -41,6 +46,8 @@ export const buildingApiPoint= createApi({
                 body: data
             })
         }),
+
+        // get all building
         getBuilding: builder.query({
 
             query: ()=> ({
@@ -49,6 +56,8 @@ export const buildingApiPoint= createApi({
                 method: "GET"
             })
         }),
+
+        // get single building
         getSingleBuilding: builder.query({
 
             query: (data)=> ({
@@ -58,6 +67,7 @@ export const buildingApiPoint= createApi({
             })
         }),
 
+        // update building
         updateBuilding: builder.mutation({
 
             query: ({id, data})=> ({
@@ -65,6 +75,16 @@ export const buildingApiPoint= createApi({
                 url: `/api/update-building/${id}`, 
                 method: "PUT",
                 body: data
+            })
+        }),
+
+           // delete building
+           deleteBuilding: builder.mutation({
+
+            query: (id)=> ({
+
+                url: `/api/delete-building/${id}`, 
+                method: "DELETE",
             })
         }),
 
@@ -101,4 +121,4 @@ export const buildingApiPoint= createApi({
     })
 })
 
-export const {useAddBuildingMutation, useAddBuildingImageMutation, useGetBuildingQuery, useGetSingleBuildingQuery, useAddBuildingFloorMutation, useGetUserDetailQuery, useUpdateProfileMutation, useUpdateBuildingMutation, useBuildingLocationMutation} = buildingApiPoint;
+export const {useAddBuildingMutation, useAddBuildingImageMutation, useGetBuildingQuery, useGetSingleBuildingQuery, useAddBuildingFloorMutation, useGetUserDetailQuery, useUpdateProfileMutation, useUpdateBuildingMutation, useBuildingLocationMutation, useDeleteBuildingMutation} = buildingApiPoint;

@@ -33,9 +33,10 @@ const BuildingDetails = () => {
   // Verify Deletion
   const [confirmDialogueOpen, setConfirmDialogueOpen] = useState(false)
   const handleCancel = () => {
+    
     setConfirmDialogueOpen(false)
   }
-
+  
   return (
     <>
       <DeleteBuildingDialogue

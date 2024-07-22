@@ -1,19 +1,23 @@
 /* eslint-disable react/prop-types */
-import Dialog from '@mui/material/Dialog'
-import DialogTitle from '@mui/material/DialogTitle'
-import DialogContent from '@mui/material/DialogContent'
-import DialogContentText from '@mui/material/DialogContentText'
-import DialogActions from '@mui/material/DialogActions'
-import Button from '@mui/material/Button'
-import imageUrl from '../asset/Images/list/Rectangle.png'
-import { Box, TextField, Typography } from '@mui/material'
-import { useEffect, useState } from 'react'
+import Dialog from '@mui/material/Dialog';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogActions from '@mui/material/DialogActions';
+import Button from '@mui/material/Button';
+import { Box, TextField, Typography } from '@mui/material';
+import { useEffect, useState } from 'react';
+import { useDeleteBuildingMutation, useGetSingleBuildingQuery } from '../redux/api/buildingApi';
+import { useParams, useNavigate } from 'react-router-dom';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export const DeleteBuildingDialogue = ({
   dialogueOpen,
   handleNo,
   handleYes,
 }) => {
+  const { id } = useParams();
+  const { data } = useGetSingleBuildingQuery(id);
   return (
     <Dialog
       open={dialogueOpen}
@@ -21,7 +25,7 @@ export const DeleteBuildingDialogue = ({
       aria-labelledby="alert-dialog-title"
       aria-describedby="alert-dialog-description"
     >
-      <img src={imageUrl} alt="image" />
+      <img src={data?.images[0]} alt="image" />
 
       <Box
         sx={{
@@ -37,7 +41,6 @@ export const DeleteBuildingDialogue = ({
             background: '#f83d44',
             color: 'white',
             p: 0.5,
-
             height: 20,
             display: 'flex',
             alignItems: 'center',
@@ -51,8 +54,8 @@ export const DeleteBuildingDialogue = ({
       </Box>
 
       <DialogContent>
-        <DialogContentText sx={{ color: 'red', fontSize: '13px' }}>
-          Owner Name
+        <DialogContentText sx={{ color: 'red', fontSize: '14px' }}>
+          Owner Name : <i>{data?.ownerName}</i>
         </DialogContentText>
         <DialogContentText
           sx={{
@@ -62,8 +65,8 @@ export const DeleteBuildingDialogue = ({
             color: 'red',
           }}
         >
-          <Typography sx={{ fontSize: '18px' }}>Building name</Typography>
-          <Typography sx={{ fontSize: '15px' }}>Building Id:</Typography>
+          <Typography sx={{ fontSize: '15px' }}>Building Name : <i>{data?.buildingName}</i></Typography>
+          <Typography sx={{ fontSize: '15px' }}>Building Id: {data?._id}</Typography>
         </DialogContentText>
 
         <DialogContentText sx={{ color: 'black', fontSize: '14px' }}>
@@ -93,7 +96,6 @@ export const DeleteBuildingDialogue = ({
             background: '#f83d44',
             '&:hover': {
               background: '#f83d44',
-              // border: '1px solid red',
               color: 'white',
             },
           }}
@@ -104,128 +106,137 @@ export const DeleteBuildingDialogue = ({
         </Button>
       </DialogActions>
     </Dialog>
-  )
-}
+  );
+};
 
 export const VerifyDeleteBuilding = ({
   confirmDialogueOpen,
   handleCancel,
-  confirmDelete,
 }) => {
-  const [buildingId, setBuildingId] = useState(1234)
-  const [inputId, setInputId] = useState()
-  const [isDelDisable, setIsDelDisable] = useState(true)
+  const { id } = useParams();
+  const { data } = useGetSingleBuildingQuery(id);
+  const [inputId, setInputId] = useState('');
+  const [isDelDisable, setIsDelDisable] = useState(true);
+  const [deleteBuilding] = useDeleteBuildingMutation();
+  const navigate = useNavigate();
 
   useEffect(() => {
-    if (String(inputId) === String(buildingId)) {
-      setIsDelDisable(false)
+    if (String(inputId) === String(data?._id)) {
+      setIsDelDisable(false);
     } else {
-      setIsDelDisable(true)
+      setIsDelDisable(true);
     }
-  }, [inputId, buildingId])
+  }, [inputId, data?._id]);
+
+  const confirmDelete = async () => {
+    try {
+      await deleteBuilding(id).unwrap();
+      navigate('/dashboard/list');
+    } catch (error) {
+      toast.error('Failed to delete building.');
+    }
+  };
+
   return (
-    <Dialog
-      open={confirmDialogueOpen}
-      onClose={handleCancel}
-      aria-labelledby="alert-dialog-title"
-      aria-describedby="alert-dialog-description"
-    >
-      <img src={imageUrl} alt="image" />
-
-      <Box
-        sx={{
-          position: 'absolute',
-          top: 10,
-          left: 10,
-          display: 'flex',
-          flexDirection: 'column',
-        }}
+    <>
+      <Dialog
+        open={confirmDialogueOpen}
+        onClose={handleCancel}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
       >
-        <Typography
-          sx={{
-            background: '#f83d44',
-            color: 'white',
-            p: 1,
+        <img src={data?.images[0]} alt="image" />
 
-            height: 20,
+        <Box
+          sx={{
+            position: 'absolute',
+            top: 10,
+            left: 10,
             display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            fontSize: '0.75rem',
-            borderRadius: '4px',
+            flexDirection: 'column',
           }}
         >
-          Verify Deletion
-        </Typography>
-      </Box>
-
-      <DialogContent>
-        <DialogContentText sx={{ color: 'red', fontSize: '13px' }}>
-          Owner Name
-        </DialogContentText>
-        <DialogContentText
-          sx={{
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'end',
-            color: 'red',
-          }}
-        >
-          <Typography sx={{ fontSize: '18px' }}>Building name</Typography>
-          <Typography sx={{ fontSize: '15px' }}>
-            Building Id: {buildingId}
+          <Typography
+            sx={{
+              background: '#f83d44',
+              color: 'white',
+              p: 1,
+              height: 20,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              fontSize: '0.75rem',
+              borderRadius: '4px',
+            }}
+          >
+            Verify Deletion
           </Typography>
-        </DialogContentText>
+        </Box>
 
-        <DialogContentText
-          sx={{ color: 'black', fontSize: '14px', marginY: '10px' }}
-        >
-          <TextField
-            fullWidth
-            size="small"
-            placeholder="Enter Building ID"
-            value={inputId}
-            onChange={(e) => setInputId(e.target.value)}
-          />
-        </DialogContentText>
-      </DialogContent>
-      <DialogActions sx={{ display: 'flex', justifyContent: 'center' }}>
-        <Button
-          variant="outlined"
-          sx={{
-            color: 'black',
-            border: '1px solid black',
-            '&:hover': {
+        <DialogContent>
+          <DialogContentText sx={{ color: 'red', fontSize: '13px' }}>
+            Owner Name : <span>{data?.ownerName}</span>
+          </DialogContentText>
+          <DialogContentText
+            sx={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'end',
+              color: 'red',
+            }}
+          >
+            <Typography sx={{ fontSize: '15px' }}>Building name: {data?.buildingName}</Typography>
+            <Typography sx={{ fontSize: '15px' }}>
+              Building Id: {data?._id}
+            </Typography>
+          </DialogContentText>
+
+          <DialogContentText
+            sx={{ color: 'black', fontSize: '14px', marginY: '10px' }}
+          >
+            <TextField
+              fullWidth
+              size="small"
+              placeholder="Enter Building ID"
+              value={inputId}
+              onChange={(e) => setInputId(e.target.value)}
+            />
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions sx={{ display: 'flex', justifyContent: 'center' }}>
+          <Button
+            variant="outlined"
+            sx={{
               color: 'black',
               border: '1px solid black',
-            },
-          }}
-          onClick={handleCancel}
-        >
-          Cancel
-        </Button>
-        <Button
-          variant="contained"
-          sx={{
-            color: 'white',
-            background: '#f83d44',
-            '&:hover': {
-              background: '#f83d44',
-              // border: '1px solid red',
+              '&:hover': {
+                color: 'black',
+                border: '1px solid black',
+              },
+            }}
+            onClick={handleCancel}
+          >
+            Cancel
+          </Button>
+          <Button
+            variant="contained"
+            sx={{
               color: 'white',
-            },
-            // '&:disabled': {
-            //   opacity: '0.9',
-            //   cursor: 'not-allowed',
-            // },
-          }}
-          disabled={isDelDisable}
-          autoFocus
-          onClick={confirmDelete}
-        >
-          Delete
-        </Button>
-      </DialogActions>
-    </Dialog>
-  )
-}
+              background: '#f83d44',
+              '&:hover': {
+                background: '#f83d44',
+                color: 'white',
+              },
+            }}
+            disabled={isDelDisable}
+            autoFocus
+            onClick={confirmDelete}
+          >
+            Delete
+          </Button>
+        </DialogActions>
+      </Dialog>
+      <ToastContainer />
+    </>
+  );
+};

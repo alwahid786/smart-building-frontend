@@ -62,11 +62,9 @@ const MappingInfo = ({ handleBack, handleNext }) => {
         longitude,
       }
 
-      console.log(data)
       // Call the mutation with the data object
-      const response = await buildingLocation({ data, buildingId }).unwrap()
+     await buildingLocation({ data, buildingId }).unwrap()
 
-      console.log(response)
 
       handleNext()
     } catch (error) {

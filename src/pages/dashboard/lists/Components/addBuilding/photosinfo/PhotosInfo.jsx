@@ -55,7 +55,6 @@ const PhotosInfo = ({ handleNext, handleBack }) => {
   const handleYes = (index) => {
     const updatedFiles = selectedFiles.filter((_, i) => i !== index)
     dispatch(setSelectedFiles(updatedFiles))
-    console.log('Deletedsuccessfully')
     handleNo()
   }
 

@@ -59,7 +59,6 @@ const rows = [
 const InspectionTable = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
-  console.log("rows", rows);
   return (
     <>
       <Card variant="outlined" sx={{ p: 0 }}>

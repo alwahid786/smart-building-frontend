@@ -11,7 +11,7 @@ import {
   TextField,
   Typography,
 } from '@mui/material';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useGetSingleBuildingQuery, useUpdateBuildingMutation } from '../../../../../../redux/api/buildingApi';
 import { toast } from 'react-toastify';
 
@@ -19,6 +19,7 @@ const UpdateInfo = ({ handleNext }) => {
   const { id } = useParams();
   const { data, error, isLoading } = useGetSingleBuildingQuery(id);
   const [ updateBuilding ] =useUpdateBuildingMutation()
+  const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
     buildingName: '',
@@ -80,6 +81,8 @@ const UpdateInfo = ({ handleNext }) => {
     if (res) {
 
         toast.success('Building Info Updated Successfully')
+
+        navigate('/dashboard/list')
         setTimeout(() => {handleNext()}, 3000);
     }
 
