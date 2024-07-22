@@ -1,46 +1,46 @@
-import Box from '@mui/material/Box';
-import { useEffect, useState } from 'react';
-import 'leaflet/dist/leaflet.css';
-import { MapContainer, Marker, Popup, TileLayer, useMap } from 'react-leaflet';
-import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
-import { Typography } from '@mui/material';
-import { useGetBuildingQuery } from '../../../redux/api/buildingApi';
-import PropTypes from 'prop-types';
+import Box from '@mui/material/Box'
+import { useEffect, useState } from 'react'
+import 'leaflet/dist/leaflet.css'
+import { MapContainer, Marker, Popup, TileLayer, useMap } from 'react-leaflet'
+import CardContent from '@mui/material/CardContent'
+import CardMedia from '@mui/material/CardMedia'
+import { Typography } from '@mui/material'
+import { useGetBuildingQuery } from '../../../redux/api/buildingApi'
+import PropTypes from 'prop-types'
 
 const RecenterMap = ({ position }) => {
-  const map = useMap();
+  const map = useMap()
   useEffect(() => {
     if (position && position.length === 2) {
       map.flyTo(position, map.getZoom(), {
         animate: true,
         duration: 1.5,
-      });
+      })
     }
-  }, [map, position]);
+  }, [map, position])
 
-  return null;
-};
+  return null
+}
 
 RecenterMap.propTypes = {
   position: PropTypes.arrayOf(PropTypes.number).isRequired,
-};
+}
 
 const Index = () => {
-  const { data } = useGetBuildingQuery();
+  const { data } = useGetBuildingQuery()
 
-  const [positions, setPositions] = useState([]);
+  const [positions, setPositions] = useState([])
 
   useEffect(() => {
     if (data) {
-      const newPositions = data.map(building => [
+      const newPositions = data.map((building) => [
         building.latitude,
         building.longitude,
-        building // Pass building data along with position
-      ]);
-      setPositions(newPositions);
+        building, // Pass building data along with position
+      ])
+      setPositions(newPositions)
     }
-  }, [data]);
+  }, [data])
 
   return (
     <Box
@@ -56,8 +56,10 @@ const Index = () => {
       }}
     >
       <MapContainer
-        center={positions[0] ? [positions[0][0], positions[0][1]] : [51.505, -0.09]} // Default center if no positions
-        zoom={8}
+        center={
+          positions[0] ? [positions[0][0], positions[0][1]] : [51.505, -0.09]
+        } // Default center if no positions
+        zoom={2}
         scrollWheelZoom={false}
         style={{
           height: '100vh',
@@ -78,7 +80,11 @@ const Index = () => {
                     minWidth: '250px',
                     borderRadius: '10px',
                   }}
-                  image={building.images && building.images.length > 0 ? building.images[0] : "https://via.placeholder.com/250"}
+                  image={
+                    building.images && building.images.length > 0
+                      ? building.images[0]
+                      : 'https://via.placeholder.com/250'
+                  }
                 />
                 <CardContent sx={{ padding: '10px !important' }}>
                   <Typography
@@ -112,7 +118,10 @@ const Index = () => {
                       color: '#000000',
                     }}
                   >
-                    Area: <span style={{ fontWeight: '500' }}>{building.totalArea || 'area'}</span>
+                    Area:{' '}
+                    <span style={{ fontWeight: '500' }}>
+                      {building.totalArea || 'area'}
+                    </span>
                   </Typography>
                   <Typography
                     variant="subtitle1"
@@ -123,7 +132,10 @@ const Index = () => {
                       color: '#000000',
                     }}
                   >
-                    No. of floors: <span style={{ fontWeight: '500' }}>{building.numberOfFloors || 'Floor?'}</span>
+                    No. of floors:{' '}
+                    <span style={{ fontWeight: '500' }}>
+                      {building.numberOfFloors || 'Floor?'}
+                    </span>
                   </Typography>
                   <Typography
                     variant="subtitle1"
@@ -134,7 +146,10 @@ const Index = () => {
                       color: '#000000',
                     }}
                   >
-                    Owner Name: <span style={{ fontWeight: '500' }}>{building.ownerName || 'ownerName?'}</span>
+                    Owner Name:{' '}
+                    <span style={{ fontWeight: '500' }}>
+                      {building.ownerName || 'ownerName?'}
+                    </span>
                   </Typography>
                 </CardContent>
               </Box>
@@ -144,7 +159,7 @@ const Index = () => {
         {positions.length > 0 && <RecenterMap position={positions[0]} />}
       </MapContainer>
     </Box>
-  );
-};
+  )
+}
 
-export default Index;
+export default Index

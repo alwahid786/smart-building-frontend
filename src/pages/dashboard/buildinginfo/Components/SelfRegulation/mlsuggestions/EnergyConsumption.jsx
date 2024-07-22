@@ -9,7 +9,7 @@ import { useSelector, useDispatch } from 'react-redux'
 
 const EnergyConsumption = () => {
   const dispatch = useDispatch()
-  const { showSecondBar, chartType } = useSelector((state) => state.chart)
+  // const { showSecondBar, chartType } = useSelector((state) => state.chart)
   const stats = [
     { label: 'Daily consumption', value: '332 Mwh' },
     { label: 'Weekly consumption', value: '1642 Mwh' },
@@ -61,8 +61,8 @@ const EnergyConsumption = () => {
             >
               {' '}
               <GrayBox /> Currently
-              {showSecondBar && <PurpleBox />}{' '}
-              {showSecondBar && 'After changes'}
+              {/* {showSecondBar && <PurpleBox />}{' '}
+              {showSecondBar && 'After changes'} */}
             </Typography>
           </Box>
           <Box
@@ -127,9 +127,9 @@ const EnergyConsumption = () => {
                   </TextBoxChildFirst>
                   <TextBoxChildSecond>{stat.value}</TextBoxChildSecond>
                 </TextBox>
-                {showSecondBar && (
+                {/* {showSecondBar && (
                   <TextBoxChildThird>{stat.value}</TextBoxChildThird>
-                )}
+                )} */}
               </Box>
             </>
           ))}
@@ -147,31 +147,32 @@ const TextBox = styled(Box)(({ showSecondBar }) => ({
   textAlign: 'left',
   justifyContent: 'center',
   backgroundColor: 'white',
-  borderRadius: showSecondBar ? '12px 12px 0px 0px' : '12px',
-  boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.1)',
-  padding: '6px',
+  borderRadius: '8px',
+  border: '1.5px solid #00000030',
+  boxShadow: '0px 0px 4px rgba(0, 0, 0, 0.1)',
+  padding: '12px',
 }))
 
 const TextBoxChildFirst = styled(Typography)({
   color: 'rgba(17, 17, 17, 0.6)',
   fontWeight: 400,
   fontSize: '12px',
-  fontFamily: 'Poppins',
+  // fontFamily: 'Poppins',
   textAlign: 'center',
 })
 
 const TextBoxChildSecond = styled(Typography)({
   color: 'rgba(17, 17, 17, 1)',
   fontWeight: 500,
-  fontSize: '14px',
-  fontFamily: 'Poppins',
+  fontSize: '12px',
+  // fontFamily: 'Poppins',
   textAlign: 'center',
 })
 const TextBoxChildThird = styled(Typography)({
   background: '#7B42F6',
   color: 'white',
   fontWeight: 500,
-  fontSize: '14px',
+  fontSize: '12px',
   fontFamily: 'Poppins',
   textAlign: 'center',
   borderRadius: '0px 0px 12px 12px',

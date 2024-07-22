@@ -1,5 +1,5 @@
-import React from "react";
-import { useSelector } from "react-redux";
+import React from 'react'
+import { useSelector } from 'react-redux'
 import {
   BarChart,
   Bar,
@@ -11,18 +11,18 @@ import {
   Tooltip,
   Legend,
   ResponsiveContainer,
-} from "recharts";
+} from 'recharts'
 
 const MyBarChart = ({ data }) => {
-  const showSecondBar = useSelector((state) => state.chart.showSecondBar);
-  const chartType = useSelector((state) => state.chart.chartType);
+  // const showSecondBar = useSelector((state) => state.chart.showSecondBar);
+  // const chartType = useSelector((state) => state.chart.chartType);
 
-  const Chart = chartType === "bar" ? BarChart : LineChart;
-  const ChartElement = chartType === "bar" ? Bar : Line;
+  // const Chart = chartType === "bar" ? BarChart : LineChart;
+  // const ChartElement = chartType === "bar" ? Bar : Line;
 
   return (
     <ResponsiveContainer width="80%" height={300}>
-      <Chart
+      {/* <Chart
         data={data}
         margin={{
           top: 20,
@@ -50,9 +50,9 @@ const MyBarChart = ({ data }) => {
             barSize={20}
           />
         )}
-      </Chart>
+      </Chart> */}
     </ResponsiveContainer>
-  );
-};
+  )
+}
 
-export default MyBarChart;
+export default MyBarChart

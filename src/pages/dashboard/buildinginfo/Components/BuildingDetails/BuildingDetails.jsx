@@ -51,7 +51,14 @@ const BuildingDetails = () => {
         handleCancel={handleCancel}
       />
 
-      <Box sx={{ display: 'flex', justifyContent: 'end', gap: '5px' }}>
+      <Box
+        sx={{
+          display: 'flex',
+          justifyContent: 'end',
+          gap: '5px',
+          marginBottom: '10px',
+        }}
+      >
         <Button
           variant="contained"
           startIcon={<DeleteSharpIcon />}
@@ -63,9 +70,8 @@ const BuildingDetails = () => {
             background: 'red',
 
             '&:hover': {
-              background: 'white',
-              border: '1px solid red',
-              color: 'red',
+              background: 'red',
+              color: 'white',
             },
           }}
         >

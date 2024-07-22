@@ -1,42 +1,47 @@
-import React from "react";
-import { Tabs, Tab, Select, MenuItem } from "@mui/material";
-import { styled } from "@mui/material/styles";
-import MlSuggestions from "./mlsuggestions";
-import Lighting from "./lighthning";
+import React from 'react'
+import { Tabs, Tab, Select, MenuItem } from '@mui/material'
+import { styled } from '@mui/material/styles'
+import MlSuggestions from './mlsuggestions'
+import Lighting from './lighthning'
+import zIndex from '@mui/material/styles/zIndex'
 
 // Styled components
 const StyledTab = styled(Tab)({
-  minWidth: "auto",
-  width: "180px",
-  height: "52px",
+  minWidth: 'auto',
+  width: '180px',
+  height: '52px',
   marginRight: 12,
-  textTransform: "none",
-  fontWeight: "normal",
-  fontSize: "1rem",
-  color: "rgba(17, 17, 17, 0.6)",
-  background: "white",
-  borderRadius: "8px",
-  border: "0px, 0px, 0px, 4px",
-});
+  textTransform: 'none',
+  fontWeight: 'normal',
+  fontSize: '1rem',
+  color: 'rgba(17, 17, 17, 0.6)',
+  background: '#7B42F610',
+  borderRadius: '8px',
+  // border: "0px, 0px, 0px, 4px",
+})
 
 const StyledTabs = styled(Tabs)({
-  "& .MuiTabs-indicator": {
-    borderRadius: "30px 0 30px 0",
-    border: "2px solid rgba(123, 66, 246, 1)",
-    left: 0,
-    width: "4px !important",
-    height: "100%",
+  '& .MuiTabs-indicator': {
+    // // borderRadius: '30px 0 30px 0',
+    // border: '2px solid rgba(123, 66, 246, 1)',
+    // // left: 0,
+    // // width: '4px !important',
+    // height: '100%',
+    // backgroundColor: 'red',
+    // color: 'white',
+    color: 'white',
+    background: 'red',
   },
-  "& .css-l680r0-MuiButtonBase-root-MuiTab-root.Mui-selected": {
-    color: "rgba(17, 17, 17, 1)",
+  '& .css-l680r0-MuiButtonBase-root-MuiTab-root.Mui-selected': {
+    color: 'rgba(17, 17, 17, 1)',
     fontWeight: 400,
-    fontSize: "1rem",
+    fontSize: '1rem',
   },
-});
+})
 
-const Ventilation = () => <div>Ventilation Content</div>;
-const Heating = () => <div>Heating Content</div>;
-const Lifts = () => <div>Lifts Content</div>;
+const Ventilation = () => <div>Ventilation Content</div>
+const Heating = () => <div>Heating Content</div>
+const Lifts = () => <div>Lifts Content</div>
 
 const tabComponents = [
   <MlSuggestions />,
@@ -44,32 +49,32 @@ const tabComponents = [
   <Ventilation />,
   <Heating />,
   <Lifts />,
-];
+]
 
 // Main component
 const SelfTabs = () => {
-  const [value, setValue] = React.useState(0);
-  const [collapsed, setCollapsed] = React.useState(false);
+  const [value, setValue] = React.useState(0)
+  const [collapsed, setCollapsed] = React.useState(false)
 
   const handleChange = (event, newValue) => {
-    setValue(newValue);
-  };
+    setValue(newValue)
+  }
 
   const handleResize = () => {
     if (window.innerWidth < 600) {
-      setCollapsed(true);
+      setCollapsed(true)
     } else {
-      setCollapsed(false);
+      setCollapsed(false)
     }
-  };
+  }
 
   React.useEffect(() => {
-    window.addEventListener("resize", handleResize);
-    handleResize(); // Check initial screen size
+    window.addEventListener('resize', handleResize)
+    handleResize() // Check initial screen size
     return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
+      window.removeEventListener('resize', handleResize)
+    }
+  }, [])
 
   return (
     <React.Fragment>
@@ -80,14 +85,14 @@ const SelfTabs = () => {
             value={value}
             onChange={(event) => setValue(event.target.value)}
             displayEmpty
-            inputProps={{ "aria-label": "styled tabs example" }}
+            inputProps={{ 'aria-label': 'styled tabs example' }}
           >
             {[
-              "MI Suggestion",
-              "Lighting",
-              "Ventilation",
-              "Heating",
-              "Lifts",
+              'MI Suggestion',
+              'Lighting',
+              'Ventilation',
+              'Heating',
+              'Lifts',
             ].map((label, index) => (
               <MenuItem key={label} value={index}>
                 {label}
@@ -104,11 +109,11 @@ const SelfTabs = () => {
             aria-label="styled tabs example"
           >
             {[
-              "MI Suggestion",
-              "Lighting",
-              "Ventilation",
-              "Heating",
-              "Lifts",
+              'MI Suggestion',
+              'Lighting',
+              'Ventilation',
+              'Heating',
+              'Lifts',
             ].map((label, index) => (
               <StyledTab key={label} label={label} />
             ))}
@@ -117,7 +122,7 @@ const SelfTabs = () => {
         </React.Fragment>
       )}
     </React.Fragment>
-  );
-};
+  )
+}
 
-export default SelfTabs;
+export default SelfTabs

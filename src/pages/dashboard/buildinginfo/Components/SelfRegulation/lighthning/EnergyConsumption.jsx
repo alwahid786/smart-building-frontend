@@ -119,7 +119,7 @@ const EnergyConsumption = () => {
           {stats.map((stat, index) => (
             <TextBox key={index}>
               <TextBoxChildFirst>{stat.label.split(' ')[0]}</TextBoxChildFirst>
-              <TextBoxChildFirst>{stat.label.split(' ')[1]}</TextBoxChildFirst>
+              {/* <TextBoxChildFirst>{stat.label.split(' ')[1]}</TextBoxChildFirst> */}
               <TextBoxChildSecond>{stat.value}</TextBoxChildSecond>
             </TextBox>
           ))}
