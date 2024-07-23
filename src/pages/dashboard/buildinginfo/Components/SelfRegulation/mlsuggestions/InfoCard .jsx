@@ -33,6 +33,7 @@ const InfoCard = ({
         sx={{
           display: 'flex',
           alignItems: 'center',
+          justifyContent: 'space-between',
           gap: 1,
           p: 2,
           background: isPurple
@@ -40,16 +41,26 @@ const InfoCard = ({
             : '',
         }}
       >
-        {Img && <Img />}
-        <Typography
-          sx={{
-            color: isPurple ? 'white' : 'rgba(17, 17, 17, 0.6)',
-            fontWeight: 400,
-            fontSize: { xs: 12, md: 16 },
-          }}
-        >
-          {title}
-        </Typography>
+        <Box sx={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+          {Img && <Img />}
+          <Typography
+            sx={{
+              color: isPurple ? 'white' : 'rgba(17, 17, 17, 0.6)',
+              fontWeight: 400,
+              fontSize: { xs: 12, md: 16 },
+            }}
+          >
+            {title}
+          </Typography>
+        </Box>
+        {isPurple && (
+          <Button
+            variant="contained"
+            sx={{ color: 'black', background: 'white' }}
+          >
+            Preview
+          </Button>
+        )}
       </Box>
       <Divider />
       <CardContent>
