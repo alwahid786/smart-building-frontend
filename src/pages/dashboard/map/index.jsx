@@ -59,7 +59,7 @@ const Index = () => {
         center={
           positions[0] ? [positions[0][0], positions[0][1]] : [51.505, -0.09]
         } // Default center if no positions
-        zoom={2}
+        zoom={3}
         scrollWheelZoom={false}
         style={{
           height: '100vh',

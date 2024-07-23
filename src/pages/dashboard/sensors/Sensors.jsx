@@ -13,14 +13,7 @@ import {
 import AddIcon from '../../../asset/svgs/AddIcon'
 import { useState } from 'react'
 import AddSensor from './AddSensor'
-
-const handleChange = (event) => {
-  setChecked(event.target.checked)
-}
-
-function createData(name, calories, fat, carbs, protein) {
-  return { name, calories, fat, carbs, protein }
-}
+import { useGetAllSensorsQuery } from '../../../redux/api/sensorApi'
 
 const rows = [
   {
@@ -32,13 +25,11 @@ const rows = [
     location: 'UK',
   },
 ]
-
-const hanldeClick = () => {
-  console.log('Clicked')
-}
-
 const Sensors = () => {
   const [checked, setChecked] = useState(true)
+  const { data } = useGetAllSensorsQuery()
+
+  console.log("Data", data)
 
   const handleChange = (event) => {
     setChecked(event.target.checked)
@@ -102,16 +93,13 @@ const Sensors = () => {
                   <b>IP</b>
                 </TableCell>
                 <TableCell align="left">
-                  <b>URL</b>
+                  <b>uniqueId</b>
                 </TableCell>
                 <TableCell align="left">
                   <b>Port</b>
                 </TableCell>
                 <TableCell align="left">
                   <b>Type</b>
-                </TableCell>
-                <TableCell align="left">
-                  <b>Location</b>
                 </TableCell>
                 <TableCell align="left">
                   <b>Status</b>
@@ -122,17 +110,16 @@ const Sensors = () => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {rows.map((row) => (
+              {data?.map((row) => (
                 <TableRow
                   key={row.name}
                   sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                 >
-                  <TableCell align="left">{row.name}</TableCell>
+                  <TableCell align="left">{row.sensorName}</TableCell>
                   <TableCell align="left">{row.ip}</TableCell>
-                  <TableCell align="left">{row.url}</TableCell>
+                  <TableCell align="left">{row.uniqueId}</TableCell>
                   <TableCell align="left">{row.port}</TableCell>
-                  <TableCell align="left">{row.type}</TableCell>
-                  <TableCell align="left">{row.location}</TableCell>
+                  <TableCell align="left">{row.sensorType}</TableCell>
                   <TableCell align="left">
                     {' '}
                     <Switch

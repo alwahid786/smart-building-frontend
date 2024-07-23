@@ -4,18 +4,21 @@ import { buildingApiPoint } from "./api/buildingApi";
 import mappingReducer from "./reducers/latituteReducer";
 import formReducer from "./reducers/formReducer";
 import userReducer from "./reducers/userReducer";
+import { sensorApiPoint } from "./api/sensorApi";
 
 const store = configureStore({
   reducer: {
+
     [authApiPoint.reducerPath]: authApiPoint.reducer,
     [buildingApiPoint.reducerPath]: buildingApiPoint.reducer,
-  
+    [sensorApiPoint.reducerPath]: sensorApiPoint.reducer,
+
     form: formReducer,
     mapping: mappingReducer,
     user: userReducer
   },
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat([authApiPoint.middleware, buildingApiPoint.middleware]),
+    getDefaultMiddleware().concat([authApiPoint.middleware, buildingApiPoint.middleware, sensorApiPoint.middleware]),
 });
 
 export default store;
