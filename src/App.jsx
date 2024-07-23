@@ -11,6 +11,7 @@ import 'react-toastify/dist/ReactToastify.css'
 import ResetPassword from './pages/resetpassword/ResetPassword'
 import AddBuilding from './pages/dashboard/lists/Components/addBuilding'
 import UpdateBuilding from './pages/dashboard/buildinginfo/Components/updateBuilding'
+
 const SignUpPage = lazy(() => import('./pages/signup/SignUp'))
 const List = lazy(() => import('./pages/dashboard/lists'))
 const General = lazy(() => import('./pages/dashboard/general'))
@@ -18,7 +19,7 @@ const Map = lazy(() => import('./pages/dashboard/map'))
 const BuildingInfo = lazy(() => import('./pages/dashboard/buildinginfo'))
 const Setting = lazy(() => import('./pages/dashboard/setting'))
 const Profile = lazy(() => import('./pages/profile'))
-
+const Sensors = lazy(() => import('./pages/dashboard/sensors/Sensors'))
 const Dashboard = lazy(() => import('./pages/dashboard'))
 const Renovation = lazy(() => import('./pages/dashboard/renovation'))
 const ForgetPassword = lazy(() =>
@@ -51,6 +52,7 @@ const App = () => {
             <Route path="renovation" element={<Renovation />} />
             <Route path="map" element={<Map />} />
             <Route path="service" element={<Setting />} />
+            <Route path="sensors" element={<Sensors />} />
           </Route>
           <Route path="*" element={<Navigate to="/login" />} />
         </Routes>

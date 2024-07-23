@@ -1,4 +1,5 @@
-import React, { useState } from 'react'
+/* eslint-disable react/prop-types */
+import { useState } from 'react'
 import {
   Card,
   CardContent,
@@ -34,7 +35,9 @@ const InfoCard = ({
           alignItems: 'center',
           gap: 1,
           p: 2,
-          backgroundColor: isPurple ? 'rgba(123, 66, 246, 1)' : '',
+          background: isPurple
+            ? 'linear-gradient(45deg, #5915E3 0%, #B029FC 100%)'
+            : '',
         }}
       >
         {Img && <Img />}
@@ -59,12 +62,14 @@ const InfoCard = ({
         >
           {text}
         </Typography>
-        <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, m: 2 }}>
+        <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, m: 2 }}>
           <Typography
             sx={{
               fontSize: { xs: 14, md: 20 },
               fontWeight: 600,
               color: 'rgba(123, 66, 246, 1)',
+              background: '#F5F7FB',
+              padding: '5px 20px',
             }}
           >
             {percentage}

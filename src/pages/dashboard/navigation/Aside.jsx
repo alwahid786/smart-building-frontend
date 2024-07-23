@@ -12,6 +12,7 @@ import GeneralIcon from '../../../asset/svgs/GeneralIcon'
 import MapIcon from '../../../asset/svgs/MapIcon'
 import LogoIcon from '../../../asset/svgs/LogoIcon'
 import Menu from '../../../asset/svgs/Menu'
+import PodcastsIcon from '@mui/icons-material/Podcasts'
 
 const Aside = ({ toggleNav }) => {
   const [isSideBarOpen, setIsSideBarOpen] = useState(true)
@@ -109,6 +110,16 @@ const Aside = ({ toggleNav }) => {
         />
       ),
       route: 'service',
+    },
+    {
+      label: 'Sensors',
+      icon: (
+        <PodcastsIcon
+          size={{ xs: 24, sm: 32, md: 48, lg: 64, xl: 80 }}
+          isActive={selectedPage === 'Service'}
+        />
+      ),
+      route: 'sensors',
     },
   ]
 
