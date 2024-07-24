@@ -1,6 +1,5 @@
 import {
   Box,
-  Button,
   Switch,
   Table,
   TableBody,
@@ -10,24 +9,18 @@ import {
   TableRow,
   Typography,
 } from '@mui/material'
-import AddIcon from '../../../asset/svgs/AddIcon'
 import { useState } from 'react'
-import AddSensor from './AddSensor'
+import AddIcon from '../../../asset/svgs/AddIcon'
 import { useGetAllSensorsQuery } from '../../../redux/api/sensorApi'
-import DeleteIcon from '../../../asset/svgs/DeleteIcon'
-import { Delete, Edit } from '@mui/icons-material'
+import AddSensor from './AddSensor'
+// import { Delete, Edit } from '@mui/icons-material'
 
-const rows = [
-  {
-    name: 'light',
-    ip: 192,
-    url: 'www.sensor',
-    port: 'ths',
-    type: 'light',
-    location: 'UK',
-  },
-]
+import VisibilityIcon from '@mui/icons-material/Visibility'
+import { Link, useMatch } from 'react-router-dom'
+import ViewSensor from './ViewSensor'
 const Sensors = () => {
+  const match = useMatch('/dashboard/sensors/view-sensor')
+  console.log('match', match)
   const [checked, setChecked] = useState(true)
   const { data } = useGetAllSensorsQuery()
 
@@ -44,7 +37,7 @@ const Sensors = () => {
   const handleOpen = () => {
     setOpen(true)
   }
-  return (
+  return !match ? (
     <Box
       sx={{
         height: '100vh',
@@ -133,8 +126,11 @@ const Sensors = () => {
                   </TableCell>
                   <TableCell>
                     <Box sx={{ display: 'flex', gap: '10px' }}>
-                      <Edit sx={{ color: '#7B42F6', cursor: 'pointer' }} />
-                      <Delete sx={{ color: '#7B42F6', cursor: 'pointer' }} />
+                      <Link to="/dashboard/sensors/view-sensor">
+                        <VisibilityIcon
+                          sx={{ color: '#7B42F6', cursor: 'pointer' }}
+                        />
+                      </Link>
                     </Box>
                   </TableCell>
                 </TableRow>
@@ -144,6 +140,8 @@ const Sensors = () => {
         </TableContainer>
       </Box>
     </Box>
+  ) : (
+    <ViewSensor />
   )
 }
 

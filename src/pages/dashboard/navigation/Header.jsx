@@ -1,26 +1,17 @@
-import {
-  Box,
-  Button,
-  Drawer,
-  Fade,
-  Menu,
-  MenuItem,
-} from '@mui/material'
+import { Box, Button, Drawer, Fade, Menu, MenuItem } from '@mui/material'
 import { useState } from 'react'
 
 import Aside from './Aside'
 import MenuIcon from '../../../asset/svgs/Menu'
-import MailIcon from '../../../asset/svgs/header/MailIcon'
 import NotificationIcon from '../../../asset/svgs/header/NotificationIcon'
 import { useNavigate } from 'react-router-dom'
 import KeyboardArrowDownRoundedIcon from '@mui/icons-material/KeyboardArrowDownRounded'
-import { useLogoutUserMutation} from '../../../redux/api/authApi'
+import { useLogoutUserMutation } from '../../../redux/api/authApi'
 import { useGetUserDetailQuery } from '../../../redux/api/buildingApi'
 import { toast } from 'react-toastify'
 
 const Header = () => {
-
-  const {data} =useGetUserDetailQuery();
+  const { data } = useGetUserDetailQuery()
   const navigate = useNavigate()
 
   // open Menu
@@ -28,21 +19,26 @@ const Header = () => {
   const [logoutUser] = useLogoutUserMutation()
 
   const open = Boolean(anchorEl)
-  const handleClick = (event) => {setAnchorEl(event.currentTarget)}
-  const handleClose = async() => {setAnchorEl(null)}
- 
-  const profilePage = () => {navigate(`profile`)}
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget)
+  }
+  const handleClose = async () => {
+    setAnchorEl(null)
+  }
+
+  const profilePage = () => {
+    navigate(`profile`)
+  }
 
   const handleLogout = async () => {
     const res = await logoutUser()
 
     if (res.data.success === true) {
-      
       toast.success(res.data.message)
-      
-      navigate(`/login`) 
+
+      navigate(`/login`)
     } else {
-      navigate(`/login`) 
+      navigate(`/login`)
       toast.error(res.data.message)
     }
   }
@@ -93,7 +89,6 @@ const Header = () => {
             gap: '21px',
           }}
         >
-          <MailIcon />
           <NotificationIcon />
           {/* <Link to="profile"> */}
           <Button
@@ -141,7 +136,7 @@ const Header = () => {
                   }}
                 />
               </Box>
-                {data?.firstName}
+              {data?.firstName}
               <KeyboardArrowDownRoundedIcon />
             </Box>
           </Button>
