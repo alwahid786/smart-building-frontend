@@ -14,6 +14,8 @@ import AddIcon from '../../../asset/svgs/AddIcon'
 import { useState } from 'react'
 import AddSensor from './AddSensor'
 import { useGetAllSensorsQuery } from '../../../redux/api/sensorApi'
+import DeleteIcon from '../../../asset/svgs/DeleteIcon'
+import { Delete, Edit } from '@mui/icons-material'
 
 const rows = [
   {
@@ -29,7 +31,7 @@ const Sensors = () => {
   const [checked, setChecked] = useState(true)
   const { data } = useGetAllSensorsQuery()
 
-  console.log("Data", data)
+  console.log('Data', data)
 
   const handleChange = (event) => {
     setChecked(event.target.checked)
@@ -45,6 +47,7 @@ const Sensors = () => {
   return (
     <Box
       sx={{
+        height: '100vh',
         background: '#FFFFFF',
         borderRadius: '14px',
         p: { lg: 2, xl: 4 },
@@ -129,8 +132,10 @@ const Sensors = () => {
                     />
                   </TableCell>
                   <TableCell>
-                    <Button>Edit</Button>
-                    <Button>Delete</Button>
+                    <Box sx={{ display: 'flex', gap: '10px' }}>
+                      <Edit sx={{ color: '#7B42F6', cursor: 'pointer' }} />
+                      <Delete sx={{ color: '#7B42F6', cursor: 'pointer' }} />
+                    </Box>
                   </TableCell>
                 </TableRow>
               ))}

@@ -56,7 +56,14 @@ const InfoCard = ({
         {isPurple && (
           <Button
             variant="contained"
-            sx={{ color: 'black', background: 'white' }}
+            sx={{
+              color: 'black',
+              background: 'white',
+              '&:hover': {
+                color: 'black',
+                background: 'white',
+              },
+            }}
           >
             Preview
           </Button>

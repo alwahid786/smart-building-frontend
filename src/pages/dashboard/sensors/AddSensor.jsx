@@ -6,11 +6,13 @@ import {
   TextField,
   CircularProgress,
   Alert,
+  Typography,
 } from '@mui/material'
 import { useCreateSensorMutation } from '../../../redux/api/sensorApi'
 
 const AddSensor = ({ open, handleClose }) => {
-  const [createSensor, { isLoading, isError, isSuccess, error }] = useCreateSensorMutation()
+  const [createSensor, { isLoading, isError, isSuccess, error }] =
+    useCreateSensorMutation()
 
   const handleSubmit = async (event) => {
     event.preventDefault()
@@ -19,7 +21,6 @@ const AddSensor = ({ open, handleClose }) => {
     const data = Object.fromEntries(formData)
 
     try {
-
       await createSensor(data).unwrap()
     } catch (err) {
       console.error('Failed to create sensor:', err)
@@ -29,7 +30,11 @@ const AddSensor = ({ open, handleClose }) => {
   return (
     <Dialog open={open} onClose={handleClose}>
       <Box sx={{ padding: '30px' }}>
-        <Box>Add Sensor</Box>
+        <Typography
+          sx={{ fontWeight: '600', fontSize: '16px', lineHeight: '36px' }}
+        >
+          Add Sensor
+        </Typography>
         <form onSubmit={handleSubmit}>
           <Box
             sx={{
@@ -93,14 +98,44 @@ const AddSensor = ({ open, handleClose }) => {
                 required
               />
             </Box>
-            <Button variant="contained" type="submit" disabled={isLoading}>
-              {isLoading ? <CircularProgress size={24} /> : 'Add'}
-            </Button>
-            <Button onClick={handleClose} variant="contained">
-              Close
-            </Button>
-            {isError && <Alert severity="error">Failed to create sensor: {error.data?.message || 'Unknown error'}</Alert>}
-            {isSuccess && <Alert severity="success">Sensor created successfully!</Alert>}
+            <Box sx={{ display: 'flex', gap: '10px', justifyContent: 'end' }}>
+              <Button
+                onClick={handleClose}
+                variant="contained"
+                sx={{
+                  textTransform: 'none',
+                  background: '#7B42F6',
+                  '&:hover': {
+                    background: '#7B42F6',
+                  },
+                }}
+              >
+                Close
+              </Button>
+              <Button
+                variant="contained"
+                type="submit"
+                disabled={isLoading}
+                sx={{
+                  textTransform: 'none',
+                  background: '#7B42F6',
+                  '&:hover': {
+                    background: '#7B42F6',
+                  },
+                }}
+              >
+                {isLoading ? <CircularProgress size={24} /> : 'Add'}
+              </Button>
+            </Box>
+            {isError && (
+              <Alert severity="error">
+                Failed to create sensor:{' '}
+                {error.data?.message || 'Unknown error'}
+              </Alert>
+            )}
+            {isSuccess && (
+              <Alert severity="success">Sensor created successfully!</Alert>
+            )}
           </Box>
         </form>
       </Box>
