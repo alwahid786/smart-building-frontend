@@ -89,13 +89,13 @@ const PhotosInfo = ({ handleNext, handleBack }) => {
       })
 
       // Use the mutation to send the FormData to the backend
-      // const res = await addBuilding(formData).unwrap()
+      const res = await addBuilding(formData).unwrap()
 
       // Show success notification
-      // toast.success(`${res.message}`)
+      toast.success(`${res.message}`)
 
       // Dispatch the building ID to the Redux store
-      // dispatch(setBuildingId(res.building._id)) // Assuming the response contains a buildingId
+       dispatch(setBuildingId(res.building._id)) // Assuming the response contains a buildingId
 
       setTimeout(() => {
         handleNext()

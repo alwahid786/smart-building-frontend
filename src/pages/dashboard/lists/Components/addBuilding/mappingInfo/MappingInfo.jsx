@@ -63,7 +63,7 @@ const MappingInfo = ({ handleBack, handleNext }) => {
       }
 
       // Call the mutation with the data object
-    //  await buildingLocation({ data, buildingId }).unwrap()
+    await buildingLocation({ data, buildingId }).unwrap()
 
 
       handleNext()

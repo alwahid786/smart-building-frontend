@@ -274,15 +274,17 @@ const SubAddFloors = ({
   // eslint-disable-next-line react/prop-types
   handleSensorChange,
 }) => {
+  const { data: Allsensors } = useGetAllSensorsQuery()
 
-  const { data: Allsensors } = useGetAllSensorsQuery();
-  
+  const DUMMYSENSOS = [
+    { label: 'Sensor 1', value: 'sensor1' },
+    { label: 'Sensor 2', value: 'sensor2' },
+    { label: 'Sensor 3', value: 'sensor3' },
+  ]
 
-  // const DUMMYSENSOS = [
-  //   { label: 'Sensor 1', value: 'sensor1' },
-  //   { label: 'Sensor 2', value: 'sensor2' },
-  //   { label: 'Sensor 3', value: 'sensor3' },
-  // ]
+  const availableSensors = Allsensors.filter(
+    (sensor) => !sensors.includes(sensor.sensorName)
+  )
 
   const selectedSensorValue = singleSensor ?? ''
 
@@ -400,11 +402,15 @@ const SubAddFloors = ({
               size="medium"
               onChange={handleSensorChange}
             >
-              {Allsensors?.map((sensor, index) => (
-                <MenuItem value={sensor.sensorName} key={index} onChange={handleSensorChange} >
-                  {sensor.sensorName}
-                </MenuItem>
-              ))}
+              {availableSensors.length > 0 ? (
+                availableSensors.map((sensor, index) => (
+                  <MenuItem value={sensor.sensorName} key={index}>
+                    {sensor.sensorName}
+                  </MenuItem>
+                ))
+              ) : (
+                <MenuItem disabled>Sensor Unavailable</MenuItem>
+              )}
             </Select>
           </FormControl>
 
