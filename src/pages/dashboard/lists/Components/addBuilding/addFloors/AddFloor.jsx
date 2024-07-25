@@ -100,9 +100,9 @@ const AddFloor = ({ handleBack }) => {
         newFormData.append('rooms', floor.formData.rooms)
         newFormData.append('image', floor.selectedFile)
         newFormData.append('buildingId', buildingId) // Include buildingId here
-
+        newFormData.append('sensors', floor.sensors)
         const res = await addBuildingFloor(newFormData)
-
+        console.log(res)
         // Check response status for success handling
         if (res.data.success === true) {
           toast.success('Floor added successfully')
@@ -401,8 +401,8 @@ const SubAddFloors = ({
               onChange={handleSensorChange}
             >
               {Allsensors?.map((sensor, index) => (
-                <MenuItem value={sensor.sensorName} key={index}>
-                  {sensor.label}
+                <MenuItem value={sensor.sensorName} key={index} onChange={handleSensorChange} >
+                  {sensor.sensorName}
                 </MenuItem>
               ))}
             </Select>
