@@ -23,6 +23,7 @@ import { toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import { useNavigate } from 'react-router-dom'
 import { useSelector } from 'react-redux'
+import { useGetAllSensorsQuery } from '../../../../../../redux/api/sensorApi'
 
 const AddFloor = ({ handleBack }) => {
   const buildingId = useSelector((state) => state.form.buildingId)
@@ -273,11 +274,15 @@ const SubAddFloors = ({
   // eslint-disable-next-line react/prop-types
   handleSensorChange,
 }) => {
-  const DUMMYSENSOS = [
-    { label: 'Sensor 1', value: 'sensor1' },
-    { label: 'Sensor 2', value: 'sensor2' },
-    { label: 'Sensor 3', value: 'sensor3' },
-  ]
+
+  const { data: Allsensors } = useGetAllSensorsQuery();
+  
+
+  // const DUMMYSENSOS = [
+  //   { label: 'Sensor 1', value: 'sensor1' },
+  //   { label: 'Sensor 2', value: 'sensor2' },
+  //   { label: 'Sensor 3', value: 'sensor3' },
+  // ]
 
   const selectedSensorValue = singleSensor ?? ''
 
@@ -395,8 +400,8 @@ const SubAddFloors = ({
               size="medium"
               onChange={handleSensorChange}
             >
-              {DUMMYSENSOS.map((sensor, index) => (
-                <MenuItem value={sensor.value} key={index}>
+              {Allsensors?.map((sensor, index) => (
+                <MenuItem value={sensor.sensorName} key={index}>
                   {sensor.label}
                 </MenuItem>
               ))}

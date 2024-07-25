@@ -9,6 +9,8 @@ const Socketio = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  console.log(sensorData);
+
   useEffect(() => {
     // Initialize socket connection
     const socket = io(SERVER_URL, {
@@ -65,6 +67,12 @@ const Socketio = () => {
               <h3>Sensor {index + 1}</h3>
               <div>
                 <strong>ID:</strong> {data._id}
+              </div>
+              <div>
+                <strong>ownerId:</strong> {data?.payload?.ownerId}
+              </div>
+              <div>
+                <strong>status:</strong> {data?.payload?.route_status}
               </div>
             </li>
           ))

@@ -1,31 +1,46 @@
-import PropTypes from 'prop-types'
+import PropTypes from 'prop-types';
 import {
   Box,
   Button,
   Dialog,
   TextField,
   CircularProgress,
-  Alert,
   Typography,
-} from '@mui/material'
-import { useCreateSensorMutation } from '../../../redux/api/sensorApi'
+} from '@mui/material';
+import Swal from 'sweetalert2';
+import withReactContent from 'sweetalert2-react-content';
+import { useCreateSensorMutation } from '../../../redux/api/sensorApi';
 
-const AddSensor = ({ open, handleClose }) => {
-  const [createSensor, { isLoading, isError, isSuccess, error }] =
-    useCreateSensorMutation()
+const AddSensor = ({ open, handleClose, onAddSensor }) => {
+  const [createSensor, { isLoading }] = useCreateSensorMutation();
+  const MySwal = withReactContent(Swal);
 
   const handleSubmit = async (event) => {
-    event.preventDefault()
+    event.preventDefault();
 
-    const formData = new FormData(event.target)
-    const data = Object.fromEntries(formData)
+    const formData = new FormData(event.target);
+    const data = Object.fromEntries(formData);
 
     try {
-      await createSensor(data).unwrap()
+      await createSensor(data).unwrap();
+      MySwal.fire({
+        title: 'Connected!',
+        text: 'Sensor added successfully.',
+        icon: 'success',
+        confirmButtonText: 'Cool',
+      });
+      onAddSensor(data); // Notify parent to refresh the sensor list
     } catch (err) {
-      console.error('Failed to create sensor:', err)
+      MySwal.fire({
+        title: 'Error!',
+        text: `Failed to create sensor: ${err.data?.message || 'Unknown error'}`,
+        icon: 'error',
+        confirmButtonText: 'Try Again',
+      });
+    } finally {
+      handleClose(); // Close the dialog regardless of success or failure
     }
-  }
+  };
 
   return (
     <Dialog open={open} onClose={handleClose}>
@@ -117,25 +132,17 @@ const AddSensor = ({ open, handleClose }) => {
                 {isLoading ? <CircularProgress size={24} /> : 'Add'}
               </Button>
             </Box>
-            {isError && (
-              <Alert severity="error">
-                Failed to create sensor:{' '}
-                {error.data?.message || 'Unknown error'}
-              </Alert>
-            )}
-            {isSuccess && (
-              <Alert severity="success">Sensor created successfully!</Alert>
-            )}
           </Box>
         </form>
       </Box>
     </Dialog>
-  )
-}
+  );
+};
 
 AddSensor.propTypes = {
   open: PropTypes.bool.isRequired,
   handleClose: PropTypes.func.isRequired,
-}
+  onAddSensor: PropTypes.func.isRequired, // Add this prop type
+};
 
-export default AddSensor
+export default AddSensor;

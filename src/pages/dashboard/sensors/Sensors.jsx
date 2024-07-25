@@ -8,36 +8,44 @@ import {
   TableHead,
   TableRow,
   Typography,
-} from '@mui/material'
-import { useState } from 'react'
-import AddIcon from '../../../asset/svgs/AddIcon'
-import { useGetAllSensorsQuery } from '../../../redux/api/sensorApi'
-import AddSensor from './AddSensor'
-// import { Delete, Edit } from '@mui/icons-material'
+} from '@mui/material';
+import { useState } from 'react';
+import AddIcon from '../../../asset/svgs/AddIcon';
+import { useGetAllSensorsQuery,  useCreateSensorMutation } from '../../../redux/api/sensorApi';
+import AddSensor from './AddSensor';
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import { Link, useMatch } from 'react-router-dom';
+import ViewSensor from './ViewSensor';
 
-import VisibilityIcon from '@mui/icons-material/Visibility'
-import { Link, useMatch } from 'react-router-dom'
-import ViewSensor from './ViewSensor'
-import Socketio from '../../../components/Socketio'
+
 const Sensors = () => {
-  const match = useMatch('/dashboard/sensors/view-sensor')
-  console.log('match', match)
-  const [checked, setChecked] = useState(true)
-  const { data } = useGetAllSensorsQuery()
-
-  console.log('Data', data)
+  const match = useMatch('/dashboard/sensors/view-sensor');
+  const [checked, setChecked] = useState(true);
+  const { data: sensors, refetch } = useGetAllSensorsQuery();
+  const [createSensor] = useCreateSensorMutation();
 
   const handleChange = (event) => {
-    setChecked(event.target.checked)
-  }
+    setChecked(event.target.checked);
+  };
 
-  const [open, setOpen] = useState(false)
+  const [open, setOpen] = useState(false);
   const handleClose = () => {
-    setOpen(false)
-  }
+    setOpen(false);
+  };
   const handleOpen = () => {
-    setOpen(true)
-  }
+    setOpen(true);
+  };
+
+  const handleAddSensor = async (newSensor) => {
+    try {
+      await createSensor(newSensor).unwrap();
+      refetch(); // Refresh the sensor list after adding a new sensor
+      handleClose();
+    } catch (err) {
+      console.error('Failed to add sensor:', err);
+    }
+  };
+
   return !match ? (
     <Box
       sx={{
@@ -60,7 +68,6 @@ const Sensors = () => {
         },
       }}
     >
-      {' '}
       <Box
         sx={{
           display: 'flex',
@@ -71,13 +78,13 @@ const Sensors = () => {
         <Typography
           sx={{ fontWeight: '600', fontSize: '20px', lineHeight: '32px' }}
         >
-          All Sensors{' '}
+          All Sensors
         </Typography>
         <Box onClick={handleOpen} sx={{ cursor: 'pointer' }}>
           <AddIcon />
         </Box>
       </Box>
-      <AddSensor open={open} handleClose={handleClose} />
+      <AddSensor open={open} handleClose={handleClose} onAddSensor={handleAddSensor} />
       <Box>
         <TableContainer>
           <Table sx={{ minWidth: 650 }} aria-label="simple table">
@@ -107,9 +114,9 @@ const Sensors = () => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {data?.map((row) => (
+              {sensors?.map((row) => (
                 <TableRow
-                  key={row.name}
+                  key={row.uniqueId}
                   sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                 >
                   <TableCell align="left">{row.sensorName}</TableCell>
@@ -118,7 +125,6 @@ const Sensors = () => {
                   <TableCell align="left">{row.port}</TableCell>
                   <TableCell align="left">{row.sensorType}</TableCell>
                   <TableCell align="left">
-                    {' '}
                     <Switch
                       checked={checked}
                       onChange={handleChange}
@@ -140,12 +146,10 @@ const Sensors = () => {
           </Table>
         </TableContainer>
       </Box>
-      <Socketio/>
     </Box>
   ) : (
     <ViewSensor />
-  )
+  );
+};
 
-}
-
-export default Sensors
+export default Sensors;
