@@ -19,14 +19,13 @@ const EnergyConsumption = () => {
   ]
 
   return (
-    <>
+    <Box sx={{ height: { xs: 'auto' } }}>
       <Box
         sx={{
           mt: 2,
           display: 'flex',
           flexDirection: { xs: 'column', md: 'row' },
           gap: 2,
-          height: { xs: 'auto', md: '80px' },
         }}
       >
         <Box
@@ -43,7 +42,6 @@ const EnergyConsumption = () => {
                 fontWeight: { xs: 400, lg: 600 },
                 fontSize: { xs: 12, lg: 16 },
                 color: 'rgba(17, 17, 17, 1)',
-                fontFamily: 'Poppins',
                 lineHeight: '40px',
               }}
             >
@@ -56,14 +54,12 @@ const EnergyConsumption = () => {
                 gap: 1,
                 fontWeight: 400,
                 fontSize: { xs: 12, md: 16 },
-                fontFamily: 'Poppins',
+                // fontFamily: 'Poppins',
                 color: 'rgba(17, 17, 17, 0.6)',
               }}
             >
               {' '}
               <GrayBox /> Currently
-              {/* {showSecondBar && <PurpleBox />}{' '}
-              {showSecondBar && 'After changes'} */}
             </Typography>
           </Box>
           <Box
@@ -119,41 +115,37 @@ const EnergyConsumption = () => {
           {stats.map((stat, index) => (
             <TextBox key={index}>
               <TextBoxChildFirst>{stat.label.split(' ')[0]}</TextBoxChildFirst>
-              {/* <TextBoxChildFirst>{stat.label.split(' ')[1]}</TextBoxChildFirst> */}
               <TextBoxChildSecond>{stat.value}</TextBoxChildSecond>
             </TextBox>
           ))}
-          <Box>
+          {/* <Box>
             <UtilityCard />
-          </Box>
+          </Box> */}
         </Box>
       </Box>
-    </>
+    </Box>
   )
 }
 
 export default EnergyConsumption
 const TextBox = styled(Box)({
   display: 'flex',
-  // flex: '1 0 48%',
   flexDirection: 'column',
   alignItems: 'baseline',
   textAlign: 'left',
   justifyContent: 'center',
-  // width: '120px',
-  // height: '100px',
   backgroundColor: 'white',
-  borderRadius: '12px',
-  boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.1)',
-  padding: '6px',
-  // margin: '4px',
+  borderRadius: '8px',
+  border: '1.5px solid #00000030',
+  boxShadow: '0px 0px 4px rgba(0, 0, 0, 0.1)',
+  padding: '12px',
+  minWidth: '90px',
 })
 
 const TextBoxChildFirst = styled(Typography)({
   color: 'rgba(17, 17, 17, 0.6)',
   fontWeight: 400,
   fontSize: '12px',
-  fontFamily: 'Poppins',
   textAlign: 'center',
 })
 
@@ -161,6 +153,5 @@ const TextBoxChildSecond = styled(Typography)({
   color: 'rgba(17, 17, 17, 1)',
   fontWeight: 500,
   fontSize: '14px',
-  fontFamily: 'Poppins',
   textAlign: 'center',
 })

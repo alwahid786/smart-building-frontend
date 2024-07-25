@@ -42,7 +42,6 @@ const EnergyConsumption = () => {
                 fontWeight: { xs: 400, lg: 600 },
                 fontSize: { xs: 12, lg: 16 },
                 color: 'rgba(17, 17, 17, 1)',
-                fontFamily: 'Poppins',
                 lineHeight: '40px',
               }}
             >
