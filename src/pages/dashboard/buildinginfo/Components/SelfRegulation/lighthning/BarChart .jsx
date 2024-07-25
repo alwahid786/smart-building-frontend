@@ -1,3 +1,4 @@
+import { Card } from '@mui/material'
 import React from 'react'
 import { useSelector } from 'react-redux'
 import {
@@ -21,7 +22,8 @@ const MyBarChart = ({ data }) => {
   // const ChartElement = chartType === "bar" ? Bar : Line;
 
   return (
-    <ResponsiveContainer width="80%" height={300}>
+    // width="80%" height={300}
+    <ResponsiveContainer>
       {/* <Chart
         data={data}
         margin={{
@@ -51,6 +53,10 @@ const MyBarChart = ({ data }) => {
           />
         )}
       </Chart> */}
+
+      <Card>
+        <h1>Hello</h1>
+      </Card>
     </ResponsiveContainer>
   )
 }
