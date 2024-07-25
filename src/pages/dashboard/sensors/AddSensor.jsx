@@ -88,16 +88,6 @@ const AddSensor = ({ open, handleClose }) => {
                 required
               />
             </Box>
-            <Box sx={{ display: 'flex', gap: '10px' }}>
-              <TextField
-                type="text"
-                fullWidth
-                size="small"
-                label="Location"
-                name="location"
-                required
-              />
-            </Box>
             <Box sx={{ display: 'flex', gap: '10px', justifyContent: 'end' }}>
               <Button
                 onClick={handleClose}

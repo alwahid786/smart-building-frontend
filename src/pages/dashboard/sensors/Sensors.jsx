@@ -18,6 +18,7 @@ import AddSensor from './AddSensor'
 import VisibilityIcon from '@mui/icons-material/Visibility'
 import { Link, useMatch } from 'react-router-dom'
 import ViewSensor from './ViewSensor'
+import Socketio from '../../../components/Socketio'
 const Sensors = () => {
   const match = useMatch('/dashboard/sensors/view-sensor')
   console.log('match', match)
@@ -139,10 +140,12 @@ const Sensors = () => {
           </Table>
         </TableContainer>
       </Box>
+      <Socketio/>
     </Box>
   ) : (
     <ViewSensor />
   )
+
 }
 
 export default Sensors
