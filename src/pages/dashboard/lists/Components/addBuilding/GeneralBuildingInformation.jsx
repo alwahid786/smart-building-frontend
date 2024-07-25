@@ -108,7 +108,7 @@ const GeneralBuildingInformation = ({ handleNext }) => {
               type="text"
               name="buildingName"
               fullWidth
-              required
+              // required
               value={formData.buildingName}
               onChange={handleInputChange}
             />
@@ -121,7 +121,7 @@ const GeneralBuildingInformation = ({ handleNext }) => {
               name="ownerName"
               size="small"
               fullWidth
-              required
+              // required
               value={formData.ownerName}
               onChange={handleInputChange}
             />
@@ -149,7 +149,7 @@ const GeneralBuildingInformation = ({ handleNext }) => {
               name="email"
               size="small"
               fullWidth
-              required
+              // required
               value={formData.email}
               onChange={handleInputChange}
             />
@@ -162,7 +162,7 @@ const GeneralBuildingInformation = ({ handleNext }) => {
               name="totalArea"
               fullWidth
               size="small"
-              required
+              // required
               value={formData.totalArea}
               onChange={handleInputChange}
             />
@@ -191,7 +191,7 @@ const GeneralBuildingInformation = ({ handleNext }) => {
               name="numberOfFloors"
               size="small"
               fullWidth
-              required
+              // required
               value={formData.numberOfFloors}
               onChange={handleInputChange}
             />
@@ -203,7 +203,7 @@ const GeneralBuildingInformation = ({ handleNext }) => {
               name="constructionYear"
               size="small"
               fullWidth
-              required
+              // required
               value={formData.constructionYear}
               onChange={handleInputChange}
             />
@@ -216,7 +216,7 @@ const GeneralBuildingInformation = ({ handleNext }) => {
               name="writtenAddress"
               size="small"
               fullWidth
-              required
+              // required
               value={formData.writtenAddress}
               onChange={handleInputChange}
             />
@@ -230,7 +230,7 @@ const GeneralBuildingInformation = ({ handleNext }) => {
               label="Description"
               type="text"
               name="description"
-              required
+              // required
               value={formData.description}
               onChange={handleInputChange}
             />
