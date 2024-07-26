@@ -15,7 +15,6 @@ import { useGetAllSensorsQuery,  useCreateSensorMutation } from '../../../redux/
 import AddSensor from './AddSensor';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import { Link, useMatch } from 'react-router-dom';
-import ViewSensor from './ViewSensor';
 
 
 const Sensors = () => {
