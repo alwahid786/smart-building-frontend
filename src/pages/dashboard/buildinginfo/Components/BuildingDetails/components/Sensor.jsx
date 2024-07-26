@@ -7,21 +7,57 @@ import {
   Stack,
   Box,
   Divider,
-  Alert,
 } from '@mui/material'
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew'
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos'
 import { SensorsStatusSkeleton } from '../../../../../../components/Skeleton'
 import Heating from '../../../../../../asset/svgs/BuildignInfo/Heating'
+import Cooling from '../../../../../../asset/svgs/BuildignInfo/Heating' // Example of another icon
+
+const data = [
+  {
+    type: 'Heating',
+    installed: 436,
+    active: 385,
+    offline: 50,
+  },
+  {
+    type: 'Cooling',
+    installed: 320,
+    active: 290,
+    offline: 30,
+  },
+  // Add more data as needed
+]
+
+const icons = {
+  Heating: Heating,
+  Cooling: Cooling,
+  // Add more icons as needed
+}
 
 const Sensor = () => {
   const [isLoading, setIsLoading] = useState(true)
+  const [currentIndex, setCurrentIndex] = useState(0)
 
   useEffect(() => {
     setTimeout(() => {
       setIsLoading(false)
     }, 3000)
   }, [])
+
+  const handleNext = () => {
+    setCurrentIndex((prevIndex) => (prevIndex + 1) % data.length)
+  }
+
+  const handlePrev = () => {
+    setCurrentIndex((prevIndex) =>
+      prevIndex === 0 ? data.length - 1 : prevIndex - 1
+    )
+  }
+
+  const CurrentIcon = icons[data[currentIndex].type]
+
   return (
     <>
       {isLoading ? (
@@ -56,7 +92,6 @@ const Sensor = () => {
                   marginBottom: '6px',
                   color: 'white',
                   borderColor: 'transparent',
-                  // borderWidth: 2,
                   borderStyle: 'solid',
                   borderImageSlice: 1,
                   borderImageSource:
@@ -68,6 +103,7 @@ const Sensor = () => {
             </Box>
 
             <Divider />
+
             <Box
               sx={{
                 display: 'flex',
@@ -77,7 +113,10 @@ const Sensor = () => {
                 marginTop: 4,
               }}
             >
-              <ArrowBackIosNewIcon sx={{ cursor: 'pointer' }} />
+              <ArrowBackIosNewIcon
+                sx={{ cursor: 'pointer' }}
+                onClick={handlePrev}
+              />
               <Box
                 sx={{
                   display: 'flex',
@@ -85,14 +124,17 @@ const Sensor = () => {
                   alignItems: 'center',
                 }}
               >
-                <Heating />
+                <CurrentIcon />
                 <Typography
                   sx={{ fontWeight: 'medium', fontSize: { xs: 12, md: 16 } }}
                 >
-                  Heating
+                  {data[currentIndex].type}
                 </Typography>
               </Box>
-              <ArrowForwardIosIcon sx={{ cursor: 'pointer' }} />
+              <ArrowForwardIosIcon
+                sx={{ cursor: 'pointer' }}
+                onClick={handleNext}
+              />
             </Box>
 
             <Stack
@@ -130,7 +172,7 @@ const Sensor = () => {
                     fontWeight: '400',
                   }}
                 >
-                  436
+                  {data[currentIndex].installed}
                 </Typography>
               </Box>
               <Box
@@ -162,7 +204,7 @@ const Sensor = () => {
                     fontWeight: '400',
                   }}
                 >
-                  385
+                  {data[currentIndex].active}
                 </Typography>
               </Box>
               <Box
@@ -194,7 +236,7 @@ const Sensor = () => {
                     fontWeight: '400',
                   }}
                 >
-                  50
+                  {data[currentIndex].offline}
                 </Typography>
               </Box>
             </Stack>
@@ -211,7 +253,6 @@ const Sensor = () => {
                 color: 'black',
                 borderRadius: '6px',
                 borderLeft: '4px solid #FA3D45',
-
                 lineHeight: '24px',
               }}
             >
