@@ -282,10 +282,6 @@ const SubAddFloors = ({
     { label: 'Sensor 3', value: 'sensor3' },
   ]
 
-  const availableSensors = Allsensors.filter(
-    (sensor) => !sensors.includes(sensor.sensorName)
-  )
-
   const selectedSensorValue = singleSensor ?? ''
 
   return (
@@ -402,15 +398,12 @@ const SubAddFloors = ({
               size="medium"
               onChange={handleSensorChange}
             >
-              {availableSensors.length > 0 ? (
-                availableSensors.map((sensor, index) => (
-                  <MenuItem value={sensor.sensorName} key={index}>
-                    {sensor.sensorName}
+              {  DUMMYSENSOS.map((sensor, index) => (
+                  <MenuItem value={sensor?.value} key={index}>
+                    {sensor?.value}
                   </MenuItem>
                 ))
-              ) : (
-                <MenuItem disabled>Sensor Unavailable</MenuItem>
-              )}
+                }
             </Select>
           </FormControl>
 

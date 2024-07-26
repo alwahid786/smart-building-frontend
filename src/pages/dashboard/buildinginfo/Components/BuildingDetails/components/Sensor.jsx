@@ -7,7 +7,6 @@ import {
   Stack,
   Box,
   Divider,
-  Alert,
 } from '@mui/material'
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew'
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos'
@@ -68,6 +67,32 @@ const Sensor = () => {
             </Box>
 
             <Divider />
+            <Box
+              sx={{
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                marginBottom: 1,
+                marginTop: 4,
+              }}
+            >
+              <ArrowBackIosNewIcon sx={{ cursor: 'pointer' }} />
+              <Box
+                sx={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'center',
+                }}
+              >
+                <Heating />
+                <Typography
+                  sx={{ fontWeight: 'medium', fontSize: { xs: 12, md: 16 } }}
+                >
+                  Heating
+                </Typography>
+              </Box>
+              <ArrowForwardIosIcon sx={{ cursor: 'pointer' }} />
+            </Box>
             <Box
               sx={{
                 display: 'flex',
