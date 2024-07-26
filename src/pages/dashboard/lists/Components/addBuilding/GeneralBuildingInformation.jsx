@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import PropTypes from 'prop-types'
 import {
   Box,
@@ -11,14 +11,14 @@ import {
   TextField,
   Typography,
 } from '@mui/material'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { setBuildingData } from '../../../../../redux/reducers/formReducer'
 import PhoneInput from 'react-phone-input-2'
 import 'react-phone-input-2/lib/style.css'
 
 const GeneralBuildingInformation = ({ handleNext }) => {
   const dispatch = useDispatch()
-  const buildingData = useSelector((state) => state.form.buildingData)
+  // const buildingData = useSelector((state) => state.form.buildingData)
   
   // Local state for form data
   const [formData, setFormData] = useState({
@@ -34,10 +34,10 @@ const GeneralBuildingInformation = ({ handleNext }) => {
     description: ''
   })
 
-  useEffect(() => {
-    // Populate local state with Redux data when component mounts or Redux state changes
-    setFormData(buildingData)
-  }, [buildingData])
+  // useEffect(() => {
+  //   // Populate local state with Redux data when component mounts or Redux state changes
+  //   setFormData(buildingData)
+  // }, [buildingData])
 
   const handleInputChange = (e) => {
     const { name, value } = e.target

@@ -20,6 +20,8 @@ const BuildingInfo = lazy(() => import('./pages/dashboard/buildinginfo'))
 const Setting = lazy(() => import('./pages/dashboard/setting'))
 const Profile = lazy(() => import('./pages/profile'))
 const Sensors = lazy(() => import('./pages/dashboard/sensors/Sensors'))
+const ViewSensor = lazy(() => import('./pages/dashboard/sensors/ViewSensor'))
+
 const Dashboard = lazy(() => import('./pages/dashboard'))
 const Renovation = lazy(() => import('./pages/dashboard/renovation'))
 const ForgetPassword = lazy(() =>
@@ -39,7 +41,7 @@ const App = () => {
           <Route path="/forgetpassword" element={<ForgetPassword />} />
           <Route path="/resetpassword/:token" element={<ResetPassword />} />
 
-          <Route path="/dashboard/" element={<Dashboard />}>
+          <Route path="/dashboard" element={<Dashboard />}>
             <Route index element={<Navigate replace to="list" />} />
             <Route path="addbuilding" element={<AddBuilding />} />
 
@@ -52,7 +54,9 @@ const App = () => {
             <Route path="renovation" element={<Renovation />} />
             <Route path="map" element={<Map />} />
             <Route path="service" element={<Setting />} />
-            <Route path="sensors" element={<Sensors />} />
+            <Route path="sensors/" element={<Sensors />}>
+              <Route path="view-sensor" element={<ViewSensor />} />
+            </Route>
           </Route>
           <Route path="*" element={<Navigate to="/login" />} />
         </Routes>

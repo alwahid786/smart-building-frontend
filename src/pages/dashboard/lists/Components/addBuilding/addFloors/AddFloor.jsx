@@ -274,14 +274,9 @@ const SubAddFloors = ({
   // eslint-disable-next-line react/prop-types
   handleSensorChange,
 }) => {
+
   const { data: Allsensors } = useGetAllSensorsQuery()
-
-  const DUMMYSENSOS = [
-    { label: 'Sensor 1', value: 'sensor1' },
-    { label: 'Sensor 2', value: 'sensor2' },
-    { label: 'Sensor 3', value: 'sensor3' },
-  ]
-
+  
   const selectedSensorValue = singleSensor ?? ''
 
   return (
@@ -398,9 +393,10 @@ const SubAddFloors = ({
               size="medium"
               onChange={handleSensorChange}
             >
-              {  DUMMYSENSOS.map((sensor, index) => (
-                  <MenuItem value={sensor?.value} key={index}>
-                    {sensor?.value}
+              {  Allsensors?.map((sensor, index) => (
+                  
+                  <MenuItem value={sensor?.sensorName} key={index}>
+                    {sensor?.sensorName}
                   </MenuItem>
                 ))
                 }
