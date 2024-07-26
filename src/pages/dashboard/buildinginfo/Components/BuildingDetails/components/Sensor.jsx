@@ -136,32 +136,6 @@ const Sensor = () => {
                 onClick={handleNext}
               />
             </Box>
-            <Box
-              sx={{
-                display: 'flex',
-                justifyContent: 'space-between',
-                alignItems: 'center',
-                marginBottom: 1,
-                marginTop: 4,
-              }}
-            >
-              <ArrowBackIosNewIcon sx={{ cursor: 'pointer' }} />
-              <Box
-                sx={{
-                  display: 'flex',
-                  flexDirection: 'column',
-                  alignItems: 'center',
-                }}
-              >
-                <Heating />
-                <Typography
-                  sx={{ fontWeight: 'medium', fontSize: { xs: 12, md: 16 } }}
-                >
-                  Heating
-                </Typography>
-              </Box>
-              <ArrowForwardIosIcon sx={{ cursor: 'pointer' }} />
-            </Box>
 
             <Stack
               direction="row"
