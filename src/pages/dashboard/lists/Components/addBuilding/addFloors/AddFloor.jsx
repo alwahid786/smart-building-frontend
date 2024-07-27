@@ -22,8 +22,9 @@ import { useAddBuildingFloorMutation } from '../../../../../../redux/api/buildin
 import { toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import { useNavigate } from 'react-router-dom'
-import {useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { useGetAllSensorsQuery } from '../../../../../../redux/api/sensorApi'
+
 
 const AddFloor = ({ handleBack }) => {
   const buildingId = useSelector((state) => state.form.buildingId);
@@ -108,15 +109,13 @@ const AddFloor = ({ handleBack }) => {
         newFormData.append('sensors', JSON.stringify(floor.sensors)); // Ensure it's a JSON string
 
         const res = await addBuildingFloor(newFormData);
- 
-        if (res.data.success === true) {
-          toast.success('Floor added successfully');
-        }
 
+        if (res.data.success === true) {navigate(`/dashboard/list`)}
 
       }
     } catch (error) {
-      console.error('Error adding floor:', error);
+
+      toast.error(error.data.message);
     }
   };
   
