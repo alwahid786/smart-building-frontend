@@ -22,12 +22,13 @@ import { useAddBuildingFloorMutation } from '../../../../../../redux/api/buildin
 import { toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import { useNavigate } from 'react-router-dom'
-import { useSelector } from 'react-redux'
+import {useSelector } from 'react-redux'
 import { useGetAllSensorsQuery } from '../../../../../../redux/api/sensorApi'
 
 const AddFloor = ({ handleBack }) => {
-  const buildingId = useSelector((state) => state.form.buildingId)
-
+  const buildingId = useSelector((state) => state.form.buildingId);
+  const navigate = useNavigate();
+  
   const [floors, setFloors] = useState([
     {
       id: 1,
@@ -40,7 +41,6 @@ const AddFloor = ({ handleBack }) => {
   ])
 
   const [addBuildingFloor] = useAddBuildingFloorMutation()
-  const navigate = useNavigate()
 
   const handleAddFloor = () => {
     setFloors([
@@ -57,9 +57,13 @@ const AddFloor = ({ handleBack }) => {
   }
 
   const handleSensorChange = (event, index) => {
-    const updatedFloors = [...floors]
-    updatedFloors[index].singleSensor = event.target.value
-    setFloors(updatedFloors)
+    
+    // Create a new copy of the floors array and update the specific floor's singleSensor
+    const updatedFloors = [...floors];
+    updatedFloors[index].singleSensor = event.target.value;
+    // Update the state with the new floors array
+    setFloors(updatedFloors);
+
   }
 
   const handleChange = (event, index) => {
@@ -83,38 +87,39 @@ const AddFloor = ({ handleBack }) => {
     setFloors(updatedFloors)
   }
 
-  const sensorDeleteHandler = (name, index) => {
+  const sensorDeleteHandler = (sensorId) => {
     const updatedFloors = [...floors]
-    updatedFloors[index].sensors = updatedFloors[index].sensors.filter(
-      (sensor) => sensor !== name
-    )
+    const floorId= updatedFloors.findIndex((floor) => floor.sensors.map((sensor) => sensor._id===sensorId))
+    const sensors = updatedFloors[floorId].sensors
+    const filteredSensors = sensors.filter(jsonString => JSON.parse(jsonString)._id!==sensorId);
+    updatedFloors[floorId].sensors = filteredSensors
     setFloors(updatedFloors)
   }
 
   const handleSubmit = async (event) => {
-    event.preventDefault()
+    event.preventDefault();
     try {
       for (const floor of floors) {
-        const newFormData = new FormData()
-        newFormData.append('floor', floor.formData.floor)
-        newFormData.append('rooms', floor.formData.rooms)
-        newFormData.append('image', floor.selectedFile)
-        newFormData.append('buildingId', buildingId) // Include buildingId here
-        newFormData.append('sensors', floor.sensors)
-        const res = await addBuildingFloor(newFormData)
-        console.log(res)
-        // Check response status for success handling
+        const newFormData = new FormData();
+        newFormData.append('floor', floor.formData.floor);
+        newFormData.append('rooms', floor.formData.rooms);
+        newFormData.append('image', floor.selectedFile);
+        newFormData.append('buildingId', buildingId);
+        newFormData.append('sensors', JSON.stringify(floor.sensors)); // Ensure it's a JSON string
+
+        const res = await addBuildingFloor(newFormData);
+ 
         if (res.data.success === true) {
-          toast.success('Floor added successfully')
+          toast.success('Floor added successfully');
         }
+
+
       }
-
-      navigate('/dashboard/list')
     } catch (error) {
-      console.error('Error adding floor:', error)
+      console.error('Error adding floor:', error);
     }
-  }
-
+  };
+  
   const handleDeleteFloor = (index) => {
     const updatedFloors = [...floors]
     updatedFloors.splice(index, 1)
@@ -273,6 +278,9 @@ const SubAddFloors = ({
   handleDeleteFloor,
   // eslint-disable-next-line react/prop-types
   handleSensorChange,
+
+  // eslint-disable-next-line react/prop-types
+  
 }) => {
 
   const { data: Allsensors } = useGetAllSensorsQuery()
@@ -393,24 +401,29 @@ const SubAddFloors = ({
               size="medium"
               onChange={handleSensorChange}
             >
-              {  Allsensors?.map((sensor, index) => (
-                  
-                  <MenuItem value={sensor?.sensorName} key={index}>
+              {  Allsensors?.map((sensor, index) =>(
+                  <MenuItem value={JSON.stringify(sensor)} key={index} >
                     {sensor?.sensorName}
-                  </MenuItem>
-                ))
+                  </MenuItem>))
                 }
             </Select>
           </FormControl>
 
           {sensors?.length > 0 &&
             sensors.map((s, i) => (
+              
               <SingleSensor
                 sensorDeleteHandler={sensorDeleteHandler}
                 key={i}
-                name={s}
+                name={JSON.parse(s)}
               />
-            ))}
+
+            )
+            
+          )
+            
+
+            }
 
           <Box sx={{ marginY: '15px', textAlign: 'right' }}>
             <Button
@@ -464,7 +477,7 @@ const SingleSensor = ({ name, sensorDeleteHandler }) => {
         }}
       >
         <Typography sx={{ fontSize: '16px', color: '#FF7F3E' }}>
-          {name}
+          {name?.sensorName}
         </Typography>
         <Switch
           defaultChecked
@@ -485,7 +498,7 @@ const SingleSensor = ({ name, sensorDeleteHandler }) => {
         />
       </Box>
       <Box
-        onClick={() => sensorDeleteHandler(name)}
+        onClick={() => sensorDeleteHandler(name?._id)}
         sx={{
           display: 'flex',
           justifyContent: 'center',

@@ -15,7 +15,7 @@ const store = configureStore({
 
     form: formReducer,
     mapping: mappingReducer,
-    user: userReducer
+    user: userReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat([authApiPoint.middleware, buildingApiPoint.middleware, sensorApiPoint.middleware]),
