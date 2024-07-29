@@ -15,6 +15,7 @@ import {
   DeleteBuildingDialogue,
   VerifyDeleteBuilding,
 } from '../../../../../components/DeleteBuildingDialogue'
+import FloorTable from './components/FloorTable'
 
 const BuildingDetails = () => {
   const { id } = useParams()
@@ -33,10 +34,9 @@ const BuildingDetails = () => {
   // Verify Deletion
   const [confirmDialogueOpen, setConfirmDialogueOpen] = useState(false)
   const handleCancel = () => {
-    
     setConfirmDialogueOpen(false)
   }
-  
+
   return (
     <>
       <DeleteBuildingDialogue
@@ -107,6 +107,9 @@ const BuildingDetails = () => {
         </Grid>
         <Grid item xs={12} lg={4}>
           <Sensor />
+        </Grid>
+        <Grid item xs={12} lg={12}>
+          <FloorTable />
         </Grid>
         <Grid item xs={12} lg={12}>
           <FinancialProjection />

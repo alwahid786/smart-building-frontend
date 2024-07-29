@@ -64,7 +64,7 @@ const Suggestions = () => {
                   marginBottom: 2,
                 }}
               >
-                Primary energy
+                Analytics
               </Typography>
               <Divider />
               <Typography
