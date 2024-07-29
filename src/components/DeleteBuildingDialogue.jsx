@@ -1,23 +1,26 @@
 /* eslint-disable react/prop-types */
-import Dialog from '@mui/material/Dialog';
-import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
-import DialogActions from '@mui/material/DialogActions';
-import Button from '@mui/material/Button';
-import { Box, TextField, Typography } from '@mui/material';
-import { useEffect, useState } from 'react';
-import { useDeleteBuildingMutation, useGetSingleBuildingQuery } from '../redux/api/buildingApi';
-import { useParams, useNavigate } from 'react-router-dom';
-import { toast, ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import Dialog from '@mui/material/Dialog'
+import DialogContent from '@mui/material/DialogContent'
+import DialogContentText from '@mui/material/DialogContentText'
+import DialogActions from '@mui/material/DialogActions'
+import Button from '@mui/material/Button'
+import { Box, TextField, Typography } from '@mui/material'
+import { useEffect, useState } from 'react'
+import {
+  useDeleteBuildingMutation,
+  useGetSingleBuildingQuery,
+} from '../redux/api/buildingApi'
+import { useParams, useNavigate } from 'react-router-dom'
+import { toast, ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 export const DeleteBuildingDialogue = ({
   dialogueOpen,
   handleNo,
   handleYes,
 }) => {
-  const { id } = useParams();
-  const { data } = useGetSingleBuildingQuery(id);
+  const { id } = useParams()
+  const { data } = useGetSingleBuildingQuery(id)
   return (
     <Dialog
       open={dialogueOpen}
@@ -55,7 +58,7 @@ export const DeleteBuildingDialogue = ({
 
       <DialogContent>
         <DialogContentText sx={{ color: 'red', fontSize: '14px' }}>
-          Owner Name : <i>{data?.ownerName}</i>
+          Owner Name : {data?.ownerName}
         </DialogContentText>
         <DialogContentText
           sx={{
@@ -65,8 +68,12 @@ export const DeleteBuildingDialogue = ({
             color: 'red',
           }}
         >
-          <Typography sx={{ fontSize: '15px' }}>Building Name : <i>{data?.buildingName}</i></Typography>
-          <Typography sx={{ fontSize: '15px' }}>Building Id: {data?._id}</Typography>
+          {/* <Typography sx={{ fontSize: '15px' }}> */}
+          Building Name : {data?.buildingName}
+          {/* </Typography> */}
+          {/* <Typography sx={{ fontSize: '15px' }}> */}
+          Building Id: {data?._id}
+          {/* </Typography> */}
         </DialogContentText>
 
         <DialogContentText sx={{ color: 'black', fontSize: '14px' }}>
@@ -106,36 +113,33 @@ export const DeleteBuildingDialogue = ({
         </Button>
       </DialogActions>
     </Dialog>
-  );
-};
+  )
+}
 
-export const VerifyDeleteBuilding = ({
-  confirmDialogueOpen,
-  handleCancel,
-}) => {
-  const { id } = useParams();
-  const { data } = useGetSingleBuildingQuery(id);
-  const [inputId, setInputId] = useState('');
-  const [isDelDisable, setIsDelDisable] = useState(true);
-  const [deleteBuilding] = useDeleteBuildingMutation();
-  const navigate = useNavigate();
+export const VerifyDeleteBuilding = ({ confirmDialogueOpen, handleCancel }) => {
+  const { id } = useParams()
+  const { data } = useGetSingleBuildingQuery(id)
+  const [inputId, setInputId] = useState('')
+  const [isDelDisable, setIsDelDisable] = useState(true)
+  const [deleteBuilding] = useDeleteBuildingMutation()
+  const navigate = useNavigate()
 
   useEffect(() => {
     if (String(inputId) === String(data?._id)) {
-      setIsDelDisable(false);
+      setIsDelDisable(false)
     } else {
-      setIsDelDisable(true);
+      setIsDelDisable(true)
     }
-  }, [inputId, data?._id]);
+  }, [inputId, data?._id])
 
   const confirmDelete = async () => {
     try {
-      await deleteBuilding(id).unwrap();
-      navigate('/dashboard/list');
+      await deleteBuilding(id).unwrap()
+      navigate('/dashboard/list')
     } catch (error) {
-      toast.error('Failed to delete building.');
+      toast.error('Failed to delete building.')
     }
-  };
+  }
 
   return (
     <>
@@ -185,7 +189,9 @@ export const VerifyDeleteBuilding = ({
               color: 'red',
             }}
           >
-            <Typography sx={{ fontSize: '15px' }}>Building name: {data?.buildingName}</Typography>
+            <Typography sx={{ fontSize: '15px' }}>
+              Building name: {data?.buildingName}
+            </Typography>
             <Typography sx={{ fontSize: '15px' }}>
               Building Id: {data?._id}
             </Typography>
@@ -238,5 +244,5 @@ export const VerifyDeleteBuilding = ({
       </Dialog>
       <ToastContainer />
     </>
-  );
-};
+  )
+}

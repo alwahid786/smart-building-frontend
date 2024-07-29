@@ -57,16 +57,16 @@ const Aside = ({ toggleNav }) => {
       ),
       route: 'list',
     },
-    {
-      label: 'Building info',
-      icon: (
-        <HomeIcon
-          size={{ xs: 24, sm: 32, md: 48, lg: 64, xl: 80 }}
-          isActive={selectedPage === 'Building info'}
-        />
-      ),
-      route: 'building-info',
-    },
+    // {
+    //   label: 'Building info',
+    //   icon: (
+    //     <HomeIcon
+    //       size={{ xs: 24, sm: 32, md: 48, lg: 64, xl: 80 }}
+    //       isActive={selectedPage === 'Building info'}
+    //     />
+    //   ),
+    //   route: 'building-info',
+    // },
     {
       label: 'General',
       icon: (

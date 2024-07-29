@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react'
 import {
   Box,
   Switch,
@@ -8,43 +9,61 @@ import {
   TableHead,
   TableRow,
   Typography,
-} from '@mui/material';
-import { useState } from 'react';
-import AddIcon from '../../../asset/svgs/AddIcon';
-import { useGetAllSensorsQuery,  useCreateSensorMutation } from '../../../redux/api/sensorApi';
-import AddSensor from './AddSensor';
-import VisibilityIcon from '@mui/icons-material/Visibility';
-import { Link, useMatch } from 'react-router-dom';
-import ViewSensor from './ViewSensor';
-
+} from '@mui/material'
+import AddIcon from '../../../asset/svgs/AddIcon'
+import {
+  useGetAllSensorsQuery,
+  useCreateSensorMutation,
+} from '../../../redux/api/sensorApi'
+import AddSensor from './AddSensor'
+import VisibilityIcon from '@mui/icons-material/Visibility'
+import { Link, useMatch } from 'react-router-dom'
+import ViewSensor from './ViewSensor'
 
 const Sensors = () => {
-  const match = useMatch('/dashboard/sensors/view-sensor');
-  const [checked, setChecked] = useState(true);
-  const { data: sensors, refetch } = useGetAllSensorsQuery();
-  const [createSensor] = useCreateSensorMutation();
+  const match = useMatch('/dashboard/sensors/view-sensor')
+  const { data: sensors, refetch } = useGetAllSensorsQuery()
+  const [createSensor] = useCreateSensorMutation()
 
-  const handleChange = (event) => {
-    setChecked(event.target.checked);
-  };
+  // State to manage checked status for each sensor
+  const [sensorStatus, setSensorStatus] = useState({})
 
-  const [open, setOpen] = useState(false);
+  // Initialize sensorStatus state when sensors data is fetched
+  useEffect(() => {
+    if (sensors) {
+      const initialStatus = sensors.reduce((acc, sensor) => {
+        acc[sensor.uniqueId] =
+          sensor.status !== undefined ? sensor.status : true // Default to true
+        return acc
+      }, {})
+      setSensorStatus(initialStatus)
+    }
+  }, [sensors])
+
+  const handleChange = (uniqueId) => (event) => {
+    setSensorStatus({
+      ...sensorStatus,
+      [uniqueId]: event.target.checked,
+    })
+  }
+
+  const [open, setOpen] = useState(false)
   const handleClose = () => {
-    setOpen(false);
-  };
+    setOpen(false)
+  }
   const handleOpen = () => {
-    setOpen(true);
-  };
+    setOpen(true)
+  }
 
   const handleAddSensor = async (newSensor) => {
     try {
-      await createSensor(newSensor).unwrap();
-      refetch(); // Refresh the sensor list after adding a new sensor
-      handleClose();
+      await createSensor(newSensor).unwrap()
+      refetch() // Refresh the sensor list after adding a new sensor
+      handleClose()
     } catch (err) {
-      console.error('Failed to add sensor:', err);
+      console.error('Failed to add sensor:', err)
     }
-  };
+  }
 
   return !match ? (
     <Box
@@ -84,7 +103,11 @@ const Sensors = () => {
           <AddIcon />
         </Box>
       </Box>
-      <AddSensor open={open} handleClose={handleClose} onAddSensor={handleAddSensor} />
+      <AddSensor
+        open={open}
+        handleClose={handleClose}
+        onAddSensor={handleAddSensor}
+      />
       <Box>
         <TableContainer>
           <Table sx={{ minWidth: 650 }} aria-label="simple table">
@@ -97,7 +120,7 @@ const Sensors = () => {
                   <b>IP</b>
                 </TableCell>
                 <TableCell align="left">
-                  <b>uniqueId</b>
+                  <b>Unique ID</b>
                 </TableCell>
                 <TableCell align="left">
                   <b>Port</b>
@@ -126,9 +149,18 @@ const Sensors = () => {
                   <TableCell align="left">{row.sensorType}</TableCell>
                   <TableCell align="left">
                     <Switch
-                      checked={checked}
-                      onChange={handleChange}
+                      checked={sensorStatus[row.uniqueId] || false}
+                      onChange={handleChange(row.uniqueId)}
                       inputProps={{ 'aria-label': 'controlled' }}
+                      sx={{
+                        '& .MuiSwitch-switchBase.Mui-checked': {
+                          color: '#4caf50', // Green color for checked state
+                        },
+                        '& .MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track':
+                          {
+                            backgroundColor: '#4caf50', // Green track color for checked state
+                          },
+                      }}
                     />
                   </TableCell>
                   <TableCell>
@@ -149,7 +181,7 @@ const Sensors = () => {
     </Box>
   ) : (
     <ViewSensor />
-  );
-};
+  )
+}
 
-export default Sensors;
+export default Sensors
