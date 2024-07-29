@@ -5,7 +5,6 @@ import SensorCard from "./SensorCard";
 
 const Sensors = () => {
 
-  console.log("DSSDFSD")
   return (
     <Box>
       <Grid sx={{ display: { sx: "flex", md: "none", lg: "flex", gap: 10 } }}>

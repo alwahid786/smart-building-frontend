@@ -13,6 +13,7 @@ import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos'
 import { SensorsStatusSkeleton } from '../../../../../../components/Skeleton'
 import Heating from '../../../../../../asset/svgs/BuildignInfo/Heating'
 import Cooling from '../../../../../../asset/svgs/BuildignInfo/Heating' // Example of another icon
+import PropTypes from 'prop-types'
 
 const data = [
   {
@@ -43,7 +44,7 @@ const Sensor = ({ sensors }) => {
 
   useEffect(() => {
     if (sensors && sensors.length > 0) {
-      setSingleSensor(sensors[0]?.sensors[0])
+      setSingleSensor(sensors[0]?.sensors[1])
     }
   }, [sensors])
 
@@ -134,11 +135,26 @@ const Sensor = ({ sensors }) => {
                 }}
               >
                 <CurrentIcon />
-                <Typography
-                  sx={{ fontWeight: 'medium', fontSize: { xs: 12, md: 16 } }}
-                >
-                  {singleSensor?.sensorName}
-                </Typography>
+                {sensors?.map((sensor, index) => {
+                    
+                  return  sensor?.sensors?.map((sensor, index) => {
+                      console.log(sensor?.sensorName)
+                      return (
+                        <Typography
+                          key={index}
+                          sx={{
+                            fontSize: { xs: 12, md: 16 },
+                            fontWeight: 600,
+                            color: 'rgba(17, 17, 17, 1)',
+                            marginBottom: 1,
+                          }}
+                        >
+                          {sensor?.sensorName}
+                        </Typography>
+                      )
+                    })
+
+                })}
               </Box>
               <ArrowForwardIosIcon
                 sx={{ cursor: 'pointer' }}
@@ -286,6 +302,14 @@ const Sensor = ({ sensors }) => {
       )}
     </>
   )
+}
+
+Sensor.propTypes = {
+  sensors: PropTypes.arrayOf(
+    PropTypes.shape({
+      sensorName: PropTypes.string.isRequired,
+    })
+  ),
 }
 
 export default Sensor
