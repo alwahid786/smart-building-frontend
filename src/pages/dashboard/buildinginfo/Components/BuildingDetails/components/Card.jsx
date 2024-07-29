@@ -60,9 +60,6 @@ const BuildingCard = () => {
   const [isFavorite, setIsFavorite] = useState(false)
   const [isLoading, setIsLoading] = useState(true)
   const [open, setOpen] = useState(false)
-  const selectSensors = (state) => state.form.sensors;
-
-  console.log(selectSensors)
 
   useEffect(() => {
     if (data?.images && data.images.length > 0) {

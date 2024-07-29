@@ -36,14 +36,23 @@ const icons = {
   // Add more icons as needed
 }
 
-const Sensor = () => {
+const Sensor = ({ sensors }) => {
   const [isLoading, setIsLoading] = useState(true)
   const [currentIndex, setCurrentIndex] = useState(0)
+  const [singleSensor, setSingleSensor] = useState(null)
 
   useEffect(() => {
-    setTimeout(() => {
+    if (sensors && sensors.length > 0) {
+      setSingleSensor(sensors[0]?.sensors[0])
+    }
+  }, [sensors])
+
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
       setIsLoading(false)
     }, 3000)
+    return () => clearTimeout(timer)
   }, [])
 
   const handleNext = () => {
@@ -128,7 +137,7 @@ const Sensor = () => {
                 <Typography
                   sx={{ fontWeight: 'medium', fontSize: { xs: 12, md: 16 } }}
                 >
-                  {data[currentIndex].type}
+                  {singleSensor?.sensorName}
                 </Typography>
               </Box>
               <ArrowForwardIosIcon

@@ -1,42 +1,51 @@
-import { Box, Button, Grid, Paper } from '@mui/material'
-import BuildingCard from './components/Card'
-import PrimaryEnergy from './components/PrimaryEnergy'
-import InspectionHistory from './components/InspectionHistory'
-import Suggestions from './components/Suggestions'
-import Sensor from './components/Sensor'
-import FinancialProjection from './components/FinancialProjection'
-import MediaConsumption from './components/MediaConsumption'
-import EnergyUtilitiesCard from './components/EnergyUtilitiesCard'
-import { Link, useParams } from 'react-router-dom'
-import EditLocationAltIcon from '@mui/icons-material/EditLocationAlt'
-import DeleteSharpIcon from '@mui/icons-material/DeleteSharp'
-import { useState } from 'react'
+import { Box, Button, Grid, Paper } from '@mui/material';
+import BuildingCard from './components/Card';
+import PrimaryEnergy from './components/PrimaryEnergy';
+import InspectionHistory from './components/InspectionHistory';
+import Suggestions from './components/Suggestions';
+import Sensor from './components/Sensor';
+import FinancialProjection from './components/FinancialProjection';
+import MediaConsumption from './components/MediaConsumption';
+import EnergyUtilitiesCard from './components/EnergyUtilitiesCard';
+import { Link, useParams } from 'react-router-dom';
+import EditLocationAltIcon from '@mui/icons-material/EditLocationAlt';
+import DeleteSharpIcon from '@mui/icons-material/DeleteSharp';
+import { useState } from 'react';
 import {
   DeleteBuildingDialogue,
   VerifyDeleteBuilding,
-} from '../../../../../components/DeleteBuildingDialogue'
+} from '../../../../../components/DeleteBuildingDialogue';
+import { useGetAllBuildingSensorsQuery } from '../../../../../redux/api/sensorApi';
 
 const BuildingDetails = () => {
-  const { id } = useParams()
-  const [dialogueOpen, setDialogueOpen] = useState(false)
+  const { id } = useParams();
+  const [dialogueOpen, setDialogueOpen] = useState(false);
+  const { data, error, isLoading } = useGetAllBuildingSensorsQuery(id);
   const handleNo = () => {
-    setDialogueOpen(false)
-  }
+    setDialogueOpen(false);
+  };
   const handleYes = () => {
-    setDialogueOpen(false)
-    setConfirmDialogueOpen(true)
-  }
+    setDialogueOpen(false);
+    setConfirmDialogueOpen(true);
+  };
   const confirmation = () => {
-    setDialogueOpen(true)
-  }
+    setDialogueOpen(true);
+  };
 
   // Verify Deletion
-  const [confirmDialogueOpen, setConfirmDialogueOpen] = useState(false)
+  const [confirmDialogueOpen, setConfirmDialogueOpen] = useState(false);
   const handleCancel = () => {
-    
-    setConfirmDialogueOpen(false)
+    setConfirmDialogueOpen(false);
+  };
+
+  if (isLoading) {
+    return <div>Loading...</div>;
   }
-  
+
+  if (error) {
+    return <div>Error fetching sensors: {error.message}</div>;
+  }
+
   return (
     <>
       <DeleteBuildingDialogue
@@ -68,7 +77,6 @@ const BuildingDetails = () => {
             textTransform: 'none',
             fontSize: '14px',
             background: 'red',
-
             '&:hover': {
               background: 'red',
               color: 'white',
@@ -84,12 +92,11 @@ const BuildingDetails = () => {
             sx={{
               color: '#7E40F6',
               textTransform: 'none',
-              fontSize: '14px', // Text size ko chhota karne ke liye
-              border: ' 2px solid #7E40F6', // Border color ko red karne ke liye
+              fontSize: '14px',
+              border: ' 2px solid #7E40F6',
               '&:hover': {
                 border: ' 2px solid #AD20FE',
                 color: '#AD20FE',
-                // Hover state mein border color ko dark red karne ke liye
               },
             }}
           >
@@ -106,7 +113,7 @@ const BuildingDetails = () => {
           <Suggestions />
         </Grid>
         <Grid item xs={12} lg={4}>
-          <Sensor />
+          <Sensor sensors={data} /> {/* Passing sensors data to Sensor component */}
         </Grid>
         <Grid item xs={12} lg={12}>
           <FinancialProjection />
@@ -114,7 +121,6 @@ const BuildingDetails = () => {
         <Grid item xs={12} lg={4}>
           <PrimaryEnergy />
         </Grid>
-
         <Grid item xs={12} lg={4}>
           <MediaConsumption />
         </Grid>
@@ -128,7 +134,7 @@ const BuildingDetails = () => {
         </Grid>
       </Grid>
     </>
-  )
-}
+  );
+};
 
-export default BuildingDetails
+export default BuildingDetails;

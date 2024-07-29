@@ -24,7 +24,13 @@ export const sensorApiPoint = createApi({
         method: 'GET',
       }),
     }),
+
+    // get all building sensors
+    getAllBuildingSensors: builder.query({
+      query: (buildingId) => `building/${buildingId}/sensors`,
+    }),
+
   }),
 })
 
-export const { useCreateSensorMutation, useGetAllSensorsQuery } = sensorApiPoint
+export const { useCreateSensorMutation, useGetAllSensorsQuery, useGetAllBuildingSensorsQuery } = sensorApiPoint

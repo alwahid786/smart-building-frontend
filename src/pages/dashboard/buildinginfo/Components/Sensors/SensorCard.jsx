@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import {
   Card,
   CardContent,
@@ -12,11 +12,12 @@ import LightSensorONIcon from '../../../../../asset/svgs/LightSensorONIcon'
 import LightSensorOffIcon from '../../../../../asset/svgs/LightSensorOffIcon'
 import VantilationErrorIcon from '../../../../../asset/svgs/VantilationErrorIcon'
 import { SensorCardSkeleton } from '../../../../../components/Skeleton'
-import { useDispatch, useSelector } from 'react-redux'
 
 const SensorCard = ({ subtitle, title, values, icons }) => {
-  const dispatch = useDispatch()
+
   const [isLoading, setIsLoading] = useState(true)
+  // get id from params
+  
 
   useEffect(() => {
     setTimeout(() => {
@@ -62,7 +63,7 @@ const SensorCard = ({ subtitle, title, values, icons }) => {
           </Typography>
         </Box>
 
-        {values.map((value, index) => (
+        {values?.map((value, index) => (
           <Box
             key={index}
             sx={{
