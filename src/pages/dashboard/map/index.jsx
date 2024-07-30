@@ -7,6 +7,7 @@ import CardMedia from '@mui/material/CardMedia'
 import { Typography } from '@mui/material'
 import { useGetBuildingQuery } from '../../../redux/api/buildingApi'
 import PropTypes from 'prop-types'
+import { Link } from 'react-router-dom'
 
 const RecenterMap = ({ position }) => {
   const map = useMap()
@@ -73,6 +74,7 @@ const Index = () => {
         {positions.map(([lat, lng, building], index) => (
           <Marker key={index} position={[lat, lng]}>
             <Popup>
+            <Link to={`/dashboard/building-info/${building._id}`}>
               <Box>
                 <CardMedia
                   sx={{
@@ -85,7 +87,7 @@ const Index = () => {
                       ? building.images[0]
                       : 'https://via.placeholder.com/250'
                   }
-                />
+                />           
                 <CardContent sx={{ padding: '10px !important' }}>
                   <Typography
                     variant="h6"
@@ -153,6 +155,7 @@ const Index = () => {
                   </Typography>
                 </CardContent>
               </Box>
+              </Link>
             </Popup>
           </Marker>
         ))}

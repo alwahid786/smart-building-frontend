@@ -248,7 +248,7 @@ const ProfilePage = () => {
                   onBlur={handleBlur}
                   error={touched.email && Boolean(errors.email)}
                   helperText={touched.email && errors.email}
-                  readOnly
+                  disabled
                 />
               </Grid>
               <Grid item xs={12}>

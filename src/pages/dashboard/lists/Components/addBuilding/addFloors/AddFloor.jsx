@@ -293,7 +293,7 @@ const SubAddFloors = ({
           <Grid item md={6} sm={6} xs={12}>
             <TextField
               label="Floor"
-              type="number"
+              type="text"
               name="floor"
               fullWidth
               size="small"

@@ -25,6 +25,7 @@ const PhotosInfo = ({ handleNext, handleBack }) => {
   // Dialogue state and function
 
   const [dialogueOpen, setDialogueOpen] = useState(false)
+  const [deleteIndex, setDeleteIndex] = useState(null)
 
   const handleNo = () => {
     setDialogueOpen(false)
@@ -48,14 +49,15 @@ const PhotosInfo = ({ handleNext, handleBack }) => {
   }
 
   // Handle file deletion
-  const handleFileDelete = () => {
+  const handleFileDelete = (index) => {
+    setDeleteIndex(index)
     setDialogueOpen(true)
   }
 
-  const handleYes = (index) => {
-    const updatedFiles = selectedFiles.filter((_, i) => i !== index)
+  const handleYes = () => {
+    const updatedFiles = selectedFiles.filter((_, i) => i !== deleteIndex)
     dispatch(setSelectedFiles(updatedFiles))
-    handleNo()
+    setDialogueOpen(false)
   }
 
   // Handle file editing
@@ -95,7 +97,7 @@ const PhotosInfo = ({ handleNext, handleBack }) => {
       toast.success(`${res.message}`)
 
       // Dispatch the building ID to the Redux store
-       dispatch(setBuildingId(res.building._id)) // Assuming the response contains a buildingId
+      dispatch(setBuildingId(res.building._id)) // Assuming the response contains a buildingId
 
       setTimeout(() => {
         handleNext()

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react';
 import {
   Card,
   CardContent,
@@ -7,13 +7,13 @@ import {
   Stack,
   Box,
   Divider,
-} from '@mui/material'
-import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew'
-import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos'
-import { SensorsStatusSkeleton } from '../../../../../../components/Skeleton'
-import Heating from '../../../../../../asset/svgs/BuildignInfo/Heating'
-import Cooling from '../../../../../../asset/svgs/BuildignInfo/Heating' // Example of another icon
-import PropTypes from 'prop-types'
+} from '@mui/material';
+import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import { SensorsStatusSkeleton } from '../../../../../../components/Skeleton';
+import Heating from '../../../../../../asset/svgs/BuildignInfo/Heating';
+import Cooling from '../../../../../../asset/svgs/BuildignInfo/Heating';
+import PropTypes from 'prop-types';
 
 const data = [
   {
@@ -44,7 +44,7 @@ const Sensor = ({ sensors }) => {
 
   useEffect(() => {
     if (sensors && sensors.length > 0) {
-      setSingleSensor(sensors[0]?.sensors[1])
+      setSingleSensor(sensors[0]?.sensors[0])
     }
   }, [sensors])
 
@@ -135,26 +135,11 @@ const Sensor = ({ sensors }) => {
                 }}
               >
                 <CurrentIcon />
-                {sensors?.map((sensor, index) => {
-                    
-                  return  sensor?.sensors?.map((sensor, index) => {
-                      console.log(sensor?.sensorName)
-                      return (
-                        <Typography
-                          key={index}
-                          sx={{
-                            fontSize: { xs: 12, md: 16 },
-                            fontWeight: 600,
-                            color: 'rgba(17, 17, 17, 1)',
-                            marginBottom: 1,
-                          }}
-                        >
-                          {sensor?.sensorName}
-                        </Typography>
-                      )
-                    })
-
-                })}
+                <Typography
+                  sx={{ fontWeight: 'medium', fontSize: { xs: 12, md: 16 } }}
+                >
+                  {singleSensor?.sensorName}
+                </Typography>
               </Box>
               <ArrowForwardIosIcon
                 sx={{ cursor: 'pointer' }}
