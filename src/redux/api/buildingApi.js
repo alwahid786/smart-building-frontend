@@ -4,8 +4,8 @@ export const buildingApiPoint = createApi({
   reducerPath: 'buildingApi',
 
   baseQuery: fetchBaseQuery({
-    baseUrl: 'https://smart-building-backend-production-ecd0.up.railway.app',
-    // baseUrl: "http://localhost:4000",
+    // baseUrl: 'https://smart-building-backend-production-ecd0.up.railway.app',
+    baseUrl: "http://localhost:4000",
     credentials: 'include',
   }),
 

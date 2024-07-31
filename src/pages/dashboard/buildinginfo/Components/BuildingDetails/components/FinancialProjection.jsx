@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react'
+import PropTypes from 'prop-types'
 import { Card, CardContent, Grid, Typography, Button, Box } from '@mui/material'
 import { BuildingCustomCardSkeleton } from '../../../../../../components/Skeleton'
 
-const FinancialProjection = () => {
+const FinancialProjection = ({ sensors }) => {
   const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
@@ -78,9 +79,6 @@ const FinancialProjection = () => {
                 <Typography variant="body2" sx={{ fontWeight: 'bold' }}>
                   -5 mln
                 </Typography>
-                {/* <Box sx={{ display: 'flex' }}> */}
-
-                {/* </Box> */}
               </Grid>
               <Grid
                 item
@@ -139,7 +137,6 @@ const FinancialProjection = () => {
                     marginBottom: '6px',
                     color: 'white',
                     borderColor: 'transparent',
-                    // borderWidth: 2,
                     borderStyle: 'solid',
                     borderImageSlice: 1,
                     borderImageSource:
@@ -153,8 +150,48 @@ const FinancialProjection = () => {
           </CardContent>
         </Card>
       )}
+      {sensors?.map((sensor) => (
+        <Card
+          key={sensor._id}
+          sx={{
+            minWidth: 275,
+            boxShadow: 3,
+            borderRadius: 2,
+            marginTop: 2,
+          }}
+        >
+          <CardContent sx={{ padding: 2 }}>
+            <Grid container spacing={1}>
+              <Grid item xs={12} md={4}>
+                <Box
+                  component="span"
+                  sx={{ fontSize: { xs: 12, md: 14 }, fontWeight: 500 }}
+                >
+                  <img src={sensor?.floorImage} width="60%" alt="Floor" />
+                </Box>
+              </Grid>
+              <Grid item xs={3} md={2} sx={{ display: 'flex', alignItems: 'center' }}>
+                <Typography variant="body2" color="text.secondary">
+                  {sensor?.floor}
+                </Typography>
+              </Grid>
+            </Grid>
+          </CardContent>
+        </Card>
+      ))}
     </>
   )
+}
+
+FinancialProjection.propTypes = {
+  sensors: PropTypes.arrayOf(
+    PropTypes.shape({
+      _id: PropTypes.string.isRequired,
+      floorImage: PropTypes.string,
+      floor: PropTypes.string,
+      rooms: PropTypes.number,
+    })
+  ).isRequired,
 }
 
 export default FinancialProjection

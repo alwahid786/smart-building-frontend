@@ -111,7 +111,7 @@ const BuildingDetails = () => {
           <Sensor sensors={data} />
         </Grid>
         <Grid item xs={12} lg={12}>
-          <FinancialProjection />
+          <FinancialProjection sensors={data} />
         </Grid>
         <Grid item xs={12} lg={4}>
           <PrimaryEnergy />
