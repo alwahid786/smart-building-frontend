@@ -109,9 +109,6 @@ const BuildingDetails = () => {
         <Grid item xs={12} lg={4}>
           <Sensor sensors={data} />
         </Grid>
-        {/* <Grid item xs={12} lg={12}>
-          <FinancialProjection />
-        </Grid> */}
         <Grid item xs={12} lg={12}>
           <FloorTable sensors={data} />
         </Grid>

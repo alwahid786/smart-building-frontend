@@ -1,6 +1,5 @@
 /* eslint-disable react/prop-types */
 import {
-  Box,
   Button,
   Card,
   CardContent,
@@ -74,7 +73,7 @@ const FloorTable = ({ sensors }) => {
                       lineHeight: '21.82px',
                     }}
                   >
-                    Total rooms{' '}
+                    Total rooms {sensor?.rooms}
                   </Typography>
                   <Typography
                     sx={{
@@ -115,7 +114,7 @@ const FloorTable = ({ sensors }) => {
                       lineHeight: '21.82px',
                     }}
                   >
-                    Commercial
+                    {sensor?.floorType}
                   </Typography>
                 </Grid>
                 <Grid
@@ -147,7 +146,7 @@ const FloorTable = ({ sensors }) => {
                       lineHeight: '21.82px',
                     }}
                   >
-                    424 Sqm
+                    {sensor?.area} Sqm
                   </Typography>
                 </Grid>
               </Grid>
