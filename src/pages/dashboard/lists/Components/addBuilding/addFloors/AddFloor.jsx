@@ -29,7 +29,9 @@ import { useGetAllSensorsQuery } from '../../../../../../redux/api/sensorApi'
 const AddFloor = ({ handleBack }) => {
   const buildingId = useSelector((state) => state.form.buildingId);
   const navigate = useNavigate();
-  
+
+
+
   const [floors, setFloors] = useState([
     {
       id: 1,
@@ -58,7 +60,7 @@ const AddFloor = ({ handleBack }) => {
   }
 
   const handleSensorChange = (event, index) => {
-    
+
     // Create a new copy of the floors array and update the specific floor's singleSensor
     const updatedFloors = [...floors];
     updatedFloors[index].singleSensor = event.target.value;
@@ -90,9 +92,9 @@ const AddFloor = ({ handleBack }) => {
 
   const sensorDeleteHandler = (sensorId) => {
     const updatedFloors = [...floors]
-    const floorId= updatedFloors.findIndex((floor) => floor.sensors.map((sensor) => sensor._id===sensorId))
+    const floorId = updatedFloors.findIndex((floor) => floor.sensors.map((sensor) => sensor._id === sensorId))
     const sensors = updatedFloors[floorId].sensors
-    const filteredSensors = sensors.filter(jsonString => JSON.parse(jsonString)._id!==sensorId);
+    const filteredSensors = sensors.filter(jsonString => JSON.parse(jsonString)._id !== sensorId);
     updatedFloors[floorId].sensors = filteredSensors
     setFloors(updatedFloors)
   }
@@ -104,13 +106,16 @@ const AddFloor = ({ handleBack }) => {
         const newFormData = new FormData();
         newFormData.append('floor', floor.formData.floor);
         newFormData.append('rooms', floor.formData.rooms);
+        newFormData.append("area", floor.formData.area);
+        newFormData.append("floorType", floor.formData.floorType);
         newFormData.append('image', floor.selectedFile);
         newFormData.append('buildingId', buildingId);
+        newFormData.append('unitOfArea', floor.formData.unitOfArea);
         newFormData.append('sensors', JSON.stringify(floor.sensors)); // Ensure it's a JSON string
 
         const res = await addBuildingFloor(newFormData);
 
-        if (res.data.success === true) {navigate(`/dashboard/list`)}
+        if (res.data.success === true) { navigate(`/dashboard/list`) }
 
       }
     } catch (error) {
@@ -118,7 +123,7 @@ const AddFloor = ({ handleBack }) => {
       toast.error(error.data.message);
     }
   };
-  
+
   const handleDeleteFloor = (index) => {
     const updatedFloors = [...floors]
     updatedFloors.splice(index, 1)
@@ -279,12 +284,31 @@ const SubAddFloors = ({
   handleSensorChange,
 
   // eslint-disable-next-line react/prop-types
-  
+
 }) => {
 
   const { data: Allsensors } = useGetAllSensorsQuery()
-  
+
   const selectedSensorValue = singleSensor ?? ''
+
+  const currencies = [
+    {
+      value: 'residential',
+      label: 'Residential',
+    },
+    {
+      value: 'commercial',
+      label: 'Commercial',
+    },
+    {
+      value: 'public',
+      label: 'Public',
+    },
+    {
+      value: 'private',
+      label: 'Private',
+    },
+  ];
 
   return (
     <>
@@ -317,7 +341,66 @@ const SubAddFloors = ({
               onChange={handleInputChange}
             />
           </Grid>
+          <Grid item md={6} sm={6} xs={12}>
+            <div>
+              <TextField
+                id="floorType"
+                select
+                label="Select"
+                defaultValue="residential"
+                fullWidth
+                size='small'
+                name='floorType'
+                // eslint-disable-next-line react/prop-types
+                value={formData.floorType}
+                onChange={handleInputChange}
+              >
+                {currencies.map((option) => (
+                  <MenuItem key={option.value} value={option.value} >
+                    {option.label}
+                  </MenuItem>
+                ))}
+              </TextField>
+
+            </div>
+          </Grid>
+          <Grid item md={6} sm={6} xs={12}>
+            <TextField
+              label="Floor area"
+              type="number"
+              name="area"
+              fullWidth
+              size="small"
+              inputProps={{ min: 1 }}
+              onInput={(e) => {
+                e.target.value = Math.max('1', parseInt(e.target.value) || '1')
+              }}
+              // eslint-disable-next-line react/prop-types
+              value={formData.area}
+              onChange={handleInputChange}
+            />
+          </Grid>
         </Grid>
+
+        <Grid item md={4} sm={6} xs={12} sx={{ marginTop: '20px' }}>
+
+        <FormControl size="small" fullWidth variant="outlined">
+              <InputLabel id="unit-label">Unit of Area (sq ft/m)</InputLabel>
+              <Select
+                labelId="unit-label"
+                name="unitOfArea"
+                label="Unit of Area (sq ft/m)"
+                // eslint-disable-next-line react/prop-types
+                value={formData.unitOfArea}
+                onChange={handleInputChange}
+              >
+                <MenuItem value="sq ft">Square Feet</MenuItem>
+                <MenuItem value="m">Meters</MenuItem>
+              </Select>
+            </FormControl>
+
+        </Grid>
+
         <Box>
           <Box sx={{ textAlign: 'left', marginY: '24px' }}>
             <Box
@@ -400,17 +483,17 @@ const SubAddFloors = ({
               size="medium"
               onChange={handleSensorChange}
             >
-              {  Allsensors?.map((sensor, index) =>(
-                  <MenuItem value={JSON.stringify(sensor)} key={index} >
-                    {sensor?.sensorName}
-                  </MenuItem>))
-                }
+              {Allsensors?.map((sensor, index) => (
+                <MenuItem value={JSON.stringify(sensor)} key={index} >
+                  {sensor?.sensorName}
+                </MenuItem>))
+              }
             </Select>
           </FormControl>
 
           {sensors?.length > 0 &&
             sensors.map((s, i) => (
-              
+
               <SingleSensor
                 sensorDeleteHandler={sensorDeleteHandler}
                 key={i}
@@ -418,11 +501,11 @@ const SubAddFloors = ({
               />
 
             )
-            
-          )
-            
 
-            }
+            )
+
+
+          }
 
           <Box sx={{ marginY: '15px', textAlign: 'right' }}>
             <Button

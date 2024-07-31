@@ -1,4 +1,5 @@
-import { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import PropTypes from 'prop-types'
 import {
   Card,
   CardContent,
@@ -14,16 +15,16 @@ import VantilationErrorIcon from '../../../../../asset/svgs/VantilationErrorIcon
 import { SensorCardSkeleton } from '../../../../../components/Skeleton'
 
 const SensorCard = ({ subtitle, title, values, icons }) => {
-
   const [isLoading, setIsLoading] = useState(true)
-  // get id from params
-  
 
   useEffect(() => {
-    setTimeout(() => {
+    const timer = setTimeout(() => {
       setIsLoading(false)
     }, 3000)
+
+    return () => clearTimeout(timer)
   }, [])
+
   return isLoading ? (
     <SensorCardSkeleton />
   ) : (
@@ -85,36 +86,43 @@ const SensorCard = ({ subtitle, title, values, icons }) => {
   )
 }
 
+SensorCard.propTypes = {
+  subtitle: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
+  values: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.number, PropTypes.oneOf([null])])).isRequired,
+  icons: PropTypes.arrayOf(PropTypes.element).isRequired,
+}
+
 const TestPage = () => {
   const sensorInfo = [
     {
       title: 'Lighting ',
-      subtitle: ' Sensor',
+      subtitle: 'Sensor',
       values: [null, 41, 1],
       icons: [
         <Box sx={{ width: '24px', height: '24px' }}></Box>,
-        <LightSensorONIcon />,
-        <LightSensorOffIcon />,
+        <LightSensorONIcon key="on" />,
+        <LightSensorOffIcon key="off" />,
       ],
     },
     {
       title: 'Ventilation ',
-      subtitle: ' Sensor',
+      subtitle: 'Sensor',
       values: [null, 22, 5],
       icons: [
         <Box sx={{ width: '24px', height: '24px' }}></Box>,
-        <LightSensorONIcon />,
-        <LightSensorOffIcon />,
+        <LightSensorONIcon key="on" />,
+        <LightSensorOffIcon key="off" />,
       ],
     },
     {
       title: 'Ventilation ',
-      subtitle: ' Sensor',
+      subtitle: 'Sensor',
       values: [41, 1, 1],
       icons: [
-        <LightSensorONIcon />,
-        <LightSensorOffIcon />,
-        <VantilationErrorIcon />,
+        <LightSensorONIcon key="on" />,
+        <LightSensorOffIcon key="off" />,
+        <VantilationErrorIcon key="error" />,
       ],
     },
   ]
@@ -152,6 +160,7 @@ const TestPage = () => {
 }
 
 export default TestPage
+
 const StyledIcon = styled(Box)(({ theme }) => ({
   alignItems: 'center',
   display: 'flex',

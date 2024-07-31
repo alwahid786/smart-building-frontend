@@ -18,6 +18,7 @@ import Slider from 'react-slick'
 import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'
 import CloseIcon from '@mui/icons-material/Close'
+import moment from "moment";
 
 const BuildingCard = () => {
   const settings = {
@@ -241,7 +242,7 @@ const BuildingCard = () => {
                   lineHeight: '19.07px',
                 }}
               >
-                1500m
+                {data?.totalArea} <b>m</b>
               </Typography>
             </Box>
             <Box
@@ -274,7 +275,8 @@ const BuildingCard = () => {
                   lineHeight: '19.07px',
                 }}
               >
-                20-09-1996
+               
+               {moment(data?.createdAt).format('YYYY-MM-DD HH:mm:ss')}
               </Typography>
             </Box>
           </Box>
