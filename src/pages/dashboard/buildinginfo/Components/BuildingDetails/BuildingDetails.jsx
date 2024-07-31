@@ -15,12 +15,13 @@ import {
   DeleteBuildingDialogue,
   VerifyDeleteBuilding,
 } from '../../../../../components/DeleteBuildingDialogue'
-import { useGetAllBuildingSensorsQuery } from '../../../../../redux/api/sensorApi';
+import { useGetAllBuildingSensorsQuery } from '../../../../../redux/api/sensorApi'
+import FloorTable from './components/FloorTable'
 
 const BuildingDetails = () => {
   const { id } = useParams()
   const [dialogueOpen, setDialogueOpen] = useState(false)
-  const { data } = useGetAllBuildingSensorsQuery(id);
+  const { data } = useGetAllBuildingSensorsQuery(id)
   const handleNo = () => {
     setDialogueOpen(false)
   }
@@ -35,10 +36,9 @@ const BuildingDetails = () => {
   // Verify Deletion
   const [confirmDialogueOpen, setConfirmDialogueOpen] = useState(false)
   const handleCancel = () => {
-    
     setConfirmDialogueOpen(false)
   }
-  
+
   return (
     <>
       <DeleteBuildingDialogue
@@ -110,8 +110,11 @@ const BuildingDetails = () => {
         <Grid item xs={12} lg={4}>
           <Sensor sensors={data} />
         </Grid>
+        {/* <Grid item xs={12} lg={12}>
+          <FinancialProjection />
+        </Grid> */}
         <Grid item xs={12} lg={12}>
-          <FinancialProjection sensors={data} />
+          <FloorTable sensors={data} />
         </Grid>
         <Grid item xs={12} lg={4}>
           <PrimaryEnergy />

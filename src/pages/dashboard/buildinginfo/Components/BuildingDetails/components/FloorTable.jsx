@@ -1,97 +1,187 @@
+/* eslint-disable react/prop-types */
 import {
-  Accordion,
-  AccordionDetails,
-  AccordionSummary,
   Box,
   Button,
   Card,
   CardContent,
+  Divider,
   Grid,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
   Typography,
 } from '@mui/material'
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
-import FullFloorDetail from './FullFloorDetail'
+import { Link } from 'react-router-dom'
 
-function createData(name, calories, fat, carbs, protein) {
-  return { name, calories, fat, carbs, protein }
-}
-
-const rows = [createData(3, 159), createData(6, 237)]
-
-const FloorTable = () => {
+const FloorTable = ({ sensors }) => {
   return (
-    <Accordion sx={{ minWidth: 275, boxShadow: 3, borderRadius: 2 }}>
-      <AccordionSummary
-        expandIcon={<ExpandMoreIcon />}
-        aria-controls="panel1a-content"
-        id="panel1a-header"
-        sx={{ padding: 2 }}
-      >
-        <Typography
-          sx={{
-            fontSize: { xs: 12, md: 16 },
-            fontWeight: 600,
-            color: 'rgba(17, 17, 17, 1)',
-          }}
-        >
-          Floor Detail With Sensor
-        </Typography>
-      </AccordionSummary>
-      <AccordionDetails sx={{ padding: 2 }}>
-        <TableContainer>
-          <Table size="small" aria-label="a dense table">
-            <TableHead>
-              <TableRow>
-                <TableCell>
-                  <b>Floor No.</b>
-                </TableCell>
-                <TableCell>
-                  <b>Total Rooms</b>
-                </TableCell>
-                <TableCell>
-                  <b>Detail</b>
-                </TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {rows.map((row) => (
-                <TableRow key={row.name}>
-                  <TableCell>{row.name}</TableCell>
-                  <TableCell>{row.calories}</TableCell>
-                  <TableCell>
-                    <Button
-                      onClick={<FullFloorDetail />}
-                      variant="contained"
-                      sx={{
-                        background:
-                          'linear-gradient(95.25deg, #7B42F6 0%, #B01EFF 100%)',
-                        textTransform: 'none',
-                        borderRadius: '8px',
-                        marginBottom: '6px',
-                        color: 'white',
-                        borderColor: 'transparent',
-                        borderStyle: 'solid',
-                        borderImageSlice: 1,
-                        borderImageSource:
-                          'linear-gradient(95.25deg, #7B42F6 0%, #B01EFF 100%)',
-                      }}
-                    >
-                      See More
-                    </Button>
-                  </TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
-      </AccordionDetails>
-    </Accordion>
+    <Card
+      sx={{
+        minWidth: 275,
+        boxShadow: 3,
+        borderRadius: 2,
+        marginTop: 2,
+      }}
+    >
+      {sensors?.map((sensor) => (
+        <CardContent sx={{ padding: 2 }} key={sensor._id}>
+          <Grid container columnSpacing={3}>
+            <Grid item xs={12} md={2}>
+              {/* <Box
+                component="span"
+                sx={{ fontSize: { xs: 12, md: 14 }, fontWeight: 500 }}
+              > */}
+              <img src={sensor?.floorImage} width="100%" alt="Floor" />
+              {/* </Box> */}
+            </Grid>
+            <Grid item xs={12} md={8}>
+              <Typography
+                variant="body2"
+                sx={{
+                  fontSize: '20px',
+                  lineHeight: '27.28px',
+                  fontWeight: '700',
+                }}
+              >
+                Floor Number
+              </Typography>
+              <Typography
+                variant="body2"
+                sx={{
+                  color: '#414141',
+                  fontSize: '14px',
+                  lineHeight: '19.1px',
+                  fontWeight: '600',
+                }}
+              >
+                {sensor?.floor}
+              </Typography>
+              <Grid container sx={{ marginTop: '9px' }}>
+                <Grid
+                  item
+                  xs={12}
+                  md={4}
+                  sx={{
+                    display: 'flex',
+                    flexDirection: {
+                      md: 'column',
+                      xs: 'row',
+                    },
+                    justifyContent: 'space-between',
+                  }}
+                >
+                  <Typography
+                    sx={{
+                      fontWeight: '600',
+                      fontSize: '15px',
+                      lineHeight: '21.82px',
+                    }}
+                  >
+                    Total rooms{' '}
+                  </Typography>
+                  <Typography
+                    sx={{
+                      fontWeight: '500',
+                      fontSize: '14px',
+                      lineHeight: '21.82px',
+                    }}
+                  >
+                    187 spaces
+                  </Typography>
+                </Grid>
+                <Grid
+                  item
+                  xs={12}
+                  md={4}
+                  sx={{
+                    display: 'flex',
+                    flexDirection: {
+                      md: 'column',
+                      xs: 'row',
+                    },
+                    justifyContent: 'space-between',
+                  }}
+                >
+                  <Typography
+                    sx={{
+                      fontWeight: '600',
+                      fontSize: '15px',
+                      lineHeight: '21.82px',
+                    }}
+                  >
+                    Floor Type
+                  </Typography>
+                  <Typography
+                    sx={{
+                      fontWeight: '500',
+                      fontSize: '14px',
+                      lineHeight: '21.82px',
+                    }}
+                  >
+                    Commercial
+                  </Typography>
+                </Grid>
+                <Grid
+                  item
+                  xs={12}
+                  md={4}
+                  sx={{
+                    display: 'flex',
+                    flexDirection: {
+                      md: 'column',
+                      xs: 'row',
+                    },
+                    justifyContent: 'space-between',
+                  }}
+                >
+                  <Typography
+                    sx={{
+                      fontWeight: '600',
+                      fontSize: '15px',
+                      lineHeight: '21.82px',
+                    }}
+                  >
+                    Floor Area(sq ft/m)
+                  </Typography>
+                  <Typography
+                    sx={{
+                      fontWeight: '500',
+                      fontSize: '14px',
+                      lineHeight: '21.82px',
+                    }}
+                  >
+                    424 Sqm
+                  </Typography>
+                </Grid>
+              </Grid>
+            </Grid>
+            <Grid
+              item
+              xs={12}
+              md={2}
+              sx={{
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}
+            >
+              <Link to="/dashboard/floor-detail">
+                <Button
+                  sx={{
+                    textTransform: 'none',
+                    color: '#7B42F6',
+                    fontSize: '16px',
+                    lineHeight: '21px',
+                    fontWeight: '700',
+                    textDecoration: 'underline',
+                  }}
+                >
+                  See Details
+                </Button>
+              </Link>
+            </Grid>
+          </Grid>
+          <Divider />
+        </CardContent>
+      ))}
+    </Card>
   )
 }
 

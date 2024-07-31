@@ -11,6 +11,7 @@ import 'react-toastify/dist/ReactToastify.css'
 import ResetPassword from './pages/resetpassword/ResetPassword'
 import AddBuilding from './pages/dashboard/lists/Components/addBuilding'
 import UpdateBuilding from './pages/dashboard/buildinginfo/Components/updateBuilding'
+import FullFloorDetail from './pages/dashboard/buildinginfo/Components/BuildingDetails/components/fullFloorDetails/FullFloorDetail'
 
 const SignUpPage = lazy(() => import('./pages/signup/SignUp'))
 const List = lazy(() => import('./pages/dashboard/lists'))
@@ -54,6 +55,8 @@ const App = () => {
             <Route path="renovation" element={<Renovation />} />
             <Route path="map" element={<Map />} />
             <Route path="service" element={<Setting />} />
+            <Route path="floor-detail" element={<FullFloorDetail />} />
+
             <Route path="sensors/" element={<Sensors />}>
               <Route path="view-sensor" element={<ViewSensor />} />
             </Route>
