@@ -15,22 +15,6 @@ import Heating from '../../../../../../asset/svgs/BuildignInfo/Heating'
 import Cooling from '../../../../../../asset/svgs/BuildignInfo/Heating'
 import PropTypes from 'prop-types'
 
-const data = [
-  {
-    type: 'Heating',
-    installed: 436,
-    active: 385,
-    offline: 50,
-  },
-  {
-    type: 'Cooling',
-    installed: 320,
-    active: 290,
-    offline: 30,
-  },
-  // Add more data as needed
-]
-
 const icons = {
   Heating: Heating,
   Cooling: Cooling,
@@ -40,13 +24,16 @@ const icons = {
 const Sensor = ({ sensors }) => {
   const [isLoading, setIsLoading] = useState(true)
   const [currentIndex, setCurrentIndex] = useState(0)
-  const [singleSensor, setSingleSensor] = useState(null)
+  const [data, setData] = useState([])
   const [animationClass, setAnimationClass] = useState('')
-  console.log('Sensors are', sensors)
 
   useEffect(() => {
     if (sensors && sensors.length > 0) {
-      setSingleSensor(sensors[0]?.sensors[0])
+      console.log('Sensors prop:', sensors)
+      // Assuming sensors is an array of sensor objects
+      const sensorData = sensors.map(sensor => sensor.sensors).flat()
+      console.log('Mapped data:', sensorData)
+      setData(sensorData)
     }
   }, [sensors])
 
@@ -75,7 +62,7 @@ const Sensor = ({ sensors }) => {
     }, 500)
   }
 
-  const CurrentIcon = icons[data[currentIndex].type]
+  const CurrentIcon = icons[data[currentIndex]?.type]
 
   return (
     <>
@@ -152,11 +139,11 @@ const Sensor = ({ sensors }) => {
                     alignItems: 'center',
                   }}
                 >
-                  <CurrentIcon />
+                  {CurrentIcon && <CurrentIcon />}
                   <Typography
                     sx={{ fontWeight: 'medium', fontSize: { xs: 12, md: 16 } }}
                   >
-                    {singleSensor?.sensorName}
+                    {data[currentIndex]?.sensorName}
                   </Typography>
                 </Box>
 
@@ -168,8 +155,6 @@ const Sensor = ({ sensors }) => {
                 >
                   <Box
                     sx={{
-                      // width: 'calc(40% - 16px)',
-
                       padding: '0px 20px',
                       height: 64,
                       fontSize: { xs: 9, md: 14 },
@@ -197,12 +182,11 @@ const Sensor = ({ sensors }) => {
                         fontWeight: '400',
                       }}
                     >
-                      {data[currentIndex].installed}
+                      {data[currentIndex]?.installed}
                     </Typography>
                   </Box>
                   <Box
                     sx={{
-                      // width: 'calc(40% - 16px)',
                       padding: '0px 20px',
                       height: 64,
                       fontSize: { xs: 9, md: 14 },
@@ -230,12 +214,11 @@ const Sensor = ({ sensors }) => {
                         fontWeight: '400',
                       }}
                     >
-                      {data[currentIndex].active}
+                      {data[currentIndex]?.active}
                     </Typography>
                   </Box>
                   <Box
                     sx={{
-                      // width: 'calc(40% - 16px)',
                       padding: '0px 20px',
                       height: 64,
                       fontSize: { xs: 9, md: 14 },
@@ -263,7 +246,7 @@ const Sensor = ({ sensors }) => {
                         fontWeight: '400',
                       }}
                     >
-                      {data[currentIndex].offline}
+                      {data[currentIndex]?.offline}
                     </Typography>
                   </Box>
                 </Stack>
@@ -317,9 +300,17 @@ const Sensor = ({ sensors }) => {
 Sensor.propTypes = {
   sensors: PropTypes.arrayOf(
     PropTypes.shape({
-      sensorName: PropTypes.string.isRequired,
+      sensors: PropTypes.arrayOf(
+        PropTypes.shape({
+          sensorName: PropTypes.string.isRequired,
+          type: PropTypes.string.isRequired,
+          installed: PropTypes.number,
+          active: PropTypes.number,
+          offline: PropTypes.number,
+        })
+      ),
     })
-  ),
+  ).isRequired,
 }
 
 export default Sensor
