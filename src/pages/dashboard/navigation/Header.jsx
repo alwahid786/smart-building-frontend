@@ -14,8 +14,6 @@ const Header = () => {
   const { data } = useGetUserDetailQuery()
   const navigate = useNavigate()
 
-  console.log(data)
-
   // open Menu
   const [anchorEl, setAnchorEl] = useState(null)
   const [logoutUser] = useLogoutUserMutation()

@@ -1,26 +1,25 @@
 import {
   Box,
-  Button,
   Card,
   CardContent,
   CardMedia,
   Grid,
   Typography,
 } from '@mui/material'
-
 import { useEffect, useState } from 'react'
 import { CardSkeleton } from '../../../../../../../components/Skeleton'
 
-import image from '../../../../../../../asset/Images/list/Rectangle.png'
-const FloorBrief = () => {
-  // const { isLoading } = useSelector((state) => state.loading)
-  const [isFavorite, setIsFavorite] = useState(false)
-
-  const toggleFavorite = () => {
-    setIsFavorite(!isFavorite)
-  }
+// eslint-disable-next-line react/prop-types
+const FloorBrief = ({data}) => {
 
   const [isLoading, setIsLoading] = useState(true)
+  const [floorData, setFloorData] = useState([])
+
+  useEffect(() => {
+    if (data && data[0] && data) {
+      setFloorData(data[0]);
+    }
+  }, [data]);
 
   useEffect(() => {
     setTimeout(() => {
@@ -31,14 +30,14 @@ const FloorBrief = () => {
   const statuses = [
     {
       label: 'Total rooms',
-      value: '1140 KWh',
+      value: floorData?.rooms,
       color: '#000000',
 
       bgcolor: '#F5F7FB',
     },
     {
       label: 'Floor type',
-      value: '1120-2122 L',
+      value: floorData?.floorType,
       color: '#000000',
 
       bgcolor: '#F5F7FB',
@@ -75,7 +74,7 @@ const FloorBrief = () => {
         >
           <CardMedia
             component="img"
-            image={image}
+            image={floorData?.floorImage}
             alt="Featured Image"
             className="imageEffect"
             sx={{
@@ -101,22 +100,12 @@ const FloorBrief = () => {
               sx={{
                 fontSize: '18px',
                 lineHeight: '24.51px',
-                fontWeight: '600',
-                color: '#414141',
-              }}
-            >
-              floor number
-            </Typography>
-            <Typography
-              variant="subtitle1"
-              sx={{
-                fontSize: '14px',
-                lineHeight: '19.07px',
                 fontWeight: '400',
-                color: '#11111180',
+                color: '#414141',
+                marginBottom: '10px',
               }}
             >
-              Floor name
+              Floor type: {floorData?.floor}
             </Typography>
 
             <Grid container spacing={1}>

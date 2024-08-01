@@ -1,11 +1,4 @@
-import { Box, Grid, Paper, Typography } from '@mui/material'
-import BuildingCard from '../Card'
-import Suggestions from '../Suggestions'
-import Sensor from '../Sensor'
-import PrimaryEnergy from '../PrimaryEnergy'
-import MediaConsumption from '../MediaConsumption'
-import EnergyUtilitiesCard from '../EnergyUtilitiesCard'
-import InspectionHistory from '../InspectionHistory'
+import { Box, Grid, Paper } from '@mui/material'
 import ImageWithSensors from './ImageWithSensors'
 import Analytics from './Analytics'
 import FloorMediaConsumption from './FloorMediaConsumption'
@@ -13,23 +6,26 @@ import FloorEnergyDetails from './FloorEnergyDetails'
 import FloorPrimaryEnergy from './FloorPrimaryEnergy'
 import FloorInspectionHistory from './FloorInspectionHistory'
 import FloorBrief from './FloorBrief'
+import { useGetBuldingFloorsQuery } from '../../../../../../../redux/api/sensorApi'
+import { useParams } from 'react-router-dom'
 
 const FullFloorDetail = () => {
+
+  const { id } = useParams();
+  const { data } = useGetBuldingFloorsQuery(id);
+
   return (
     <Box>
       <Grid container spacing={2}>
         <Grid item xs={12} lg={8}>
-          <ImageWithSensors />
+          <ImageWithSensors data={data} />
         </Grid>
         <Grid item xs={12} lg={4}>
           <Analytics />
         </Grid>
         <Grid item xs={12} lg={4}>
-          <FloorBrief />
+          <FloorBrief data={data} />
         </Grid>
-        {/* <Grid item xs={12} lg={12}>
-          <FinancialProjection />
-        </Grid> */}
 
         <Grid item xs={12} lg={4}>
           <FloorMediaConsumption />

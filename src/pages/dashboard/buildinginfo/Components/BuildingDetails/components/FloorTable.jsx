@@ -10,6 +10,7 @@ import {
 import { Link } from 'react-router-dom'
 
 const FloorTable = ({ sensors }) => {
+
   return (
     <Card
       sx={{
@@ -23,10 +24,6 @@ const FloorTable = ({ sensors }) => {
         <CardContent sx={{ padding: 2 }} key={sensor._id}>
           <Grid container columnSpacing={3}>
             <Grid item xs={12} md={2}>
-              {/* <Box
-                component="span"
-                sx={{ fontSize: { xs: 12, md: 14 }, fontWeight: 500 }}
-              > */}
               <img src={sensor?.floorImage} width="100%" alt="Floor" />
               {/* </Box> */}
             </Grid>
@@ -161,7 +158,7 @@ const FloorTable = ({ sensors }) => {
                 alignItems: 'center',
               }}
             >
-              <Link to="/dashboard/floor-detail">
+              <Link to={`/dashboard/floor-detail/${sensor?.buildingId}`}>
                 <Button
                   sx={{
                     textTransform: 'none',

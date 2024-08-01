@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState, useEffect } from 'react';
 import {
   Accordion,
   AccordionDetails,
@@ -10,30 +10,31 @@ import {
   Checkbox,
   FormControlLabel,
   Grid,
-} from '@mui/material'
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
-import image from '../../../../../../../asset/Images/list/Rectangle.png'
+} from '@mui/material';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import defaultImage from '../../../../../../../asset/Images/list/Rectangle.png';
 
-const ImageWithSensors = () => {
-  const [checkedItems, setCheckedItems] = useState({
-    item1: false,
-    item2: false,
-  })
+const ImageWithSensors = ({ data }) => {
+  const [checkedItems, setCheckedItems] = useState({});
+  const [floorImage, setFloorImage] = useState(defaultImage);
+
+  useEffect(() => {
+    if (data && data.length > 0) {
+      const initialCheckedItems = {};
+      data.forEach((item, index) => {
+        initialCheckedItems[`item${index + 1}`] = false;
+      });
+      setCheckedItems(initialCheckedItems);
+      setFloorImage(data[0].floorImage || defaultImage); // Assuming you want to show the first image initially
+    }
+  }, [data]);
 
   const handleChange = (event) => {
     setCheckedItems({
       ...checkedItems,
       [event.target.name]: event.target.checked,
-    })
-  }
-
-  const handleSelectAll = (event) => {
-    const isChecked = event.target.checked
-    setCheckedItems({
-      item1: isChecked,
-      item2: isChecked,
-    })
-  }
+    });
+  };
 
   return (
     <Card
@@ -55,7 +56,7 @@ const ImageWithSensors = () => {
     >
       <CardMedia
         component="img"
-        image={image}
+        image={floorImage}
         alt="Featured Image"
         className="imageEffect"
         sx={{
@@ -84,50 +85,30 @@ const ImageWithSensors = () => {
             id="panel2-header"
             sx={{ color: '#7B42F6' }}
           >
-            {/* <FormControlLabel
-              control={
-                <Checkbox
-                  checked={checkedItems.item1 && checkedItems.item2}
-                  indeterminate={checkedItems.item1 !== checkedItems.item2}
-                  onChange={handleSelectAll}
-                />
-              }
-              label="Select All"
-            /> */}
             <Typography sx={{ color: '#7B42F6' }}>Sensor List</Typography>
           </AccordionSummary>
           <AccordionDetails>
             <Grid container>
-              <Grid item xs={12}>
-                <FormControlLabel
-                  control={
-                    <Checkbox
-                      checked={checkedItems.item1}
-                      onChange={handleChange}
-                      name="item1"
-                    />
-                  }
-                  label="Item 1"
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <FormControlLabel
-                  control={
-                    <Checkbox
-                      checked={checkedItems.item2}
-                      onChange={handleChange}
-                      name="item2"
-                    />
-                  }
-                  label="Item 2"
-                />
-              </Grid>
+              {data?.map((item, index) => (
+                <Grid item xs={12} key={index}>
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        checked={checkedItems[`item${index + 1}`]}
+                        onChange={handleChange}
+                        name={`item${index + 1}`}
+                      />
+                    }
+                    label={`Item ${index + 1}`}
+                  />
+                </Grid>
+              ))}
             </Grid>
           </AccordionDetails>
         </Accordion>
       </Box>
     </Card>
-  )
-}
+  );
+};
 
-export default ImageWithSensors
+export default ImageWithSensors;

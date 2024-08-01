@@ -55,7 +55,7 @@ const App = () => {
             <Route path="renovation" element={<Renovation />} />
             <Route path="map" element={<Map />} />
             <Route path="service" element={<Setting />} />
-            <Route path="floor-detail" element={<FullFloorDetail />} />
+            <Route path="floor-detail/:id" element={<FullFloorDetail />} />
 
             <Route path="sensors/" element={<Sensors />}>
               <Route path="view-sensor" element={<ViewSensor />} />

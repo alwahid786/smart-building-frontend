@@ -200,7 +200,7 @@ const BuildingCard = () => {
                   lineHeight: '21.79px',
                 }}
               >
-                {data.description}
+                {data?.description}
               </Typography>
             </Box>
           </Box>
