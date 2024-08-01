@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react'
 import {
   Card,
   CardContent,
@@ -7,13 +7,13 @@ import {
   Stack,
   Box,
   Divider,
-} from '@mui/material';
-import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
-import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
-import { SensorsStatusSkeleton } from '../../../../../../components/Skeleton';
-import Heating from '../../../../../../asset/svgs/BuildignInfo/Heating';
-import Cooling from '../../../../../../asset/svgs/BuildignInfo/Heating';
-import PropTypes from 'prop-types';
+} from '@mui/material'
+import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew'
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos'
+import { SensorsStatusSkeleton } from '../../../../../../components/Skeleton'
+import Heating from '../../../../../../asset/svgs/BuildignInfo/Heating'
+import Cooling from '../../../../../../asset/svgs/BuildignInfo/Heating'
+import PropTypes from 'prop-types'
 
 const data = [
   {
@@ -41,13 +41,14 @@ const Sensor = ({ sensors }) => {
   const [isLoading, setIsLoading] = useState(true)
   const [currentIndex, setCurrentIndex] = useState(0)
   const [singleSensor, setSingleSensor] = useState(null)
+  const [animationClass, setAnimationClass] = useState('')
+  console.log('Sensors are', sensors)
 
   useEffect(() => {
     if (sensors && sensors.length > 0) {
       setSingleSensor(sensors[0]?.sensors[0])
     }
   }, [sensors])
-
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -57,13 +58,21 @@ const Sensor = ({ sensors }) => {
   }, [])
 
   const handleNext = () => {
-    setCurrentIndex((prevIndex) => (prevIndex + 1) % data.length)
+    setAnimationClass('slide-in-right')
+    setTimeout(() => {
+      setCurrentIndex((prevIndex) => (prevIndex + 1) % data.length)
+      setAnimationClass('')
+    }, 500)
   }
 
   const handlePrev = () => {
-    setCurrentIndex((prevIndex) =>
-      prevIndex === 0 ? data.length - 1 : prevIndex - 1
-    )
+    setAnimationClass('slide-in-left')
+    setTimeout(() => {
+      setCurrentIndex((prevIndex) =>
+        prevIndex === 0 ? data.length - 1 : prevIndex - 1
+      )
+      setAnimationClass('')
+    }, 500)
   }
 
   const CurrentIcon = icons[data[currentIndex].type]
@@ -124,163 +133,179 @@ const Sensor = ({ sensors }) => {
               }}
             >
               <ArrowBackIosNewIcon
-                sx={{ cursor: 'pointer' }}
+                sx={{ cursor: 'pointer', mb: '250px' }}
                 onClick={handlePrev}
               />
               <Box
+                className={animationClass}
                 sx={{
                   display: 'flex',
                   flexDirection: 'column',
                   alignItems: 'center',
+                  width: '100%',
                 }}
               >
-                <CurrentIcon />
-                <Typography
-                  sx={{ fontWeight: 'medium', fontSize: { xs: 12, md: 16 } }}
+                <Box
+                  sx={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                  }}
                 >
-                  {singleSensor?.sensorName}
-                </Typography>
+                  <CurrentIcon />
+                  <Typography
+                    sx={{ fontWeight: 'medium', fontSize: { xs: 12, md: 16 } }}
+                  >
+                    {singleSensor?.sensorName}
+                  </Typography>
+                </Box>
+
+                <Stack
+                  direction="row"
+                  sx={{ marginTop: 2 }}
+                  spacing={1}
+                  justifyContent="center"
+                >
+                  <Box
+                    sx={{
+                      // width: 'calc(40% - 16px)',
+
+                      padding: '0px 20px',
+                      height: 64,
+                      fontSize: { xs: 9, md: 14 },
+                      background: '#F5F7FB',
+                      borderRadius: '6px',
+                      display: 'flex',
+                      flexDirection: 'column',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                    }}
+                  >
+                    <Typography
+                      sx={{
+                        fontSize: '12px',
+                        lineHeight: '18px',
+                        fontWeight: '400',
+                      }}
+                    >
+                      Installed
+                    </Typography>
+                    <Typography
+                      sx={{
+                        fontSize: '16px',
+                        lineHeight: '24px',
+                        fontWeight: '400',
+                      }}
+                    >
+                      {data[currentIndex].installed}
+                    </Typography>
+                  </Box>
+                  <Box
+                    sx={{
+                      // width: 'calc(40% - 16px)',
+                      padding: '0px 20px',
+                      height: 64,
+                      fontSize: { xs: 9, md: 14 },
+                      background: '#F5F7FB',
+                      borderRadius: '6px',
+                      display: 'flex',
+                      flexDirection: 'column',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                    }}
+                  >
+                    <Typography
+                      sx={{
+                        fontSize: '12px',
+                        lineHeight: '18px',
+                        fontWeight: '400',
+                      }}
+                    >
+                      Active
+                    </Typography>
+                    <Typography
+                      sx={{
+                        fontSize: '16px',
+                        lineHeight: '24px',
+                        fontWeight: '400',
+                      }}
+                    >
+                      {data[currentIndex].active}
+                    </Typography>
+                  </Box>
+                  <Box
+                    sx={{
+                      // width: 'calc(40% - 16px)',
+                      padding: '0px 20px',
+                      height: 64,
+                      fontSize: { xs: 9, md: 14 },
+                      background: '#F5F7FB',
+                      borderRadius: '6px',
+                      display: 'flex',
+                      flexDirection: 'column',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                    }}
+                  >
+                    <Typography
+                      sx={{
+                        fontSize: '12px',
+                        lineHeight: '18px',
+                        fontWeight: '400',
+                      }}
+                    >
+                      Offline
+                    </Typography>
+                    <Typography
+                      sx={{
+                        fontSize: '16px',
+                        lineHeight: '24px',
+                        fontWeight: '400',
+                      }}
+                    >
+                      {data[currentIndex].offline}
+                    </Typography>
+                  </Box>
+                </Stack>
+
+                <Box
+                  sx={{
+                    marginY: 7,
+                    background: '#FFEAEB',
+                    height: '48px',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
+                    padding: '0px 12px',
+                    color: 'black',
+                    borderRadius: '6px',
+                    borderLeft: '4px solid #FA3D45',
+                    lineHeight: '24px',
+                  }}
+                >
+                  <Typography sx={{ fontWeight: '600', fontSize: '13px' }}>
+                    1 sensor has problem
+                  </Typography>
+                  <Box
+                    sx={{ display: 'flex', gap: '5px', alignItems: 'center' }}
+                  >
+                    <Typography sx={{ fontSize: '13px' }}>Error:</Typography>
+                    <Typography
+                      sx={{
+                        fontSize: '13px',
+                        background: '#ffffff',
+                        padding: '3px 10px',
+                      }}
+                    >
+                      u67fYHJ
+                    </Typography>
+                  </Box>
+                </Box>
               </Box>
               <ArrowForwardIosIcon
-                sx={{ cursor: 'pointer' }}
+                sx={{ cursor: 'pointer', mb: '250px' }}
                 onClick={handleNext}
               />
-            </Box>
-
-            <Stack
-              direction="row"
-              sx={{ marginTop: 2 }}
-              spacing={1}
-              justifyContent="center"
-            >
-              <Box
-                sx={{
-                  width: 'calc(40% - 16px)',
-                  height: 64,
-                  fontSize: { xs: 9, md: 14 },
-                  background: '#F5F7FB',
-                  borderRadius: '6px',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                }}
-              >
-                <Typography
-                  sx={{
-                    fontSize: '12px',
-                    lineHeight: '18px',
-                    fontWeight: '400',
-                  }}
-                >
-                  Installed
-                </Typography>
-                <Typography
-                  sx={{
-                    fontSize: '16px',
-                    lineHeight: '24px',
-                    fontWeight: '400',
-                  }}
-                >
-                  {data[currentIndex].installed}
-                </Typography>
-              </Box>
-              <Box
-                sx={{
-                  width: 'calc(40% - 16px)',
-                  height: 64,
-                  fontSize: { xs: 9, md: 14 },
-                  background: '#F5F7FB',
-                  borderRadius: '6px',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                }}
-              >
-                <Typography
-                  sx={{
-                    fontSize: '12px',
-                    lineHeight: '18px',
-                    fontWeight: '400',
-                  }}
-                >
-                  Active
-                </Typography>
-                <Typography
-                  sx={{
-                    fontSize: '16px',
-                    lineHeight: '24px',
-                    fontWeight: '400',
-                  }}
-                >
-                  {data[currentIndex].active}
-                </Typography>
-              </Box>
-              <Box
-                sx={{
-                  width: 'calc(40% - 16px)',
-                  height: 64,
-                  fontSize: { xs: 9, md: 14 },
-                  background: '#F5F7FB',
-                  borderRadius: '6px',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                }}
-              >
-                <Typography
-                  sx={{
-                    fontSize: '12px',
-                    lineHeight: '18px',
-                    fontWeight: '400',
-                  }}
-                >
-                  Offline
-                </Typography>
-                <Typography
-                  sx={{
-                    fontSize: '16px',
-                    lineHeight: '24px',
-                    fontWeight: '400',
-                  }}
-                >
-                  {data[currentIndex].offline}
-                </Typography>
-              </Box>
-            </Stack>
-
-            <Box
-              sx={{
-                marginY: 7,
-                background: '#FFEAEB',
-                height: '48px',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'space-between',
-                padding: '0px 12px',
-                color: 'black',
-                borderRadius: '6px',
-                borderLeft: '4px solid #FA3D45',
-                lineHeight: '24px',
-              }}
-            >
-              <Typography sx={{ fontWeight: '600', fontSize: '13px' }}>
-                1 sensor has problem
-              </Typography>
-              <Box sx={{ display: 'flex', gap: '5px', alignItems: 'center' }}>
-                <Typography sx={{ fontSize: '13px' }}>Error:</Typography>
-                <Typography
-                  sx={{
-                    fontSize: '13px',
-                    background: '#ffffff',
-                    padding: '3px 10px',
-                  }}
-                >
-                  u67fYHJ
-                </Typography>
-              </Box>
             </Box>
           </CardContent>
         </Card>
