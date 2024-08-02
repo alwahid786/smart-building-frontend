@@ -4,7 +4,7 @@ export const sensorApiPoint = createApi({
   reducerPath: 'sensorApi',
 
   baseQuery: fetchBaseQuery({
-    baseUrl: 'https://smart-building-backend-production-ecd0.up.railway.app',
+     baseUrl: "https://smart-building-backend-production-ecd0.up.railway.app",
     // baseUrl: "http://localhost:4000"
   }),
 
