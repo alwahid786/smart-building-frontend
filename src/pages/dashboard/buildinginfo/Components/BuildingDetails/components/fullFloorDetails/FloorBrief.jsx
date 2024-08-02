@@ -15,6 +15,8 @@ const FloorBrief = ({data}) => {
   const [isLoading, setIsLoading] = useState(true)
   const [floorData, setFloorData] = useState([])
 
+  console.log(floorData)
+
   useEffect(() => {
     if (data && data[0] && data) {
       setFloorData(data[0]);

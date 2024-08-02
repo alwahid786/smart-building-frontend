@@ -29,10 +29,9 @@ const Sensor = ({ sensors }) => {
 
   useEffect(() => {
     if (sensors && sensors.length > 0) {
-      console.log('Sensors prop:', sensors)
+
       // Assuming sensors is an array of sensor objects
       const sensorData = sensors.map(sensor => sensor.sensors).flat()
-      console.log('Mapped data:', sensorData)
       setData(sensorData)
     }
   }, [sensors])
@@ -177,12 +176,12 @@ const Sensor = ({ sensors }) => {
                     </Typography>
                     <Typography
                       sx={{
-                        fontSize: '16px',
+                        fontSize: '12px',
                         lineHeight: '24px',
                         fontWeight: '400',
                       }}
                     >
-                      {data[currentIndex]?.installed}
+                      {data[currentIndex]?.sensorType}
                     </Typography>
                   </Box>
                   <Box
@@ -209,12 +208,12 @@ const Sensor = ({ sensors }) => {
                     </Typography>
                     <Typography
                       sx={{
-                        fontSize: '16px',
+                        fontSize: '12px',
                         lineHeight: '24px',
                         fontWeight: '400',
                       }}
                     >
-                      {data[currentIndex]?.active}
+                      {data[currentIndex]?.port}
                     </Typography>
                   </Box>
                   <Box
