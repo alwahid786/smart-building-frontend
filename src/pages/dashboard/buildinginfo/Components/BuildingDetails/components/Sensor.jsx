@@ -31,7 +31,12 @@ const Sensor = ({ sensors }) => {
     if (sensors && sensors.length > 0) {
 
       // Assuming sensors is an array of sensor objects
-      const sensorData = sensors.map(sensor => sensor.sensors).flat()
+
+      // const sensorData = sensors.map(sensor => sensor.sensors).flat()
+
+      const sensorData = sensors.map((sensor) => sensor.sensors).flat()
+      console.log('Mapped data:', sensorData)
+
       setData(sensorData)
     }
   }, [sensors])
@@ -110,24 +115,33 @@ const Sensor = ({ sensors }) => {
             <Divider />
 
             <Box
-              sx={{
-                display: 'flex',
-                justifyContent: 'space-between',
-                alignItems: 'center',
-                marginBottom: 1,
-                marginTop: 4,
-              }}
+              // sx={{
+              //   display: 'flex',
+              //   // justifyContent: 'space-between',
+              //   alignItems: 'center',
+              //   marginBottom: 1,
+              //   marginTop: 4,
+              //   border: '2px solid red',
+              // }}
+              sx={{ position: 'relative', display: 'flex' }}
             >
               <ArrowBackIosNewIcon
-                sx={{ cursor: 'pointer', mb: '250px' }}
+                sx={{
+                  cursor: 'pointer',
+                  mb: '250px',
+                  position: 'absolute',
+                  top: '12px',
+                  left: '10px',
+                  zIndex: '7',
+                }}
                 onClick={handlePrev}
               />
               <Box
                 className={animationClass}
                 sx={{
+                  marginTop: '20px',
                   display: 'flex',
                   flexDirection: 'column',
-                  alignItems: 'center',
                   width: '100%',
                 }}
               >
@@ -285,7 +299,14 @@ const Sensor = ({ sensors }) => {
                 </Box>
               </Box>
               <ArrowForwardIosIcon
-                sx={{ cursor: 'pointer', mb: '250px' }}
+                sx={{
+                  cursor: 'pointer',
+                  mb: '250px',
+                  position: 'absolute',
+                  top: '12px',
+                  right: '10px',
+                  zIndex: '7',
+                }}
                 onClick={handleNext}
               />
             </Box>
