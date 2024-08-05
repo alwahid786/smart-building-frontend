@@ -56,52 +56,375 @@ const ViewSensor = () => {
           </Box>
         </Box>
       </Box>
-      <Box
-        sx={{
-          padding: '15px 0',
-          display: 'flex',
-          flexDirection: 'column',
-          gap: '10px',
-        }}
-      >
-        <Box sx={{ display: 'flex', gap: '10px', alignItems: 'end' }}>
-          <Typography sx={{ fontSize: '18px', fontWeight: '600' }}>
-            Sensor Name:
-          </Typography>
-          <Typography sx={{ fontSize: '16px' }}>Fetch Sensor name</Typography>
-        </Box>
 
-        <Box sx={{ display: 'flex', gap: '10px', alignItems: 'end' }}>
-          <Typography sx={{ fontSize: '18px', fontWeight: '600' }}>
-            IP:
-          </Typography>
-          <Typography sx={{ fontSize: '16px' }}>Fetch IP</Typography>
-        </Box>
+      <Grid container spacing={2} sx={{ mt: 2 }}>
+        <Grid item xs={12} md={6}>
+          <Box
+            sx={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              flexDirection: 'column',
+              background: '#FFFFFF',
+              // background: 'orange',
+              p: 2,
+              borderRadius: '8px',
+              boxShadow: '-1px 2px 5px 3px rgba(0, 0, 0, 0.12)',
+            }}
+          >
+            <Typography sx={{ fontSize: '16px' }}>
+              Basic Sensor Information
+            </Typography>
 
-        <Box sx={{ display: 'flex', gap: '10px', alignItems: 'end' }}>
-          <Typography sx={{ fontSize: '18px', fontWeight: '600' }}>
-            Unique ID:
-          </Typography>
-          <Typography sx={{ fontSize: '16px' }}>Fetch UID</Typography>
-        </Box>
+            <Box
+              sx={{
+                display: 'flex',
+                justifyContent: 'space-between',
+                gap: '10px',
+                background: '#ECE8FF',
+                alignItems: 'center',
+                marginTop: '10px',
+                borderRadius: '9px',
+                padding: '15px',
+              }}
+            >
+              <Typography sx={{ fontSize: '16px', color: '#686868' }}>
+                sensorName
+              </Typography>
+              <Typography
+                sx={{ fontSize: '18px', fontWeight: '500', color: '#A449EB' }}
+              >
+                Temperature
+              </Typography>
+            </Box>
+            <Box
+              sx={{
+                display: 'flex',
+                justifyContent: 'space-between',
+                gap: '10px',
+                background: '#ECE8FF',
+                alignItems: 'center',
+                marginTop: '10px',
+                borderRadius: '9px',
+                padding: '15px',
+              }}
+            >
+              <Typography sx={{ fontSize: '16px', color: '#686868' }}>
+                Type
+              </Typography>
+              <Typography
+                sx={{ fontSize: '18px', fontWeight: '500', color: '#A449EB' }}
+              >
+                Temperature
+              </Typography>
+            </Box>
+            <Box
+              sx={{
+                display: 'flex',
+                justifyContent: 'space-between',
+                gap: '10px',
+                background: '#ECE8FF',
+                alignItems: 'center',
+                marginTop: '10px',
+                borderRadius: '9px',
+                padding: '15px',
+              }}
+            >
+              <Typography sx={{ fontSize: '16px', color: '#686868' }}>
+                Location
+              </Typography>
+              <Typography
+                sx={{ fontSize: '18px', fontWeight: '500', color: '#A449EB' }}
+              >
+                Floor-2
+              </Typography>
+            </Box>
+            <Box
+              sx={{
+                display: 'flex',
+                justifyContent: 'space-between',
+                gap: '10px',
+                background: '#ECE8FF',
+                alignItems: 'center',
+                marginTop: '10px',
+                borderRadius: '9px',
+                padding: '15px',
+              }}
+            >
+              <Typography sx={{ fontSize: '16px', color: '#686868' }}>
+                IP.adress
+              </Typography>
+              <Typography
+                sx={{ fontSize: '18px', fontWeight: '500', color: '#A449EB' }}
+              >
+                02919839801
+              </Typography>
+            </Box>
+          </Box>
+        </Grid>
+        <Grid item xs={12} md={6}>
+          <Box
+            sx={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              background: '#FFFFFF',
+              p: 2,
+              borderRadius: '8px',
+              boxShadow: '-1px 2px 5px 3px rgba(0, 0, 0, 0.12)',
+            }}
+          >
+            <h2>Right</h2>
+          </Box>
+        </Grid>
+      </Grid>
 
-        <Box sx={{ display: 'flex', gap: '10px', alignItems: 'end' }}>
-          <Typography sx={{ fontSize: '18px', fontWeight: '600' }}>
-            Port:
-          </Typography>
-          <Typography sx={{ fontSize: '16px' }}>Fetch port</Typography>
-        </Box>
+      <Grid container spacing={2} >
+        <Grid item xs={12} md={6}>
+          <Box
+            sx={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              flexDirection: 'column',
+              background: '#FFFFFF',
+              p: 2,
+              borderRadius: '8px',
+              boxShadow: '-1px 2px 5px 3px rgba(0, 0, 0, 0.12)',
+              marginTop: '25px',
+            }}
+          >
+            <Typography sx={{ fontSize: '16px', color: ' #686868' }}>
+              Status and Data
+            </Typography>
 
-        <Box sx={{ display: 'flex', gap: '10px', alignItems: 'end' }}>
-          <Typography sx={{ fontSize: '18px', fontWeight: '600' }}>
-            Type:
-          </Typography>
-          <Typography sx={{ fontSize: '16px' }}>Fetch Type</Typography>
-        </Box>
-      </Box>
+            <Box
+              sx={{
+                display: 'flex',
+                justifyContent: 'space-between',
+                gap: '10px',
+                background: '#ECE8FF',
+                alignItems: 'center',
+                marginTop: '10px',
+                borderRadius: '9px',
+                padding: '15px',
+              }}
+            >
+              <Typography sx={{ fontSize: '16px', color: '#686868' }}>
+                Status
+              </Typography>
+
+              <Button
+                text="Active"
+                sx={{
+                  background: '#52BE8A',
+                  color: '#FFFFFF',
+                  padding: '6px 15px',
+                  borderRadius: '8px',
+                }}
+              >
+                Active
+              </Button>
+            </Box>
+
+            <Box
+              sx={{
+                display: 'flex',
+                justifyContent: 'space-between',
+                gap: '10px',
+                background: '#ECE8FF',
+                alignItems: 'center',
+                marginTop: '10px',
+                borderRadius: '9px',
+                padding: '15px',
+              }}
+            >
+              <Typography sx={{ fontSize: '16px', color: '#686868' }}>
+                Location
+              </Typography>
+              <Typography
+                sx={{ fontSize: '18px', fontWeight: '500', color: '#A449EB' }}
+              >
+                Floor-2
+              </Typography>
+            </Box>            
+          </Box>
+
+          <Box
+            sx={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              flexDirection: 'column',
+              background: '#FFFFFF',
+              p: 2,
+              borderRadius: '8px',
+              boxShadow: '-1px 2px 5px 3px rgba(0, 0, 0, 0.12)',
+              marginTop: '25px',
+            }}
+          >
+            <Typography sx={{ fontSize: '16px', color: ' #686868' }}>
+              Sensor-Specific Information
+            </Typography>
+
+            <Box
+              sx={{
+                display: 'flex',
+                justifyContent: 'space-between',
+                gap: '10px',
+                background: '#ECE8FF',
+                alignItems: 'center',
+                marginTop: '10px',
+                borderRadius: '9px',
+                padding: '15px',
+              }}
+            >
+              <Typography sx={{ fontSize: '16px', color: '#686868' }}>
+                Normal Tem-
+              </Typography>
+
+              <Typography
+                sx={{ fontSize: '18px', fontWeight: '500', color: '#A449EB' }}
+              >
+                23°C
+              </Typography>
+            </Box>
+
+            <Box
+              sx={{
+                display: 'flex',
+                justifyContent: 'space-between',
+                gap: '10px',
+                background: '#ECE8FF',
+                alignItems: 'center',
+                marginTop: '10px',
+                borderRadius: '9px',
+                padding: '15px',
+              }}
+            >
+              <Typography sx={{ fontSize: '16px', color: '#686868' }}>
+                Peak Tem-
+              </Typography>
+              <Typography
+                sx={{ fontSize: '18px', fontWeight: '500', color: '#A449EB' }}
+              >
+                23°C
+              </Typography>
+            </Box>
+          </Box>
+        </Grid>
+        <Grid item xs={12} md={6}>
+        <Box
+            sx={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              flexDirection: 'column',
+              background: '#FFFFFF',
+              p: 2,
+              borderRadius: '8px',
+              boxShadow: '-1px 2px 5px 3px rgba(0, 0, 0, 0.12)',
+            }}
+          >
+            <Typography sx={{ fontSize: '16px' }}>
+            Alert History
+            </Typography>
+
+            <Box
+              sx={{
+                display: 'flex',
+                justifyContent: 'space-between',
+                gap: '10px',
+                background: '#ECE8FF',
+                alignItems: 'center',
+                marginTop: '10px',
+                borderRadius: '9px',
+                padding: '15px',
+              }}
+            >
+              <Typography sx={{ fontSize: '16px', color: '#686868' }}>
+                sensorName
+              </Typography>
+              <Typography
+                sx={{ fontSize: '18px', fontWeight: '500', color: '#A449EB' }}
+              >
+                Temperature
+              </Typography>
+            </Box>
+            <Box
+              sx={{
+                display: 'flex',
+                justifyContent: 'space-between',
+                gap: '10px',
+                background: '#ECE8FF',
+                alignItems: 'center',
+                marginTop: '10px',
+                borderRadius: '9px',
+                padding: '15px',
+              }}
+            >
+              <Typography sx={{ fontSize: '16px', color: '#686868' }}>
+                Type
+              </Typography>
+              <Typography
+                sx={{ fontSize: '18px', fontWeight: '500', color: '#A449EB' }}
+              >
+                Temperature
+              </Typography>
+            </Box>
+            <Box
+              sx={{
+                display: 'flex',
+                justifyContent: 'space-between',
+                gap: '10px',
+                background: '#ECE8FF',
+                alignItems: 'center',
+                marginTop: '10px',
+                borderRadius: '9px',
+                padding: '15px',
+              }}
+            >
+              <Typography sx={{ fontSize: '16px', color: '#686868' }}>
+                Location
+              </Typography>
+              <Typography
+                sx={{ fontSize: '18px', fontWeight: '500', color: '#A449EB' }}
+              >
+                Floor-2
+              </Typography>
+            </Box>
+            <Box
+              sx={{
+                display: 'flex',
+                justifyContent: 'space-between',
+                gap: '10px',
+                background: '#ECE8FF',
+                alignItems: 'center',
+                marginTop: '10px',
+                borderRadius: '9px',
+                padding: '15px',
+              }}
+            >
+              <Typography sx={{ fontSize: '16px', color: '#686868' }}>
+                IP.adress
+              </Typography>
+              <Typography
+                sx={{ fontSize: '18px', fontWeight: '500', color: '#A449EB' }}
+              >
+                02919839801
+              </Typography>
+            </Box>
+          </Box>
+        </Grid>
+      </Grid>
+
+      <Grid container spacing={2} sx={{ mt: 2 }}>
+        <Grid item xs={12} md={6}>
+         
+        </Grid>
+      </Grid>
 
       <EditSensor open={open} handleClose={handleClose} />
     </Box>
+
+    
+  
   )
 }
 
