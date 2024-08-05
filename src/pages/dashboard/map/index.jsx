@@ -69,6 +69,7 @@ const Index = () => {
           border: '0.4px solid black',
           marginTop: '30px',
         }}
+        className="grayscale-map"
       >
         <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
         {positions.map(([lat, lng, building], index) => (

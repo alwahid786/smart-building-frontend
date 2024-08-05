@@ -115,11 +115,7 @@ const UpdatePhotos = ({ handleNext, handleBack }) => {
           ))
         ) : (
           <Grid item xs={12} sm={6} md={3} xl={2}>
-            <SinglePhoto
-              image={
-                'https://images.unsplash.com/photo-1581472723648-909f4851d4ae?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
-              }
-            />
+            <Typography>No photos Available</Typography>
           </Grid>
         )}
       </Grid>
@@ -146,8 +142,8 @@ const UpdatePhotos = ({ handleNext, handleBack }) => {
           }}
           component="span"
         >
-          Drop your file here or &nbsp;{' '}
-          <Box sx={{ color: '#B029FC' }}>browse</Box>
+          Click here to browse image &nbsp;{' '}
+          {/* <Box sx={{ color: '#B029FC' }}>browse</Box> */}
         </Button>
       </label>
 

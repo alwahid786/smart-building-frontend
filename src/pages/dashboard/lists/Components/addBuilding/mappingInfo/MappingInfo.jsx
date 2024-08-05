@@ -125,6 +125,7 @@ const MappingInfo = ({ handleBack, handleNext }) => {
             border: '0.4px solid black',
             marginTop: '30px',
           }}
+          className="grayscale-map"
         >
           <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
           <Marker position={position}>
