@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { Delete, Edit } from '@mui/icons-material'
 import { Box, Button, Grid, Typography } from '@mui/material'
 import EditSensor from './EditSensor'
@@ -119,6 +120,8 @@ const ViewSensor = () => {
       month: 'December',
     },
   ]
+
+  const loop = [1, 2, 3, 4]
 
   const valueFormatter = (value) => `${value}mm`
 
@@ -454,7 +457,6 @@ const ViewSensor = () => {
                 display: 'flex',
                 justifyContent: 'space-between',
                 gap: '10px',
-                background: '#ECE8FF',
                 alignItems: 'center',
                 marginTop: '10px',
                 borderRadius: '9px',
@@ -462,77 +464,44 @@ const ViewSensor = () => {
               }}
             >
               <Typography sx={{ fontSize: '16px', color: '#686868' }}>
-                sensorName
+                Date
               </Typography>
-              <Typography
-                sx={{ fontSize: '18px', fontWeight: '500', color: '#A449EB' }}
-              >
-                Temperature
-              </Typography>
-            </Box>
-            <Box
-              sx={{
-                display: 'flex',
-                justifyContent: 'space-between',
-                gap: '10px',
-                background: '#ECE8FF',
-                alignItems: 'center',
-                marginTop: '10px',
-                borderRadius: '9px',
-                padding: '15px',
-              }}
-            >
               <Typography sx={{ fontSize: '16px', color: '#686868' }}>
-                Type
+                Alert Name
               </Typography>
-              <Typography
-                sx={{ fontSize: '18px', fontWeight: '500', color: '#A449EB' }}
-              >
-                Temperature
-              </Typography>
-            </Box>
-            <Box
-              sx={{
-                display: 'flex',
-                justifyContent: 'space-between',
-                gap: '10px',
-                background: '#ECE8FF',
-                alignItems: 'center',
-                marginTop: '10px',
-                borderRadius: '9px',
-                padding: '15px',
-              }}
-            >
               <Typography sx={{ fontSize: '16px', color: '#686868' }}>
-                Location
-              </Typography>
-              <Typography
-                sx={{ fontSize: '18px', fontWeight: '500', color: '#A449EB' }}
-              >
-                Floor-2
+                Alert Name
               </Typography>
             </Box>
-            <Box
-              sx={{
-                display: 'flex',
-                justifyContent: 'space-between',
-                gap: '10px',
-                background: '#ECE8FF',
-                alignItems: 'center',
-                marginTop: '10px',
-                borderRadius: '9px',
-                padding: '15px',
-              }}
-            >
-              <Typography sx={{ fontSize: '16px', color: '#686868' }}>
-                IP.adress
-              </Typography>
-              <Typography
-                sx={{ fontSize: '18px', fontWeight: '500', color: '#A449EB' }}
-              >
-                02919839801
-              </Typography>
-            </Box>
+
+            {loop?.map((item, index) => {
+              return (
+                <>
+                  <Box
+                    sx={{
+                      display: 'flex',
+                      justifyContent: 'space-between',
+                      gap: '10px',
+                      background: '#ECE8FF',
+                      alignItems: 'center',
+                      borderRadius: '9px',
+                      padding: '22px',
+                      marginBottom: '10px',
+                    }}
+                  >
+                    <Typography sx={{ fontSize: '16px', color: '#686868' }}>
+                      22 May 2024
+                    </Typography>
+                    <Typography sx={{ fontSize: '16px', color: '#000000' }}>
+                      Water Usage
+                    </Typography>
+                    <Typography sx={{ fontSize: '16px', color: '#686868' }}>
+                      Floor-2 loundry Area
+                    </Typography>
+                  </Box>
+                </>
+              )
+            })}
           </Box>
         </Grid>
       </Grid>
