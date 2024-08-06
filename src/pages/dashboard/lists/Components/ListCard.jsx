@@ -4,20 +4,23 @@ import {
   Card,
   CardContent,
   CardMedia,
+  Divider,
   Grid,
   Typography,
 } from '@mui/material'
 
-import { useEffect, useState } from 'react';
+import { Fragment, useEffect, useState } from 'react'
 import CardFavoriteIcon from '../../../../asset/svgs/CardFavoriteIcon'
 import { CardSkeleton } from '../../../../components/Skeleton'
-import Bulb from '../../../../asset/svgs/buildingdetails/Bulb'
-import GasFire from '../../../../asset/svgs/buildingdetails/GasFire'
-import Drop from '../../../../asset/svgs/buildingdetails/Drop'
+import FloorIcon from '../../../../asset/svgs/buildingdetails/FloorIcon'
+
+import AreaIcon from '../../../../asset/svgs/buildingdetails/AreaIcon'
+import SensorIcon from '../../../../asset/svgs/buildingdetails/SensorIcon'
 import Bad from '../../../../asset/svgs/buildingdetails/Bad'
 import CardBg from '../../../../asset/Images/list/image.png'
-
-
+// import { PieChart } from '@mui/x-charts'
+import { PieChart, Pie, Legend, Tooltip, Cell } from 'recharts'
+import { Link } from 'react-router-dom'
 const ListCard = ({ imageUrl, subtitle, title, tags }) => {
   // const { isLoading } = useSelector((state) => state.loading)
   const [isFavorite, setIsFavorite] = useState(false)
@@ -25,7 +28,7 @@ const ListCard = ({ imageUrl, subtitle, title, tags }) => {
   const toggleFavorite = () => {
     setIsFavorite(!isFavorite)
   }
- 
+
   const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
@@ -36,34 +39,34 @@ const ListCard = ({ imageUrl, subtitle, title, tags }) => {
 
   const statuses = [
     {
-      label: 'Energy usage',
-      value: '1140 KWh',
-      color: '#0F7FBA',
-      bgcolor: '#399ED316',
-      icon: <Bulb />,
+      label: 'Total Floors',
+      value: 78,
+      // color: '#0F7FBA',
+      // bgcolor: '#399ED316',
+      icon: <FloorIcon />,
     },
     {
-      label: 'Gas usage',
-      value: '1120-2122 L',
-      color: '#FF8932',
-      bgcolor: '#FF893216',
-      icon: <GasFire />,
+      label: 'Total Area',
+      value: '1212 (sq)',
+      // color: '#FF8932',
+      // bgcolor: '#FF893216',
+      icon: <AreaIcon />,
     },
     {
-      label: 'Water usage',
-      value: '2251-3520 L',
-      color: '#61CA94',
-      bgcolor: '#61CA9416',
-      icon: <Drop />,
-    },
-    {
-      label: 'Building Status',
-      value: 'BAD',
-      color: '#F83D44',
-      bgcolor: '#F83D4416',
-      icon: <Bad />,
+      label: 'Total Sensors',
+      value: '20',
+      // color: '#61CA94',
+      // bgcolor: '#61CA9416',
+      icon: <SensorIcon />,
     },
   ]
+  const data = [
+    { name: 'Sensor 1', value: 33 },
+    { name: 'Sensor 2', value: 41 },
+    { name: 'Sensor 3', value: 48 },
+  ]
+
+  const COLORS = ['#5B61D6', '#3070F5', '#57BEB5']
 
   return (
     <>
@@ -72,6 +75,7 @@ const ListCard = ({ imageUrl, subtitle, title, tags }) => {
       ) : (
         <Card
           sx={{
+            border: '1px solid #00000010',
             minWidth: 0,
             position: 'relative',
             borderRadius: '10px',
@@ -93,11 +97,11 @@ const ListCard = ({ imageUrl, subtitle, title, tags }) => {
             className="imageEffect"
             sx={{
               width: '100%',
-              height: '15rem',
+              height: '12rem',
               objectFit: 'cover',
               transition: 'transform 0.3s',
-              borderBottomLeftRadius: '16px',
-              borderBottomRightRadius: '16px',
+              // borderBottomLeftRadius: '16px',
+              // borderBottomRightRadius: '16px',
               boxShadow: '0px 4px 2px 0px rgba(0, 0, 0, 0.12)',
             }}
           />
@@ -130,15 +134,22 @@ const ListCard = ({ imageUrl, subtitle, title, tags }) => {
           <Box
             sx={{
               position: 'absolute',
-              right: '-20%',
-              top: 10,
-              transform: 'translate(-50%, 0)',
+              right: '7%',
+              top: 160,
+              boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)',
+              background: 'white',
+              padding: '15px',
+              borderRadius: '100%',
+              // transform: 'translate(-50%, 0)',
               transition: 'right .6s ease',
+              // height: '40px',
+              display: 'flex',
+              alignItems: 'center',
               '&:hover': {
                 cursor: 'pointer',
               },
             }}
-            className="showHeart"
+            // className="showHeart"
             onClick={toggleFavorite}
           >
             <CardFavoriteIcon filled={isFavorite} />
@@ -151,17 +162,6 @@ const ListCard = ({ imageUrl, subtitle, title, tags }) => {
             }}
           >
             <Typography
-              variant="subtitle1"
-              sx={{
-                fontSize: '14px',
-                lineHeight: '19.07px',
-                fontWeight: '400',
-                color: '#11111180',
-              }}
-            >
-              {subtitle}
-            </Typography>
-            <Typography
               variant="h6"
               sx={{
                 fontSize: '18px',
@@ -172,74 +172,164 @@ const ListCard = ({ imageUrl, subtitle, title, tags }) => {
             >
               {title}
             </Typography>
-            <Grid container spacing={1}>
+            <Typography
+              variant="subtitle1"
+              sx={{
+                fontSize: '12px',
+                lineHeight: '19.07px',
+                fontWeight: '600',
+                letterSpacing: '2px',
+                color: '#81838B',
+              }}
+            >
+              {subtitle}
+            </Typography>
+            <Divider sx={{ my: '10px' }} />
+
+            <Grid
+              container
+              spacing={1}
+              sx={{
+                display: 'flex',
+                justifyContent: 'center',
+                marginTop: '3px',
+              }}
+            >
               {statuses.map((item, index) => (
-                <Grid item sm={12} md={6} key={index}>
-                  <Box
-                    sx={{
-                      padding: '5px 15px',
-                      bgcolor: item.bgcolor,
-                      borderRadius: '6px',
-                      display: 'flex',
-                      flexDirection: 'column',
-                      justifyContent: 'center',
-                      gap: '5px',
-                      alignItems: 'center',
-                    }}
-                  >
-                    <Typography
-                      variant="subtitle2"
+                <Fragment key={index}>
+                  <Grid item md={3}>
+                    <Box
                       sx={{
-                        textAlign: 'center',
-                        color: item.color,
-                        fontWeight: '600',
-                        fontSize: { xs: 10, md: 12 },
-                        lineHeight: '16.34px',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        justifyContent: 'center',
+                        gap: '5px',
+                        alignItems: 'center',
                       }}
                     >
-                      {item.label}
-                    </Typography>
-                    <Box
-                      sx={{ display: 'flex', alignItems: 'center', gap: '5px' }}
-                    >
-                      {item.icon}
                       <Typography
-                        variant="body2"
+                        variant="subtitle2"
                         sx={{
-                          color: '#121212',
+                          textAlign: 'center',
+                          color: item.color,
                           fontWeight: '600',
-                          fontSize: { xs: 8, md: 10 },
-                          lineHeight: '15px',
+                          fontSize: { xs: 10, md: 14 },
+                          lineHeight: '16.34px',
                         }}
                       >
-                        {item.value}
+                        {item.label}
                       </Typography>
+                      <Box
+                        sx={{
+                          display: 'flex',
+                          alignItems: 'center',
+                          gap: '5px',
+                        }}
+                      >
+                        {item.icon}
+                        <Typography
+                          variant="body2"
+                          sx={{
+                            color: '#4F4F4F90',
+                            fontWeight: '600',
+                            fontSize: { xs: 10, md: 14 },
+                            lineHeight: '15px',
+                          }}
+                        >
+                          {item.value}
+                        </Typography>
+                      </Box>
                     </Box>
-                  </Box>
-                </Grid>
+                  </Grid>
+                  {index < statuses.length - 1 && ( // Add divider conditionally
+                    <Grid item>
+                      <Box
+                        sx={{
+                          height: '100%',
+                          width: '1px',
+                          backgroundColor: '#E0E0E0',
+                        }}
+                      />
+                    </Grid>
+                  )}
+                </Fragment>
               ))}
             </Grid>
+
             <Box sx={{ position: 'absolute', bottom: '0', right: '0' }}>
               <img src={CardBg} style={{ width: '218px', height: '124px' }} />
             </Box>
-            <Box sx={{ marginTop: '20px', height: '20px' }}>
-              <Button
-                variant="contained"
-                sx={{
-                  position: 'absolute',
-                  left: '50%',
-                  bottom: '-15%',
-                  transform: 'translate(-50%, 0)',
-                  transition: 'bottom .6s ease',
-                  textTransform: 'capitalize',
-                  background:
-                    'linear-gradient(90deg, #7C40F6 0%, #AD1FFE 100%)',
-                  borderRadius: '10px',
-                }}
-                className="showButton"
-              >
-                See details
-              </Button>
+            <Box
+              sx={{
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'end',
+                // height: '70%',
+                marginTop: '15px',
+              }}
+            >
+              <Box>
+                <Button
+                  variant="outlined"
+                  sx={{
+                    marginLeft: { sm: '0', md: '10px' },
+                    // position: 'absolute',
+                    // left: '50%',
+                    // bottom: '-15%',
+                    // transform: 'translate(-50%, 0)',
+                    // transition: 'bottom .6s ease',
+                    padding: { xs: '5px 15px', md: '5px 20px' },
+                    border: '1px solid #7C40F6 ',
+                    textTransform: 'capitalize',
+                    color: 'linear-gradient(90deg, #7C40F6 0%, #AD1FFE 100%)',
+                    borderRadius: '10px',
+
+                    // width: '110px',
+                  }}
+                  // className="showButton"
+                >
+                  <Typography
+                    sx={{
+                      color: '#7C40F6 ',
+                      fontSize: {
+                        xs: '10px',
+                        md: '16px',
+                      },
+                    }}
+                  >
+                    See details
+                  </Typography>{' '}
+                </Button>
+              </Box>
+              <Box sx={{ mt: '10px' }}>
+                <PieChart width={239} height={70}>
+                  <Pie
+                    data={data}
+                    cx="47%"
+                    cy="120%"
+                    innerRadius={40}
+                    outerRadius={70}
+                    startAngle={180}
+                    endAngle={0}
+                    paddingAngle={1}
+                    dataKey="value"
+                  >
+                    {data.map((entry, index) => (
+                      <Cell
+                        key={`cell-${index}`}
+                        fill={COLORS[index % COLORS.length]}
+                      />
+                    ))}
+                  </Pie>
+                  <Legend
+                    layout="vertical"
+                    verticalAlign="middle"
+                    align="right"
+                    wrapperStyle={{ fontSize: { xs: '6px', sm: '12px' } }}
+                    // height={150}
+                  />
+                </PieChart>
+              </Box>
             </Box>
           </CardContent>
         </Card>
