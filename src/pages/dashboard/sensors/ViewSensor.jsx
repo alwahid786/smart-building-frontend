@@ -2,6 +2,7 @@ import { Delete, Edit } from '@mui/icons-material'
 import { Box, Button, Grid, Typography } from '@mui/material'
 import EditSensor from './EditSensor'
 import { useState } from 'react'
+import { BarChart } from '@mui/x-charts/BarChart';
 
 const ViewSensor = () => {
   const [open, setOpen] = useState(false)
@@ -62,13 +63,12 @@ const ViewSensor = () => {
           <Box
             sx={{
               display: 'flex',
-              justifyContent: 'space-between',
               flexDirection: 'column',
               background: '#FFFFFF',
-              // background: 'orange',
               p: 2,
               borderRadius: '8px',
               boxShadow: '-1px 2px 5px 3px rgba(0, 0, 0, 0.12)',
+              height: '100%',
             }}
           >
             <Typography sx={{ fontSize: '16px' }}>
@@ -151,7 +151,7 @@ const ViewSensor = () => {
               }}
             >
               <Typography sx={{ fontSize: '16px', color: '#686868' }}>
-                IP.adress
+                IP.address
               </Typography>
               <Typography
                 sx={{ fontSize: '18px', fontWeight: '500', color: '#A449EB' }}
@@ -162,23 +162,21 @@ const ViewSensor = () => {
           </Box>
         </Grid>
         <Grid item xs={12} md={6}>
-          <Box
-            sx={{
-              display: 'flex',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-              background: '#FFFFFF',
-              p: 2,
-              borderRadius: '8px',
-              boxShadow: '-1px 2px 5px 3px rgba(0, 0, 0, 0.12)',
-            }}
-          >
-            <h2>Right</h2>
-          </Box>
+        <BarChart
+      series={[
+        { data: [35, 44, 24, 34] },
+        { data: [51, 6, 49, 30] },
+        { data: [15, 25, 30, 50] },
+        { data: [60, 50, 15, 25] },
+      ]}
+      height={290}
+      xAxis={[{ data: ['Q1', 'Q2', 'Q3', 'Q4'], scaleType: 'band' }]}
+      margin={{ top: 10, bottom: 30, left: 40, right: 10 }}
+    />
         </Grid>
       </Grid>
 
-      <Grid container spacing={2} >
+      <Grid container spacing={2} sx={{ mt: 1 }} >
         <Grid item xs={12} md={6}>
           <Box
             sx={{
@@ -257,7 +255,7 @@ const ViewSensor = () => {
               p: 2,
               borderRadius: '8px',
               boxShadow: '-1px 2px 5px 3px rgba(0, 0, 0, 0.12)',
-              marginTop: '25px',
+              marginTop: 2
             }}
           >
             <Typography sx={{ fontSize: '16px', color: ' #686868' }}>
@@ -310,7 +308,7 @@ const ViewSensor = () => {
             </Box>
           </Box>
         </Grid>
-        <Grid item xs={12} md={6}>
+        <Grid item xs={12} md={6} sx={{marginTop: 3}}>
         <Box
             sx={{
               display: 'flex',
@@ -414,17 +412,9 @@ const ViewSensor = () => {
         </Grid>
       </Grid>
 
-      <Grid container spacing={2} sx={{ mt: 2 }}>
-        <Grid item xs={12} md={6}>
-         
-        </Grid>
-      </Grid>
 
       <EditSensor open={open} handleClose={handleClose} />
     </Box>
-
-    
-  
   )
 }
 
