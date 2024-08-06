@@ -1,5 +1,5 @@
 import { Delete, Edit } from '@mui/icons-material'
-import { Box, Typography } from '@mui/material'
+import { Box, Button, Grid, Typography } from '@mui/material'
 import EditSensor from './EditSensor'
 import { useState } from 'react'
 
