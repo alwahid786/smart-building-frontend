@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React, { useEffect, useState } from 'react'
 import {
   Card,
@@ -69,7 +70,7 @@ function MediaConsumption() {
           <Grid container spacing={2} sx={{ mt: 2 }} justifyContent="center">
             <Grid item>
               <ProgressWithIcon
-                value={70}
+                value={3}
                 text={'25MWh'}
                 iconComponent={Electricity}
               />
@@ -81,7 +82,7 @@ function MediaConsumption() {
               </Typography>
             </Grid>
             <Grid item>
-              <ProgressWithIcon value={20} text={'25m²'} iconComponent={Fire} />
+              <ProgressWithIcon value={3} text={'25m²'} iconComponent={Fire} />
               <EnergyText>Gas</EnergyText>
               <Typography
                 sx={{ textAlign: 'center', color: 'rgba(250, 61, 69, 1)' }}
@@ -91,7 +92,7 @@ function MediaConsumption() {
             </Grid>
             <Grid item>
               <ProgressWithIcon
-                value={60}
+                value={3}
                 text={'50m²'}
                 iconComponent={Water}
               />

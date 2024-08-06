@@ -115,14 +115,7 @@ const Sensor = ({ sensors }) => {
             <Divider />
 
             <Box
-              // sx={{
-              //   display: 'flex',
-              //   // justifyContent: 'space-between',
-              //   alignItems: 'center',
-              //   marginBottom: 1,
-              //   marginTop: 4,
-              //   border: '2px solid red',
-              // }}
+         
               sx={{ position: 'relative', display: 'flex' }}
             >
               <ArrowBackIosNewIcon
