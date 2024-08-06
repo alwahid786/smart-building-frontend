@@ -2,10 +2,18 @@ import { Delete, Edit } from '@mui/icons-material'
 import { Box, Button, Grid, Typography } from '@mui/material'
 import EditSensor from './EditSensor'
 import { useState } from 'react'
-import { BarChart } from '@mui/x-charts/BarChart';
+import { axisClasses } from '@mui/x-charts/ChartsAxis'
+import { BarChart } from '@mui/x-charts/BarChart'
+import { useParams } from 'react-router-dom'
+import { useGetSingleBuildingSensorQuery } from '../../../redux/api/sensorApi'
 
 const ViewSensor = () => {
   const [open, setOpen] = useState(false)
+
+  // get id
+  const { id } = useParams()
+
+  const { data } = useGetSingleBuildingSensorQuery(id)
 
   const handleOpenEditComponent = () => {
     setOpen(true)
@@ -13,6 +21,106 @@ const ViewSensor = () => {
   const handleClose = () => {
     setOpen(false)
   }
+
+  const otherSetting = {
+    height: 300,
+    yAxis: [{ label: 'rainfall (mm)' }],
+    grid: { horizontal: true },
+    sx: {
+      [`& .${axisClasses.left} .${axisClasses.label}`]: {
+        transform: 'translateX(-10px)',
+      },
+    },
+  }
+
+  const dataset = [
+    {
+      london: 59,
+      paris: 57,
+      newYork: 86,
+      seoul: 21,
+      month: 'January',
+    },
+    {
+      london: 50,
+      paris: 52,
+      newYork: 78,
+      seoul: 28,
+      month: 'February',
+    },
+    {
+      london: 47,
+      paris: 53,
+      newYork: 106,
+      seoul: 41,
+      month: 'March',
+    },
+    {
+      london: 54,
+      paris: 56,
+      newYork: 92,
+      seoul: 73,
+      month: 'April',
+    },
+    {
+      london: 57,
+      paris: 69,
+      newYork: 92,
+      seoul: 99,
+      month: 'May',
+    },
+    {
+      london: 60,
+      paris: 63,
+      newYork: 103,
+      seoul: 144,
+      month: 'June',
+    },
+    {
+      london: 59,
+      paris: 60,
+      newYork: 105,
+      seoul: 319,
+      month: 'July',
+    },
+    {
+      london: 65,
+      paris: 60,
+      newYork: 106,
+      seoul: 249,
+      month: 'August',
+    },
+    {
+      london: 51,
+      paris: 51,
+      newYork: 95,
+      seoul: 131,
+      month: 'September',
+    },
+    {
+      london: 60,
+      paris: 65,
+      newYork: 97,
+      seoul: 55,
+      month: 'October',
+    },
+    {
+      london: 67,
+      paris: 64,
+      newYork: 76,
+      seoul: 48,
+      month: 'November',
+    },
+    {
+      london: 61,
+      paris: 70,
+      newYork: 103,
+      seoul: 25,
+      month: 'December',
+    },
+  ]
+
+  const valueFormatter = (value) => `${value}mm`
 
   return (
     <Box
@@ -93,7 +201,7 @@ const ViewSensor = () => {
               <Typography
                 sx={{ fontSize: '18px', fontWeight: '500', color: '#A449EB' }}
               >
-                Temperature
+                {data?.sensorName}
               </Typography>
             </Box>
             <Box
@@ -114,7 +222,7 @@ const ViewSensor = () => {
               <Typography
                 sx={{ fontSize: '18px', fontWeight: '500', color: '#A449EB' }}
               >
-                Temperature
+                {data?.sensorType}
               </Typography>
             </Box>
             <Box
@@ -156,27 +264,46 @@ const ViewSensor = () => {
               <Typography
                 sx={{ fontSize: '18px', fontWeight: '500', color: '#A449EB' }}
               >
-                02919839801
+                {data?.ip}
               </Typography>
             </Box>
           </Box>
         </Grid>
         <Grid item xs={12} md={6}>
-        <BarChart
-      series={[
-        { data: [35, 44, 24, 34] },
-        { data: [51, 6, 49, 30] },
-        { data: [15, 25, 30, 50] },
-        { data: [60, 50, 15, 25] },
-      ]}
-      height={290}
-      xAxis={[{ data: ['Q1', 'Q2', 'Q3', 'Q4'], scaleType: 'band' }]}
-      margin={{ top: 10, bottom: 30, left: 40, right: 10 }}
-    />
+          <Box
+            sx={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              flexDirection: 'column',
+              background: '#FFFFFF',
+              p: 2,
+              borderRadius: '8px',
+              boxShadow: '-1px 2px 5px 3px rgba(0, 0, 0, 0.12)',
+            }}
+          >
+            <BarChart
+              colors={['#7B42F6']}
+              dataset={dataset}
+              xAxis={[
+                {
+                  scaleType: 'band',
+                  dataKey: 'month',
+                  valueFormatter: (month, context) =>
+                    context.location === 'tick'
+                      ? `${month.slice(0, 3)} \n2023`
+                      : `${month} 2023`,
+                },
+              ]}
+              series={[
+                { dataKey: 'seoul', label: 'Seoul rainfall', valueFormatter },
+              ]}
+              {...otherSetting}
+            />
+          </Box>
         </Grid>
       </Grid>
 
-      <Grid container spacing={2} sx={{ mt: 1 }} >
+      <Grid container spacing={2} sx={{ mt: 1 }}>
         <Grid item xs={12} md={6}>
           <Box
             sx={{
@@ -243,7 +370,7 @@ const ViewSensor = () => {
               >
                 Floor-2
               </Typography>
-            </Box>            
+            </Box>
           </Box>
 
           <Box
@@ -255,7 +382,7 @@ const ViewSensor = () => {
               p: 2,
               borderRadius: '8px',
               boxShadow: '-1px 2px 5px 3px rgba(0, 0, 0, 0.12)',
-              marginTop: 2
+              marginTop: 2,
             }}
           >
             <Typography sx={{ fontSize: '16px', color: ' #686868' }}>
@@ -308,8 +435,8 @@ const ViewSensor = () => {
             </Box>
           </Box>
         </Grid>
-        <Grid item xs={12} md={6} sx={{marginTop: 3}}>
-        <Box
+        <Grid item xs={12} md={6}>
+          <Box
             sx={{
               display: 'flex',
               justifyContent: 'space-between',
@@ -320,9 +447,7 @@ const ViewSensor = () => {
               boxShadow: '-1px 2px 5px 3px rgba(0, 0, 0, 0.12)',
             }}
           >
-            <Typography sx={{ fontSize: '16px' }}>
-            Alert History
-            </Typography>
+            <Typography sx={{ fontSize: '16px' }}>Alert History</Typography>
 
             <Box
               sx={{
@@ -411,7 +536,6 @@ const ViewSensor = () => {
           </Box>
         </Grid>
       </Grid>
-
 
       <EditSensor open={open} handleClose={handleClose} />
     </Box>

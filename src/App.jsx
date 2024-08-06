@@ -45,9 +45,7 @@ const App = () => {
           <Route path="/dashboard" element={<Dashboard />}>
             <Route index element={<Navigate replace to="list" />} />
             <Route path="addbuilding" element={<AddBuilding />} />
-
             <Route path="updatebuilding/:id" element={<UpdateBuilding />} />
-
             <Route path="profile" element={<Profile />} />
             <Route path="list" element={<List />} />
             <Route path="building-info/:id" element={<BuildingInfo />} />
@@ -56,10 +54,9 @@ const App = () => {
             <Route path="map" element={<Map />} />
             <Route path="service" element={<Setting />} />
             <Route path="floor-detail/:id" element={<FullFloorDetail />} />
-
-            <Route path="sensors/" element={<Sensors />}>
-              <Route path="view-sensor" element={<ViewSensor />} />
+            <Route path="sensors" element={<Sensors />}>
             </Route>
+            <Route path="view-sensor/:id" element={<ViewSensor />} />
           </Route>
           <Route path="*" element={<Navigate to="/login" />} />
         </Routes>

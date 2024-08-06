@@ -1,39 +1,22 @@
-import { useState, useEffect } from 'react'
-import {
-  Box,
-  Switch,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  Typography,
-} from '@mui/material'
+import { Box, Switch, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '@mui/material'
 import AddIcon from '../../../asset/svgs/AddIcon'
-import {
-  useGetAllSensorsQuery,
-  useCreateSensorMutation,
-} from '../../../redux/api/sensorApi'
+import { useGetAllSensorsQuery, useCreateSensorMutation } from '../../../redux/api/sensorApi'
 import AddSensor from './AddSensor'
 import VisibilityIcon from '@mui/icons-material/Visibility'
-import { Link, useMatch } from 'react-router-dom'
-import ViewSensor from './ViewSensor'
+import { Link, Outlet } from 'react-router-dom'
+import { useEffect, useState } from 'react'
 
 const Sensors = () => {
-  const match = useMatch('/dashboard/sensors/view-sensor')
   const { data: sensors, refetch } = useGetAllSensorsQuery()
   const [createSensor] = useCreateSensorMutation()
 
-  // State to manage checked status for each sensor
   const [sensorStatus, setSensorStatus] = useState({})
+  const [open, setOpen] = useState(false)
 
-  // Initialize sensorStatus state when sensors data is fetched
   useEffect(() => {
     if (sensors) {
       const initialStatus = sensors.reduce((acc, sensor) => {
-        acc[sensor.uniqueId] =
-          sensor.status !== undefined ? sensor.status : true // Default to true
+        acc[sensor.uniqueId] = sensor.status !== undefined ? sensor.status : true
         return acc
       }, {})
       setSensorStatus(initialStatus)
@@ -47,25 +30,20 @@ const Sensors = () => {
     })
   }
 
-  const [open, setOpen] = useState(false)
-  const handleClose = () => {
-    setOpen(false)
-  }
-  const handleOpen = () => {
-    setOpen(true)
-  }
+  const handleClose = () => setOpen(false)
+  const handleOpen = () => setOpen(true)
 
   const handleAddSensor = async (newSensor) => {
     try {
       await createSensor(newSensor).unwrap()
-      refetch() // Refresh the sensor list after adding a new sensor
+      refetch()
       handleClose()
     } catch (err) {
       console.error('Failed to add sensor:', err)
     }
   }
 
-  return !match ? (
+  return (
     <Box
       sx={{
         height: '100vh',
@@ -76,72 +54,35 @@ const Sensors = () => {
         transform: 'translateY(20px)',
         animation: 'fadeInUp 2s ease forwards',
         '@keyframes fadeInUp': {
-          '0%': {
-            opacity: 0,
-            transform: 'translateY(20px)',
-          },
-          '100%': {
-            opacity: 1,
-            transform: 'translateY(0)',
-          },
+          '0%': { opacity: 0, transform: 'translateY(20px)' },
+          '100%': { opacity: 1, transform: 'translateY(0)' },
         },
       }}
     >
-      <Box
-        sx={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          marginBottom: '10px',
-        }}
-      >
-        <Typography
-          sx={{ fontWeight: '600', fontSize: '20px', lineHeight: '32px' }}
-        >
-          All Sensors
-        </Typography>
+      <Box sx={{ display: 'flex', justifyContent: 'space-between', marginBottom: '10px' }}>
+        <Typography sx={{ fontWeight: '600', fontSize: '20px', lineHeight: '32px' }}>All Sensors</Typography>
         <Box onClick={handleOpen} sx={{ cursor: 'pointer' }}>
           <AddIcon />
         </Box>
       </Box>
-      <AddSensor
-        open={open}
-        handleClose={handleClose}
-        onAddSensor={handleAddSensor}
-      />
+      <AddSensor open={open} handleClose={handleClose} onAddSensor={handleAddSensor} />
       <Box>
         <TableContainer>
           <Table sx={{ minWidth: 650 }} aria-label="simple table">
             <TableHead>
               <TableRow>
-                <TableCell>
-                  <b>Sensor Name</b>
-                </TableCell>
-                <TableCell align="left">
-                  <b>IP</b>
-                </TableCell>
-                <TableCell align="left">
-                  <b>Unique ID</b>
-                </TableCell>
-                <TableCell align="left">
-                  <b>Port</b>
-                </TableCell>
-                <TableCell align="left">
-                  <b>Type</b>
-                </TableCell>
-                <TableCell align="left">
-                  <b>Status</b>
-                </TableCell>
-                <TableCell align="left">
-                  <b>Action</b>
-                </TableCell>
+                <TableCell><b>Sensor Name</b></TableCell>
+                <TableCell align="left"><b>IP</b></TableCell>
+                <TableCell align="left"><b>Unique ID</b></TableCell>
+                <TableCell align="left"><b>Port</b></TableCell>
+                <TableCell align="left"><b>Type</b></TableCell>
+                <TableCell align="left"><b>Status</b></TableCell>
+                <TableCell align="left"><b>Action</b></TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
               {sensors?.map((row) => (
-                <TableRow
-                  key={row.uniqueId}
-                  sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                >
+                <TableRow key={row.uniqueId} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
                   <TableCell align="left">{row.sensorName}</TableCell>
                   <TableCell align="left">{row.ip}</TableCell>
                   <TableCell align="left">{row.uniqueId}</TableCell>
@@ -153,22 +94,15 @@ const Sensors = () => {
                       onChange={handleChange(row.uniqueId)}
                       inputProps={{ 'aria-label': 'controlled' }}
                       sx={{
-                        '& .MuiSwitch-switchBase.Mui-checked': {
-                          color: '#4caf50', // Green color for checked state
-                        },
-                        '& .MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track':
-                          {
-                            backgroundColor: '#4caf50', // Green track color for checked state
-                          },
+                        '& .MuiSwitch-switchBase.Mui-checked': { color: '#4caf50' },
+                        '& .MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track': { backgroundColor: '#4caf50' },
                       }}
                     />
                   </TableCell>
                   <TableCell>
                     <Box sx={{ display: 'flex', gap: '10px' }}>
-                      <Link to="/dashboard/sensors/view-sensor">
-                        <VisibilityIcon
-                          sx={{ color: '#7B42F6', cursor: 'pointer' }}
-                        />
+                      <Link to={`/dashboard/view-sensor/${row?.sensorId}`}>
+                        <VisibilityIcon sx={{ color: '#7B42F6', cursor: 'pointer' }} />
                       </Link>
                     </Box>
                   </TableCell>
@@ -178,9 +112,8 @@ const Sensors = () => {
           </Table>
         </TableContainer>
       </Box>
+      <Outlet /> {/* Renders ViewSensor if route matches */}
     </Box>
-  ) : (
-    <ViewSensor />
   )
 }
 

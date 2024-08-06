@@ -4,8 +4,8 @@ export const sensorApiPoint = createApi({
   reducerPath: 'sensorApi',
 
   baseQuery: fetchBaseQuery({
-     baseUrl: "https://smart-building-backend-production-ecd0.up.railway.app",
-    // baseUrl: "http://localhost:4000"
+    //  baseUrl: "https://smart-building-backend-production-ecd0.up.railway.app",
+    baseUrl: "http://localhost:4000"
   }),
 
   endpoints: (builder) => ({
@@ -35,7 +35,15 @@ export const sensorApiPoint = createApi({
       query: (floorId) => `/api/buldingFloor/${floorId}`,
     }),
 
+    // get single sensor details
+    getSingleBuildingSensor: builder.query({
+      query: (id) => ({
+        url: `/api/single/sensor/${id}`,
+        method: 'GET',
+      }),
+    }),
+
   }),
 })
 
-export const { useCreateSensorMutation, useGetAllSensorsQuery, useGetAllBuildingSensorsQuery, useGetBuldingFloorsQuery } = sensorApiPoint
+export const { useCreateSensorMutation, useGetAllSensorsQuery, useGetAllBuildingSensorsQuery, useGetBuldingFloorsQuery, useGetSingleBuildingSensorQuery } = sensorApiPoint
