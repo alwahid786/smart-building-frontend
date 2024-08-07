@@ -19,7 +19,10 @@ import VisibilityIcon from '@mui/icons-material/Visibility';
 import { Link, Outlet } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { initializeSensorStatus, setSensorStatus } from '../../../redux/reducers/sensorStatus';
+import {
+  initializeSensorStatus,
+  setSensorStatus,
+} from '../../../redux/reducers/sensorStatus';
 
 const Sensors = () => {
   const { data: sensors, refetch } = useGetAllSensorsQuery();
@@ -30,8 +33,7 @@ const Sensors = () => {
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
-    // Initialize sensor statuses when sensors data is fetched
-    if (sensors) {
+    if (sensors && sensors.length > 0) {
       dispatch(initializeSensorStatus(sensors));
     }
   }, [sensors, dispatch]);
@@ -132,7 +134,7 @@ const Sensors = () => {
                   <TableCell align="left">{row.sensorType}</TableCell>
                   <TableCell align="left">
                     <Switch
-                      checked={sensorStatus[row.uniqueId]}
+                      checked={sensorStatus[row.uniqueId] || false}
                       onChange={handleChange}
                       name={row.uniqueId}
                       inputProps={{ 'aria-label': 'controlled' }}
@@ -141,7 +143,9 @@ const Sensors = () => {
                           color: '#4caf50',
                         },
                         '& .MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track':
-                          { backgroundColor: '#4caf50' },
+                          {
+                            backgroundColor: '#4caf50',
+                          },
                       }}
                     />
                   </TableCell>

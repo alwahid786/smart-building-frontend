@@ -1,7 +1,7 @@
 // src/redux/reducers/sensorStatusSlice.js
 import { createSlice } from '@reduxjs/toolkit';
 
-const initialState = {};
+const initialState = JSON.parse(localStorage.getItem('sensorStatus')) || {};
 
 const sensorStatusSlice = createSlice({
   name: 'sensorStatus',
@@ -10,11 +10,15 @@ const sensorStatusSlice = createSlice({
     setSensorStatus(state, action) {
       const { uniqueId, status } = action.payload;
       state[uniqueId] = status;
+      localStorage.setItem('sensorStatus', JSON.stringify(state)); // Persist to local storage
     },
     initializeSensorStatus(state, action) {
       action.payload.forEach(sensor => {
-        state[sensor.uniqueId] = false;
+        if (state[sensor.uniqueId] === undefined) {
+          state[sensor.uniqueId] = false;
+        }
       });
+      localStorage.setItem('sensorStatus', JSON.stringify(state)); // Persist to local storage
     },
   },
 });
