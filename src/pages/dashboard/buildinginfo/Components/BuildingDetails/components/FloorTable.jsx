@@ -10,7 +10,6 @@ import {
 import { Link } from 'react-router-dom'
 
 const FloorTable = ({ sensors }) => {
-
   return (
     <Card
       sx={{
@@ -49,7 +48,12 @@ const FloorTable = ({ sensors }) => {
               >
                 {sensor?.floor}
               </Typography>
-              <Grid container sx={{ marginTop: '9px' }}>
+              <Grid
+                container
+                sx={{
+                  marginTop: '9px',
+                }}
+              >
                 <Grid
                   item
                   xs={12}
@@ -60,7 +64,7 @@ const FloorTable = ({ sensors }) => {
                       md: 'column',
                       xs: 'row',
                     },
-                    justifyContent: 'space-between',
+                    // justifyContent: 'end',
                   }}
                 >
                   <Typography
@@ -69,6 +73,7 @@ const FloorTable = ({ sensors }) => {
                       fontSize: '15px',
                       lineHeight: '21.82px',
                     }}
+                    x={{ padding: 2 }}
                   >
                     Total rooms {sensor?.rooms}
                   </Typography>
@@ -174,7 +179,7 @@ const FloorTable = ({ sensors }) => {
               </Link>
             </Grid>
           </Grid>
-          <Divider />
+          <Divider sx={{ my: '10px' }} />
         </CardContent>
       ))}
     </Card>

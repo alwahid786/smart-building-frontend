@@ -25,9 +25,11 @@ const Suggestions = () => {
   }, [])
 
   const suggestionList = [
-    { title: 'lighting', number: '+5%' },
-    { title: 'heating', number: '+9%' },
+    // { title: 'lighting', number: '+5%' },
+    // { title: 'heating', number: '+9%' },
   ]
+  // 'Heating', 'Lighting'
+  const problems = []
   return (
     <>
       {isLoading ? (
@@ -78,27 +80,54 @@ const Suggestions = () => {
               >
                 Detected problems:
               </Typography>
-              <Box
-                sx={{
-                  marginBottom: 2,
-                  background: '#FFEAEB',
-                  height: '48px',
-                  display: 'flex',
-                  alignItems: 'center',
-                  padding: '0px 12px',
-                  color: '#FA3D45',
-                  borderRadius: '6px',
-                  borderLeft: '4px solid #FA3D45',
-                  fontSize: '16px',
-                  lineHeight: '24px',
-                }}
-              >
-                Heating -{' '}
-                <Typography style={{ fontWeight: '600' }}>
-                  1 sensor &nbsp;
-                </Typography>{' '}
-                has problem
-              </Box>
+
+              {problems.length === 0 ? (
+                <Box
+                  sx={{
+                    marginBottom: 2,
+                    background: '#c5fabe90',
+                    height: '48px',
+                    display: 'flex',
+                    alignItems: 'center',
+                    padding: '0px 12px',
+                    color: '#378a2c',
+                    borderRadius: '6px',
+                    borderLeft: '4px solid #378a2c',
+                    fontSize: '16px',
+                    lineHeight: '24px',
+                    fontWeight: '600',
+                  }}
+                >
+                  No Problem Detected
+                </Box>
+              ) : (
+                problems.map((problem, index) => {
+                  return (
+                    <Box
+                      key={index}
+                      sx={{
+                        marginBottom: 2,
+                        background: '#FFEAEB',
+                        height: '48px',
+                        display: 'flex',
+                        alignItems: 'center',
+                        padding: '0px 12px',
+                        color: '#FA3D45',
+                        borderRadius: '6px',
+                        borderLeft: '4px solid #FA3D45',
+                        fontSize: '16px',
+                        lineHeight: '24px',
+                      }}
+                    >
+                      {problem} -{' '}
+                      <Typography style={{ fontWeight: '600' }}>
+                        1 sensor &nbsp;
+                      </Typography>{' '}
+                      has problem
+                    </Box>
+                  )
+                })
+              )}
 
               <Typography
                 sx={{
@@ -111,46 +140,83 @@ const Suggestions = () => {
                 ML Suggestions
               </Typography>
               <List sx={{ width: '100%', bgcolor: '', marginBottom: 1 }}>
-                {suggestionList.map((suggestion, index) => (
+                {suggestionList.length === 0 ? (
                   <ListItem
                     sx={{
                       width: '100%',
                       bgcolor: '#F5F7FB',
                       marginBottom: 1,
+                      display: 'flex',
+                      justifyContent: 'center',
+                      alignItems: 'center',
                     }}
-                    key={index}
                   >
-                    <ListItemIcon>
-                      {suggestion.title === 'lighting' ? (
-                        <Lighting />
-                      ) : (
-                        <Heating />
-                      )}
-                    </ListItemIcon>
                     <ListItemText
                       primaryTypographyProps={{
                         component: 'div',
                         style: {
                           display: 'flex',
-                          alignItems: 'start',
-                          justifyContent: 'start',
+                          alignItems: 'center',
+                          justifyContent: 'center',
                         },
                       }}
-                      // primary={`New suggestion ${index + 1}`}
                     >
-                      <Typography sx={{ fontSize: '13px', color: '#111111' }}>
-                        New{' '}
-                        <span style={{ fontWeight: '600' }}>
-                          {suggestion.title}
-                        </span>{' '}
-                        suggestions{' '}
-                        <span style={{ color: '#7B42F6' }}>
-                          {suggestion.number}
-                        </span>{' '}
+                      <Typography
+                        sx={{
+                          fontSize: '16px',
+                          color: '#111111',
+                          fontWeight: '600',
+                        }}
+                      >
+                        Everything is working fine
                       </Typography>
                     </ListItemText>
                   </ListItem>
-                ))}
+                ) : (
+                  suggestionList.map((suggestion, index) => {
+                    return (
+                      <ListItem
+                        sx={{
+                          width: '100%',
+                          bgcolor: '#F5F7FB',
+                          marginBottom: 1,
+                        }}
+                        key={index}
+                      >
+                        <ListItemIcon>
+                          {suggestion.title === 'lighting' ? (
+                            <Lighting />
+                          ) : (
+                            <Heating />
+                          )}
+                        </ListItemIcon>
+                        <ListItemText
+                          primaryTypographyProps={{
+                            component: 'div',
+                            style: {
+                              display: 'flex',
+                              alignItems: 'start',
+                              justifyContent: 'start',
+                            },
+                          }}
+                        >
+                          <Typography
+                            sx={{ fontSize: '13px', color: '#111111' }}
+                          >
+                            New{' '}
+                            <span style={{ fontWeight: '600' }}>
+                              {suggestion.title}
+                            </span>{' '}
+                            suggestions{' '}
+                            <span style={{ color: '#7B42F6' }}>
+                              {suggestion.number}
+                            </span>
+                          </Typography>
+                        </ListItemText>
+                      </ListItem>
+                    )
+                  })
+                )}
               </List>
             </Box>
           </CardContent>

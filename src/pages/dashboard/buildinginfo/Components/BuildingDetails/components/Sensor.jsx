@@ -29,7 +29,6 @@ const Sensor = ({ sensors }) => {
 
   useEffect(() => {
     if (sensors && sensors.length > 0) {
-
       // Assuming sensors is an array of sensor objects
 
       // const sensorData = sensors.map(sensor => sensor.sensors).flat()
@@ -113,10 +112,7 @@ const Sensor = ({ sensors }) => {
 
             <Divider />
 
-            <Box
-         
-              sx={{ position: 'relative', display: 'flex' }}
-            >
+            <Box sx={{ position: 'relative', display: 'flex' }}>
               <ArrowBackIosNewIcon
                 sx={{
                   cursor: 'pointer',
@@ -256,7 +252,7 @@ const Sensor = ({ sensors }) => {
                   </Box>
                 </Stack>
 
-                <Box
+                {/* <Box
                   sx={{
                     marginY: 7,
                     background: '#FFEAEB',
@@ -288,6 +284,25 @@ const Sensor = ({ sensors }) => {
                       u67fYHJ
                     </Typography>
                   </Box>
+                </Box> */}
+                <Box
+                  sx={{
+                    marginY: 7,
+                    // marginBottom: 2,
+                    background: '#c5fabe90',
+                    height: '48px',
+                    display: 'flex',
+                    alignItems: 'center',
+                    padding: '0px 12px',
+                    color: '#378a2c',
+                    borderRadius: '6px',
+                    borderLeft: '4px solid #378a2c',
+                    fontSize: '16px',
+                    lineHeight: '24px',
+                    fontWeight: '600',
+                  }}
+                >
+                  No Problem Detected
                 </Box>
               </Box>
               <ArrowForwardIosIcon

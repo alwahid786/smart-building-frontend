@@ -15,14 +15,14 @@ import Car from '../../../../../../asset/svgs/buildingdetails/BuildingMedia/Car'
 import { BuildingCustomCardSkeleton } from '../../../../../../components/Skeleton'
 
 const data = [
-  { time: '07:00', value: 100 },
-  { time: '08:00', value: 200 },
-  { time: '03:00', value: 150 },
-  { time: '04:00', value: 170 },
-  { time: '09:00', value: 300, max: true },
-  { time: '11:00', value: 260 },
-  { time: '12:00', value: 350 },
-  { time: '13:00', value: 200 },
+  { time: '07:00', value: 0 },
+  { time: '08:00', value: 0 },
+  { time: '03:00', value: 0 },
+  { time: '04:00', value: 0 },
+  { time: '09:00', value: 0, max: true },
+  { time: '11:00', value: 0 },
+  { time: '12:00', value: 0 },
+  { time: '13:00', value: 0 },
 ]
 
 const EnergyUtilitiesCard = () => {
