@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import { Delete, Edit } from '@mui/icons-material'
-import { Box, Button, Grid, Typography } from '@mui/material'
+import { Alert, Box, Button, Grid, Switch, Typography } from '@mui/material'
 import EditSensor from './EditSensor'
 import { useState } from 'react'
 import { axisClasses } from '@mui/x-charts/ChartsAxis'
@@ -8,19 +8,24 @@ import { BarChart } from '@mui/x-charts/BarChart'
 import { useParams } from 'react-router-dom'
 import { useGetSingleBuildingSensorQuery } from '../../../redux/api/sensorApi'
 import { useSelector } from 'react-redux'
+import Stack from '@mui/material/Stack'
+import { dataset } from '../../../../chartjsdata'
 
 const ViewSensor = () => {
   const [open, setOpen] = useState(false)
   const { sensorStatus } = useSelector((state) => state)
-
-  console.log("Data", sensorStatus)
-
   // get id
   const { id } = useParams()
-  const { data } = useGetSingleBuildingSensorQuery(id)
+  const { data, error } = useGetSingleBuildingSensorQuery(id)
 
-  const handleOpenEditComponent = () => {setOpen(true)}
-  const handleClose = () => { setOpen(false)}
+  console.log(sensorStatus)
+
+  const handleOpenEditComponent = () => {
+    setOpen(true)
+  }
+  const handleClose = () => {
+    setOpen(false)
+  }
 
   const otherSetting = {
     height: 300,
@@ -33,94 +38,7 @@ const ViewSensor = () => {
     },
   }
 
-  const dataset = [
-    {
-      london: 59,
-      paris: 57,
-      newYork: 86,
-      seoul: 21,
-      month: 'January',
-    },
-    {
-      london: 50,
-      paris: 52,
-      newYork: 78,
-      seoul: 28,
-      month: 'February',
-    },
-    {
-      london: 47,
-      paris: 53,
-      newYork: 106,
-      seoul: 41,
-      month: 'March',
-    },
-    {
-      london: 54,
-      paris: 56,
-      newYork: 92,
-      seoul: 73,
-      month: 'April',
-    },
-    {
-      london: 57,
-      paris: 69,
-      newYork: 92,
-      seoul: 99,
-      month: 'May',
-    },
-    {
-      london: 60,
-      paris: 63,
-      newYork: 103,
-      seoul: 144,
-      month: 'June',
-    },
-    {
-      london: 59,
-      paris: 60,
-      newYork: 105,
-      seoul: 319,
-      month: 'July',
-    },
-    {
-      london: 65,
-      paris: 60,
-      newYork: 106,
-      seoul: 249,
-      month: 'August',
-    },
-    {
-      london: 51,
-      paris: 51,
-      newYork: 95,
-      seoul: 131,
-      month: 'September',
-    },
-    {
-      london: 60,
-      paris: 65,
-      newYork: 97,
-      seoul: 55,
-      month: 'October',
-    },
-    {
-      london: 67,
-      paris: 64,
-      newYork: 76,
-      seoul: 48,
-      month: 'November',
-    },
-    {
-      london: 61,
-      paris: 70,
-      newYork: 103,
-      seoul: 25,
-      month: 'December',
-    },
-  ]
-
-  const loop = [1, 2, 3, 4]
+  const loop = [1]
 
   const valueFormatter = (value) => `${value}mm`
 
@@ -245,7 +163,7 @@ const ViewSensor = () => {
               <Typography
                 sx={{ fontSize: '18px', fontWeight: '500', color: '#A449EB' }}
               >
-                Floor-2
+                {data?.sensorId?.location}
               </Typography>
             </Box>
             <Box
@@ -338,43 +256,19 @@ const ViewSensor = () => {
               <Typography sx={{ fontSize: '16px', color: '#686868' }}>
                 Status
               </Typography>
-              <Button
-                text={
-                  sensorStatus?.byqaE
-                    ? 'Active'
-                    : sensorStatus?.FEmVa
-                    ? 'Active'
-                    : sensorStatus?.Mh1ZO
-                    ? 'Active'
-                    : sensorStatus?.kbvaM
-                    ? 'Active'
-                    : 'Inactive'
-                }
+
+              <Switch
+                checked={sensorStatus[data?.uniqueId]}
+                inputProps={{ 'aria-label': 'controlled' }}
                 sx={{
-                  background: sensorStatus?.byqaE
-                    ? '#52BE8A'
-                    : sensorStatus?.FEmVa
-                    ? '#52BE8A'
-                    : sensorStatus?.Mh1ZO
-                    ? '#52BE8A'
-                    : sensorStatus?.kbvaM
-                    ? '#52BE8A'
-                    : '#E74C3C',
-                  color: '#FFFFFF',
-                  padding: '6px 15px',
-                  borderRadius: '8px',
+                  '& .MuiSwitch-switchBase.Mui-checked': {
+                    color: '#4caf50',
+                  },
+                  '& .MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track': {
+                    backgroundColor: '#4caf50',
+                  },
                 }}
-              >
-                {sensorStatus?.byqaE
-                  ? 'Active'
-                  : sensorStatus?.FEmVa
-                  ? 'Active'
-                  : sensorStatus?.Mh1ZO
-                  ? 'Active'
-                  : sensorStatus?.kbvaM
-                  ? 'Active'
-                  : 'Inactive'}
-              </Button>
+              />
             </Box>
 
             <Box
@@ -395,7 +289,7 @@ const ViewSensor = () => {
               <Typography
                 sx={{ fontSize: '18px', fontWeight: '500', color: '#A449EB' }}
               >
-                Floor-2
+                {data?.sensorId?.location}
               </Typography>
             </Box>
           </Box>
@@ -498,34 +392,49 @@ const ViewSensor = () => {
               </Typography>
             </Box>
 
-            {loop?.map((item, index) => {
-              return (
-                <>
-                  <Box
-                    sx={{
-                      display: 'flex',
-                      justifyContent: 'space-between',
-                      gap: '10px',
-                      background: '#ECE8FF',
-                      alignItems: 'center',
-                      borderRadius: '9px',
-                      padding: '22px',
-                      marginBottom: '10px',
-                    }}
-                  >
-                    <Typography sx={{ fontSize: '16px', color: '#686868' }}>
-                      22 May 2024
-                    </Typography>
-                    <Typography sx={{ fontSize: '16px', color: '#000000' }}>
-                      Water Usage
-                    </Typography>
-                    <Typography sx={{ fontSize: '16px', color: '#686868' }}>
-                      Floor-2 loundry Area
-                    </Typography>
-                  </Box>
-                </>
-              )
-            })}
+            {error ? (
+              loop?.map((item, index) => {
+                return (
+                  <>
+                    <Box
+                      sx={{
+                        display: 'flex',
+                        justifyContent: 'space-between',
+                        gap: '10px',
+                        background: '#ECE8FF',
+                        alignItems: 'center',
+                        borderRadius: '9px',
+                        padding: '22px',
+                        marginBottom: '10px',
+                      }}
+                    >
+                      <Typography sx={{ fontSize: '16px', color: '#686868' }}>
+                        22 May 2024
+                      </Typography>
+                      <Typography sx={{ fontSize: '16px', color: '#000000' }}>
+                        Water Usage
+                      </Typography>
+                      <Typography sx={{ fontSize: '16px', color: '#686868' }}>
+                        Floor-2 loundry Area
+                      </Typography>
+                    </Box>
+                  </>
+                )
+              })
+            ) : (
+              <Stack sx={{ width: '100%', marginTop: '20px' }} spacing={2}>
+                <Alert
+                  severity="info"
+                  sx={{
+                    fontSize: '16px',
+                    color: '#686868',
+                    textAlign: 'center',
+                  }}
+                >
+                  No alerts found
+                </Alert>
+              </Stack>
+            )}
           </Box>
         </Grid>
       </Grid>

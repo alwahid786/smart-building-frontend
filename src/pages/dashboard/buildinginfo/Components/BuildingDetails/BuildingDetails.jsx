@@ -21,6 +21,7 @@ const BuildingDetails = () => {
   const { id } = useParams()
   const [dialogueOpen, setDialogueOpen] = useState(false)
   const { data } = useGetAllBuildingSensorsQuery(id)
+
   const handleNo = () => {
     setDialogueOpen(false)
   }

@@ -5,9 +5,9 @@ import ListCard from './Components/ListCard'
 import { useEffect, useRef, useState } from 'react'
 import AddCard from './Components/AddCard'
 import { useGetBuildingQuery } from '../../../redux/api/buildingApi'
-import { Link } from 'react-router-dom'
 
 const List = () => {
+  
   const [isSticky, setIsSticky] = useState(false)
   const scrollContainerRef = useRef(null)
 
@@ -139,7 +139,6 @@ const List = () => {
                   // xl={3}
                   key={building.id}
                 >
-                  <Link to={`/dashboard/building-info/${building._id}`}>
                     <ListCard
                       imageUrl={
                         building.images.length > 0
@@ -150,9 +149,11 @@ const List = () => {
                       status={'status'}
                       title={building.buildingName}
                       tags={String(building.totalArea)}
+                      numberOfFloors={building.numberOfFloors}
+                      totalArea={building.totalArea}
+                      buildingId={building._id}
                       actionText={'See Details'}
                     />
-                  </Link>
                 </Grid>
               ))}
             </Grid>

@@ -17,12 +17,10 @@ import FloorIcon from '../../../../asset/svgs/buildingdetails/FloorIcon'
 
 import AreaIcon from '../../../../asset/svgs/buildingdetails/AreaIcon'
 import SensorIcon from '../../../../asset/svgs/buildingdetails/SensorIcon'
-import Bad from '../../../../asset/svgs/buildingdetails/Bad'
 import CardBg from '../../../../asset/Images/list/image.png'
-// import { PieChart } from '@mui/x-charts'
-import { PieChart, Pie, Legend, Tooltip, Cell } from 'recharts'
+import { PieChart, Pie, Legend ,Cell } from 'recharts'
 import { Link } from 'react-router-dom'
-const ListCard = ({ imageUrl, subtitle, title, tags }) => {
+const ListCard = ({ imageUrl, subtitle, title, tags, numberOfFloors , totalArea, buildingId}) => {
   // const { isLoading } = useSelector((state) => state.loading)
   const [isFavorite, setIsFavorite] = useState(false)
 
@@ -41,14 +39,14 @@ const ListCard = ({ imageUrl, subtitle, title, tags }) => {
   const statuses = [
     {
       label: 'Total Floors',
-      value: 78,
+      value: numberOfFloors,
       // color: '#0F7FBA',
       // bgcolor: '#399ED316',
       icon: <FloorIcon />,
     },
     {
       label: 'Total Area',
-      value: '1212 (sq)',
+      value: `${totalArea}(sq)`,
       // color: '#FF8932',
       // bgcolor: '#FF893216',
       icon: <AreaIcon />,
@@ -270,15 +268,11 @@ const ListCard = ({ imageUrl, subtitle, title, tags }) => {
               }}
             >
               <Box>
+              <Link to={`/dashboard/building-info/${buildingId}`}>
                 <Button
                   variant="outlined"
                   sx={{
                     marginLeft: { sm: '0', md: '10px' },
-                    // position: 'absolute',
-                    // left: '50%',
-                    // bottom: '-15%',
-                    // transform: 'translate(-50%, 0)',
-                    // transition: 'bottom .6s ease',
                     padding: { xs: '5px 15px', md: '5px 20px' },
                     border: '1px solid #7C40F6 ',
                     textTransform: 'capitalize',
@@ -301,6 +295,7 @@ const ListCard = ({ imageUrl, subtitle, title, tags }) => {
                     See details
                   </Typography>{' '}
                 </Button>
+              </Link>
               </Box>
               <Box sx={{ mt: '10px' }}>
                 <PieChart width={239} height={70}>
