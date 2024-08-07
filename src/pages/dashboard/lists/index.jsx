@@ -133,10 +133,10 @@ const List = () => {
                 <Grid
                   item
                   xs={12}
-                  sm={6}
+                  sm={12}
                   md={6}
                   lg={4}
-                  xl={3}
+                  // xl={3}
                   key={building.id}
                 >
                   <Link to={`/dashboard/building-info/${building._id}`}>
