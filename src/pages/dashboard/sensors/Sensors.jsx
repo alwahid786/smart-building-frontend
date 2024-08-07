@@ -18,33 +18,27 @@ import AddSensor from './AddSensor';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import { Link, Outlet } from 'react-router-dom';
 import { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { initializeSensorStatus, setSensorStatus } from '../../../redux/reducers/sensorStatus';
 
 const Sensors = () => {
   const { data: sensors, refetch } = useGetAllSensorsQuery();
   const [createSensor] = useCreateSensorMutation();
+  const dispatch = useDispatch();
+  const sensorStatus = useSelector((state) => state.sensorStatus);
 
-  const [sensorStatus, setSensorStatus] = useState({});
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
     // Initialize sensor statuses when sensors data is fetched
     if (sensors) {
-      const initialStatus = sensors.reduce((acc, sensor) => {
-        acc[sensor.uniqueId] = false; // Initial status of each sensor
-        return acc;
-      }, {});
-      setSensorStatus(initialStatus);
+      dispatch(initializeSensorStatus(sensors));
     }
-  }, [sensors]);
+  }, [sensors, dispatch]);
 
   const handleChange = (event) => {
     const { name, checked } = event.target;
-    setSensorStatus((prevStatus) => ({
-      ...prevStatus,
-      [name]: checked,
-    }));
-
-    console.log(sensorStatus)
+    dispatch(setSensorStatus({ uniqueId: name, status: checked }));
   };
 
   const handleClose = () => setOpen(false);

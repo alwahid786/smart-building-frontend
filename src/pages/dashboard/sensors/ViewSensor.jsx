@@ -13,17 +13,14 @@ const ViewSensor = () => {
   const [open, setOpen] = useState(false)
   const { sensorStatus } = useSelector((state) => state)
 
+  console.log("Data", sensorStatus)
+
   // get id
   const { id } = useParams()
-
   const { data } = useGetSingleBuildingSensorQuery(id)
 
-  const handleOpenEditComponent = () => {
-    setOpen(true)
-  }
-  const handleClose = () => {
-    setOpen(false)
-  }
+  const handleOpenEditComponent = () => {setOpen(true)}
+  const handleClose = () => { setOpen(false)}
 
   const otherSetting = {
     height: 300,

@@ -1,19 +1,23 @@
-// sensorStatusSlice.js
-import { createSlice } from '@reduxjs/toolkit'
+// src/redux/reducers/sensorStatusSlice.js
+import { createSlice } from '@reduxjs/toolkit';
+
+const initialState = {};
 
 const sensorStatusSlice = createSlice({
   name: 'sensorStatus',
-  initialState: {},
+  initialState,
   reducers: {
-    setSensorStatus: (state, action) => {
-      return action.payload
+    setSensorStatus(state, action) {
+      const { uniqueId, status } = action.payload;
+      state[uniqueId] = status;
     },
-    updateSensorStatus: (state, action) => {
-      const { uniqueId, status } = action.payload
-      state[uniqueId] = status
+    initializeSensorStatus(state, action) {
+      action.payload.forEach(sensor => {
+        state[sensor.uniqueId] = false;
+      });
     },
   },
-})
+});
 
-export const { setSensorStatus, updateSensorStatus } = sensorStatusSlice.actions
-export default sensorStatusSlice.reducer
+export const { setSensorStatus, initializeSensorStatus } = sensorStatusSlice.actions;
+export default sensorStatusSlice.reducer;
