@@ -35,7 +35,6 @@ const Sensor = ({ sensors }) => {
       // const sensorData = sensors.map(sensor => sensor.sensors).flat()
 
       const sensorData = sensors.map((sensor) => sensor.sensors).flat()
-      console.log('Mapped data:', sensorData)
 
       setData(sensorData)
     }

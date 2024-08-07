@@ -7,9 +7,11 @@ import { axisClasses } from '@mui/x-charts/ChartsAxis'
 import { BarChart } from '@mui/x-charts/BarChart'
 import { useParams } from 'react-router-dom'
 import { useGetSingleBuildingSensorQuery } from '../../../redux/api/sensorApi'
+import { useSelector } from 'react-redux'
 
 const ViewSensor = () => {
   const [open, setOpen] = useState(false)
+  const { sensorStatus } = useSelector((state) => state)
 
   // get id
   const { id } = useParams()
@@ -298,7 +300,7 @@ const ViewSensor = () => {
                 },
               ]}
               series={[
-                { dataKey: 'seoul', label: 'Seoul rainfall', valueFormatter },
+                { dataKey: 'seoul', label: data?.sensorName, valueFormatter },
               ]}
               {...otherSetting}
             />
@@ -339,17 +341,42 @@ const ViewSensor = () => {
               <Typography sx={{ fontSize: '16px', color: '#686868' }}>
                 Status
               </Typography>
-
               <Button
-                text="Active"
+                text={
+                  sensorStatus?.byqaE
+                    ? 'Active'
+                    : sensorStatus?.FEmVa
+                    ? 'Active'
+                    : sensorStatus?.Mh1ZO
+                    ? 'Active'
+                    : sensorStatus?.kbvaM
+                    ? 'Active'
+                    : 'Inactive'
+                }
                 sx={{
-                  background: '#52BE8A',
+                  background: sensorStatus?.byqaE
+                    ? '#52BE8A'
+                    : sensorStatus?.FEmVa
+                    ? '#52BE8A'
+                    : sensorStatus?.Mh1ZO
+                    ? '#52BE8A'
+                    : sensorStatus?.kbvaM
+                    ? '#52BE8A'
+                    : '#E74C3C',
                   color: '#FFFFFF',
                   padding: '6px 15px',
                   borderRadius: '8px',
                 }}
               >
-                Active
+                {sensorStatus?.byqaE
+                  ? 'Active'
+                  : sensorStatus?.FEmVa
+                  ? 'Active'
+                  : sensorStatus?.Mh1ZO
+                  ? 'Active'
+                  : sensorStatus?.kbvaM
+                  ? 'Active'
+                  : 'Inactive'}
               </Button>
             </Box>
 
