@@ -1,7 +1,7 @@
 body {
   margin: 0;
   background-color: rgb(245, 247, 251) !important;
-  font-family: "Poppins", sans-serif !important; /* Update the font-family */
+  font-family: 'Poppins', sans-serif !important; /* Update the font-family */
   -webkit-font-smoothing: antialiased; /* Smoothen the font on WebKit browsers */
   -moz-osx-font-smoothing: grayscale; /* Smoothen the font on Firefox OS X */
 }
@@ -23,20 +23,18 @@ body::-webkit-scrollbar {
 a {
   text-decoration: none;
 }
-.leaflet-popup-tip{
+.leaflet-popup-tip {
   display: none;
 }
-.leaflet-popup-close-button{
+.leaflet-popup-close-button {
   display: none;
 }
-.leaflet-popup-content-wrapper{
+.leaflet-popup-content-wrapper {
   padding: 0;
 }
-.leaflet-popup-content{
+.leaflet-popup-content {
   margin: 0;
 }
-
-
 
 @keyframes slideInLeft {
   from {
@@ -68,9 +66,6 @@ a {
   animation: slideInRight 0.5s forwards;
 }
 
-
 .grayscale-map .leaflet-tile {
   filter: grayscale(100%);
 }
-
-
