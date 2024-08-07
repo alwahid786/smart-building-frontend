@@ -50,15 +50,13 @@ const StepperComponent = () => {
         sx={{ marginY: '2rem' }}
         connector={<StepConnector sx={{ border: '1px solid #B029FC' }} />}
       >
-        {steps.map((label, index) => (
+        {steps.map((label) => (
           <Step key={label}>
             <StepLabel
               StepIconProps={{
                 style: {
                   color: '#B029FC',
                   fontSize: '2.5rem',
-                  // border: '2px solid #B029FC',
-                  // borderRadius: '100%',
                 },
               }}
             >

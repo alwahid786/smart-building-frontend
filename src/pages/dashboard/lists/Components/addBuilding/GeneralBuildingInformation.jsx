@@ -149,7 +149,7 @@ const GeneralBuildingInformation = ({ handleNext }) => {
               name="email"
               size="small"
               fullWidth
-              required
+              // required
               value={formData.email}
               onChange={handleInputChange}
             />
@@ -162,11 +162,7 @@ const GeneralBuildingInformation = ({ handleNext }) => {
               name="totalArea"
               fullWidth
               size="small"
-              required
-              inputProps={{ min: 1 }}
-              onInput={(e) => {
-                e.target.value = Math.max('1', parseInt(e.target.value) || '1')
-              }}
+              // required
               value={formData.totalArea}
               onChange={handleInputChange}
             />

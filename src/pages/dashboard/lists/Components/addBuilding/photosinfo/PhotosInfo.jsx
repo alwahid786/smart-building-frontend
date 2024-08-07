@@ -99,9 +99,7 @@ const PhotosInfo = ({ handleNext, handleBack }) => {
       // Dispatch the building ID to the Redux store
       dispatch(setBuildingId(res.building._id)) // Assuming the response contains a buildingId
 
-      setTimeout(() => {
-        handleNext()
-      }, 300)
+      setTimeout(() => {handleNext()}, 300)
     } catch (error) {
       console.error('Failed to upload images and building data:', error) // Log error message to console
 

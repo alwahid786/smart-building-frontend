@@ -17,9 +17,7 @@ const ViewSensor = () => {
   // get id
   const { id } = useParams()
   const { data, error } = useGetSingleBuildingSensorQuery(id)
-
-  console.log(sensorStatus)
-
+  
   const handleOpenEditComponent = () => {
     setOpen(true)
   }

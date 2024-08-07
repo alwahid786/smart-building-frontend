@@ -43,7 +43,17 @@ export const sensorApiPoint = createApi({
       }),
     }),
 
+    // update sensor
+    updateSensor: builder.mutation({
+      query: ({ id, formData }) => ({
+        url: `/api/update-sensor/${id}`,
+        method: 'PUT',
+        body: formData,
+  
+      }),
+    }),
+
   }),
 })
 
-export const { useCreateSensorMutation, useGetAllSensorsQuery, useGetAllBuildingSensorsQuery, useGetBuldingFloorsQuery, useGetSingleBuildingSensorQuery } = sensorApiPoint
+export const { useCreateSensorMutation, useGetAllSensorsQuery, useGetAllBuildingSensorsQuery, useGetBuldingFloorsQuery, useGetSingleBuildingSensorQuery, useUpdateSensorMutation } = sensorApiPoint
