@@ -29,9 +29,6 @@ const Sensor = ({ sensors }) => {
 
   useEffect(() => {
     if (sensors && sensors.length > 0) {
-      // Assuming sensors is an array of sensor objects
-
-      // const sensorData = sensors.map(sensor => sensor.sensors).flat()
 
       const sensorData = sensors.map((sensor) => sensor.sensors).flat()
 

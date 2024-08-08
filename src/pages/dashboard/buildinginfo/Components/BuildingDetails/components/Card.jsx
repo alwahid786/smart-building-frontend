@@ -1,4 +1,4 @@
-import  { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react';
 import {
   Box,
   Card,
@@ -7,18 +7,18 @@ import {
   Typography,
   Dialog,
   IconButton,
-} from '@mui/material'
-import { useParams } from 'react-router-dom'
-import CardFavoriteIcon from '../../../../../../asset/svgs/CardFavoriteIcon'
-import Mail from '../../../../../../asset/svgs/buildingdetails/Mail'
-import Map from '../../../../../../asset/svgs/buildingdetails/Map'
-import { BuildingCardSkeleton } from '../../../../../../components/Skeleton'
-import { useGetSingleBuildingQuery } from '../../../../../../redux/api/buildingApi'
-import Slider from 'react-slick'
-import 'slick-carousel/slick/slick.css'
-import 'slick-carousel/slick/slick-theme.css'
-import CloseIcon from '@mui/icons-material/Close'
-import moment from "moment";
+} from '@mui/material';
+import { useParams, useNavigate } from 'react-router-dom';
+import CardFavoriteIcon from '../../../../../../asset/svgs/CardFavoriteIcon';
+import Mail from '../../../../../../asset/svgs/buildingdetails/Mail';
+import Map from '../../../../../../asset/svgs/buildingdetails/Map';
+import { BuildingCardSkeleton } from '../../../../../../components/Skeleton';
+import { useGetSingleBuildingQuery } from '../../../../../../redux/api/buildingApi';
+import Slider from 'react-slick';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
+import CloseIcon from '@mui/icons-material/Close';
+import moment from 'moment';
 
 const BuildingCard = () => {
   const settings = {
@@ -53,46 +53,51 @@ const BuildingCard = () => {
         }}
       />
     ),
-  }
+  };
 
-  const { id } = useParams()
-  const { data } = useGetSingleBuildingQuery(id)
-  const [images, setImages] = useState([])
-  const [isFavorite, setIsFavorite] = useState(false)
-  const [isLoading, setIsLoading] = useState(true)
-  const [open, setOpen] = useState(false)
+  const { id } = useParams();
+  const { data } = useGetSingleBuildingQuery(id);
+  const [images, setImages] = useState([]);
+  const [isFavorite, setIsFavorite] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+  const [open, setOpen] = useState(false);
 
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (data?.images && data.images.length > 0) {
-      setImages(data.images)
+      setImages(data.images);
     } else {
-      setImages([]) // Set empty array if no images
+      setImages([]); // Set empty array if no images
     }
-  }, [data])
+  }, [data]);
 
   useEffect(() => {
     setTimeout(() => {
-      setIsLoading(false)
-    }, 3000)
-  }, [])
+      setIsLoading(false);
+    }, 3000);
+  }, []);
 
   const toggleFavorite = () => {
-    setIsFavorite(!isFavorite)
-  }
+    setIsFavorite(!isFavorite);
+  };
 
   const handleOpen = () => {
-    setOpen(true)
-  }
+    setOpen(true);
+  };
 
   const handleClose = () => {
-    setOpen(false)
-  }
+    setOpen(false);
+  };
+
+  const cardMapClickHandler = () => {
+    console.log('Map Clicked', id);
+    navigate('/dashboard/map', { state: { buildingId: id } });
+  };
 
   if (isLoading) {
-    return <BuildingCardSkeleton />
+    return <BuildingCardSkeleton />;
   }
-
 
   return (
     <>
@@ -165,7 +170,7 @@ const BuildingCard = () => {
               {data?.ownerName}
             </Typography>
             <Box sx={{ display: 'flex', gap: 1, alignItems: 'center' }}>
-              <Map /> <Mail />
+              <Map cardMapClick={cardMapClickHandler} /> <Mail />
             </Box>
           </Box>
 
@@ -277,8 +282,7 @@ const BuildingCard = () => {
                   lineHeight: '19.07px',
                 }}
               >
-               
-               {moment(data?.createdAt).format('YYYY-MM-DD HH:mm:ss')}
+                {moment(data?.createdAt).format('YYYY-MM-DD HH:mm:ss')}
               </Typography>
             </Box>
           </Box>
@@ -334,8 +338,9 @@ const BuildingCard = () => {
                   alt={`image ${index}`}
                   sx={{
                     width: '100%',
-                    height: '100vh',
+                    height: '100%',
                     objectFit: 'contain',
+                    cursor: 'pointer',
                   }}
                 />
               </div>
@@ -344,7 +349,7 @@ const BuildingCard = () => {
         </Box>
       </Dialog>
     </>
-  )
-}
+  );
+};
 
-export default BuildingCard
+export default BuildingCard;

@@ -30,9 +30,7 @@ const List = () => {
         passive: true,
       });
 
-      return () => {
-        scrollContainer.removeEventListener('scroll', handleScroll);
-      };
+      return () => {scrollContainer.removeEventListener('scroll', handleScroll)};
     }
   }, []);
 

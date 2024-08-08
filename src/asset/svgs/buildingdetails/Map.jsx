@@ -1,11 +1,12 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable react/no-unknown-property */
 
-const Map = ({cardMap}) => {
+const Map = ({cardMapClick}) => {
   return (
     <>
       <svg
-        onClick={cardMap}
+        onClick={cardMapClick}
+        cursor={'pointer'}
         width="20"
         height="20"
         viewBox="0 0 14 15"
