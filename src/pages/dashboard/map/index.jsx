@@ -5,7 +5,7 @@ import { MapContainer, Marker, Popup, TileLayer, useMap } from 'react-leaflet'
 import CardContent from '@mui/material/CardContent'
 import CardMedia from '@mui/material/CardMedia'
 import { Typography } from '@mui/material'
-import { useGetBuildingQuery } from '../../../redux/api/buildingApi'
+import { useGetBuildingByUserQuery } from '../../../redux/api/buildingApi'
 import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
 
@@ -28,7 +28,9 @@ RecenterMap.propTypes = {
 }
 
 const Index = () => {
-  const { data } = useGetBuildingQuery()
+  const { data } = useGetBuildingByUserQuery()
+
+  console.log(data)
 
   const [positions, setPositions] = useState([])
 

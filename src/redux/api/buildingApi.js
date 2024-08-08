@@ -45,6 +45,14 @@ export const buildingApiPoint = createApi({
       }),
     }),
 
+    // get all building by user
+    getBuildingByUser: builder.query({
+      query: () => ({
+        url: '/api/user-building',
+        method: 'GET',
+      }),
+    }),
+
     // get single building
     getSingleBuilding: builder.query({
       query: (data) => ({
@@ -108,4 +116,5 @@ export const {
   useUpdateBuildingMutation,
   useBuildingLocationMutation,
   useDeleteBuildingMutation,
+  useGetBuildingByUserQuery,
 } = buildingApiPoint
