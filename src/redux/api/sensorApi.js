@@ -53,7 +53,15 @@ export const sensorApiPoint = createApi({
       }),
     }),
 
+    // delete sensor
+    deleteSensor: builder.mutation({
+      query: (id) => ({
+        url: `/api/delete-sensor/${id}`,
+        method: 'DELETE',
+      }),
+    }),
+
   }),
 })
 
-export const { useCreateSensorMutation, useGetAllSensorsQuery, useGetAllBuildingSensorsQuery, useGetBuldingFloorsQuery, useGetSingleBuildingSensorQuery, useUpdateSensorMutation } = sensorApiPoint
+export const { useCreateSensorMutation, useGetAllSensorsQuery, useGetAllBuildingSensorsQuery, useGetBuldingFloorsQuery, useGetSingleBuildingSensorQuery, useUpdateSensorMutation, useDeleteSensorMutation } = sensorApiPoint
