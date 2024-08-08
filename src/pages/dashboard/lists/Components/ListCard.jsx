@@ -12,7 +12,6 @@ import {
 
 import { Fragment, useEffect, useState } from 'react'
 import CardFavoriteIcon from '../../../../asset/svgs/CardFavoriteIcon'
-import { CardSkeleton } from '../../../../components/Skeleton'
 import FloorIcon from '../../../../asset/svgs/buildingdetails/FloorIcon'
 
 import AreaIcon from '../../../../asset/svgs/buildingdetails/AreaIcon'
@@ -28,6 +27,7 @@ const ListCard = ({
   numberOfFloors,
   totalArea,
   buildingId,
+  sensorCount
 }) => {
   // const { isLoading } = useSelector((state) => state.loading)
   const [isFavorite, setIsFavorite] = useState(false)
@@ -61,7 +61,7 @@ const ListCard = ({
     },
     {
       label: 'Total Sensors',
-      value: '20',
+      value: sensorCount,
       // color: '#61CA94',
       // bgcolor: '#61CA9416',
       icon: <SensorIcon />,

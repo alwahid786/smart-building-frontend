@@ -62,6 +62,7 @@ const BuildingCard = () => {
   const [isLoading, setIsLoading] = useState(true)
   const [open, setOpen] = useState(false)
 
+
   useEffect(() => {
     if (data?.images && data.images.length > 0) {
       setImages(data.images)
@@ -91,6 +92,7 @@ const BuildingCard = () => {
   if (isLoading) {
     return <BuildingCardSkeleton />
   }
+
 
   return (
     <>
