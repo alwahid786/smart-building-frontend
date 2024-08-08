@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState } from 'react'
 import {
   Box,
   Select,
@@ -17,40 +17,23 @@ import {
   TableHead,
   TableRow,
   TextField,
-} from "@mui/material";
-import { styled } from "@mui/material/styles";
-import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
-import StatusBar from "./StatusBar";
-import CurrentInspection from "./CurrentInspection";
-import InspectionTable from "./InspectionTable";
-import InspectionHistory from "./InspectionHistory";
+} from '@mui/material'
+import { styled } from '@mui/material/styles'
+import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
+import StatusBar from './StatusBar'
+import CurrentInspection from './CurrentInspection'
+import InspectionTable from './InspectionTable'
+import InspectionHistory from './InspectionHistory'
 
 const Dashboard = () => {
-  const [watchingNow, setWatchingNow] = useState("all");
+  const [watchingNow, setWatchingNow] = useState('all')
 
   const handleChange = (event) => {
-    setWatchingNow(event.target.value);
-  };
+    setWatchingNow(event.target.value)
+  }
 
   return (
-    <Container
-      maxWidth="xxl"
-      sx={{
-        opacity: 0,
-        transform: "translateY(20px)",
-        animation: "fadeInUp 2s ease forwards",
-        "@keyframes fadeInUp": {
-          "0%": {
-            opacity: 0,
-            transform: "translateY(20px)",
-          },
-          "100%": {
-            opacity: 1,
-            transform: "translateY(0)",
-          },
-        },
-      }}
-    >
+    <Container maxWidth="xxl">
       <Box display="flex" alignItems="center">
         <Typography sx={{ fontWeight: 500, fontSize: 16 }} component="span">
           Watching now:
@@ -60,17 +43,17 @@ const Dashboard = () => {
             value={watchingNow}
             onChange={handleChange}
             displayEmpty
-            inputProps={{ "aria-label": "Without label" }}
+            inputProps={{ 'aria-label': 'Without label' }}
             input={<BootstrapInput />}
             IconComponent={ArrowDropDownIcon}
             sx={{
-              "& .MuiSelect-select": {
+              '& .MuiSelect-select': {
                 paddingLeft: 1,
                 paddingRight: 1,
-                display: "flex",
-                alignItems: "center",
+                display: 'flex',
+                alignItems: 'center',
               },
-              "& .MuiSvgIcon-root": {
+              '& .MuiSvgIcon-root': {
                 marginLeft: 1,
               },
             }}
@@ -85,50 +68,52 @@ const Dashboard = () => {
           </Select>
         </FormControl>
       </Box>
-      <Grid container spacing={1}>
-        <Grid
-          item
-          xs={12}
-          md={8}
-          container
-          sx={{ height: "max-content", gap: "20px" }}
-        >
-          <StatusBar />
-          <Box width="100%">
-            <InspectionTable />
-          </Box>
-          <Box width="100%">
-            <InspectionHistory />
-          </Box>
+      <Box className="fadeInUp">
+        <Grid container spacing={1}>
+          <Grid
+            item
+            xs={12}
+            md={8}
+            container
+            sx={{ height: 'max-content', gap: '20px' }}
+          >
+            <StatusBar />
+            <Box width="100%">
+              <InspectionTable />
+            </Box>
+            <Box width="100%">
+              <InspectionHistory />
+            </Box>
+          </Grid>
+          <Grid item xs={12} md={4}>
+            <CurrentInspection />
+          </Grid>
         </Grid>
-        <Grid item xs={12} md={4}>
-          <CurrentInspection />
-        </Grid>
-      </Grid>
+      </Box>
     </Container>
-  );
-};
+  )
+}
 const BootstrapInput = styled(InputBase)(({ theme }) => ({
-  "label + &": {
+  'label + &': {
     marginTop: theme.spacing(2),
   },
-  "& .MuiInputBase-input": {
+  '& .MuiInputBase-input': {
     borderRadius: 4,
-    position: "relative",
+    position: 'relative',
     //   backgroundColor: theme.palette.background.paper,
-    border: "none",
+    border: 'none',
     fontSize: 16,
-    padding: "10px 26px 10px 12px",
+    padding: '10px 26px 10px 12px',
     //   transition: theme.transitions.create(['border-color', 'box-shadow']),
     // Use the system font instead of the default Roboto font.
     fontFamily: [
-      "-apple-system",
-      "BlinkMacSystemFont",
+      '-apple-system',
+      'BlinkMacSystemFont',
       '"Segoe UI"',
-      "Roboto",
+      'Roboto',
       '"Helvetica Neue"',
-      "Arial",
-      "sans-serif",
+      'Arial',
+      'sans-serif',
       '"Apple Color Emoji"',
       '"Segoe UI Emoji"',
       '"Segoe UI Symbol"',
@@ -140,5 +125,5 @@ const BootstrapInput = styled(InputBase)(({ theme }) => ({
     //     boxShadow: '0 0 0 0.2rem rgba(0,123,255,.25)',
     //   },
   },
-}));
-export default Dashboard;
+}))
+export default Dashboard

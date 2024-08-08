@@ -23,66 +23,62 @@ const HeatingUse = () => {
   ]
   return (
     <>
-      {isLoading ? (
-        <HeatingUseSkeleton />
-      ) : (
-        <Card variant="outlined" sx={{ maxWidth: '100%', maxHeight: 290 }}>
-          <Box sx={{ p: { xs: 1, md: 2 } }}>
-            <Stack
-              direction="row"
-              justifyContent="space-between"
-              alignItems="center"
+      <Card variant="outlined" sx={{ maxWidth: '100%', maxHeight: 290 }}>
+        <Box sx={{ p: { xs: 1, md: 2 } }}>
+          <Stack
+            direction="row"
+            justifyContent="space-between"
+            alignItems="center"
+          >
+            <Typography
+              gutterBottom
+              sx={{
+                fontWeight: 600,
+                fontSize: { xs: 14, md: 16 },
+                color: 'rgba(17, 17, 17, 1)',
+              }}
             >
-              <Typography
-                gutterBottom
-                sx={{
-                  fontWeight: 600,
-                  fontSize: { xs: 14, md: 16 },
-                  color: 'rgba(17, 17, 17, 1)',
-                }}
-              >
-                Heating use
-              </Typography>
-            </Stack>
-            <Divider />
-            <Box sx={{ flexGrow: 1 }}>
-              <Grid container spacing={1} sx={{ alignItems: 'center' }}>
-                <Grid item xs={6} sx={{ alignItems: 'start' }}>
-                  <HeatingUseGraph />
-                </Grid>
-                <Grid item xs={6}>
-                  {data.map((item, index) => (
-                    <Box
-                      key={index}
-                      sx={{
-                        display: 'flex',
-                        alignItems: 'center',
-                        marginBottom: 2,
-                      }}
-                    >
-                      <CustomText
-                        sx={{ fontSize: { xs: 14, md: 16 }, paddingRight: 1 }}
-                      >
-                        {item.percentage}
-                      </CustomText>
-                      <Divider
-                        orientation="vertical"
-                        flexItem
-                        sx={{ bgcolor: item.color }}
-                      />
-                      <CustomText
-                        sx={{ fontSize: { xs: 14, md: 16 }, paddingLeft: 1 }}
-                      >
-                        {item.text}
-                      </CustomText>
-                    </Box>
-                  ))}
-                </Grid>
+              Heating use
+            </Typography>
+          </Stack>
+          <Divider />
+          <Box sx={{ flexGrow: 1 }}>
+            <Grid container spacing={1} sx={{ alignItems: 'center' }}>
+              <Grid item xs={6} sx={{ alignItems: 'start' }}>
+                <HeatingUseGraph />
               </Grid>
-            </Box>
+              <Grid item xs={6}>
+                {data.map((item, index) => (
+                  <Box
+                    key={index}
+                    sx={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      marginBottom: 2,
+                    }}
+                  >
+                    <CustomText
+                      sx={{ fontSize: { xs: 14, md: 16 }, paddingRight: 1 }}
+                    >
+                      {item.percentage}
+                    </CustomText>
+                    <Divider
+                      orientation="vertical"
+                      flexItem
+                      sx={{ bgcolor: item.color }}
+                    />
+                    <CustomText
+                      sx={{ fontSize: { xs: 14, md: 16 }, paddingLeft: 1 }}
+                    >
+                      {item.text}
+                    </CustomText>
+                  </Box>
+                ))}
+              </Grid>
+            </Grid>
           </Box>
-        </Card>
-      )}
+        </Box>
+      </Card>
     </>
   )
 }

@@ -10,21 +10,23 @@ const index = () => {
   return (
     <>
       <Box
-        sx={{
-          opacity: 0,
-          transform: 'translateY(20px)',
-          animation: 'fadeInUp 2s ease forwards',
-          '@keyframes fadeInUp': {
-            '0%': {
-              opacity: 0,
-              transform: 'translateY(20px)',
-            },
-            '100%': {
-              opacity: 1,
-              transform: 'translateY(0)',
-            },
-          },
-        }}
+      // sx={{ border: '2px solid red' }}
+      // className="fadeInUp"
+      // sx={{
+      //   opacity: 0,
+      //   transform: 'translateY(20px)',
+      //   animation: 'fadeInUp 2s ease forwards',
+      //   '@keyframes fadeInUp': {
+      //     '0%': {
+      //       opacity: 0,
+      //       transform: 'translateY(20px)',
+      //     },
+      //     '100%': {
+      //       opacity: 1,
+      //       transform: 'translateY(0)',
+      //     },
+      //   },
+      // }}
       >
         <Grid container spacing={1} sx={{ flexGrow: 1, display: 'flex' }}>
           <Grid

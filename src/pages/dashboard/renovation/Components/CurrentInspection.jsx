@@ -83,72 +83,84 @@ const CurrentInspection = () => {
   ]
   return (
     <>
-      {isLoading ? (
-        <CurrentInspectionSkeleton />
-      ) : (
-        <Card variant="outlined" sx={{ p: { xs: 1, md: 2 } }}>
-          {/* <Grid container spacing={2}> */}
-          <Stack direction="row" justifyContent="left" alignItems="center">
-            <Typography
-              sx={{
-                fontWeight: 600,
-                fontSize: { xs: 12, md: 14 },
-                color: 'rgba(17, 17, 17, 1)',
-                fontFamily: "'Poppins', sans-serif",
-              }}
-            >
-              Currently inspection
-            </Typography>
-            <Typography
-              sx={{
-                fontWeight: 400,
-                fontSize: 12,
-                ml: '12px',
-                color: '#111111',
-                fontFamily: "'Poppins', sans-serif",
-                cursor: 'pointer',
-              }}
-            >
-              15 results
-            </Typography>
-          </Stack>
-          <Divider sx={{ my: 1 }} />
+      <Card variant="outlined" sx={{ p: { xs: 1, md: 2 } }}>
+        {/* <Grid container spacing={2}> */}
+        <Stack direction="row" justifyContent="left" alignItems="center">
+          <Typography
+            sx={{
+              fontWeight: 600,
+              fontSize: { xs: 12, md: 14 },
+              color: 'rgba(17, 17, 17, 1)',
+              fontFamily: "'Poppins', sans-serif",
+            }}
+          >
+            Currently inspection
+          </Typography>
+          <Typography
+            sx={{
+              fontWeight: 400,
+              fontSize: 12,
+              ml: '12px',
+              color: '#111111',
+              fontFamily: "'Poppins', sans-serif",
+              cursor: 'pointer',
+            }}
+          >
+            15 results
+          </Typography>
+        </Stack>
+        <Divider sx={{ my: 1 }} />
 
-          {data.map((item, index) => (
-            <Grid item xs={12} sx={{ p: 0.5 }} key={index}>
-              <Card sx={{ display: 'flex', p: 1 }}>
-                <CardMedia
-                  component="img"
-                  height="124px"
-                  background="cover"
-                  sx={{ borderRadius: '8px', width: { xs: 80, md: 120 } }}
-                  // width="120px"
-                  image={item.image}
-                  alt={item.building}
-                />
-                <CardContent>
+        {data.map((item, index) => (
+          <Grid item xs={12} sx={{ p: 0.5 }} key={index}>
+            <Card sx={{ display: 'flex', p: 1 }}>
+              <CardMedia
+                component="img"
+                height="124px"
+                background="cover"
+                sx={{ borderRadius: '8px', width: { xs: 80, md: 120 } }}
+                // width="120px"
+                image={item.image}
+                alt={item.building}
+              />
+              <CardContent>
+                <Typography
+                  gutterBottom
+                  sx={{
+                    fontWeight: 600,
+                    fontSize: 14,
+                    color: 'rgba(17, 17, 17, 1)',
+                    fontFamily: "'Poppins', sans-serif",
+                  }}
+                >
+                  {item.building}
+                </Typography>
+                <Typography
+                  variant="body2"
+                  sx={{
+                    fontWeight: 400,
+                    fontSize: 12,
+                    color: '#111111',
+                    fontFamily: "'Poppins', sans-serif",
+                  }}
+                >
+                  {item.subtext}
+                </Typography>
+                <CustomText>
                   <Typography
-                    gutterBottom
-                    sx={{
-                      fontWeight: 600,
-                      fontSize: 14,
-                      color: 'rgba(17, 17, 17, 1)',
-                      fontFamily: "'Poppins', sans-serif",
-                    }}
-                  >
-                    {item.building}
-                  </Typography>
-                  <Typography
-                    variant="body2"
                     sx={{
                       fontWeight: 400,
                       fontSize: 12,
                       color: '#111111',
+                      pl: '8px',
                       fontFamily: "'Poppins', sans-serif",
                     }}
                   >
-                    {item.subtext}
+                    {item.date}
                   </Typography>
+                </CustomText>
+
+                <CustomTextIcon>
                   <CustomText>
                     <Typography
                       sx={{
@@ -159,33 +171,17 @@ const CurrentInspection = () => {
                         fontFamily: "'Poppins', sans-serif",
                       }}
                     >
-                      {item.date}
+                      {item.type}
                     </Typography>
                   </CustomText>
-
-                  <CustomTextIcon>
-                    <CustomText>
-                      <Typography
-                        sx={{
-                          fontWeight: 400,
-                          fontSize: 12,
-                          color: '#111111',
-                          pl: '8px',
-                          fontFamily: "'Poppins', sans-serif",
-                        }}
-                      >
-                        {item.type}
-                      </Typography>
-                    </CustomText>
-                    <ReportIcon />
-                  </CustomTextIcon>
-                </CardContent>
-              </Card>
-            </Grid>
-          ))}
-          {/* </Grid> */}
-        </Card>
-      )}
+                  <ReportIcon />
+                </CustomTextIcon>
+              </CardContent>
+            </Card>
+          </Grid>
+        ))}
+        {/* </Grid> */}
+      </Card>
     </>
   )
 }

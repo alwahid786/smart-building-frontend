@@ -21,60 +21,60 @@ const BuildingStatus = () => {
   return (
     <>
       {' '}
-      {isLoading ? (
+      {/* {isLoading ? (
         <BuildingInfoSkeleton />
-      ) : (
-        <Box
+      ) : ( */}
+      <Box
+        sx={{
+          flexGrow: 1,
+          p: { xs: 0, md: 1 },
+          display: 'flex',
+          flexDirection: { xs: 'column', sm: 'row' },
+          alignItems: 'center',
+          gap: { xs: 1, md: 4 },
+        }}
+      >
+        <Typography
           sx={{
-            flexGrow: 1,
-            p: { xs: 0, md: 1 },
-            display: 'flex',
-            flexDirection: { xs: 'column', sm: 'row' },
-            alignItems: 'center',
-            gap: { xs: 1, md: 4 },
+            whiteSpace: 'nowrap',
+            fontWeight: '400',
+            color: 'rgba(17, 17, 17, 0.8)',
+            mb: { xs: 0, sm: 0 },
+            fontSize: { xs: '16px', sm: '10px', md: '12px', lg: '16px' },
           }}
         >
-          <Typography
-            sx={{
-              whiteSpace: 'nowrap',
-              fontWeight: '400',
-              color: 'rgba(17, 17, 17, 0.8)',
-              mb: { xs: 0, sm: 0 },
-              fontSize: { xs: '16px', sm: '10px', md: '12px', lg: '16px' },
-            }}
-          >
-            <BuildingIcon /> Total Number Of Yours Buildings:<strong>13</strong>
-          </Typography>
-          <Box
-            sx={{
-              display: 'flex',
-              flexWrap: 'wrap',
-              flexDirection: { xs: 'row', sm: 'row' },
-              gap: { xs: 1, md: 4 },
-              mb: { xs: 2, sm: 0 },
-              alignItems: { xs: 'start', md: 'center' },
-              fontSize: { xs: '8px', sm: '10px', md: '12px', lg: '14px' },
-            }}
-          >
-            <StatusBox>
-              <Greenbox />
-              <CustomText>Good: 9</CustomText>
-            </StatusBox>
-            <StatusBox>
-              <YellowBox />
-              <Typography>Need inspection: 1</Typography>
-            </StatusBox>
-            <StatusBox>
-              <OrangeBox />
-              <CustomText>Need action: 1</CustomText>
-            </StatusBox>
-            <StatusBox>
-              <RedBox />
-              <CustomText>Bad: 2</CustomText>
-            </StatusBox>
-          </Box>
+          <BuildingIcon /> Total Number Of Yours Buildings:<strong>13</strong>
+        </Typography>
+        <Box
+          sx={{
+            display: 'flex',
+            flexWrap: 'wrap',
+            flexDirection: { xs: 'row', sm: 'row' },
+            gap: { xs: 1, md: 4 },
+            mb: { xs: 2, sm: 0 },
+            alignItems: { xs: 'start', md: 'center' },
+            fontSize: { xs: '8px', sm: '10px', md: '12px', lg: '14px' },
+          }}
+        >
+          <StatusBox>
+            <Greenbox />
+            <CustomText>Good: 9</CustomText>
+          </StatusBox>
+          <StatusBox>
+            <YellowBox />
+            <Typography>Need inspection: 1</Typography>
+          </StatusBox>
+          <StatusBox>
+            <OrangeBox />
+            <CustomText>Need action: 1</CustomText>
+          </StatusBox>
+          <StatusBox>
+            <RedBox />
+            <CustomText>Bad: 2</CustomText>
+          </StatusBox>
         </Box>
-      )}
+      </Box>
+      {/* )} */}
     </>
   )
 }

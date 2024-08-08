@@ -1,39 +1,40 @@
-import { Box, InputBase } from "@mui/material";
-import { styled } from "@mui/material/styles";
+import { Box, InputBase } from '@mui/material'
+import { styled } from '@mui/material/styles'
 // import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 // import StatusBar from "./StatusBar";
 // import CurrentInspection from "./CurrentInspection";
 // import InspectionHistory from "./InspectionHistory";
 // import MaterialUse from "./MaterialUse";
 // import MediaSuppliers from "./MediaSuppliers";
-import InspectionBuilding from "./InspectionBuilding";
-import { useState } from "react";
+import InspectionBuilding from './InspectionBuilding'
+import { useState } from 'react'
 
 const InspectionDashboard = () => {
-  const [watchingNow, setWatchingNow] = useState("all");
+  const [watchingNow, setWatchingNow] = useState('all')
 
   const handleChange = (event) => {
-    setWatchingNow(event.target.value);
-  };
+    setWatchingNow(event.target.value)
+  }
 
   return (
     <Box
       maxWidth="xxl"
-      sx={{
-        opacity: 0,
-        transform: "translateY(20px)",
-        animation: "fadeInUp 2s ease forwards",
-        "@keyframes fadeInUp": {
-          "0%": {
-            opacity: 0,
-            transform: "translateY(20px)",
-          },
-          "100%": {
-            opacity: 1,
-            transform: "translateY(0)",
-          },
-        },
-      }}
+      className="fadeInUp"
+      // sx={{
+      //   opacity: 0,
+      //   transform: "translateY(20px)",
+      //   animation: "fadeInUp 2s ease forwards",
+      //   "@keyframes fadeInUp": {
+      //     "0%": {
+      //       opacity: 0,
+      //       transform: "translateY(20px)",
+      //     },
+      //     "100%": {
+      //       opacity: 1,
+      //       transform: "translateY(0)",
+      //     },
+      //   },
+      // }}
     >
       {/* <Box display="flex" alignItems="center">
       <Typography sx={{fontWeight:500, fontSize:16}} component="span">
@@ -91,18 +92,18 @@ const InspectionDashboard = () => {
         <InspectionBuilding />
       </Box>
     </Box>
-  );
-};
+  )
+}
 const BootstrapInput = styled(InputBase)(({ theme }) => ({
-  "label + &": {
+  'label + &': {
     marginTop: theme.spacing(2),
   },
-  "& .MuiInputBase-input": {
+  '& .MuiInputBase-input': {
     borderRadius: 4,
-    position: "relative",
-    border: "none",
+    position: 'relative',
+    border: 'none',
     fontSize: 16,
-    padding: "10px 26px 10px 12px",
+    padding: '10px 26px 10px 12px',
   },
-}));
-export default InspectionDashboard;
+}))
+export default InspectionDashboard

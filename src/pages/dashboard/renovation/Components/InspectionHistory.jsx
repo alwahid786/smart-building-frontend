@@ -242,15 +242,7 @@ const InspectionHistory = () => {
 
   return (
     <>
-      {isLoading ? (
-        <InspectionHistorySkeleton columns={columns} />
-      ) : (
-        <DynamicTable
-          columns={columns}
-          rows={rows}
-          title="Inspection History"
-        />
-      )}
+      <DynamicTable columns={columns} rows={rows} title="Inspection History" />
     </>
   )
 }

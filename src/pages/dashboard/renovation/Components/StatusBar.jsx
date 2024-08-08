@@ -23,51 +23,47 @@ const StatusGrid = () => {
 
   return (
     <>
-      {isLoading ? (
-        <StatusGridSkeleton />
-      ) : (
-        <Grid container spacing={2} sx={{ height: { md: '100%', lg: '85px' } }}>
-          {statuses.map((status, index) => (
-            <Grid item xs={12} sm={6} md={3} key={index}>
-              <Item>
-                <Box>
-                  <Typography
-                    sx={{ fontWeight: 400, fontSize: 12, color: 'gray' }}
-                    component="div"
-                  >
-                    {status.title}
-                  </Typography>
-                  <Typography
-                    sx={{ fontWeight: 500, fontSize: 14, color: '#111111' }}
-                  >
-                    {status.status}
-                  </Typography>
-                </Box>
-                <Box
-                  sx={{
-                    width: 56,
-                    height: 56,
-                    borderRadius: '50%',
-                    backgroundColor: '#F5F7FB',
-                    display: 'flex',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    boxShadow: 1,
-                  }}
+      <Grid container spacing={2} sx={{ height: { md: '100%', lg: '85px' } }}>
+        {statuses.map((status, index) => (
+          <Grid item xs={12} sm={6} md={3} key={index}>
+            <Item>
+              <Box>
+                <Typography
+                  sx={{ fontWeight: 400, fontSize: 12, color: 'gray' }}
+                  component="div"
                 >
-                  <Typography
-                    variant="h6"
-                    sx={{ fontWeight: '500', color: '#000000' }}
-                    component="span"
-                  >
-                    {status.number}
-                  </Typography>
-                </Box>
-              </Item>
-            </Grid>
-          ))}
-        </Grid>
-      )}
+                  {status.title}
+                </Typography>
+                <Typography
+                  sx={{ fontWeight: 500, fontSize: 14, color: '#111111' }}
+                >
+                  {status.status}
+                </Typography>
+              </Box>
+              <Box
+                sx={{
+                  width: 56,
+                  height: 56,
+                  borderRadius: '50%',
+                  backgroundColor: '#F5F7FB',
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  boxShadow: 1,
+                }}
+              >
+                <Typography
+                  variant="h6"
+                  sx={{ fontWeight: '500', color: '#000000' }}
+                  component="span"
+                >
+                  {status.number}
+                </Typography>
+              </Box>
+            </Item>
+          </Grid>
+        ))}
+      </Grid>
     </>
   )
 }

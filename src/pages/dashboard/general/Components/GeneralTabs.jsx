@@ -99,70 +99,72 @@ const GeneralTabs = () => {
           background: '#FFFFFF',
           borderRadius: '14px',
           p: { lg: 2, xl: 4 },
-          opacity: 0,
-          transform: 'translateY(20px)',
-          animation: 'fadeInUp 2s ease forwards',
-          '@keyframes fadeInUp': {
-            '0%': {
-              opacity: 0,
-              transform: 'translateY(20px)',
-            },
-            '100%': {
-              opacity: 1,
-              transform: 'translateY(0)',
-            },
-          },
+          // opacity: 0,
+          // transform: 'translateY(20px)',
+          // animation: 'fadeInUp 2s ease forwards',
+          // '@keyframes fadeInUp': {
+          //   '0%': {
+          //     opacity: 0,
+          //     transform: 'translateY(20px)',
+          //   },
+          //   '100%': {
+          //     opacity: 1,
+          //     transform: 'translateY(0)',
+          //   },
+          // },
         }}
       >
-        <Box sx={{ borderBottom: '', borderColor: '' }}>
-          {isSmallScreen ? (
-            <FormControl sx={{ mt: { xs: 3, md: 0 } }} fullWidth>
-              <Select
+        <Box className="fadeInUp">
+          <Box>
+            {isSmallScreen ? (
+              <FormControl sx={{ mt: { xs: 3, md: 0 } }} fullWidth>
+                <Select
+                  value={value}
+                  onChange={(e) => setValue(e.target.value)}
+                  displayEmpty
+                  inputProps={{ 'aria-label': 'Without label' }}
+                >
+                  <MenuItem value={0}>Dashboard</MenuItem>
+                  <MenuItem value={1}>Inspection Building</MenuItem>
+                </Select>
+              </FormControl>
+            ) : (
+              <Tabs
                 value={value}
-                onChange={(e) => setValue(e.target.value)}
-                displayEmpty
-                inputProps={{ 'aria-label': 'Without label' }}
+                onChange={handleChange}
+                aria-label="basic tabs example"
+                TabIndicatorProps={{ style: indicatorStyle }}
               >
-                <MenuItem value={0}>Dashboard</MenuItem>
-                <MenuItem value={1}>Inspection Building</MenuItem>
-              </Select>
-            </FormControl>
-          ) : (
-            <Tabs
-              value={value}
-              onChange={handleChange}
-              aria-label="basic tabs example"
-              TabIndicatorProps={{ style: indicatorStyle }}
-            >
-              <Tab
-                label="Dashboard"
-                {...a11yProps(0)}
-                sx={{
-                  textTransform: 'none',
-                  fontSize: '12px',
-                  lineHeight: '16.34px',
-                  fontWeight: '600',
-                }}
-              />
-              <Tab
-                label="Inspection Building"
-                {...a11yProps(1)}
-                sx={{
-                  textTransform: 'none',
-                  fontSize: '12px',
-                  lineHeight: '16.34px',
-                  fontWeight: '600',
-                }}
-              />
-            </Tabs>
-          )}
+                <Tab
+                  label="Dashboard"
+                  {...a11yProps(0)}
+                  sx={{
+                    textTransform: 'none',
+                    fontSize: '12px',
+                    lineHeight: '16.34px',
+                    fontWeight: '600',
+                  }}
+                />
+                <Tab
+                  label="Inspection Building"
+                  {...a11yProps(1)}
+                  sx={{
+                    textTransform: 'none',
+                    fontSize: '12px',
+                    lineHeight: '16.34px',
+                    fontWeight: '600',
+                  }}
+                />
+              </Tabs>
+            )}
+          </Box>
+          <TabPanel value={value} index={0}>
+            <Dashboard />
+          </TabPanel>
+          <TabPanel value={value} index={1}>
+            <InspectionDashboard />
+          </TabPanel>
         </Box>
-        <TabPanel value={value} index={0}>
-          <Dashboard />
-        </TabPanel>
-        <TabPanel value={value} index={1}>
-          <InspectionDashboard />
-        </TabPanel>
       </Box>
     </>
   )
