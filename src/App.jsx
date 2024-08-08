@@ -13,23 +13,39 @@ import AddBuilding from './pages/dashboard/lists/Components/addBuilding'
 import UpdateBuilding from './pages/dashboard/buildinginfo/Components/updateBuilding'
 import FullFloorDetail from './pages/dashboard/buildinginfo/Components/BuildingDetails/components/fullFloorDetails/FullFloorDetail'
 
-const SignUpPage = lazy(() => import('./pages/signup/SignUp'))
-const List = lazy(() => import('./pages/dashboard/lists'))
-const General = lazy(() => import('./pages/dashboard/general'))
-const Map = lazy(() => import('./pages/dashboard/map'))
-const BuildingInfo = lazy(() => import('./pages/dashboard/buildinginfo'))
-const Setting = lazy(() => import('./pages/dashboard/setting'))
-const Profile = lazy(() => import('./pages/profile'))
-const Sensors = lazy(() => import('./pages/dashboard/sensors/Sensors'))
-const ViewSensor = lazy(() => import('./pages/dashboard/sensors/ViewSensor'))
+// import Without lazy loading
+import SignUpPage from './pages/signup/SignUp'
+import List from './pages/dashboard/lists'
+import General from './pages/dashboard/general'
+import Map from './pages/dashboard/map'
+import BuildingInfo from './pages/dashboard/buildinginfo'
+import Setting from './pages/dashboard/setting'
+import Profile from './pages/profile'
+import Sensors from './pages/dashboard/sensors/Sensors'
+import ViewSensor from './pages/dashboard/sensors/ViewSensor'
 
-const Dashboard = lazy(() => import('./pages/dashboard'))
-const Renovation = lazy(() => import('./pages/dashboard/renovation'))
-const ForgetPassword = lazy(() =>
-  import('./pages/forgetpassword/ForgetPassword')
-)
+import Dashboard from './pages/dashboard'
+import Renovation from './pages/dashboard/renovation'
+import ForgetPassword from './pages/forgetpassword/ForgetPassword'
+import LoginPage from './pages/login/Login'
 
-const LoginPage = lazy(() => import('./pages/login/Login'))
+// import With lazy loading
+
+// const SignUpPage = lazy(() => import('./pages/signup/SignUp'))
+// const List = lazy(() => import('./pages/dashboard/lists'))
+// const General = lazy(() => import('./pages/dashboard/general'))
+// const Map = lazy(() => import('./pages/dashboard/map'))
+// const BuildingInfo = lazy(() => import('./pages/dashboard/buildinginfo'))
+// const Setting = lazy(() => import('./pages/dashboard/setting'))
+// const Profile = lazy(() => import('./pages/profile'))
+// const Sensors = lazy(() => import('./pages/dashboard/sensors/Sensors'))
+// const ViewSensor = lazy(() => import('./pages/dashboard/sensors/ViewSensor'))
+// const Dashboard = lazy(() => import('./pages/dashboard'))
+// const Renovation = lazy(() => import('./pages/dashboard/renovation'))
+// const ForgetPassword = lazy(() =>
+//   import('./pages/forgetpassword/ForgetPassword')
+// )
+// const LoginPage = lazy(() => import('./pages/login/Login'))
 
 const App = () => {
   return (
@@ -54,8 +70,7 @@ const App = () => {
             <Route path="map" element={<Map />} />
             <Route path="service" element={<Setting />} />
             <Route path="floor-detail/:id" element={<FullFloorDetail />} />
-            <Route path="sensors" element={<Sensors />}>
-            </Route>
+            <Route path="sensors" element={<Sensors />}></Route>
             <Route path="view-sensor/:id" element={<ViewSensor />} />
           </Route>
           <Route path="*" element={<Navigate to="/login" />} />

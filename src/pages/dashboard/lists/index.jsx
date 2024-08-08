@@ -67,19 +67,21 @@ const List = () => {
         }}
       >
         <Box
-          sx={{
-            animation: 'fadeInUp 1s ease forwards',
-            '@keyframes fadeInUp': {
-              '0%': {
-                opacity: 1,
-                transform: 'translateY(100vh)',
-              },
-              '100%': {
-                opacity: 1,
-                transform: 'translateY(0)',
-              },
-            },
-          }}
+          className="fadeInUp"
+          sx={
+            {
+              // border: '1px solid red',
+              // animation: 'fadeInUp 2s ease forwards',
+              // '@keyframes fadeInUp': {
+              //   '0%': {
+              //     transform: 'translateY(100vh)',
+              //   },
+              //   '100%': {
+              //     transform: 'translateY(0)',
+              //   },
+              // },
+            }
+          }
         >
           <Box
             sx={{

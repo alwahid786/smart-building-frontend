@@ -69,3 +69,17 @@ a {
 .grayscale-map .leaflet-tile {
   filter: grayscale(100%);
 }
+
+@keyframes fadeInUp {
+  0% {
+    transform: translateY(100vh);
+  }
+
+  100% {
+    transform: translateY(0);
+  }
+}
+
+.fadeInUp {
+  animation: fadeInUp 1s ease forwards;
+}
