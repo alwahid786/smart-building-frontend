@@ -69,7 +69,7 @@ function FloorMediaConsumption() {
           <Grid container spacing={2} sx={{ mt: 2 }} justifyContent="center">
             <Grid item>
               <ProgressWithIcon
-                value={70}
+                value={1}
                 text={'25MWh'}
                 iconComponent={Electricity}
               />
@@ -81,7 +81,7 @@ function FloorMediaConsumption() {
               </Typography>
             </Grid>
             <Grid item>
-              <ProgressWithIcon value={20} text={'25m²'} iconComponent={Fire} />
+              <ProgressWithIcon value={2} text={'25m²'} iconComponent={Fire} />
               <EnergyText>Gas</EnergyText>
               <Typography
                 sx={{ textAlign: 'center', color: 'rgba(250, 61, 69, 1)' }}
@@ -91,7 +91,7 @@ function FloorMediaConsumption() {
             </Grid>
             <Grid item>
               <ProgressWithIcon
-                value={60}
+                value={2}
                 text={'50m²'}
                 iconComponent={Water}
               />

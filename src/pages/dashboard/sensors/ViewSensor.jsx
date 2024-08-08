@@ -5,24 +5,49 @@ import EditSensor from './EditSensor'
 import { useState } from 'react'
 import { axisClasses } from '@mui/x-charts/ChartsAxis'
 import { BarChart } from '@mui/x-charts/BarChart'
-import { useParams } from 'react-router-dom'
-import { useGetSingleBuildingSensorQuery } from '../../../redux/api/sensorApi'
-import { useSelector } from 'react-redux'
+import { useNavigate, useParams } from 'react-router-dom'
+import { useDeleteSensorMutation, useGetSingleBuildingSensorQuery } from '../../../redux/api/sensorApi'
+import { useDispatch, useSelector } from 'react-redux'
 import Stack from '@mui/material/Stack'
 import { dataset } from '../../../../chartjsdata'
+import { setSensorStatus } from '../../../redux/reducers/sensorStatus'
 
 const ViewSensor = () => {
   const [open, setOpen] = useState(false)
   const { sensorStatus } = useSelector((state) => state)
+  const dispatch = useDispatch()
+  const navigate= useNavigate()
+
+  const [deleteSensor] = useDeleteSensorMutation()
+
   // get id
   const { id } = useParams()
   const { data, error } = useGetSingleBuildingSensorQuery(id)
-
-  console.log(sensorStatus)
-
+  
   const handleOpenEditComponent = () => {
     setOpen(true)
   }
+
+  const handleChange = (event) => {
+    const { name, checked } = event.target;
+    dispatch(setSensorStatus({ uniqueId: name, status: checked }));
+  };
+
+  // delete sensor
+  const handleDeleteSensor = async () => {
+    try {
+
+      await deleteSensor(id).unwrap();
+    
+      // window.location.reload();
+      return navigate('/dashboard/sensors')
+
+    } catch (err) {
+      console.error('Failed to delete sensor:', err);
+    }
+  };
+
+
   const handleClose = () => {
     setOpen(false)
   }
@@ -81,7 +106,7 @@ const ViewSensor = () => {
             />
           </Box>
           <Box>
-            <Delete sx={{ color: '#7B42F6', cursor: 'pointer' }} />
+            <Delete sx={{ color: '#7B42F6', cursor: 'pointer' }} onClick={handleDeleteSensor} />
           </Box>
         </Box>
       </Box>
@@ -259,6 +284,8 @@ const ViewSensor = () => {
 
               <Switch
                 checked={sensorStatus[data?.uniqueId]}
+                onChange={handleChange}
+                name={data?.uniqueId}
                 inputProps={{ 'aria-label': 'controlled' }}
                 sx={{
                   '& .MuiSwitch-switchBase.Mui-checked': {

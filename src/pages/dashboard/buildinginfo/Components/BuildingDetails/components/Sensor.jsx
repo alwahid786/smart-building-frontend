@@ -251,40 +251,6 @@ const Sensor = ({ sensors }) => {
                     </Typography>
                   </Box>
                 </Stack>
-
-                {/* <Box
-                  sx={{
-                    marginY: 7,
-                    background: '#FFEAEB',
-                    height: '48px',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'space-between',
-                    padding: '0px 12px',
-                    color: 'black',
-                    borderRadius: '6px',
-                    borderLeft: '4px solid #FA3D45',
-                    lineHeight: '24px',
-                  }}
-                >
-                  <Typography sx={{ fontWeight: '600', fontSize: '13px' }}>
-                    1 sensor has problem
-                  </Typography>
-                  <Box
-                    sx={{ display: 'flex', gap: '5px', alignItems: 'center' }}
-                  >
-                    <Typography sx={{ fontSize: '13px' }}>Error:</Typography>
-                    <Typography
-                      sx={{
-                        fontSize: '13px',
-                        background: '#ffffff',
-                        padding: '3px 10px',
-                      }}
-                    >
-                      u67fYHJ
-                    </Typography>
-                  </Box>
-                </Box> */}
                 <Box
                   sx={{
                     marginY: 7,

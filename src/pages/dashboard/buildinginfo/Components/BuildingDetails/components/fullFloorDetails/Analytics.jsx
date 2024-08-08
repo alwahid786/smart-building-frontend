@@ -16,6 +16,7 @@ import Heating from '../../../../../../../asset/svgs/buildingdetails/Heating'
 
 const Analytics = () => {
   const [isLoading, setIsLoading] = useState(true)
+  const isTrue = false;
 
   useEffect(() => {
     setTimeout(() => {
@@ -77,7 +78,10 @@ const Analytics = () => {
               >
                 Detected problems:
               </Typography>
-              <Box
+
+              {
+
+                isTrue ? <Box
                 sx={{
                   marginBottom: 2,
                   background: '#FFEAEB',
@@ -92,12 +96,31 @@ const Analytics = () => {
                   lineHeight: '24px',
                 }}
               >
-                Heating -{' '}
+                Lighting -{' '}
                 <Typography style={{ fontWeight: '600' }}>
                   1 sensor &nbsp;
                 </Typography>{' '}
-                has problem
+                has problem 
+
+              </Box> : <Box
+                sx={{
+                  marginBottom: 2,
+                  background: '#c5fabe90',
+                  height: '48px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  padding: '0px 12px',
+                  color: '#378a2c',
+                  borderRadius: '6px',
+                  borderLeft: '4px solid #378a2c',
+                  fontSize: '16px',
+                  lineHeight: '24px',
+                  fontWeight: '600',
+                }}
+              >
+                No problems found
               </Box>
+              } 
 
               <Typography
                 sx={{
