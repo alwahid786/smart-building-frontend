@@ -91,7 +91,7 @@ const BuildingCard = () => {
   };
 
   const cardMapClickHandler = () => {
-    console.log('Map Clicked', id);
+ 
     navigate('/dashboard/map', { state: { buildingId: id } });
   };
 

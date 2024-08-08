@@ -1,16 +1,13 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
+import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 export const buildingApiPoint = createApi({
   reducerPath: 'buildingApi',
-
   baseQuery: fetchBaseQuery({
-    // baseUrl: "https://smart-building-backend-production-ecd0.up.railway.app",
     baseUrl: "http://localhost:4000",
     credentials: 'include',
   }),
-
   endpoints: (builder) => ({
-    // add building
+    // Add building
     addBuilding: builder.mutation({
       query: (data) => ({
         url: '/api/create/building',
@@ -19,7 +16,7 @@ export const buildingApiPoint = createApi({
       }),
     }),
 
-    // add building floor
+    // Add building floor
     addBuildingFloor: builder.mutation({
       query: (data) => ({
         url: '/api/create/floor',
@@ -28,7 +25,7 @@ export const buildingApiPoint = createApi({
       }),
     }),
 
-    // add building image
+    // Add building image
     addBuildingImage: builder.mutation({
       query: (data) => ({
         url: '/api/create/building-image',
@@ -37,7 +34,7 @@ export const buildingApiPoint = createApi({
       }),
     }),
 
-    // get all building
+    // Get all buildings
     getBuilding: builder.query({
       query: () => ({
         url: '/api/all-building',
@@ -45,7 +42,7 @@ export const buildingApiPoint = createApi({
       }),
     }),
 
-    // get all building by user
+    // Get all buildings by user
     getBuildingByUser: builder.query({
       query: () => ({
         url: '/api/user-building',
@@ -53,15 +50,15 @@ export const buildingApiPoint = createApi({
       }),
     }),
 
-    // get single building
+    // Get single building
     getSingleBuilding: builder.query({
-      query: (data) => ({
-        url: `/api/single-building/${data}`,
+      query: (id) => ({
+        url: `/api/single-building/${id}`,
         method: 'GET',
       }),
     }),
 
-    // update building
+    // Update building
     updateBuilding: builder.mutation({
       query: ({ id, data }) => ({
         url: `/api/update-building/${id}`,
@@ -70,7 +67,7 @@ export const buildingApiPoint = createApi({
       }),
     }),
 
-    // delete building
+    // Delete building
     deleteBuilding: builder.mutation({
       query: (id) => ({
         url: `/api/delete-building/${id}`,
@@ -78,6 +75,7 @@ export const buildingApiPoint = createApi({
       }),
     }),
 
+    // Add building location
     buildingLocation: builder.mutation({
       query: ({ data, buildingId }) => ({
         url: `/api/add-building-location/${buildingId}`,
@@ -86,7 +84,24 @@ export const buildingApiPoint = createApi({
       }),
     }),
 
-    // user profile
+    // Get building sensors
+    getBuildingSensors: builder.query({
+      query: (id) => ({
+        url: `/building/${id}/sensors`,
+        method: 'GET',
+      }),
+    }),
+
+    // Search buildings
+    searchBuildings: builder.query({
+      query: (searchTerm) => ({
+        url: `/api/search-buildings`,
+        method: 'GET',
+        params: { query: searchTerm },
+      }),
+    }),
+
+    // User profile
     getUserDetail: builder.query({
       query: () => ({
         url: `/api/user/userProfile`,
@@ -94,7 +109,7 @@ export const buildingApiPoint = createApi({
       }),
     }),
 
-    // user update profile
+    // Update user profile
     updateProfile: builder.mutation({
       query: ({ id, formData }) => ({
         url: `/api/user/update-user/${id}`,
@@ -103,7 +118,7 @@ export const buildingApiPoint = createApi({
       }),
     }),
   }),
-})
+});
 
 export const {
   useAddBuildingMutation,
@@ -117,4 +132,6 @@ export const {
   useBuildingLocationMutation,
   useDeleteBuildingMutation,
   useGetBuildingByUserQuery,
-} = buildingApiPoint
+  useGetBuildingSensorsQuery,
+  useSearchBuildingsQuery,
+} = buildingApiPoint;

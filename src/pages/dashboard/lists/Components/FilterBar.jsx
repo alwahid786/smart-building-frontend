@@ -1,194 +1,122 @@
-import React, { useState, useEffect } from 'react'
-import {
-  Box,
-  TextField,
-  InputAdornment,
-  // useMediaQuery,
-  MenuItem,
-  Select,
-} from '@mui/material'
-import SearchIcon from '../../../../asset/svgs/SearchIcon'
-// import { useTheme } from '@mui/material/styles'
-import { FilterSkeleton } from '../../../../components/Skeleton'
-import Filter from '../../../../asset/svgs/Filter'
-import RedHeartIcon from '../../../../asset/svgs/RedHeartIcon'
+/* eslint-disable react/prop-types */
+import { Box, TextField, InputAdornment, Select, MenuItem } from '@mui/material'
+import SearchIcon from '@mui/icons-material/Search'
+import { useEffect, useState } from 'react'
+import useDebounce from '../../../../hooks/useDebounce'
 import AddIcon from '../../../../asset/svgs/AddIcon'
-import BackFilter from '../../../../asset/svgs/BackFilter'
+import RedHeartIcon from '../../../../asset/svgs/RedHeartIcon'
 import { Link } from 'react-router-dom'
+import BackFilter from '../../../../asset/svgs/BackFilter'
+import Filter from '../../../../asset/svgs/Filter'
 
-const FilterBar = () => {
-  // const [isActive, setIsActive] = useState(false)
-  const [value, setValue] = React.useState('')
-  // const { isLoading } = useSelector((state) => state.loading)
+const FilterBar = ({ onSearchTermChange }) => {
+  const [searchTerm, setSearchTerm] = useState('')
+  const debouncedSearchTerm = useDebounce(searchTerm, 700)
+  const [isFilterOpen, setIsFilterOpen] = useState(false)
+
+  const [value, setValue] = useState('')
+
+  const handleSearchChange = (e) => {
+    setSearchTerm(e.target.value)
+  }
 
   const handleChange = (event) => {
     setValue(event.target.value)
   }
-  // const toggleHeart = () => {
-  //   setIsActive(!isActive)
-  // }
-  // const theme = useTheme()
-  // const isMediumScreen = useMediaQuery(theme.breakpoints.down('md'))
-  // const [anchorEl, setAnchorEl] = useState(null)
-  // const open = Boolean(anchorEl)
-
-  // const handleClick = (event) => {
-  //   setAnchorEl(event.currentTarget)
-  // }
-
-  // const handleClose = () => {
-  //   setAnchorEl(null)
-  // }
-
-  const [isLoading, setIsLoading] = useState(true)
-  const [isFilterOpen, setIsFilterOpen] = useState(false)
 
   const toggleFilterIcon = () => {
     setIsFilterOpen(!isFilterOpen)
   }
 
+  // Pass debounced search term to parent component
   useEffect(() => {
-    setTimeout(() => {
-      setIsLoading(false)
-    }, 3000)
-  }, [])
+    onSearchTermChange(debouncedSearchTerm)
+  }, [debouncedSearchTerm, onSearchTermChange])
 
   return (
-    <>
-      {/* {isLoading ? (
-        <FilterSkeleton />
-      ) : ( */}
-      <Box
-        sx={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'end',
-
-          margin: '0 auto',
-          gap: 2,
-          p: 2,
-          backgroundColor: 'rgba(255, 255, 255, 1)',
-          maxWidth: '100%',
-          borderRadius: 2,
-        }}
-      >
-        <Box
-          sx={{
-            display: 'flex',
-            alignItems: 'end',
-            gap: { sm: 1, xs: 0.5 },
+    <Box
+      sx={{
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        padding: '10px',
+        backgroundColor: '#FFFFFF',
+      }}
+    >
+      <Box sx={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+        <TextField
+          variant="outlined"
+          size="small"
+          placeholder="Search by name"
+          onChange={handleSearchChange}
+          InputProps={{
+            endAdornment: (
+              <InputAdornment position="end">
+                <SearchIcon />
+              </InputAdornment>
+            ),
           }}
-        >
-          {/* <Box sx={{}}> */}
-          <TextField
-            variant="outlined"
-            size="small"
-            sx={{
-              flexGrow: 1,
-              width: 'auto',
-              '& .MuiInput-underline:before': {
-                borderBottom: '2px solid rgba(17, 17, 17, 0.2)',
-              },
-              '& .MuiInput-underline:hover:not(.Mui-disabled):before': {
-                borderBottom: '2px solid rgba(17, 17, 17, 0.2)',
-              },
-              '& .MuiInput-underline:after': {
-                borderBottomColor: 'rgba(17, 17, 17, 0.2)',
-              },
-            }}
-            InputLabelProps={{
-              style: {
-                color: 'rgba(17, 17, 17, 0.2)',
-                fontWeight: 'bold',
-                fontSize: '12px',
-                display: 'none',
-              },
-            }}
-            InputProps={{
-              endAdornment: (
-                <InputAdornment position="end" sx={{ cursor: 'pointer' }}>
-                  <SearchIcon />
-                </InputAdornment>
-              ),
-            }}
-            placeholder="Search by name"
-          />
-          {isFilterOpen && (
-            <>
-              <Select
-                value={value}
-                onChange={handleChange}
-                displayEmpty
-                inputProps={{ 'aria-label': 'Without label' }}
-                sx={{ width: 120, height: 40 }}
-              >
-                <MenuItem value="">
-                  <span
-                    style={{
-                      color: 'rgba(17, 17, 17, 0.6)',
-                      fontSize: '14px',
-                    }}
-                  >
-                    Status
-                  </span>
-                </MenuItem>
-                <MenuItem value="1">Status 1</MenuItem>
-                <MenuItem value="2">Status 2</MenuItem>
-              </Select>
-              <Select
-                value={value}
-                onChange={handleChange}
-                displayEmpty
-                inputProps={{ 'aria-label': 'Without label' }}
-                sx={{ width: 120, height: 40 }}
-              >
-                <MenuItem value="">
-                  <span
-                    style={{
-                      color: 'rgba(17, 17, 17, 0.6)',
-                      fontSize: '14px',
-                    }}
-                  >
-                    City
-                  </span>
-                </MenuItem>
-                <MenuItem value="1">City 1</MenuItem>
-                <MenuItem value="2">City 2</MenuItem>
-              </Select>
-            </>
-          )}
+        />
 
-          <Box sx={{ cursor: 'pointer' }} onClick={toggleFilterIcon}>
-            {!isFilterOpen ? <Filter /> : <BackFilter />}
-          </Box>
-          {/* <Box sx={{ cursor: 'pointer' }}>
-              <BackFilter />
-            </Box> */}
-          <Box sx={{ cursor: 'pointer' }}>
-            <RedHeartIcon />
-          </Box>
+        {isFilterOpen && (
+          <>
+            <Select
+              value={value}
+              onChange={handleChange}
+              displayEmpty
+              inputProps={{ 'aria-label': 'Status' }}
+              sx={{ width: 120, height: 40 }}
+            >
+              <MenuItem value="">
+                <span
+                  style={{
+                    color: 'rgba(17, 17, 17, 0.6)',
+                    fontSize: '14px',
+                  }}
+                >
+                  Status
+                </span>
+              </MenuItem>
+              <MenuItem value="1">Status 1</MenuItem>
+              <MenuItem value="2">Status 2</MenuItem>
+            </Select>
+            <Select
+              value={value}
+              onChange={handleChange}
+              displayEmpty
+              inputProps={{ 'aria-label': 'City' }}
+              sx={{ width: 120, height: 40 }}
+            >
+              <MenuItem value="">
+                <span
+                  style={{
+                    color: 'rgba(17, 17, 17, 0.6)',
+                    fontSize: '14px',
+                  }}
+                >
+                  City
+                </span>
+              </MenuItem>
+              <MenuItem value="1">City 1</MenuItem>
+              <MenuItem value="2">City 2</MenuItem>
+            </Select>
+          </>
+        )}
+
+        <Box sx={{ cursor: 'pointer' }} onClick={toggleFilterIcon}>
+          {!isFilterOpen ? <Filter /> : <BackFilter />}
         </Box>
-
-        <Box
-          sx={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            gap: { sm: 1, xs: 0.5 },
-          }}
-        >
-          {/* <Box sx={{ cursor: 'pointer' }}>
-              <DeleteIcon />
-            </Box> */}
-          <Link to="/dashboard/addbuilding">
-            <Box sx={{ cursor: 'pointer' }}>
-              <AddIcon />
-            </Box>
-          </Link>
+        <Box sx={{ cursor: 'pointer' }}>
+          <RedHeartIcon />
         </Box>
       </Box>
-      {/* )} */}
-    </>
+
+      <Link to="/dashboard/addbuilding">
+        <Box sx={{ cursor: 'pointer' }}>
+          <AddIcon />
+        </Box>
+      </Link>
+    </Box>
   )
 }
 
