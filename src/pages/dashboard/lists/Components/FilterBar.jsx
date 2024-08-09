@@ -162,9 +162,10 @@ const FilterBar = ({ onSearchTermChange, onFilterChange }) => {
                 Area
               </span>
             </MenuItem>
-            <MenuItem value="2-8">0 - 8</MenuItem>
-            <MenuItem value="9-20">9 - 20</MenuItem>
-            <MenuItem value="21-30">21 - 30</MenuItem>
+            <MenuItem value="0-500">0 - 500</MenuItem>
+            <MenuItem value="500-1000">500 - 1000</MenuItem>
+            <MenuItem value="1000-1500">1000 - 1500</MenuItem>
+            <MenuItem value="1500-2000">1500 - 2000</MenuItem>
             {/* Add more ranges as needed */}
           </Select>
 
