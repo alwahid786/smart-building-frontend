@@ -92,20 +92,20 @@ export const buildingApiPoint = createApi({
       }),
     }),
 
-    // Search buildings
-    searchBuildings: builder.query({
-      query: ({ searchTerm, range, startYear, endYear }) => {
+     // Search buildings with filters
+     searchBuildings: builder.query({
+      query: ({ searchTerm, range, constructionYear }) => {
+        // Build query parameters
         const queryParams = new URLSearchParams({
-          query: searchTerm || '',
+          query: searchTerm || '', // Use searchTerm as a parameter
           range: range || '', // Handle case where range might be undefined
-          start_year: startYear || '', // Handle case where startYear might be undefined
-          end_year: endYear || '', // Handle case where endYear might be undefined
-        }).toString()
+          construction_year: constructionYear || '', // Use construction_year
+        }).toString();
 
         return {
           url: `/api/search-buildings?${queryParams}`,
           method: 'GET',
-        }
+        };
       },
     }),
 

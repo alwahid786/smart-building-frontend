@@ -1,56 +1,66 @@
 /* eslint-disable react/prop-types */
-import { useState, useEffect } from 'react'
-import { Box, TextField, InputAdornment, MenuItem, Select, Button } from '@mui/material'
-import SearchIcon from '../../../../asset/svgs/SearchIcon'
-import Filter from '../../../../asset/svgs/Filter'
-import RedHeartIcon from '../../../../asset/svgs/RedHeartIcon'
-import AddIcon from '../../../../asset/svgs/AddIcon'
-import BackFilter from '../../../../asset/svgs/BackFilter'
-import { Link } from 'react-router-dom'
-import useDebounce from '../../../../hooks/useDebounce'
+import {
+  Box,
+  TextField,
+  InputAdornment,
+  MenuItem,
+  Select,
+  Button,
+} from '@mui/material';
+import SearchIcon from '../../../../asset/svgs/SearchIcon';
+import Filter from '../../../../asset/svgs/Filter';
+import RedHeartIcon from '../../../../asset/svgs/RedHeartIcon';
+import AddIcon from '../../../../asset/svgs/AddIcon';
+import BackFilter from '../../../../asset/svgs/BackFilter';
+import { useState, useEffect } from 'react';
+import useDebounce from '../../../../hooks/useDebounce';
+import { Link } from 'react-router-dom';
+import DatePicker from 'react-datepicker';
+import "react-datepicker/dist/react-datepicker.css";
 
 const FilterBar = ({ onSearchTermChange, onFilterChange }) => {
-  const [searchTerm, setSearchTerm] = useState('')
-  const debouncedSearchTerm = useDebounce(searchTerm, 300)
-  const [range, setRange] = useState('')
-  const [startYear, setStartYear] = useState('')
-  const [endYear, setEndYear] = useState('')
-  const [isFilterOpen, setIsFilterOpen] = useState(false)
+  const [searchTerm, setSearchTerm] = useState('');
+  const debouncedSearchTerm = useDebounce(searchTerm, 300);
+  const [range, setRange] = useState('');
+  const [constructionYear, setConstructionYear] = useState(null); // Set initial state to null
+  const [isFilterOpen, setIsFilterOpen] = useState(false);
+
+  // Handle date change and extract year
+  const handleDateChange = (date) => {
+    if (date) {
+      const year = date.getFullYear();
+      setConstructionYear(year);
+    } else {
+      setConstructionYear(null); // Reset to null if no date selected
+    }
+
+  };
 
   const handleRangeChange = (event) => {
-    setRange(event.target.value)
-  }
-
-  const handleStartYearChange = (event) => {
-    setStartYear(event.target.value)
-  }
-
-  const handleEndYearChange = (event) => {
-    setEndYear(event.target.value)
-  }
+    setRange(event.target.value);
+  };
 
   const toggleFilterIcon = () => {
-    setIsFilterOpen(!isFilterOpen)
-  }
+    setIsFilterOpen(!isFilterOpen);
+  };
 
   const handleSearchChange = (e) => {
-    setSearchTerm(e.target.value)
-  }
+    setSearchTerm(e.target.value);
+  };
 
   const handleClearFilters = () => {
-    setSearchTerm('')
-    setRange('')
-    setStartYear('')
-    setEndYear('')
-  }
+    setSearchTerm('');
+    setRange('');
+    setConstructionYear(null); // Reset to null
+  };
 
   useEffect(() => {
-    onSearchTermChange(debouncedSearchTerm)
-  }, [debouncedSearchTerm, onSearchTermChange])
+    onSearchTermChange(debouncedSearchTerm);
+  }, [debouncedSearchTerm, onSearchTermChange]);
 
   useEffect(() => {
-    onFilterChange({ range, startYear, endYear })
-  }, [range, startYear, endYear, onFilterChange])
+    onFilterChange({ range, constructionYear });
+  }, [range, constructionYear, onFilterChange]);
 
   return (
     <Box
@@ -88,14 +98,6 @@ const FilterBar = ({ onSearchTermChange, onFilterChange }) => {
             },
             '& .MuiInput-underline:after': {
               borderBottomColor: 'rgba(17, 17, 17, 0.2)',
-            },
-          }}
-          InputLabelProps={{
-            style: {
-              color: 'rgba(17, 17, 17, 0.2)',
-              fontWeight: 'bold',
-              fontSize: '12px',
-              display: 'hidden',
             },
           }}
           InputProps={{
@@ -166,51 +168,64 @@ const FilterBar = ({ onSearchTermChange, onFilterChange }) => {
             {/* Add more ranges as needed */}
           </Select>
 
-          <Select
-            value={startYear}
-            onChange={handleStartYearChange}
-            displayEmpty
-            inputProps={{ 'aria-label': 'Start Year' }}
-            sx={{ width: 200, height: 40 }}
-          >
-            <MenuItem value="">
-              <span
-                style={{ color: 'rgba(17, 17, 17, 0.6)', fontSize: '14px' }}
-              >
-                Start Year
-              </span>
-            </MenuItem>
-            <MenuItem value="2000">2000</MenuItem>
-            <MenuItem value="2005">2005</MenuItem>
-            <MenuItem value="2010">2010</MenuItem>
-            <MenuItem value="2015">2015</MenuItem>
-            <MenuItem value="2020">2020</MenuItem>
-            <MenuItem value="2025">2025</MenuItem>
-            {/* Add more years as needed */}
-          </Select>
-
-          <Select
-            value={endYear}
-            onChange={handleEndYearChange}
-            displayEmpty
-            inputProps={{ 'aria-label': 'End Year' }}
-            sx={{ width: 200, height: 40 }}
-          >
-            <MenuItem value="">
-              <span
-                style={{ color: 'rgba(17, 17, 17, 0.6)', fontSize: '14px' }}
-              >
-                End Year
-              </span>
-            </MenuItem>
-            <MenuItem value="2005">2005</MenuItem>
-            <MenuItem value="2010">2010</MenuItem>
-            <MenuItem value="2015">2015</MenuItem>
-            <MenuItem value="2020">2020</MenuItem>
-            <MenuItem value="2025">2025</MenuItem>
-            <MenuItem value="2030">2030</MenuItem>
-            {/* Add more years as needed */}
-          </Select>
+          <Box
+      sx={{
+        marginRight:"20px",
+        '.react-datepicker-wrapper': {
+          width: '100%',
+        },
+        '.react-datepicker__input-container': {
+          width: '100%',
+        },
+        '.react-datepicker__year-read-view--down-arrow': {
+          borderColor: 'transparent transparent #000 transparent', // Customize the dropdown arrow
+        },
+        '.react-datepicker__year-dropdown': {
+          backgroundColor: '#fff', // Background color of the year dropdown
+          border: '1px solid #ccc',
+          boxShadow: '0px 2px 8px rgba(0, 0, 0, 0.1)',
+          borderRadius: '8px',
+        },
+        '.react-datepicker__year-option': {
+          fontSize: '1rem',
+          padding: '10px 15px',
+        },
+        '.react-datepicker__year-option:hover': {
+          backgroundColor: '#f0f0f0', // Hover effect for dropdown items
+        },
+        '.react-datepicker__year-option--selected': {
+          backgroundColor: '#007bff', // Selected year background color
+          color: '#fff', // Selected year text color
+        },
+        '.react-datepicker__input-container input': {
+          width: '100%',
+          padding: '8px 12px',
+          fontSize: '1rem',
+          borderRadius: '6px',
+          border: '1px solid #ccc',
+          backgroundColor: '#f9f9f9', // Input background color
+          '&:hover': {
+            borderColor: '#007bff', // Hover effect for input border
+          },
+          '&:focus': {
+            borderColor: '#007bff', // Focus effect for input border
+            outline: 'none',
+          },
+        },
+        '.react-datepicker__triangle': {
+          display: 'none', // Hide the small arrow above the datepicker
+        },
+      }}
+    >
+      <DatePicker
+        id="DatePicker"
+        selected={constructionYear ? new Date(constructionYear, 0, 1) : null}
+        onChange={handleDateChange}
+        showYearPicker
+        dateFormat="yyyy"
+        placeholderText="Construction Year"
+      />
+    </Box>
         </Box>
 
         {/* BackFilter and Red Heart Icon */}
@@ -266,7 +281,7 @@ const FilterBar = ({ onSearchTermChange, onFilterChange }) => {
         </Button>
       </Box>
     </Box>
-  )
-}
+  );
+};
 
-export default FilterBar
+export default FilterBar;
