@@ -3,7 +3,8 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 export const buildingApiPoint = createApi({
   reducerPath: 'buildingApi',
   baseQuery: fetchBaseQuery({
-    baseUrl: 'http://localhost:4000',
+    // baseUrl: 'http://localhost:4000',
+    baseUrl: "https://smart-building-backend-production-ecd0.up.railway.app",
     credentials: 'include',
   }),
   endpoints: (builder) => ({

@@ -282,7 +282,7 @@ const BuildingCard = () => {
                   lineHeight: '19.07px',
                 }}
               >
-                {moment(data?.createdAt).format('YYYY-MM-DD HH:mm:ss')}
+                {moment(data?.constructionYear).format('YYYY-MM-DD HH:mm:ss')}
               </Typography>
             </Box>
           </Box>
