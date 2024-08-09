@@ -92,21 +92,22 @@ export const buildingApiPoint = createApi({
       }),
     }),
 
-  // Search buildings
-searchBuildings: builder.query({
-  query: ({ searchTerm, range }) => {
-    const queryParams = new URLSearchParams({
-      query: searchTerm,
-      range: range || '', // Handle case where range might be undefined
-    }).toString();
+    // Search buildings
+    searchBuildings: builder.query({
+      query: ({ searchTerm, range, startYear, endYear }) => {
+        const queryParams = new URLSearchParams({
+          query: searchTerm || '',
+          range: range || '', // Handle case where range might be undefined
+          start_year: startYear || '', // Handle case where startYear might be undefined
+          end_year: endYear || '', // Handle case where endYear might be undefined
+        }).toString()
 
-    return {
-      url: `/api/search-buildings?${queryParams}`,
-      method: 'GET',
-    }
-  },
-}),
-
+        return {
+          url: `/api/search-buildings?${queryParams}`,
+          method: 'GET',
+        }
+      },
+    }),
 
     // User profile
     getUserDetail: builder.query({

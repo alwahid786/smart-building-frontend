@@ -1,8 +1,6 @@
 /* eslint-disable react/prop-types */
-// FilterBar.js
-
 import { useState, useEffect } from 'react'
-import { Box, TextField, InputAdornment, MenuItem, Select } from '@mui/material'
+import { Box, TextField, InputAdornment, MenuItem, Select, Button } from '@mui/material'
 import SearchIcon from '../../../../asset/svgs/SearchIcon'
 import Filter from '../../../../asset/svgs/Filter'
 import RedHeartIcon from '../../../../asset/svgs/RedHeartIcon'
@@ -15,15 +13,20 @@ const FilterBar = ({ onSearchTermChange, onFilterChange }) => {
   const [searchTerm, setSearchTerm] = useState('')
   const debouncedSearchTerm = useDebounce(searchTerm, 300)
   const [range, setRange] = useState('')
-  const [city, setCity] = useState('')
+  const [startYear, setStartYear] = useState('')
+  const [endYear, setEndYear] = useState('')
   const [isFilterOpen, setIsFilterOpen] = useState(false)
 
   const handleRangeChange = (event) => {
     setRange(event.target.value)
   }
 
-  const handleCityChange = (event) => {
-    setCity(event.target.value)
+  const handleStartYearChange = (event) => {
+    setStartYear(event.target.value)
+  }
+
+  const handleEndYearChange = (event) => {
+    setEndYear(event.target.value)
   }
 
   const toggleFilterIcon = () => {
@@ -34,13 +37,20 @@ const FilterBar = ({ onSearchTermChange, onFilterChange }) => {
     setSearchTerm(e.target.value)
   }
 
+  const handleClearFilters = () => {
+    setSearchTerm('')
+    setRange('')
+    setStartYear('')
+    setEndYear('')
+  }
+
   useEffect(() => {
     onSearchTermChange(debouncedSearchTerm)
   }, [debouncedSearchTerm, onSearchTermChange])
 
   useEffect(() => {
-    onFilterChange({ range, city })
-  }, [range, city, onFilterChange])
+    onFilterChange({ range, startYear, endYear })
+  }, [range, startYear, endYear, onFilterChange])
 
   return (
     <Box
@@ -155,26 +165,51 @@ const FilterBar = ({ onSearchTermChange, onFilterChange }) => {
             <MenuItem value="21-30">21 - 30</MenuItem>
             {/* Add more ranges as needed */}
           </Select>
+
           <Select
-            value={city}
-            onChange={handleCityChange}
+            value={startYear}
+            onChange={handleStartYearChange}
             displayEmpty
-            inputProps={{ 'aria-label': 'City' }}
-            sx={{ width: 120, height: 40 }}
+            inputProps={{ 'aria-label': 'Start Year' }}
+            sx={{ width: 200, height: 40 }}
           >
             <MenuItem value="">
               <span
-                style={{
-                  color: 'rgba(17, 17, 17, 0.6)',
-                  fontSize: '14px',
-                }}
+                style={{ color: 'rgba(17, 17, 17, 0.6)', fontSize: '14px' }}
               >
-                City
+                Start Year
               </span>
             </MenuItem>
-            <MenuItem value="City1">City 1</MenuItem>
-            <MenuItem value="City2">City 2</MenuItem>
-            {/* Add more cities as needed */}
+            <MenuItem value="2000">2000</MenuItem>
+            <MenuItem value="2005">2005</MenuItem>
+            <MenuItem value="2010">2010</MenuItem>
+            <MenuItem value="2015">2015</MenuItem>
+            <MenuItem value="2020">2020</MenuItem>
+            <MenuItem value="2025">2025</MenuItem>
+            {/* Add more years as needed */}
+          </Select>
+
+          <Select
+            value={endYear}
+            onChange={handleEndYearChange}
+            displayEmpty
+            inputProps={{ 'aria-label': 'End Year' }}
+            sx={{ width: 200, height: 40 }}
+          >
+            <MenuItem value="">
+              <span
+                style={{ color: 'rgba(17, 17, 17, 0.6)', fontSize: '14px' }}
+              >
+                End Year
+              </span>
+            </MenuItem>
+            <MenuItem value="2005">2005</MenuItem>
+            <MenuItem value="2010">2010</MenuItem>
+            <MenuItem value="2015">2015</MenuItem>
+            <MenuItem value="2020">2020</MenuItem>
+            <MenuItem value="2025">2025</MenuItem>
+            <MenuItem value="2030">2030</MenuItem>
+            {/* Add more years as needed */}
           </Select>
         </Box>
 
@@ -219,6 +254,16 @@ const FilterBar = ({ onSearchTermChange, onFilterChange }) => {
             <AddIcon />
           </Box>
         </Link>
+
+        {/* Clear Filters Button */}
+        <Button
+          variant="outlined"
+          color="primary"
+          size="small"
+          onClick={handleClearFilters}
+        >
+          Clear Filters
+        </Button>
       </Box>
     </Box>
   )

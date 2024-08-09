@@ -1,28 +1,29 @@
-import { Box, Grid, Typography } from '@mui/material';
+import { Box, Grid, Typography, CircularProgress } from '@mui/material';
 import BuildingStatus from './Components/BuildingStatus';
 import FilterBar from './Components/FilterBar';
 import ListCard from './Components/ListCard';
 import AddCard from './Components/AddCard';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, useMemo } from 'react';
 import { useSearchBuildingsQuery } from '../../../redux/api/buildingApi';
 
 const List = () => {
   const [isSticky, setIsSticky] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
   const [range, setRange] = useState('');
+  const [startYear, setStartYear] = useState('');  // Start year state
+  const [endYear, setEndYear] = useState('');      // End year state
+
   const scrollContainerRef = useRef(null);
 
-  // API call to search buildings
-  const { data: filteredBuildings = [], error, isLoading } = useSearchBuildingsQuery({ searchTerm, range });
-  const buildingLength = filteredBuildings?.length;
+  // API call to search buildings with year filter
+  const { data: filteredBuildings = [], error, isLoading } = useSearchBuildingsQuery({
+    searchTerm,
+    range,
+    startYear,  // Include start year filter
+    endYear,    // Include end year filter
+  });
 
-  // Handle scrolling for sticky header
-  const handleScroll = () => {
-    if (scrollContainerRef.current) {
-      const scrollTop = scrollContainerRef.current.scrollTop;
-      setIsSticky(scrollTop > 100);
-    }
-  };
+  const buildingLength = useMemo(() => filteredBuildings?.length, [filteredBuildings]);
 
   useEffect(() => {
     const scrollContainer = scrollContainerRef.current;
@@ -35,12 +36,22 @@ const List = () => {
     }
   }, []);
 
+  const handleScroll = () => {
+    if (scrollContainerRef.current.scrollTop > 0) {
+      setIsSticky(true);
+    } else {
+      setIsSticky(false);
+    }
+  };
+
   const handleSearchTermChange = (term) => {
     setSearchTerm(term);
   };
 
   const onFilterChange = (filter) => {
-    setRange(filter.range);
+    if (filter.range) setRange(filter.range);
+    if (filter.startYear) setStartYear(filter.startYear);  // Update start year filter
+    if (filter.endYear) setEndYear(filter.endYear);        // Update end year filter
   };
 
   return (
@@ -118,9 +129,10 @@ const List = () => {
           }}
         >
           {isLoading ? (
-            <p>Loading...</p>
+            <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%' }}>
+              <CircularProgress />
+            </Box>
           ) : error ? (
-            
             <Typography
               sx={{
                 display: 'flex',
@@ -131,38 +143,28 @@ const List = () => {
                 fontSize: '1.3rem',
               }}
             >
-              {error?.data?.message}  
-
+              {error?.data?.message || 'An error occurred. Please try again later.'}
             </Typography>
           ) : filteredBuildings.length === 0 ? (
             <AddCard />
           ) : (
             <Grid container spacing={2}>
-              {filteredBuildings.map((building) => {
-
-                return (
-                  <Grid item xs={12} sm={12} md={6} lg={4} key={building?.buildingInfo?._id}>
-                    <ListCard
-                      imageUrl={building?.buildingInfo?.images[0] || null}
-                      subtitle={building?.buildingInfo
-                        ?.ownerName}
-                      status="Status Example"
-                      title={building?.buildingInfo
-                        ?.buildingName}
-                      tags={building?.buildingInfo
-                        ?.ownerName}
-                      numberOfFloors={building?.buildingInfo
-                        ?.numberOfFloors}
-                      totalArea={building?.buildingInfo
-                        ?.totalArea}
-                      buildingId={building?.buildingInfo
-                        ?._id}
-                      actionText="See Details"
-                      sensorCount={building?.sensors?.length}
-                    />
-                  </Grid>
-                );
-              })}
+              {filteredBuildings.map((building) => (
+                <Grid item xs={12} sm={12} md={6} lg={4} key={building?.buildingInfo?._id}>
+                  <ListCard
+                    imageUrl={building?.buildingInfo?.images[0] || null}
+                    subtitle={building?.buildingInfo?.ownerName}
+                    status="Status Example"
+                    title={building?.buildingInfo?.buildingName}
+                    tags={building?.buildingInfo?.ownerName}
+                    numberOfFloors={building?.buildingInfo?.numberOfFloors}
+                    totalArea={building?.buildingInfo?.totalArea}
+                    buildingId={building?.buildingInfo?._id}
+                    actionText="See Details"
+                    sensorCount={building?.sensors?.length}
+                  />
+                </Grid>
+              ))}
             </Grid>
           )}
         </Box>
