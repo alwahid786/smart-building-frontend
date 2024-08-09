@@ -1,4 +1,5 @@
-// hooks/useDebounce.js
+// useDebounce.js
+
 import { useState, useEffect } from 'react';
 
 const useDebounce = (value, delay) => {

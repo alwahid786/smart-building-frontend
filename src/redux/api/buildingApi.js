@@ -1,9 +1,9 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 
 export const buildingApiPoint = createApi({
   reducerPath: 'buildingApi',
   baseQuery: fetchBaseQuery({
-    baseUrl: "http://localhost:4000",
+    baseUrl: 'http://localhost:4000',
     credentials: 'include',
   }),
   endpoints: (builder) => ({
@@ -92,14 +92,21 @@ export const buildingApiPoint = createApi({
       }),
     }),
 
-    // Search buildings
-    searchBuildings: builder.query({
-      query: (searchTerm) => ({
-        url: `/api/search-buildings`,
-        method: 'GET',
-        params: { query: searchTerm },
-      }),
-    }),
+  // Search buildings
+searchBuildings: builder.query({
+  query: ({ searchTerm, range }) => {
+    const queryParams = new URLSearchParams({
+      query: searchTerm,
+      range: range || '', // Handle case where range might be undefined
+    }).toString();
+
+    return {
+      url: `/api/search-buildings?${queryParams}`,
+      method: 'GET',
+    }
+  },
+}),
+
 
     // User profile
     getUserDetail: builder.query({
@@ -118,7 +125,7 @@ export const buildingApiPoint = createApi({
       }),
     }),
   }),
-});
+})
 
 export const {
   useAddBuildingMutation,
@@ -134,4 +141,4 @@ export const {
   useGetBuildingByUserQuery,
   useGetBuildingSensorsQuery,
   useSearchBuildingsQuery,
-} = buildingApiPoint;
+} = buildingApiPoint

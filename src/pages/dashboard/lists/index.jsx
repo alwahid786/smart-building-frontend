@@ -4,17 +4,17 @@ import FilterBar from './Components/FilterBar';
 import ListCard from './Components/ListCard';
 import AddCard from './Components/AddCard';
 import { useEffect, useRef, useState } from 'react';
-import { useGetBuildingQuery } from '../../../redux/api/buildingApi';
+import { useSearchBuildingsQuery } from '../../../redux/api/buildingApi';
 
 const List = () => {
   const [isSticky, setIsSticky] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
-  const [filteredBuildings, setFilteredBuildings] = useState([]);
+  const [range, setRange] = useState('');
   const scrollContainerRef = useRef(null);
 
-  // API call to fetch building data
-  const { data: buildingData = [], error, isLoading } = useGetBuildingQuery();
-  const buildingLength = buildingData?.length;
+  // API call to search buildings
+  const { data: filteredBuildings = [], error, isLoading } = useSearchBuildingsQuery({ searchTerm, range });
+  const buildingLength = filteredBuildings?.length;
 
   // Handle scrolling for sticky header
   const handleScroll = () => {
@@ -35,20 +35,12 @@ const List = () => {
     }
   }, []);
 
-  // Filter buildings based on search term
-  useEffect(() => {
-    if (searchTerm) {
-      const filtered = buildingData.filter(building =>
-        building?.buildingId?.buildingName?.toLowerCase().includes(searchTerm.toLowerCase())
-      );
-      setFilteredBuildings(filtered);
-    } else {
-      setFilteredBuildings(buildingData);
-    }
-  }, [searchTerm, buildingData]);
-
   const handleSearchTermChange = (term) => {
     setSearchTerm(term);
+  };
+
+  const onFilterChange = (filter) => {
+    setRange(filter.range);
   };
 
   return (
@@ -92,7 +84,10 @@ const List = () => {
             mb: isSticky ? { xs: 0, lg: '10px' } : 0,
           }}
         >
-          <FilterBar onSearchTermChange={handleSearchTermChange} />
+          <FilterBar 
+            onSearchTermChange={handleSearchTermChange}
+            onFilterChange={onFilterChange}
+          />
         </Box>
         <Box
           ref={scrollContainerRef}
@@ -125,44 +120,49 @@ const List = () => {
           {isLoading ? (
             <p>Loading...</p>
           ) : error ? (
-            <p>Error loading data.</p>
-          ) : filteredBuildings.length === 0 && buildingData.length === 0 ? (
+            
+            <Typography
+              sx={{
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                height: '80%',
+                width: '100%',
+                fontSize: '1.3rem',
+              }}
+            >
+              {error?.data?.message}  
+
+            </Typography>
+          ) : filteredBuildings.length === 0 ? (
             <AddCard />
           ) : (
             <Grid container spacing={2}>
-              {filteredBuildings.length > 0 ? filteredBuildings.map((building) => (
-                <Grid item xs={12} sm={12} md={6} lg={4} key={building?.buildingId?._id}>
-                  <ListCard
-                    imageUrl={building?.buildingId?.images[0]}
-                    subtitle={building?.buildingId?.ownerName}
-                    status="Status Example"
-                    title={building?.buildingId?.buildingName}
-                    tags={building?.buildingId?.ownerName}
-                    numberOfFloors={building?.buildingId?.numberOfFloors}
-                    totalArea={building?.buildingId?.totalArea}
-                    buildingId={building?.buildingId?._id}
-                    actionText="See Details"
-                    sensorCount={building?.sensors?.length}
-                  />
-                </Grid>
-              )) : (
-                
-                <Typography
-                  variant="h6"
-                  sx={{
-                    fontSize: '18px',
-                    lineHeight: '24.51px',
-                    fontWeight: '600',
-                    color: '#414141',
-                    textAlign: 'center',
-                    mt: 2,
-                    ml: 3
-                  }}
-                >
-                  No results found
-                </Typography>
-                  
-              )}
+              {filteredBuildings.map((building) => {
+
+                return (
+                  <Grid item xs={12} sm={12} md={6} lg={4} key={building?.buildingInfo?._id}>
+                    <ListCard
+                      imageUrl={building?.buildingInfo?.images[0] || null}
+                      subtitle={building?.buildingInfo
+                        ?.ownerName}
+                      status="Status Example"
+                      title={building?.buildingInfo
+                        ?.buildingName}
+                      tags={building?.buildingInfo
+                        ?.ownerName}
+                      numberOfFloors={building?.buildingInfo
+                        ?.numberOfFloors}
+                      totalArea={building?.buildingInfo
+                        ?.totalArea}
+                      buildingId={building?.buildingInfo
+                        ?._id}
+                      actionText="See Details"
+                      sensorCount={building?.sensors?.length}
+                    />
+                  </Grid>
+                );
+              })}
             </Grid>
           )}
         </Box>

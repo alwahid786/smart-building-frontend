@@ -1,5 +1,7 @@
 /* eslint-disable react/prop-types */
-import React, { useState, useEffect } from 'react'
+// FilterBar.js
+
+import { useState, useEffect } from 'react'
 import { Box, TextField, InputAdornment, MenuItem, Select } from '@mui/material'
 import SearchIcon from '../../../../asset/svgs/SearchIcon'
 import Filter from '../../../../asset/svgs/Filter'
@@ -9,15 +11,19 @@ import BackFilter from '../../../../asset/svgs/BackFilter'
 import { Link } from 'react-router-dom'
 import useDebounce from '../../../../hooks/useDebounce'
 
-const FilterBar = ({ onSearchTermChange }) => {
+const FilterBar = ({ onSearchTermChange, onFilterChange }) => {
   const [searchTerm, setSearchTerm] = useState('')
   const debouncedSearchTerm = useDebounce(searchTerm, 300)
-  const [value, setValue] = React.useState('')
+  const [range, setRange] = useState('')
+  const [city, setCity] = useState('')
   const [isFilterOpen, setIsFilterOpen] = useState(false)
-  const [isLoading, setIsLoading] = useState(true)
 
-  const handleChange = (event) => {
-    setValue(event.target.value)
+  const handleRangeChange = (event) => {
+    setRange(event.target.value)
+  }
+
+  const handleCityChange = (event) => {
+    setCity(event.target.value)
   }
 
   const toggleFilterIcon = () => {
@@ -33,10 +39,8 @@ const FilterBar = ({ onSearchTermChange }) => {
   }, [debouncedSearchTerm, onSearchTermChange])
 
   useEffect(() => {
-    setTimeout(() => {
-      setIsLoading(false)
-    }, 3000)
-  }, [])
+    onFilterChange({ range, city })
+  }, [range, city, onFilterChange])
 
   return (
     <Box
@@ -130,11 +134,11 @@ const FilterBar = ({ onSearchTermChange }) => {
           }}
         >
           <Select
-            value={value}
-            onChange={handleChange}
+            value={range}
+            onChange={handleRangeChange}
             displayEmpty
-            inputProps={{ 'aria-label': 'Without label' }}
-            sx={{ width: 120, height: 40 }}
+            inputProps={{ 'aria-label': 'Range' }}
+            sx={{ width: 200, height: 40 }}
           >
             <MenuItem value="">
               <span
@@ -143,17 +147,19 @@ const FilterBar = ({ onSearchTermChange }) => {
                   fontSize: '14px',
                 }}
               >
-                Status
+                Area
               </span>
             </MenuItem>
-            <MenuItem value="1">Status 1</MenuItem>
-            <MenuItem value="2">Status 2</MenuItem>
+            <MenuItem value="2-8">0 - 8</MenuItem>
+            <MenuItem value="9-20">9 - 20</MenuItem>
+            <MenuItem value="21-30">21 - 30</MenuItem>
+            {/* Add more ranges as needed */}
           </Select>
           <Select
-            value={value}
-            onChange={handleChange}
+            value={city}
+            onChange={handleCityChange}
             displayEmpty
-            inputProps={{ 'aria-label': 'Without label' }}
+            inputProps={{ 'aria-label': 'City' }}
             sx={{ width: 120, height: 40 }}
           >
             <MenuItem value="">
@@ -166,13 +172,13 @@ const FilterBar = ({ onSearchTermChange }) => {
                 City
               </span>
             </MenuItem>
-            <MenuItem value="1">City 1</MenuItem>
-            <MenuItem value="2">City 2</MenuItem>
+            <MenuItem value="City1">City 1</MenuItem>
+            <MenuItem value="City2">City 2</MenuItem>
+            {/* Add more cities as needed */}
           </Select>
         </Box>
 
         {/* BackFilter and Red Heart Icon */}
-
         <Box
           sx={{
             display: 'flex',
