@@ -1,4 +1,4 @@
-import { Box, Grid } from '@mui/material';
+import { Box, Grid, Typography } from '@mui/material';
 import BuildingStatus from './Components/BuildingStatus';
 import FilterBar from './Components/FilterBar';
 import ListCard from './Components/ListCard';
@@ -146,7 +146,22 @@ const List = () => {
                   />
                 </Grid>
               )) : (
-                <AddCard />
+                
+                <Typography
+                  variant="h6"
+                  sx={{
+                    fontSize: '18px',
+                    lineHeight: '24.51px',
+                    fontWeight: '600',
+                    color: '#414141',
+                    textAlign: 'center',
+                    mt: 2,
+                    ml: 3
+                  }}
+                >
+                  No results found
+                </Typography>
+                  
               )}
             </Grid>
           )}

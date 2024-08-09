@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React, { useState, useEffect } from 'react'
 import { Box, TextField, InputAdornment, MenuItem, Select } from '@mui/material'
 import SearchIcon from '../../../../asset/svgs/SearchIcon'
@@ -6,8 +7,11 @@ import RedHeartIcon from '../../../../asset/svgs/RedHeartIcon'
 import AddIcon from '../../../../asset/svgs/AddIcon'
 import BackFilter from '../../../../asset/svgs/BackFilter'
 import { Link } from 'react-router-dom'
+import useDebounce from '../../../../hooks/useDebounce'
 
-const FilterBar = () => {
+const FilterBar = ({ onSearchTermChange }) => {
+  const [searchTerm, setSearchTerm] = useState('')
+  const debouncedSearchTerm = useDebounce(searchTerm, 300)
   const [value, setValue] = React.useState('')
   const [isFilterOpen, setIsFilterOpen] = useState(false)
   const [isLoading, setIsLoading] = useState(true)
@@ -19,6 +23,14 @@ const FilterBar = () => {
   const toggleFilterIcon = () => {
     setIsFilterOpen(!isFilterOpen)
   }
+
+  const handleSearchChange = (e) => {
+    setSearchTerm(e.target.value)
+  }
+
+  useEffect(() => {
+    onSearchTermChange(debouncedSearchTerm)
+  }, [debouncedSearchTerm, onSearchTermChange])
 
   useEffect(() => {
     setTimeout(() => {
@@ -50,6 +62,7 @@ const FilterBar = () => {
         <TextField
           variant="outlined"
           size="small"
+          onChange={handleSearchChange}
           sx={{
             flexGrow: 1,
             width: 'auto',
